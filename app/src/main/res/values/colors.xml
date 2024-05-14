@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue_weekday">#FF00AACC</color>
+    <color name="red_holiday">#FFFF7777</color>
+    <color name="blue_weekday_out">#FF99F0FF</color>
+    <color name="red_holiday_out">#FFFFDDDD</color>
+    <color name="grey_day_out">#FF777777</color>
+    <color name="grey_lightest">#FFDDDDDD</color>
+    <color name="grey_darkest">#FF444444</color>
 </resources>

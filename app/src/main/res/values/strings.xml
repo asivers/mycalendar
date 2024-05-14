@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">mycalendar</string>
+    <string name="monday">MO</string>
+    <string name="tuesday">TU</string>
+    <string name="wednesday">WE</string>
+    <string name="thursday">TH</string>
+    <string name="friday">FR</string>
+    <string name="saturday">SA</string>
+    <string name="sunday">SU</string>
+    <string name="prev_year">Previous\nyear</string>
+    <string name="next_year">Next\nyear</string>
+    <string name="prev_month">Previous\nmonth</string>
+    <string name="next_month">Next\nmonth</string>
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string name="notes">Notes</string>
+    <string name="year_view">Year view</string>
+    <string name="write_note">Write note</string>
 </resources>

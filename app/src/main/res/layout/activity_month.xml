@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <Spinner android:id="@+id/month_spinner" style="@style/top_spinner" />
+        <Spinner android:id="@+id/year_spinner" style="@style/top_spinner" />
+    </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/calendar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:columnCount="7"
+        android:rowCount="7">
+        <TextView
+            android:id="@+id/monday_label"
+            android:text="@string/monday"
+            style="@style/day_of_week_label" />
+        <TextView
+            android:id="@+id/tuesday_label"
+            android:text="@string/tuesday"
+            style="@style/day_of_week_label" />
+        <TextView
+            android:id="@+id/wednesday_label"
+            android:text="@string/wednesday"
+            style="@style/day_of_week_label" />
+        <TextView
+            android:id="@+id/thursday_label"
+            android:text="@string/thursday"
+            style="@style/day_of_week_label" />
+        <TextView
+            android:id="@+id/friday_label"
+            android:text="@string/friday"
+            style="@style/day_of_week_label" />
+        <TextView
+            android:id="@+id/saturday_label"
+            android:text="@string/saturday"
+            style="@style/day_of_week_label" />
+        <TextView
+            android:id="@+id/sunday_label"
+            android:text="@string/sunday"
+            style="@style/day_of_week_label" />
+        <Button android:id="@+id/day_btn_01" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_02" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_03" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_04" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_05" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_06" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_07" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_08" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_09" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_10" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_11" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_12" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_13" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_14" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_15" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_16" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_17" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_18" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_19" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_20" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_21" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_22" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_23" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_24" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_25" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_26" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_27" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_28" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_29" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_30" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_31" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_32" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_33" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_34" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_35" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_36" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_37" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_38" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_39" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_40" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_41" style="@style/day_of_month" />
+        <Button android:id="@+id/day_btn_42" style="@style/day_of_month" />
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/notes_area"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="@string/notes"
+        android:autofillHints="Notes"
+        android:gravity="center"
+        android:padding="16dp"
+        android:enabled="false" />
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+        <Button android:id="@+id/year_view_btn" style="@style/year_view_btn" />
+        <Button android:id="@+id/write_note_btn" style="@style/write_note_btn" />
+    </LinearLayout>
+</LinearLayout>
