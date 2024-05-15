@@ -7,7 +7,7 @@ import android.view.View
 import kotlin.math.abs
 
 @Suppress("NOTHING_TO_OVERRIDE", "ACCIDENTAL_OVERRIDE")
-open class OnSwipeTouchListener(ctx: Context) : View.OnTouchListener {
+open class OnSwipeListener(ctx: Context?) : View.OnTouchListener {
 
     private val gestureDetector: GestureDetector
 

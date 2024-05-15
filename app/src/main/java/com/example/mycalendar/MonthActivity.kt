@@ -1,35 +1,24 @@
 package com.example.mycalendar
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ListPopupWindow
 import android.widget.Spinner
 import androidx.activity.ComponentActivity
-import java.lang.reflect.Field
 import java.time.LocalDate
 import java.time.Month
 
-@SuppressLint("NewApi", "DiscouragedPrivateApi", "ClickableViewAccessibility")
+@SuppressLint("NewApi", "ClickableViewAccessibility")
 class MonthActivity : ComponentActivity() {
 
-    private val holidayIndexes = intArrayOf(5, 6, 12, 13, 19, 20, 26, 27, 33, 34, 40, 41)
-    private val onSpinnerItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-        override fun onNothingSelected(parent: AdapterView<*>?) {}
-        override fun onItemSelected(parent: AdapterView<*>?,
-                                    view: View?,
-                                    position: Int,
-                                    id: Long) {
-            setDayButtonsAttributes()
-        }
-    }
-
     private var today = LocalDate.now()
+
+    private var onItemSelectedListener = getOnItemSelectedListener { setDayButtonsAttributes() }
+    private var onSwipeListener = getOnSwipeListener({ doOnSwipeLeft() }, { doOnSwipeRight() })
 
     private lateinit var monthSpinner: Spinner
     private lateinit var yearSpinner: Spinner
@@ -58,8 +47,8 @@ class MonthActivity : ComponentActivity() {
         val months = resources.getStringArray(R.array.months)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, months)
         monthSpinner.adapter = adapter
-        monthSpinner.setOnTouchListener(getOnSwipeListener(getContext()))
-        monthSpinner.onItemSelectedListener = onSpinnerItemSelectedListener
+        monthSpinner.setOnTouchListener(onSwipeListener)
+        monthSpinner.onItemSelectedListener = onItemSelectedListener
         setSelectedMonthValue(today.monthValue)
     }
 
@@ -68,8 +57,8 @@ class MonthActivity : ComponentActivity() {
         val years = Array(201) { 1900 + it }
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, years)
         yearSpinner.adapter = adapter
-        yearSpinner.setOnTouchListener(getOnSwipeListener(getContext()))
-        yearSpinner.onItemSelectedListener = onSpinnerItemSelectedListener
+        yearSpinner.setOnTouchListener(onSwipeListener)
+        yearSpinner.onItemSelectedListener = onItemSelectedListener
         setSelectedYear(today.year)
         shortenSpinnerPopup(yearSpinner)
     }
@@ -81,23 +70,24 @@ class MonthActivity : ComponentActivity() {
             findViewById(buttonIdIntCode)
         }
         daysButtons.forEach {
-            it.setOnTouchListener(getOnSwipeListener(getContext()))
+            it.setOnTouchListener(onSwipeListener)
             it.setOnClickListener { doOnButtonClick() }
         }
     }
 
     private fun setupYearViewButton() {
         yearViewButton = findViewById(R.id.year_view_btn)
-        yearViewButton.setOnTouchListener(getOnSwipeListener(getContext()))
+        yearViewButton.setOnTouchListener(onSwipeListener)
         yearViewButton.setOnClickListener {
             val intent = Intent(this@MonthActivity, YearActivity::class.java)
             startActivity(intent)
+            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0, Color.TRANSPARENT)
         }
     }
 
     private fun setupWriteNoteButton() {
         writeNoteButton = findViewById(R.id.write_note_btn)
-        writeNoteButton.setOnTouchListener(getOnSwipeListener(getContext()))
+        writeNoteButton.setOnTouchListener(onSwipeListener)
         writeNoteButton.setOnClickListener { doOnButtonClick() }
     }
 
@@ -115,7 +105,7 @@ class MonthActivity : ComponentActivity() {
             findViewById(R.id.sunday_label),
             findViewById(R.id.notes_area),
             findViewById(R.id.bottom_layout))
-        passiveElements.forEach { it.setOnTouchListener(getOnSwipeListener(getContext())) }
+        passiveElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
 
     private fun doOnSwipeLeft() {
@@ -196,29 +186,10 @@ class MonthActivity : ComponentActivity() {
         button.setBackgroundColor(resources.getColor(backgroundColor, null))
     }
 
-    private fun shortenSpinnerPopup(spinner: Spinner) {
-        try {
-            val popup: Field = Spinner::class.java.getDeclaredField("mPopup")
-            popup.isAccessible = true
-            val popupWindow: ListPopupWindow = popup.get(spinner) as ListPopupWindow
-            popupWindow.height = 720
-        } catch (_: NoClassDefFoundError) {
-        } catch (_: ClassCastException) {
-        } catch (_: NoSuchFieldException) {
-        } catch (_: IllegalAccessException) {
-        }
-    }
-
     private fun getSelectedMonthValue() = monthSpinner.selectedItemPosition + 1
     private fun getSelectedYear() = yearSpinner.selectedItemPosition + 1900
 
     private fun setSelectedMonthValue(monthValue: Int) = monthSpinner.setSelection(monthValue - 1)
     private fun setSelectedYear(year: Int) = yearSpinner.setSelection(year - 1900)
 
-    private fun getOnSwipeListener(ctx: Context) = object: OnSwipeTouchListener(ctx) {
-        override fun onSwipeLeft() = doOnSwipeLeft()
-        override fun onSwipeRight() = doOnSwipeRight()
-    }
-    
-    private fun getContext() = this@MonthActivity
 }
