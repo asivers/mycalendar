@@ -94,25 +94,25 @@
     </GridLayout>
 
     <TextView
-        android:id="@+id/notes_area"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:id="@+id/notes_text_view"
+        android:hint="@string/notes"
+        android:visibility="visible"
+        style="@style/notes_text_view" />
+    <EditText
+        android:id="@+id/notes_edit_text"
         android:hint="@string/notes"
         android:autofillHints="Notes"
-        android:gravity="center"
-        android:padding="16dp"
-        android:enabled="false" />
+        android:inputType="textMultiLine"
+        android:visibility="gone"
+        android:enabled="true"
+        style="@style/notes_edit_text" />
 
-    <LinearLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
-        <Button android:id="@+id/year_view_btn" style="@style/year_view_btn" />
-        <Button android:id="@+id/write_note_btn" style="@style/write_note_btn" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/year_view_btn"
+        android:visibility="visible"
+        style="@style/year_view_btn" />
+    <Button
+        android:id="@+id/save_note_btn"
+        android:visibility="gone"
+        style="@style/save_note_btn" />
 </LinearLayout>

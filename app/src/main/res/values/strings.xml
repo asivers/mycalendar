@@ -27,5 +27,5 @@
     </string-array>
     <string name="notes">Notes</string>
     <string name="year_view">Year view</string>
-    <string name="write_note">Write note</string>
+    <string name="save_note">Save note</string>
 </resources>

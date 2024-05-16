@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import java.time.LocalDate
 import java.time.Month
@@ -23,76 +25,43 @@ class MonthActivity : ComponentActivity() {
     private lateinit var monthSpinner: Spinner
     private lateinit var yearSpinner: Spinner
     private lateinit var daysButtons: Array<Button>
+    private lateinit var notesTextView: TextView
+    private lateinit var notesEditText: EditText
     private lateinit var yearViewButton: Button
-    private lateinit var writeNoteButton: Button
+    private lateinit var saveNoteButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_month)
 
+        initAllElements()
+        setupOnSwipeListeners()
+        setupOnItemSelectedListeners()
+        setupOnClickListeners()
+
         setupMonthSpinner()
         setupYearSpinner()
-        setupDayButtons()
-        setupYearViewButton()
-        setupWriteNoteButton()
-
-        setOnSwipeListenerForPassiveElements()
 
         setDayButtonsAttributes()
     }
 
-    private fun setupMonthSpinner() {
+    private fun initAllElements() {
         monthSpinner = findViewById(R.id.month_spinner)
-        val months = resources.getStringArray(R.array.months)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, months)
-        monthSpinner.adapter = adapter
-        monthSpinner.setOnTouchListener(onSwipeListener)
-        monthSpinner.onItemSelectedListener = onItemSelectedListener
-        setSelectedMonthValue(today.monthValue)
-    }
-
-    private fun setupYearSpinner() {
         yearSpinner = findViewById(R.id.year_spinner)
-        val years = Array(201) { 1900 + it }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, years)
-        yearSpinner.adapter = adapter
-        yearSpinner.setOnTouchListener(onSwipeListener)
-        yearSpinner.onItemSelectedListener = onItemSelectedListener
-        setSelectedYear(today.year)
-        shortenSpinnerPopup(yearSpinner)
-    }
-
-    private fun setupDayButtons() {
         daysButtons = Array(42) {
             val buttonId = "day_btn_" + (it + 1).toString().padStart(2, '0')
             val buttonIdIntCode = R.id::class.java.getDeclaredField(buttonId).getInt(R.id::class)
             findViewById(buttonIdIntCode)
         }
-        daysButtons.forEach {
-            it.setOnTouchListener(onSwipeListener)
-            it.setOnClickListener { doOnButtonClick() }
-        }
-    }
-
-    private fun setupYearViewButton() {
+        notesTextView = findViewById(R.id.notes_text_view)
+        notesEditText = findViewById(R.id.notes_edit_text)
         yearViewButton = findViewById(R.id.year_view_btn)
-        yearViewButton.setOnTouchListener(onSwipeListener)
-        yearViewButton.setOnClickListener {
-            val intent = Intent(this@MonthActivity, YearActivity::class.java)
-            startActivity(intent)
-            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0, Color.TRANSPARENT)
-        }
+        saveNoteButton = findViewById(R.id.save_note_btn)
     }
 
-    private fun setupWriteNoteButton() {
-        writeNoteButton = findViewById(R.id.write_note_btn)
-        writeNoteButton.setOnTouchListener(onSwipeListener)
-        writeNoteButton.setOnClickListener { doOnButtonClick() }
-    }
-
-    private fun setOnSwipeListenerForPassiveElements() {
-        val passiveElements: Array<View> = arrayOf(
+    private fun setupOnSwipeListeners() {
+        val allElements: MutableList<View> = mutableListOf(
             findViewById(R.id.root_layout),
             findViewById(R.id.top_layout),
             findViewById(R.id.calendar_layout),
@@ -103,37 +72,56 @@ class MonthActivity : ComponentActivity() {
             findViewById(R.id.friday_label),
             findViewById(R.id.saturday_label),
             findViewById(R.id.sunday_label),
-            findViewById(R.id.notes_area),
-            findViewById(R.id.bottom_layout))
-        passiveElements.forEach { it.setOnTouchListener(onSwipeListener) }
+            findViewById(R.id.notes_text_view),
+            monthSpinner,
+            yearSpinner,
+            notesTextView,
+            yearViewButton,
+            saveNoteButton)
+        allElements.addAll(daysButtons)
+        allElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
 
-    private fun doOnSwipeLeft() {
-        val selectedMonthValue = getSelectedMonthValue()
-        if (selectedMonthValue < 12) {
-            setSelectedMonthValue(selectedMonthValue + 1)
-        } else {
-            setSelectedMonthValue(1)
-            val selectedYear = getSelectedYear()
-            setSelectedYear(if (selectedYear < 2100) selectedYear + 1 else 2100)
+    private fun setupOnItemSelectedListeners() {
+        monthSpinner.onItemSelectedListener = onItemSelectedListener
+        yearSpinner.onItemSelectedListener = onItemSelectedListener
+    }
+
+    private fun setupOnClickListeners() {
+        daysButtons.forEach { btn -> btn.setOnClickListener { notesTextView.text = btn.text } }
+        notesTextView.setOnClickListener {
+            notesTextView.visibility = View.GONE
+            notesEditText.visibility = View.VISIBLE
+            yearViewButton.visibility = View.GONE
+            saveNoteButton.visibility = View.VISIBLE
         }
-        setDayButtonsAttributes()
-    }
-
-    private fun doOnSwipeRight() {
-        val selectedMonthValue = getSelectedMonthValue()
-        if (selectedMonthValue > 1) {
-            setSelectedMonthValue(selectedMonthValue - 1)
-        } else {
-            setSelectedMonthValue(12)
-            val selectedYear = getSelectedYear()
-            setSelectedYear(if (selectedYear > 1900) selectedYear - 1 else 1900)
+        yearViewButton.setOnClickListener {
+            val intent = Intent(this@MonthActivity, YearActivity::class.java)
+            startActivity(intent)
+            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0, Color.TRANSPARENT)
         }
-        setDayButtonsAttributes()
+        saveNoteButton.setOnClickListener {
+            notesTextView.text = notesEditText.text
+            notesEditText.visibility = View.GONE
+            notesTextView.visibility = View.VISIBLE
+            saveNoteButton.visibility = View.GONE
+            yearViewButton.visibility = View.VISIBLE
+        }
     }
 
-    private fun doOnButtonClick() {
-        writeNoteButton.text = if (writeNoteButton.text != "Clicked") "Clicked" else "Write note"
+    private fun setupMonthSpinner() {
+        val months = resources.getStringArray(R.array.months)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, months)
+        monthSpinner.adapter = adapter
+        setSelectedMonthValue(today.monthValue)
+    }
+
+    private fun setupYearSpinner() {
+        val years = Array(201) { 1900 + it }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, years)
+        yearSpinner.adapter = adapter
+        setSelectedYear(today.year)
+        shortenSpinnerPopup(yearSpinner)
     }
 
     private fun setDayButtonsAttributes() {
@@ -184,6 +172,30 @@ class MonthActivity : ComponentActivity() {
         button.textSize = textSize
         button.setTextColor(resources.getColor(textColor, null))
         button.setBackgroundColor(resources.getColor(backgroundColor, null))
+    }
+
+    private fun doOnSwipeLeft() {
+        val selectedMonthValue = getSelectedMonthValue()
+        if (selectedMonthValue < 12) {
+            setSelectedMonthValue(selectedMonthValue + 1)
+        } else {
+            setSelectedMonthValue(1)
+            val selectedYear = getSelectedYear()
+            setSelectedYear(if (selectedYear < 2100) selectedYear + 1 else 2100)
+        }
+        setDayButtonsAttributes()
+    }
+
+    private fun doOnSwipeRight() {
+        val selectedMonthValue = getSelectedMonthValue()
+        if (selectedMonthValue > 1) {
+            setSelectedMonthValue(selectedMonthValue - 1)
+        } else {
+            setSelectedMonthValue(12)
+            val selectedYear = getSelectedYear()
+            setSelectedYear(if (selectedYear > 1900) selectedYear - 1 else 1900)
+        }
+        setDayButtonsAttributes()
     }
 
     private fun getSelectedMonthValue() = monthSpinner.selectedItemPosition + 1
