@@ -12,7 +12,7 @@
     <color name="blue_weekday_out">#FF99F0FF</color>
     <color name="red_holiday_out">#FFFFDDDD</color>
     <color name="grey_day_out">#FF777777</color>
-    <color name="grey_lightest">#FFDDDDDD</color>
-    <color name="grey_darkest">#FF444444</color>
-    <color name="red_today">#FFDD0000</color>
+    <color name="grey_menu_btn_background">#FFDDDDDD</color>
+    <color name="grey_menu_btn_text">#FF444444</color>
+    <color name="green_today">#FF00CC00</color>
 </resources>
