@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.Month
 
@@ -160,6 +161,12 @@ class MonthActivity : ComponentActivity() {
             val textColor = R.color.grey_day_out
             val backgroundColor = if (i in holidayIndexes) R.color.red_holiday_out else R.color.blue_weekday_out
             setButtonParams(daysButtons[i], dateToSet++, textSize, textColor, backgroundColor)
+        }
+
+        if (selectedYear == today.year && selectedMonth == today.month) {
+            val todayIndex = monthStartIndex - 1 + today.dayOfMonth
+            val drawableId = if (todayIndex in holidayIndexes) R.drawable.today_holiday else R.drawable.today_weekday
+            daysButtons[todayIndex].background = ContextCompat.getDrawable(this@MonthActivity, drawableId)
         }
     }
 
