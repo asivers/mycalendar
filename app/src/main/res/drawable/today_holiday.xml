@@ -3,6 +3,6 @@
     android:shape="rectangle" >
 
     <solid android:color="@color/red_holiday" />
-    <stroke android:width="3dp" android:color="@color/green_today" />
+    <stroke android:width="4dp" android:color="@color/red_holiday_today" />
 
 </shape>

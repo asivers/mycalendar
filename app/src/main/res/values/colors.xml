@@ -14,5 +14,6 @@
     <color name="grey_day_out">#FF777777</color>
     <color name="grey_menu_btn_background">#FFDDDDDD</color>
     <color name="grey_menu_btn_text">#FF444444</color>
-    <color name="green_today">#FF00CC00</color>
+    <color name="blue_weekday_today">#FF007799</color>
+    <color name="red_holiday_today">#FFBB3333</color>
 </resources>
