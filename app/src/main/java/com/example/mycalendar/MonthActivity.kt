@@ -8,12 +8,14 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.GridLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.Month
+
 
 @SuppressLint("NewApi", "ClickableViewAccessibility")
 class MonthActivity : ComponentActivity() {
@@ -25,6 +27,7 @@ class MonthActivity : ComponentActivity() {
 
     private lateinit var monthSpinner: Spinner
     private lateinit var yearSpinner: Spinner
+    private lateinit var calendarLayout: GridLayout
     private lateinit var daysButtons: Array<Button>
     private lateinit var notesTextView: TextView
     private lateinit var notesEditText: EditText
@@ -37,6 +40,7 @@ class MonthActivity : ComponentActivity() {
         setContentView(R.layout.activity_month)
 
         initAllElements()
+
         setupOnSwipeListeners()
         setupOnItemSelectedListeners()
         setupOnClickListeners()
@@ -50,11 +54,9 @@ class MonthActivity : ComponentActivity() {
     private fun initAllElements() {
         monthSpinner = findViewById(R.id.month_spinner)
         yearSpinner = findViewById(R.id.year_spinner)
-        daysButtons = Array(42) {
-            val buttonId = "day_btn_" + (it + 1).toString().padStart(2, '0')
-            val buttonIdIntCode = R.id::class.java.getDeclaredField(buttonId).getInt(R.id::class)
-            findViewById(buttonIdIntCode)
-        }
+        calendarLayout = findViewById(R.id.calendar_layout)
+        daysButtons = Array(42) { layoutInflater.inflate(R.layout.day_button, calendarLayout, false) as Button }
+        daysButtons.forEach { calendarLayout.addView(it) }
         notesTextView = findViewById(R.id.notes_text_view)
         notesEditText = findViewById(R.id.notes_edit_text)
         yearViewButton = findViewById(R.id.year_view_btn)
@@ -65,7 +67,6 @@ class MonthActivity : ComponentActivity() {
         val allElements: MutableList<View> = mutableListOf(
             findViewById(R.id.root_layout),
             findViewById(R.id.top_layout),
-            findViewById(R.id.calendar_layout),
             findViewById(R.id.monday_label),
             findViewById(R.id.tuesday_label),
             findViewById(R.id.wednesday_label),
@@ -76,6 +77,7 @@ class MonthActivity : ComponentActivity() {
             findViewById(R.id.notes_text_view),
             monthSpinner,
             yearSpinner,
+            calendarLayout,
             notesTextView,
             yearViewButton,
             saveNoteButton)

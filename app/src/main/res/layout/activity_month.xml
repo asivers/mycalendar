@@ -49,48 +49,6 @@
             android:id="@+id/sunday_label"
             android:text="@string/sunday"
             style="@style/day_of_week_label" />
-        <Button android:id="@+id/day_btn_01" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_02" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_03" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_04" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_05" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_06" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_07" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_08" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_09" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_10" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_11" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_12" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_13" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_14" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_15" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_16" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_17" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_18" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_19" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_20" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_21" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_22" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_23" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_24" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_25" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_26" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_27" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_28" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_29" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_30" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_31" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_32" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_33" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_34" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_35" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_36" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_37" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_38" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_39" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_40" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_41" style="@style/day_of_month" />
-        <Button android:id="@+id/day_btn_42" style="@style/day_of_month" />
     </GridLayout>
 
     <TextView
