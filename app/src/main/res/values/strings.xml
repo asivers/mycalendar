@@ -28,4 +28,5 @@
     <string name="notes">Notes</string>
     <string name="year_view">Year view</string>
     <string name="save_note">Save note</string>
+    <string name="month_view">Go back to month view</string>
 </resources>

@@ -43,4 +43,30 @@
     <style name="save_note_btn" parent="bottom_menu_btn">
         <item name="android:text">@string/save_note</item>
     </style>
+    <style name="year_view_calendar">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:columnCount">3</item>
+        <item name="android:rowCount">4</item>
+    </style>
+    <style name="month_of_year">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_rowWeight">1</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:columnCount">7</item>
+        <item name="android:rowCount">7</item>
+    </style>
+    <style name="day_of_year">
+        <item name="android:text">00</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
+    <style name="month_view_btn" parent="bottom_menu_btn">
+        <item name="android:text">@string/month_view</item>
+    </style>
 </resources>
