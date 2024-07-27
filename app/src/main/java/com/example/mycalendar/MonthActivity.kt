@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import java.time.LocalDate
@@ -29,10 +27,7 @@ class MonthActivity : ComponentActivity() {
     private lateinit var yearSpinner: Spinner
     private lateinit var calendarLayout: GridLayout
     private lateinit var daysButtons: Array<Button>
-    private lateinit var notesTextView: TextView
-    private lateinit var notesEditText: EditText
     private lateinit var yearViewButton: Button
-    private lateinit var saveNoteButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +52,7 @@ class MonthActivity : ComponentActivity() {
         calendarLayout = findViewById(R.id.calendar_layout)
         daysButtons = Array(42) { layoutInflater.inflate(R.layout.day_button, calendarLayout, false) as Button }
         daysButtons.forEach { calendarLayout.addView(it) }
-        notesTextView = findViewById(R.id.notes_text_view)
-        notesEditText = findViewById(R.id.notes_edit_text)
         yearViewButton = findViewById(R.id.year_view_btn)
-        saveNoteButton = findViewById(R.id.save_note_btn)
     }
 
     private fun setupOnSwipeListeners() {
@@ -74,13 +66,11 @@ class MonthActivity : ComponentActivity() {
             findViewById(R.id.friday_label),
             findViewById(R.id.saturday_label),
             findViewById(R.id.sunday_label),
-            findViewById(R.id.notes_text_view),
             monthSpinner,
             yearSpinner,
             calendarLayout,
-            notesTextView,
-            yearViewButton,
-            saveNoteButton)
+            yearViewButton
+        )
         allElements.addAll(daysButtons)
         allElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
@@ -91,24 +81,10 @@ class MonthActivity : ComponentActivity() {
     }
 
     private fun setupOnClickListeners() {
-        daysButtons.forEach { btn -> btn.setOnClickListener { notesTextView.text = btn.text } }
-        notesTextView.setOnClickListener {
-            notesTextView.visibility = View.GONE
-            notesEditText.visibility = View.VISIBLE
-            yearViewButton.visibility = View.GONE
-            saveNoteButton.visibility = View.VISIBLE
-        }
         yearViewButton.setOnClickListener {
             val intent = Intent(this@MonthActivity, YearActivity::class.java)
             startActivity(intent)
             overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0, Color.TRANSPARENT)
-        }
-        saveNoteButton.setOnClickListener {
-            notesTextView.text = notesEditText.text
-            notesEditText.visibility = View.GONE
-            notesTextView.visibility = View.VISIBLE
-            saveNoteButton.visibility = View.GONE
-            yearViewButton.visibility = View.VISIBLE
         }
     }
 
@@ -132,36 +108,21 @@ class MonthActivity : ComponentActivity() {
         val selectedYear = getSelectedYear()
 
         val firstOfSelectedMonth = LocalDate.of(selectedYear, selectedMonthValue, 1)
-        val isLeapSelectedYear = firstOfSelectedMonth.isLeapYear
-
         val selectedMonth = Month.of(selectedMonthValue)
-        val previousMonth = Month.of(if (selectedMonthValue > 1) selectedMonthValue - 1 else 12)
-
-        val selectedMonthLength = selectedMonth.length(isLeapSelectedYear)
-        val previousMonthLength = previousMonth.length(isLeapSelectedYear)
+        val selectedMonthLength = selectedMonth.length(firstOfSelectedMonth.isLeapYear)
 
         val monthStartIndex = firstOfSelectedMonth.dayOfWeek.value - 1
         val monthEndIndex = monthStartIndex + selectedMonthLength
 
-        var dateToSet = previousMonthLength - monthStartIndex + 1
-        for (i in 0..<monthStartIndex) {
-            val textSize = 16f
-            val textColor = R.color.grey_day_out
-            val backgroundColor = if (i in holidayIndexes) R.color.red_holiday_out else R.color.blue_weekday_out
-            setButtonParams(daysButtons[i], dateToSet++, textSize, textColor, backgroundColor)
+        for (i in (0..<monthStartIndex) + (monthEndIndex ..<42)) {
+            setButtonDisappear(daysButtons[i])
         }
-        dateToSet = 1
+
+        var dateToSet = 1
         for (i in monthStartIndex..<monthEndIndex) {
             val textSize = 20f
             val textColor = R.color.white
             val backgroundColor = if (i in holidayIndexes) R.color.red_holiday else R.color.blue_weekday
-            setButtonParams(daysButtons[i], dateToSet++, textSize, textColor, backgroundColor)
-        }
-        dateToSet = 1
-        for (i in monthEndIndex ..<42) {
-            val textSize = 16f
-            val textColor = R.color.grey_day_out
-            val backgroundColor = if (i in holidayIndexes) R.color.red_holiday_out else R.color.blue_weekday_out
             setButtonParams(daysButtons[i], dateToSet++, textSize, textColor, backgroundColor)
         }
 
@@ -170,6 +131,10 @@ class MonthActivity : ComponentActivity() {
             val drawableId = if (todayIndex in holidayIndexes) R.drawable.today_holiday else R.drawable.today_weekday
             daysButtons[todayIndex].background = ContextCompat.getDrawable(this@MonthActivity, drawableId)
         }
+    }
+
+    private fun setButtonDisappear(button: Button) {
+        button.visibility = View.GONE
     }
 
     private fun setButtonParams(button: Button,

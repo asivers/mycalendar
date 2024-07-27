@@ -3,7 +3,8 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient">
 
     <LinearLayout
         android:id="@+id/top_layout"
@@ -51,26 +52,7 @@
             style="@style/day_of_week_label" />
     </GridLayout>
 
-    <TextView
-        android:id="@+id/notes_text_view"
-        android:hint="@string/notes"
-        android:visibility="visible"
-        style="@style/notes_text_view" />
-    <EditText
-        android:id="@+id/notes_edit_text"
-        android:hint="@string/notes"
-        android:autofillHints="Notes"
-        android:inputType="textMultiLine"
-        android:visibility="gone"
-        android:enabled="true"
-        style="@style/notes_edit_text" />
-
     <Button
         android:id="@+id/year_view_btn"
-        android:visibility="visible"
         style="@style/year_view_btn" />
-    <Button
-        android:id="@+id/save_note_btn"
-        android:visibility="gone"
-        style="@style/save_note_btn" />
 </LinearLayout>
