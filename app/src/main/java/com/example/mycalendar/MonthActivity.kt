@@ -114,38 +114,22 @@ class MonthActivity : ComponentActivity() {
         val monthStartIndex = firstOfSelectedMonth.dayOfWeek.value - 1
         val monthEndIndex = monthStartIndex + selectedMonthLength
 
-        for (i in (0..<monthStartIndex) + (monthEndIndex ..<42)) {
-            setButtonDisappear(daysButtons[i])
-        }
-
         var dateToSet = 1
         for (i in monthStartIndex..<monthEndIndex) {
-            val textSize = 20f
-            val textColor = R.color.white
-            val backgroundColor = if (i in holidayIndexes) R.color.red_holiday else R.color.blue_weekday
-            setButtonParams(daysButtons[i], dateToSet++, textSize, textColor, backgroundColor)
+            val textColor = if (i in holidayIndexes) R.color.green_day_holiday else R.color.white
+            setButtonParams(daysButtons[i], dateToSet++, textColor)
         }
 
         if (selectedYear == today.year && selectedMonth == today.month) {
             val todayIndex = monthStartIndex - 1 + today.dayOfMonth
-            val drawableId = if (todayIndex in holidayIndexes) R.drawable.today_holiday else R.drawable.today_weekday
-            daysButtons[todayIndex].background = ContextCompat.getDrawable(this@MonthActivity, drawableId)
+            val todayCircle = ContextCompat.getDrawable(this@MonthActivity, R.drawable.today_circle)
+            daysButtons[todayIndex].background = todayCircle
         }
     }
 
-    private fun setButtonDisappear(button: Button) {
-        button.visibility = View.GONE
-    }
-
-    private fun setButtonParams(button: Button,
-                                dateToSet: Int,
-                                textSize: Float,
-                                textColor: Int,
-                                backgroundColor: Int) {
+    private fun setButtonParams(button: Button, dateToSet: Int, textColor: Int) {
         button.text = "$dateToSet"
-        button.textSize = textSize
         button.setTextColor(resources.getColor(textColor, null))
-        button.setBackgroundColor(resources.getColor(backgroundColor, null))
     }
 
     private fun doOnSwipeLeft() {

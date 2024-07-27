@@ -1,16 +1,12 @@
 <resources>
     <string name="app_name">mycalendar</string>
-    <string name="monday">MO</string>
-    <string name="tuesday">TU</string>
-    <string name="wednesday">WE</string>
-    <string name="thursday">TH</string>
-    <string name="friday">FR</string>
-    <string name="saturday">SA</string>
-    <string name="sunday">SU</string>
-    <string name="prev_year">Previous\nyear</string>
-    <string name="next_year">Next\nyear</string>
-    <string name="prev_month">Previous\nmonth</string>
-    <string name="next_month">Next\nmonth</string>
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="saturday">Sat</string>
+    <string name="sunday">Sun</string>
     <string-array name="months">
         <item>January</item>
         <item>February</item>

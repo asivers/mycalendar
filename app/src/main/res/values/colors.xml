@@ -8,15 +8,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue_weekday">#FF00AACC</color>
-    <color name="red_holiday">#FFFF7777</color>
-    <color name="blue_weekday_out">#FF99F0FF</color>
-    <color name="red_holiday_out">#FFFFDDDD</color>
-    <color name="grey_day_out">#FF777777</color>
     <color name="grey_menu_btn_background">#FFDDDDDD</color>
     <color name="grey_menu_btn_text">#FF444444</color>
-    <color name="blue_weekday_today">#FF007799</color>
-    <color name="red_holiday_today">#FFBB3333</color>
     <color name="gradient_month_top">#FF5DA493</color>
     <color name="gradient_month_bottom">#FF337623</color>
+    <color name="green_day_holiday">#FF92D700</color>
 </resources>
