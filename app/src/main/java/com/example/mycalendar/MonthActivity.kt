@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.GridLayout
 import android.widget.Spinner
 import androidx.activity.ComponentActivity
-import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.Month
@@ -32,7 +31,6 @@ class MonthActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         setContentView(R.layout.activity_month)
 

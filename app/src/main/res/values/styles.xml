@@ -29,7 +29,7 @@
 
     <style name="year_view_btn">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">64dp</item>
         <item name="android:background">@drawable/year_view_button</item>
         <item name="android:text">@string/year_view</item>
         <item name="android:textAllCaps">false</item>

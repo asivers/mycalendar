@@ -3,8 +3,8 @@
     <item>
         <shape android:shape="rectangle">
             <corners
-                android:topLeftRadius="30dp"
-                android:topRightRadius="30dp" />
+                android:topLeftRadius="44dp"
+                android:topRightRadius="44dp" />
             <gradient
                 android:angle="270"
                 android:startColor="@color/gradient_year_button_top"
