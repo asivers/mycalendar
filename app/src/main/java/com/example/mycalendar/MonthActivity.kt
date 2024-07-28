@@ -137,7 +137,9 @@ class MonthActivity : ComponentActivity() {
     }
 
     private fun setButtonParams(button: Button, dateToSet: Int, textColor: Int) {
-        button.text = "$dateToSet"
+        button.visibility = View.VISIBLE
+        button.setBackgroundResource(0)
+        button.text = dateToSet.toString()
         button.setTextColor(resources.getColor(textColor, null))
     }
 
