@@ -52,7 +52,13 @@
             style="@style/day_of_week_label" />
     </GridLayout>
 
-    <Button
-        android:id="@+id/year_view_btn"
-        style="@style/year_view_btn" />
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/year_view_btn"
+            style="@style/year_view_btn" />
+    </LinearLayout>
 </LinearLayout>

@@ -15,9 +15,4 @@
 
     <GridLayout android:id="@+id/year_calendar_layout" style="@style/year_view_calendar" />
 
-<!--    <Button-->
-<!--        android:id="@+id/month_view_btn"-->
-<!--        android:visibility="visible"-->
-<!--        style="@style/month_view_btn" />-->
-
 </LinearLayout>
