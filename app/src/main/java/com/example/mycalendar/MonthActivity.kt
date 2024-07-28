@@ -115,6 +115,10 @@ class MonthActivity : ComponentActivity() {
         val monthStartIndex = firstOfSelectedMonth.dayOfWeek.value - 1
         val monthEndIndex = monthStartIndex + selectedMonthLength
 
+        for (i in (0..<monthStartIndex) + (monthEndIndex ..<42)) {
+            setButtonDisappear(daysButtons[i])
+        }
+
         var dateToSet = 1
         for (i in monthStartIndex..<monthEndIndex) {
             val textColor = if (i in holidayIndexes) R.color.green_day_holiday else R.color.white
@@ -126,6 +130,10 @@ class MonthActivity : ComponentActivity() {
             val todayCircle = ContextCompat.getDrawable(this@MonthActivity, R.drawable.today_circle)
             daysButtons[todayIndex].background = todayCircle
         }
+    }
+
+    private fun setButtonDisappear(button: Button) {
+        button.visibility = View.GONE
     }
 
     private fun setButtonParams(button: Button, dateToSet: Int, textColor: Int) {
