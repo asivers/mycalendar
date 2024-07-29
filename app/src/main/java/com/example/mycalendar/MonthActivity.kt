@@ -147,16 +147,17 @@ class MonthActivity : ComponentActivity() {
     private fun setTodayCircle(todayButton: Button) {
         val todayCircle: LayerDrawable = ContextCompat.getDrawable(
             this@MonthActivity, R.drawable.today_circle) as LayerDrawable
-        val width = todayButton.width
-        val height = todayButton.height
+        val width = todayButton.width - 3
+        val height = todayButton.height - 3
         if (width < height) {
             todayCircle.setLayerWidth(0, width)
             todayCircle.setLayerHeight(0, width)
-            todayCircle.setLayerInset(0, -1, ((height - width) / 2) + 4, 0, 0)
+            todayCircle.setLayerInsetTop(0, (height - width) / 2 + 3)
         } else {
             todayCircle.setLayerWidth(0, height)
             todayCircle.setLayerHeight(0, height)
-            todayCircle.setLayerInset(0, ((width - height) / 2) - 1, 4, 0, 0)
+            todayCircle.setLayerInsetTop(0, 3)
+            todayCircle.setLayerInsetLeft(0, (width - height) / 2)
         }
         todayButton.background = todayCircle
     }
