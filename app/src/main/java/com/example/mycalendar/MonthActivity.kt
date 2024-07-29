@@ -3,6 +3,7 @@ package com.example.mycalendar
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -127,8 +128,8 @@ class MonthActivity : ComponentActivity() {
 
         if (selectedYear == today.year && selectedMonth == today.month) {
             val todayIndex = monthStartIndex - 1 + today.dayOfMonth
-            val todayCircle = ContextCompat.getDrawable(this@MonthActivity, R.drawable.today_circle)
-            daysButtons[todayIndex].background = todayCircle
+            val todayButton = daysButtons[todayIndex]
+            setTodayCircle(todayButton)
         }
     }
 
@@ -141,6 +142,23 @@ class MonthActivity : ComponentActivity() {
         button.setBackgroundResource(0)
         button.text = dateToSet.toString()
         button.setTextColor(resources.getColor(textColor, null))
+    }
+
+    private fun setTodayCircle(todayButton: Button) {
+        val todayCircle: LayerDrawable = ContextCompat.getDrawable(
+            this@MonthActivity, R.drawable.today_circle) as LayerDrawable
+        val width = todayButton.width
+        val height = todayButton.height
+        if (width < height) {
+            todayCircle.setLayerWidth(0, width)
+            todayCircle.setLayerHeight(0, width)
+            todayCircle.setLayerInset(0, -1, ((height - width) / 2) + 4, 0, 0)
+        } else {
+            todayCircle.setLayerWidth(0, height)
+            todayCircle.setLayerHeight(0, height)
+            todayCircle.setLayerInset(0, ((width - height) / 2) - 1, 4, 0, 0)
+        }
+        todayButton.background = todayCircle
     }
 
     private fun doOnSwipeLeft() {
