@@ -11,13 +11,12 @@
     </style>
     <style name="top_spinner_month" parent="top_spinner">
         <item name="android:gravity">left</item>
-        <item name="android:layout_marginLeft">14dp</item>
-        <item name="android:layout_marginRight">1dp</item>
+        <item name="android:layoutDirection">rtl</item>
     </style>
     <style name="top_spinner_year" parent="top_spinner">
         <item name="android:gravity">right</item>
         <item name="android:layoutDirection">rtl</item>
-        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
         <item name="android:layout_marginRight">14dp</item>
     </style>
 
@@ -27,11 +26,11 @@
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="month_spinner_item" parent="spinner_item">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">28sp</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
     <style name="year_spinner_item" parent="spinner_item">
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">28sp</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 
