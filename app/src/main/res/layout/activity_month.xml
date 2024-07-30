@@ -10,16 +10,19 @@
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
-        <Spinner android:id="@+id/month_spinner" style="@style/top_spinner" />
-        <Spinner android:id="@+id/year_spinner" style="@style/top_spinner" />
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp">
+        <Spinner android:id="@+id/month_spinner" style="@style/top_spinner_month" />
+        <Spinner android:id="@+id/year_spinner" style="@style/top_spinner_year" />
     </LinearLayout>
 
     <GridLayout
         android:id="@+id/calendar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="6dp"
         android:columnCount="7"
         android:rowCount="7">
         <TextView

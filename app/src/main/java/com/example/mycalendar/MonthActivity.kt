@@ -92,14 +92,16 @@ class MonthActivity : ComponentActivity() {
 
     private fun setupMonthSpinner() {
         val months = resources.getStringArray(R.array.months)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, months)
+        val adapter = ArrayAdapter(this, R.layout.month_spinner_item, months)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
         monthSpinner.adapter = adapter
         setSelectedMonthValue(today.monthValue)
     }
 
     private fun setupYearSpinner() {
         val years = Array(201) { 1900 + it }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, years)
+        val adapter = ArrayAdapter(this, R.layout.year_spinner_item, years)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
         yearSpinner.adapter = adapter
         setSelectedYear(today.year)
         shortenSpinnerPopup(yearSpinner)
