@@ -124,7 +124,8 @@ class MonthActivity : ComponentActivity() {
 
         var dateToSet = 1
         for (i in monthStartIndex..<monthEndIndex) {
-            val textColor = if (i in holidayIndexes) R.color.green_day_holiday else R.color.white
+            val textColor = if (isHoliday(i, dateToSet, selectedMonth, selectedYear))
+                R.color.green_day_holiday else R.color.white
             setButtonParams(daysButtons[i], dateToSet++, textColor)
         }
 
@@ -133,6 +134,25 @@ class MonthActivity : ComponentActivity() {
             val todayButton = daysButtons[todayIndex]
             setTodayCircle(todayButton)
         }
+    }
+
+    private fun isHoliday(
+        index: Int,
+        dateToSet: Int,
+        selectedMonth: Month,
+        selectedYear: Int
+    ): Boolean {
+        if (index in holidayIndexes)
+            return true
+        if (selectedMonth in holidayDatesEveryYear &&
+            dateToSet in holidayDatesEveryYear[selectedMonth]!!)
+            return true
+        if (selectedYear in holidayDatesOneTime &&
+            selectedMonth in holidayDatesOneTime[selectedYear]!! &&
+            dateToSet in holidayDatesOneTime[selectedYear]!![selectedMonth]!!) {
+            return true
+        }
+        return false
     }
 
     private fun setButtonDisappear(button: Button) {
