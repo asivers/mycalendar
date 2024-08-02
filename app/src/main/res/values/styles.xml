@@ -26,11 +26,11 @@
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="month_spinner_item" parent="spinner_item">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">26sp</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
     <style name="year_spinner_item" parent="spinner_item">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">26sp</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 
@@ -46,6 +46,7 @@
     <style name="day_of_week_label" parent="calendar_elt">
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
     <style name="day_of_month" parent="calendar_elt">
         <item name="android:textStyle">bold</item>
