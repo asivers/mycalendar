@@ -3,12 +3,14 @@ package com.example.mycalendar
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.Spinner
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
@@ -37,6 +39,8 @@ class MonthActivity : ComponentActivity() {
 
         initAllElements()
 
+        setBackgroundGradient()
+
         setupOnSwipeListeners()
         setupOnItemSelectedListeners()
         setupOnClickListeners()
@@ -45,6 +49,22 @@ class MonthActivity : ComponentActivity() {
         setupYearSpinner()
 
         setDayButtonsAttributes()
+    }
+
+    private fun setBackgroundGradient() {
+        val gradientDrawable = GradientDrawable().apply {
+            orientation = GradientDrawable.Orientation.TOP_BOTTOM
+            gradientType = GradientDrawable.LINEAR_GRADIENT
+            shape = GradientDrawable.RECTANGLE
+        }
+        val resources = this@MonthActivity.resources
+        val topColor = resources.getColor(R.color.gradient_month_top, null)
+        val bottomColor = resources.getColor(R.color.gradient_month_bottom, null)
+        gradientDrawable.setColors(
+            intArrayOf(topColor, topColor, bottomColor, bottomColor),
+            floatArrayOf(0f, 0.1f, 0.25f, 1f)
+        )
+        findViewById<LinearLayout>(R.id.root_layout).background = gradientDrawable
     }
 
     private fun initAllElements() {
@@ -179,7 +199,7 @@ class MonthActivity : ComponentActivity() {
             todayCircle.setLayerWidth(0, height)
             todayCircle.setLayerHeight(0, height)
             todayCircle.setLayerInsetTop(0, 3)
-            todayCircle.setLayerInsetLeft(0, (width - height) / 2)
+            todayCircle.setLayerInsetLeft(0, (width - height) / 2 + 3)
         }
         todayButton.background = todayCircle
     }
