@@ -20,17 +20,34 @@
         <item name="android:layout_marginRight">14dp</item>
     </style>
 
-    <style name="spinner_item">
+    <style name="spinner_header">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/white</item>
     </style>
-    <style name="month_spinner_item" parent="spinner_item">
+    <style name="month_spinner_header" parent="spinner_header">
         <item name="android:textSize">26sp</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
-    <style name="year_spinner_item" parent="spinner_item">
+    <style name="year_spinner_header" parent="spinner_header">
         <item name="android:textSize">26sp</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <style name="month_spinner_item">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/gradient_month_bottom</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+    <style name="year_spinner_item">
+        <item name="android:layout_width">76dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/green_day_holiday</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 

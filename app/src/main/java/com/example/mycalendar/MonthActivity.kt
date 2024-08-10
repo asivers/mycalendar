@@ -112,16 +112,16 @@ class MonthActivity : ComponentActivity() {
 
     private fun setupMonthSpinner() {
         val months = resources.getStringArray(R.array.months)
-        val adapter = ArrayAdapter(this, R.layout.month_spinner_item, months)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter(this, R.layout.month_spinner_header, months)
+        adapter.setDropDownViewResource(R.layout.month_spinner_item)
         monthSpinner.adapter = adapter
         setSelectedMonthValue(today.monthValue)
     }
 
     private fun setupYearSpinner() {
         val years = Array(201) { 1900 + it }
-        val adapter = ArrayAdapter(this, R.layout.year_spinner_item, years)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter(this, R.layout.year_spinner_header, years)
+        adapter.setDropDownViewResource(R.layout.year_spinner_item)
         yearSpinner.adapter = adapter
         setSelectedYear(today.year)
         shortenSpinnerPopup(yearSpinner)
@@ -199,7 +199,11 @@ class MonthActivity : ComponentActivity() {
             todayCircle.setLayerWidth(0, height)
             todayCircle.setLayerHeight(0, height)
             todayCircle.setLayerInsetTop(0, 3)
-            todayCircle.setLayerInsetLeft(0, (width - height) / 2 + 3)
+            if (todayButton.text.length == 1) {
+                todayCircle.setLayerInsetLeft(0, (width - height) / 2 + 3)
+            } else {
+                todayCircle.setLayerInsetLeft(0, (width - height) / 2)
+            }
         }
         todayButton.background = todayCircle
     }
