@@ -26,12 +26,12 @@ fun getOnSwipeListener(onSwipeLeft: Runnable, onSwipeRight: Runnable) = object: 
 }
 
 @SuppressLint("DiscouragedPrivateApi")
-fun shortenSpinnerPopup(spinner: Spinner) {
+fun shortenSpinnerPopup(spinner: Spinner, height: Int) {
     try {
         val popup: Field = Spinner::class.java.getDeclaredField("mPopup")
         popup.isAccessible = true
         val popupWindow: ListPopupWindow = popup.get(spinner) as ListPopupWindow
-        popupWindow.height = 720
+        popupWindow.height = height
     } catch (_: NoClassDefFoundError) {
     } catch (_: ClassCastException) {
     } catch (_: NoSuchFieldException) {

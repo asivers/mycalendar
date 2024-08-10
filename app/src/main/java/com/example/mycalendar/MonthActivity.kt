@@ -124,7 +124,7 @@ class MonthActivity : ComponentActivity() {
         adapter.setDropDownViewResource(R.layout.year_spinner_item)
         yearSpinner.adapter = adapter
         setSelectedYear(today.year)
-        shortenSpinnerPopup(yearSpinner)
+        shortenSpinnerPopup(yearSpinner, 1600)
     }
 
     private fun setDayButtonsAttributes() {
