@@ -7,11 +7,13 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import java.time.LocalDate
@@ -22,9 +24,6 @@ import java.time.Month
 class MonthActivity : ComponentActivity() {
 
     private var today = LocalDate.now()
-
-    private var onItemSelectedListener = getOnItemSelectedListener { setDayButtonsAttributes() }
-    private var onSwipeListener = getOnSwipeListener({ doOnSwipeLeft() }, { doOnSwipeRight() })
 
     private lateinit var monthSpinner: Spinner
     private lateinit var yearSpinner: Spinner
@@ -57,7 +56,6 @@ class MonthActivity : ComponentActivity() {
             gradientType = GradientDrawable.LINEAR_GRADIENT
             shape = GradientDrawable.RECTANGLE
         }
-        val resources = this@MonthActivity.resources
         val topColor = resources.getColor(R.color.gradient_month_top, null)
         val bottomColor = resources.getColor(R.color.gradient_month_bottom, null)
         gradientDrawable.setColors(
@@ -94,10 +92,12 @@ class MonthActivity : ComponentActivity() {
             yearViewButton
         )
         allElements.addAll(daysButtons)
+        val onSwipeListener = getOnSwipeListener({ doOnSwipeLeft() }, { doOnSwipeRight() })
         allElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
 
     private fun setupOnItemSelectedListeners() {
+        val onItemSelectedListener = getOnItemSelectedListener { setDayButtonsAttributes() }
         monthSpinner.onItemSelectedListener = onItemSelectedListener
         yearSpinner.onItemSelectedListener = onItemSelectedListener
     }
@@ -120,7 +120,18 @@ class MonthActivity : ComponentActivity() {
 
     private fun setupYearSpinner() {
         val years = Array(201) { 1900 + it }
-        val adapter = ArrayAdapter(this, R.layout.year_spinner_header, years)
+        val adapter = object : ArrayAdapter<Int>(this, R.layout.year_spinner_header, years) {
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = super.getDropDownView(position, null, parent)
+                if (position == yearSpinner.selectedItemPosition) {
+                    val colorToSet = resources.getColor(R.color.gradient_month_bottom, null)
+                    (view as TextView).setTextColor(colorToSet)
+                    val fontToSet = resources.getFont(R.font.montserrat_medium)
+                    view.setTypeface(fontToSet)
+                }
+                return view
+            }
+        }
         adapter.setDropDownViewResource(R.layout.year_spinner_item)
         yearSpinner.adapter = adapter
         setSelectedYear(today.year)

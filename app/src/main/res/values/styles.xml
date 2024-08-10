@@ -7,17 +7,18 @@
         <item name="android:layout_marginBottom">36dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:backgroundTint">@color/white</item>
-<!--        <item name="android:spinnerMode">dialog</item>-->
     </style>
     <style name="top_spinner_month" parent="top_spinner">
         <item name="android:gravity">left</item>
         <item name="android:layoutDirection">rtl</item>
+        <item name="android:overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">10dp</item>
     </style>
     <style name="top_spinner_year" parent="top_spinner">
         <item name="android:gravity">right</item>
         <item name="android:layoutDirection">rtl</item>
         <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:layout_marginRight">14dp</item>
+        <item name="android:layout_marginRight">10dp</item>
     </style>
 
     <style name="spinner_header">
@@ -50,7 +51,7 @@
         <item name="android:padding">8dp</item>
         <item name="android:textColor">@color/green_day_holiday</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
     <style name="calendar_elt">
