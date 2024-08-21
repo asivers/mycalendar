@@ -7,6 +7,7 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ListPopupWindow
 import android.widget.Spinner
 import java.lang.reflect.Field
+import java.time.Month
 
 fun getOnItemSelectedListener(onItemSelected: Runnable) = object : OnItemSelectedListener {
     override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -37,4 +38,23 @@ fun shortenSpinnerPopup(spinner: Spinner, height: Int) {
     } catch (_: NoSuchFieldException) {
     } catch (_: IllegalAccessException) {
     }
+}
+
+fun isHoliday(
+    index: Int,
+    dateToSet: Int,
+    month: Month,
+    year: Int
+): Boolean {
+    if (index in holidayIndexes)
+        return true
+    if (month in holidayDatesEveryYear &&
+        dateToSet in holidayDatesEveryYear[month]!!)
+        return true
+    if (year in holidayDatesOneTime &&
+        month in holidayDatesOneTime[year]!! &&
+        dateToSet in holidayDatesOneTime[year]!![month]!!) {
+        return true
+    }
+    return false
 }

@@ -8,14 +8,14 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MonthName" />
+        android:textColor="@color/white" />
     <GridLayout style="@style/month_of_year">
-        <TextView style="@style/day_of_year" />
-        <TextView style="@style/day_of_year" />
-        <TextView style="@style/day_of_year" />
-        <TextView style="@style/day_of_year" />
-        <TextView style="@style/day_of_year" />
-        <TextView style="@style/day_of_year" />
-        <TextView style="@style/day_of_year" />
+        <TextView style="@style/day_of_year" android:text="@string/monday_short" />
+        <TextView style="@style/day_of_year" android:text="@string/tuesday_short" />
+        <TextView style="@style/day_of_year" android:text="@string/wednesday_short" />
+        <TextView style="@style/day_of_year" android:text="@string/thursday_short" />
+        <TextView style="@style/day_of_year" android:text="@string/friday_short" />
+        <TextView style="@style/day_of_year" android:text="@string/saturday_short" />
+        <TextView style="@style/day_of_year" android:text="@string/sunday_short" />
     </GridLayout>
 </LinearLayout>
