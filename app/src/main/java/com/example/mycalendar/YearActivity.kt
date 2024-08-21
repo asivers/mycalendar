@@ -132,7 +132,7 @@ class YearActivity : ComponentActivity() {
     }
 
     private fun setDayCellDisappear(dayCell: TextView) {
-        dayCell.visibility = View.GONE
+        dayCell.visibility = View.INVISIBLE
     }
 
     private fun setDayCellParams(dayCell: TextView, dateToSet: Int, textColor: Int) {

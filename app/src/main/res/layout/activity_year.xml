@@ -10,13 +10,14 @@
         <LinearLayout
             android:id="@+id/year_view_top_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl">
+            <Spinner
+                android:id="@+id/year_view_spinner"
+                style="@style/year_view_spinner" />
             <TextView
                 android:id="@+id/year_view_label"
                 style="@style/year_view_label" />
-            <Spinner
-                android:id="@+id/year_view_spinner"
-                style="@style/top_spinner" />
         </LinearLayout>
 
         <GridLayout

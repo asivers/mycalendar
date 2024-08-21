@@ -156,7 +156,7 @@ class MonthActivity : ComponentActivity() {
     }
 
     private fun setButtonDisappear(button: Button) {
-        button.visibility = View.GONE
+        button.visibility = View.INVISIBLE
     }
 
     private fun setButtonParams(button: Button, dateToSet: Int, textColor: Int) {
