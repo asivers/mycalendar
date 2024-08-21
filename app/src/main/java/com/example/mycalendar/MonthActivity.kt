@@ -30,9 +30,9 @@ class MonthActivity : ComponentActivity() {
 
         setContentView(R.layout.activity_month)
 
-        initAllElements()
-
         setBackgroundGradient()
+
+        initAllElements()
 
         setupOnSwipeListeners()
         setupOnItemSelectedListeners()

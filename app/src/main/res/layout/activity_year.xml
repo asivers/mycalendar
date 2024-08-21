@@ -12,13 +12,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-            <Spinner android:id="@+id/year_spinner_year_view" style="@style/top_spinner" />
+                android:id="@+id/year_view_label"
+                style="@style/year_view_label" />
+            <Spinner
+                android:id="@+id/year_view_spinner"
+                style="@style/top_spinner" />
         </LinearLayout>
 
         <GridLayout
-            android:id="@+id/year_calendar_layout"
+            android:id="@+id/year_view_calendar_layout"
             style="@style/year_view_calendar" />
     </LinearLayout>
 

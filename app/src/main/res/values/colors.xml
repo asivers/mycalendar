@@ -13,4 +13,7 @@
     <color name="green_day_holiday">#FF92D700</color>
     <color name="gradient_year_button_top">#FF92D700</color>
     <color name="gradient_year_button_bottom">#FF5B9F14</color>
+    <color name="gradient_year_view_top">#FF91D600</color>
+    <color name="gradient_year_view_center">#FF5CA013</color>
+    <color name="gradient_year_view_bottom">#FF337623</color>
 </resources>
