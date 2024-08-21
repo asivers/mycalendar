@@ -7,27 +7,21 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.Month
 
-
 @SuppressLint("NewApi", "ClickableViewAccessibility")
 class MonthActivity : ComponentActivity() {
 
-    private var today = LocalDate.now()
-
     private lateinit var monthSpinner: Spinner
     private lateinit var yearSpinner: Spinner
-    private lateinit var calendarLayout: GridLayout
     private lateinit var daysButtons: Array<Button>
     private lateinit var yearViewButton: Button
 
@@ -68,9 +62,13 @@ class MonthActivity : ComponentActivity() {
     private fun initAllElements() {
         monthSpinner = findViewById(R.id.month_spinner)
         yearSpinner = findViewById(R.id.year_spinner)
-        calendarLayout = findViewById(R.id.calendar_layout)
-        daysButtons = Array(42) { layoutInflater.inflate(R.layout.day_button, calendarLayout, false) as Button }
+
+        val calendarLayout: GridLayout = findViewById(R.id.calendar_layout)
+        daysButtons = Array(42) {
+            layoutInflater.inflate(R.layout.day_button, calendarLayout, false) as Button
+        }
         daysButtons.forEach { calendarLayout.addView(it) }
+
         yearViewButton = findViewById(R.id.year_view_btn)
     }
 
@@ -78,6 +76,7 @@ class MonthActivity : ComponentActivity() {
         val allElements: MutableList<View> = mutableListOf(
             findViewById(R.id.root_layout),
             findViewById(R.id.top_layout),
+            findViewById(R.id.calendar_layout),
             findViewById(R.id.bottom_layout),
             findViewById(R.id.monday_label),
             findViewById(R.id.tuesday_label),
@@ -88,7 +87,6 @@ class MonthActivity : ComponentActivity() {
             findViewById(R.id.sunday_label),
             monthSpinner,
             yearSpinner,
-            calendarLayout,
             yearViewButton
         )
         allElements.addAll(daysButtons)
@@ -115,26 +113,15 @@ class MonthActivity : ComponentActivity() {
         val adapter = ArrayAdapter(this, R.layout.month_spinner_header, months)
         adapter.setDropDownViewResource(R.layout.month_spinner_item)
         monthSpinner.adapter = adapter
-        setSelectedMonthValue(today.monthValue)
+        setSelectedMonthValue(LocalDate.now().monthValue)
     }
 
     private fun setupYearSpinner() {
         val years = Array(201) { 1900 + it }
-        val adapter = object : ArrayAdapter<Int>(this, R.layout.year_spinner_header, years) {
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getDropDownView(position, null, parent)
-                if (position == yearSpinner.selectedItemPosition) {
-                    val colorToSet = resources.getColor(R.color.gradient_month_bottom, null)
-                    (view as TextView).setTextColor(colorToSet)
-                    val fontToSet = resources.getFont(R.font.montserrat_medium)
-                    view.setTypeface(fontToSet)
-                }
-                return view
-            }
-        }
+        val adapter = getYearSpinnerAdapter(this@MonthActivity, yearSpinner, years)
         adapter.setDropDownViewResource(R.layout.year_spinner_item)
         yearSpinner.adapter = adapter
-        setSelectedYear(today.year)
+        setSelectedYear(LocalDate.now().year)
         shortenSpinnerPopup(yearSpinner, 1600)
     }
 
@@ -160,6 +147,7 @@ class MonthActivity : ComponentActivity() {
             setButtonParams(daysButtons[i], dateToSet++, textColor)
         }
 
+        val today = LocalDate.now()
         if (selectedYear == today.year && selectedMonth == today.month) {
             val todayIndex = monthStartIndex - 1 + today.dayOfMonth
             val todayButton = daysButtons[todayIndex]
