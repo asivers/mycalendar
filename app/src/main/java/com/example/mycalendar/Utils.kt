@@ -28,11 +28,6 @@ fun getOnItemSelectedListener(onItemSelected: Runnable) = object : OnItemSelecte
     }
 }
 
-fun getOnSwipeListener(onSwipeLeft: Runnable, onSwipeRight: Runnable) = object: OnSwipeListener(null) {
-    override fun onSwipeLeft() = onSwipeLeft.run()
-    override fun onSwipeRight() = onSwipeRight.run()
-}
-
 @SuppressLint("NewApi")
 fun getYearSpinnerAdapter(
     context: Context,

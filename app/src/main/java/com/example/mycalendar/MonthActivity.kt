@@ -88,7 +88,7 @@ class MonthActivity : ComponentActivity() {
             yearViewButton
         )
         allElements.addAll(daysButtons)
-        val onSwipeListener = getOnSwipeListener({ doOnSwipeLeft() }, { doOnSwipeRight() })
+        val onSwipeListener = getOnSwipeListener({ doOnSwipeLeft() }, { doOnSwipeRight() }, {}, {})
         allElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
 

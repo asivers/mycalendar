@@ -6,6 +6,18 @@ import android.view.MotionEvent
 import android.view.View
 import kotlin.math.abs
 
+fun getOnSwipeListener(
+    onSwipeLeft: Runnable,
+    onSwipeRight: Runnable,
+    onSwipeTop: Runnable,
+    onSwipeBottom: Runnable
+) = object: OnSwipeListener(null) {
+    override fun onSwipeLeft() = onSwipeLeft.run()
+    override fun onSwipeRight() = onSwipeRight.run()
+    override fun onSwipeTop() = onSwipeTop.run()
+    override fun onSwipeBottom() = onSwipeBottom.run()
+}
+
 @Suppress("NOTHING_TO_OVERRIDE", "ACCIDENTAL_OVERRIDE")
 open class OnSwipeListener(ctx: Context?) : View.OnTouchListener {
 
@@ -65,9 +77,9 @@ open class OnSwipeListener(ctx: Context?) : View.OnTouchListener {
         }
     }
 
-    open fun onSwipeRight() {}
-
     open fun onSwipeLeft() {}
+
+    open fun onSwipeRight() {}
 
     open fun onSwipeTop() {}
 

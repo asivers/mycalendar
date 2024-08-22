@@ -85,17 +85,22 @@ class YearActivity : ComponentActivity() {
     }
 
     private fun setupOnSwipeListeners() {
-        val allElements: MutableList<View> = mutableListOf(
+        val allForegroundElements: MutableList<View> = mutableListOf(
             findViewById(R.id.year_view_foreground_block),
             findViewById(R.id.year_view_top_layout),
             findViewById(R.id.year_view_calendar_layout),
             findViewById(R.id.year_view_label),
             yearSpinner
         )
-        allElements.addAll(monthsCellsWithNames)
-        allElements.addAll(dayCells.flatten())
-        val onSwipeListener = getOnSwipeListener({ doOnSwipeLeft() }, { doOnSwipeRight() })
-        allElements.forEach { it.setOnTouchListener(onSwipeListener) }
+        allForegroundElements.addAll(monthsCellsWithNames)
+        allForegroundElements.addAll(dayCells.flatten())
+        val onSwipeListener = getOnSwipeListener(
+            { doOnSwipeLeft() },
+            { doOnSwipeRight() },
+            {},
+            { goToMonthPage() }
+        )
+        allForegroundElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
 
     private fun setupYearSpinner() {
