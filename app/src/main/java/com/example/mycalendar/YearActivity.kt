@@ -3,6 +3,7 @@ package com.example.mycalendar
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.GridLayout
@@ -10,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.Month
 
@@ -110,36 +112,45 @@ class YearActivity : ComponentActivity() {
 
     private fun setDayCellsAttributes() {
         val selectedYear = getSelectedYear()
+        val todayCircle = getTodayCircle()
         for (monthValue in 1..12) {
-            val firstOfThisMonth = LocalDate.of(selectedYear, monthValue, 1)
-            val month = Month.of(monthValue)
-            val monthLength = month.length(firstOfThisMonth.isLeapYear)
-
-            val monthStartIndex = firstOfThisMonth.dayOfWeek.value - 1
-            val monthEndIndex = monthStartIndex + monthLength
-
-            for (i in (0..<monthStartIndex) + (monthEndIndex ..<42)) {
-                setDayCellDisappear(dayCells[monthValue - 1][i])
-            }
-
-            var dateToSet = 1
-            for (i in monthStartIndex..<monthEndIndex) {
-                val textColor = if (isHoliday(i, dateToSet, month, selectedYear))
-                    R.color.green_day_holiday else R.color.white
-                setDayCellParams(dayCells[monthValue - 1][i], dateToSet++, textColor)
-            }
+            val dayElements = dayCells[monthValue - 1]
+            val weekdayColor = resources.getColor(R.color.white, null)
+            val holidayColor = resources.getColor(R.color.green_day_holiday, null)
+            setDayElementsForMonth(
+                dayElements,
+                monthValue,
+                selectedYear,
+                weekdayColor,
+                holidayColor,
+                todayCircle
+            )
         }
     }
 
-    private fun setDayCellDisappear(dayCell: TextView) {
-        dayCell.visibility = View.INVISIBLE
-    }
-
-    private fun setDayCellParams(dayCell: TextView, dateToSet: Int, textColor: Int) {
-        dayCell.visibility = View.VISIBLE
-        dayCell.setBackgroundResource(0)
-        dayCell.text = dateToSet.toString()
-        dayCell.setTextColor(resources.getColor(textColor, null))
+    private fun getTodayCircle(): LayerDrawable {
+        val todayCircle: LayerDrawable = ContextCompat.getDrawable(
+            this@YearActivity, R.drawable.today_circle) as LayerDrawable
+//        val width = dayCells[0][0].width + 10
+//        val height = dayCells[0][0].height + 10
+//        if (width < height) {
+//            todayCircle.setLayerWidth(0, width)
+//            todayCircle.setLayerHeight(0, width)
+//            todayCircle.setLayerInsetTop(0, (height - width) / 2 + 1)
+//        } else {
+//            todayCircle.setLayerWidth(0, height)
+//            todayCircle.setLayerHeight(0, height)
+//            todayCircle.setLayerInsetTop(0, 1)
+//            if (LocalDate.now().dayOfMonth < 10) {
+//                todayCircle.setLayerInsetLeft(0, (width - height) / 2 + 2)
+//            } else {
+//                todayCircle.setLayerInsetLeft(0, (width - height) / 2)
+//            }
+//        }
+        val circleShape = todayCircle.getDrawable(0) as GradientDrawable
+//        circleShape.setStroke(1, resources.getColor(R.color.white, null))
+        circleShape.setStroke(1, resources.getColor(R.color.transparent, null))
+        return todayCircle
     }
 
     private fun doOnSwipeLeft() {

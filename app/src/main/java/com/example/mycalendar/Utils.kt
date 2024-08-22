@@ -2,15 +2,18 @@ package com.example.mycalendar
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListPopupWindow
 import android.widget.Spinner
 import android.widget.TextView
 import java.lang.reflect.Field
+import java.time.LocalDate
 import java.time.Month
 
 fun getOnItemSelectedListener(onItemSelected: Runnable) = object : OnItemSelectedListener {
@@ -79,4 +82,45 @@ fun isHoliday(
         return true
     }
     return false
+}
+
+fun <T: View> setDayElementsForMonth(
+    dayElements: Array<T>,
+    monthValue: Int,
+    year: Int,
+    weekdayColor: Int,
+    holidayColor: Int,
+    todayCircle: Drawable
+) {
+    if (!dayElements.isArrayOf<Button>() && !dayElements.isArrayOf<TextView>()) return
+
+    val isButton = dayElements.isArrayOf<Button>()
+
+    val firstOfThisMonth = LocalDate.of(year, monthValue, 1)
+    val month = Month.of(monthValue)
+    val monthLength = month.length(firstOfThisMonth.isLeapYear)
+
+    val monthStartIndex = firstOfThisMonth.dayOfWeek.value - 1
+    val monthEndIndex = monthStartIndex + monthLength
+
+    for (i in (0..<monthStartIndex) + (monthEndIndex ..<42)) {
+        dayElements[i].visibility = View.INVISIBLE
+    }
+
+    var dateToSet = 1
+    for (i in monthStartIndex..<monthEndIndex) {
+        val textColor = if (isHoliday(i, dateToSet, month, year)) holidayColor else weekdayColor
+        val dayElement = if (isButton) dayElements[i] as Button else dayElements[i] as TextView
+        dayElement.visibility = View.VISIBLE
+        dayElement.setBackgroundResource(0)
+        dayElement.setTextColor(textColor)
+        dayElement.text = dateToSet++.toString()
+    }
+
+    val today = LocalDate.now()
+    if (year == today.year && month == today.month) {
+        val todayIndex = monthStartIndex - 1 + today.dayOfMonth
+        val todayButton = dayElements[todayIndex]
+        todayButton.background = todayCircle
+    }
 }

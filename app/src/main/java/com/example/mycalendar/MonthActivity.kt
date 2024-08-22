@@ -15,7 +15,6 @@ import android.widget.Spinner
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
 import java.time.LocalDate
-import java.time.Month
 
 @SuppressLint("NewApi", "ClickableViewAccessibility")
 class MonthActivity : ComponentActivity() {
@@ -128,49 +127,24 @@ class MonthActivity : ComponentActivity() {
     private fun setDayButtonsAttributes() {
         val selectedMonthValue = getSelectedMonthValue()
         val selectedYear = getSelectedYear()
-
-        val firstOfSelectedMonth = LocalDate.of(selectedYear, selectedMonthValue, 1)
-        val selectedMonth = Month.of(selectedMonthValue)
-        val selectedMonthLength = selectedMonth.length(firstOfSelectedMonth.isLeapYear)
-
-        val monthStartIndex = firstOfSelectedMonth.dayOfWeek.value - 1
-        val monthEndIndex = monthStartIndex + selectedMonthLength
-
-        for (i in (0..<monthStartIndex) + (monthEndIndex ..<42)) {
-            setButtonDisappear(daysButtons[i])
-        }
-
-        var dateToSet = 1
-        for (i in monthStartIndex..<monthEndIndex) {
-            val textColor = if (isHoliday(i, dateToSet, selectedMonth, selectedYear))
-                R.color.green_day_holiday else R.color.white
-            setButtonParams(daysButtons[i], dateToSet++, textColor)
-        }
-
-        val today = LocalDate.now()
-        if (selectedYear == today.year && selectedMonth == today.month) {
-            val todayIndex = monthStartIndex - 1 + today.dayOfMonth
-            val todayButton = daysButtons[todayIndex]
-            setTodayCircle(todayButton)
-        }
+        val weekdayColor = resources.getColor(R.color.white, null)
+        val holidayColor = resources.getColor(R.color.green_day_holiday, null)
+        val todayCircle = getTodayCircle()
+        setDayElementsForMonth(
+            daysButtons,
+            selectedMonthValue,
+            selectedYear,
+            weekdayColor,
+            holidayColor,
+            todayCircle
+        )
     }
 
-    private fun setButtonDisappear(button: Button) {
-        button.visibility = View.INVISIBLE
-    }
-
-    private fun setButtonParams(button: Button, dateToSet: Int, textColor: Int) {
-        button.visibility = View.VISIBLE
-        button.setBackgroundResource(0)
-        button.text = dateToSet.toString()
-        button.setTextColor(resources.getColor(textColor, null))
-    }
-
-    private fun setTodayCircle(todayButton: Button) {
+    private fun getTodayCircle(): LayerDrawable {
         val todayCircle: LayerDrawable = ContextCompat.getDrawable(
             this@MonthActivity, R.drawable.today_circle) as LayerDrawable
-        val width = todayButton.width - 3
-        val height = todayButton.height - 3
+        val width = daysButtons[0].width - 3
+        val height = daysButtons[0].width - 3
         if (width < height) {
             todayCircle.setLayerWidth(0, width)
             todayCircle.setLayerHeight(0, width)
@@ -179,13 +153,13 @@ class MonthActivity : ComponentActivity() {
             todayCircle.setLayerWidth(0, height)
             todayCircle.setLayerHeight(0, height)
             todayCircle.setLayerInsetTop(0, 3)
-            if (todayButton.text.length == 1) {
+            if (LocalDate.now().dayOfMonth < 10) {
                 todayCircle.setLayerInsetLeft(0, (width - height) / 2 + 3)
             } else {
                 todayCircle.setLayerInsetLeft(0, (width - height) / 2)
             }
         }
-        todayButton.background = todayCircle
+        return todayCircle
     }
 
     private fun doOnSwipeLeft() {
