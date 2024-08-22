@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.Month
 
@@ -125,12 +124,18 @@ class YearActivity : ComponentActivity() {
                 holidayColor,
                 todayCircle
             )
+            val today = LocalDate.now()
+            if (today.year == selectedYear && today.monthValue == monthValue) {
+                val currentMonthBackground = getDrawable(R.drawable.year_view_current_month)
+                monthsCellsWithNames[monthValue - 1].background = currentMonthBackground
+            } else {
+                monthsCellsWithNames[monthValue - 1].setBackgroundResource(0)
+            }
         }
     }
 
     private fun getTodayCircle(): LayerDrawable {
-        val todayCircle: LayerDrawable = ContextCompat.getDrawable(
-            this@YearActivity, R.drawable.today_circle) as LayerDrawable
+        val todayCircle = getDrawable(R.drawable.today_circle) as LayerDrawable
 //        val width = dayCells[0][0].width + 10
 //        val height = dayCells[0][0].height + 10
 //        if (width < height) {

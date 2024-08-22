@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/white" />
     <GridLayout style="@style/month_of_year">

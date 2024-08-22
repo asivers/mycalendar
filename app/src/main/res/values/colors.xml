@@ -16,4 +16,5 @@
     <color name="gradient_year_view_top">#FF91D600</color>
     <color name="gradient_year_view_center">#FF5CA013</color>
     <color name="gradient_year_view_bottom">#FF337623</color>
+    <color name="year_view_current_month">#FF5DA493</color>
 </resources>

@@ -13,7 +13,6 @@ import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.Spinner
 import androidx.activity.ComponentActivity
-import androidx.core.content.ContextCompat
 import java.time.LocalDate
 
 @SuppressLint("NewApi", "ClickableViewAccessibility")
@@ -141,8 +140,7 @@ class MonthActivity : ComponentActivity() {
     }
 
     private fun getTodayCircle(): LayerDrawable {
-        val todayCircle: LayerDrawable = ContextCompat.getDrawable(
-            this@MonthActivity, R.drawable.today_circle) as LayerDrawable
+        val todayCircle = getDrawable(R.drawable.today_circle) as LayerDrawable
         val width = daysButtons[0].width - 3
         val height = daysButtons[0].width - 3
         if (width < height) {
