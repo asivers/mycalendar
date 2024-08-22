@@ -140,7 +140,7 @@ class YearActivity : ComponentActivity() {
     }
 
     private fun getTodayCircle(): LayerDrawable {
-        val todayCircle = getDrawable(R.drawable.today_circle) as LayerDrawable
+        val todayCircle = getDrawable(R.drawable.year_view_today_circle) as LayerDrawable
 //        val width = dayCells[0][0].width + 10
 //        val height = dayCells[0][0].height + 10
 //        if (width < height) {
