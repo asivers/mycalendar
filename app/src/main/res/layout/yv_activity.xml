@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/yv_background_block"
-    style="@style/yv_background_block">
+    android:id="@+id/yv_background_layout"
+    style="@style/yv_background_layout">
 
     <LinearLayout
-        android:id="@+id/yv_foreground_block"
-        style="@style/yv_foreground_block">
+        android:id="@+id/yv_foreground_layout"
+        style="@style/yv_foreground_layout">
 
         <LinearLayout
-            android:id="@+id/year_view_top_layout"
+            android:id="@+id/yv_header_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layoutDirection="rtl">
@@ -21,7 +21,7 @@
         </LinearLayout>
 
         <GridLayout
-            android:id="@+id/year_view_calendar_layout"
+            android:id="@+id/yv_calendar_layout"
             style="@style/yv_calendar_block" />
     </LinearLayout>
 

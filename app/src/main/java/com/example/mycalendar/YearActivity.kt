@@ -58,13 +58,13 @@ class YearActivity : ComponentActivity() {
             floatArrayOf(0f, 0.2f, 1f)
         )
         gradientDrawable.cornerRadii = floatArrayOf(128f, 128f, 128f, 128f, 0f, 0f, 0f, 0f)
-        findViewById<LinearLayout>(R.id.yv_foreground_block).background = gradientDrawable
+        findViewById<LinearLayout>(R.id.yv_foreground_layout).background = gradientDrawable
     }
 
     private fun initAllElements() {
         yearSpinner = findViewById(R.id.yv_spinner_year)
 
-        val yearCalendarLayout: GridLayout = findViewById(R.id.year_view_calendar_layout)
+        val yearCalendarLayout: GridLayout = findViewById(R.id.yv_calendar_layout)
         monthsCellsWithNames = Array(12) {
             layoutInflater.inflate(R.layout.yv_month_cell, yearCalendarLayout, false) as LinearLayout
         }
@@ -95,9 +95,9 @@ class YearActivity : ComponentActivity() {
 
     private fun setupOnSwipeListeners() {
         val allForegroundElements: MutableList<View> = mutableListOf(
-            findViewById(R.id.yv_foreground_block),
-            findViewById(R.id.year_view_top_layout),
-            findViewById(R.id.year_view_calendar_layout),
+            findViewById(R.id.yv_foreground_layout),
+            findViewById(R.id.yv_header_layout),
+            findViewById(R.id.yv_calendar_layout),
             findViewById(R.id.yv_label),
             yearSpinner
         )

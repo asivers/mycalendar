@@ -85,13 +85,13 @@
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 
-    <style name="yv_background_block">
+    <style name="yv_background_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/mv_gradient_top</item>
         <item name="android:paddingTop">30dp</item>
     </style>
-    <style name="yv_foreground_block">
+    <style name="yv_foreground_layout">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>

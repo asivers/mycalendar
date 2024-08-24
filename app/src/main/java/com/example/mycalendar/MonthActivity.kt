@@ -61,14 +61,14 @@ class MonthActivity : ComponentActivity() {
             intArrayOf(topColor, topColor, bottomColor, bottomColor),
             floatArrayOf(0f, 0.1f, 0.25f, 1f)
         )
-        findViewById<LinearLayout>(R.id.root_layout).background = gradientDrawable
+        findViewById<LinearLayout>(R.id.mv_root_layout).background = gradientDrawable
     }
 
     private fun initAllElements() {
         monthSpinner = findViewById(R.id.month_spinner)
         yearSpinner = findViewById(R.id.year_spinner)
 
-        val calendarLayout: GridLayout = findViewById(R.id.calendar_layout)
+        val calendarLayout: GridLayout = findViewById(R.id.mv_calendar_layout)
         daysButtons = Array(42) {
             layoutInflater.inflate(R.layout.mv_day_button, calendarLayout, false) as Button
         }
@@ -79,17 +79,16 @@ class MonthActivity : ComponentActivity() {
 
     private fun setupOnSwipeListeners() {
         val monthViewElements: MutableList<View> = mutableListOf(
-            findViewById(R.id.root_layout),
-            findViewById(R.id.top_layout),
-            findViewById(R.id.calendar_layout),
-            findViewById(R.id.bottom_layout),
-            findViewById(R.id.monday_label),
-            findViewById(R.id.tuesday_label),
-            findViewById(R.id.wednesday_label),
-            findViewById(R.id.thursday_label),
-            findViewById(R.id.friday_label),
-            findViewById(R.id.saturday_label),
-            findViewById(R.id.sunday_label),
+            findViewById(R.id.mv_root_layout),
+            findViewById(R.id.mv_spinners_layout),
+            findViewById(R.id.mv_calendar_layout),
+            findViewById(R.id.mv_monday_label),
+            findViewById(R.id.mv_tuesday_label),
+            findViewById(R.id.mv_wednesday_label),
+            findViewById(R.id.mv_thursday_label),
+            findViewById(R.id.mv_friday_label),
+            findViewById(R.id.mv_saturday_label),
+            findViewById(R.id.mv_sunday_label),
             monthSpinner,
             yearSpinner
         )

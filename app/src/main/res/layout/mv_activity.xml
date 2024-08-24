@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root_layout"
+    android:id="@+id/mv_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/top_layout"
+        android:id="@+id/mv_spinners_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="6dp"
@@ -16,44 +16,44 @@
     </LinearLayout>
 
     <GridLayout
-        android:id="@+id/calendar_layout"
+        android:id="@+id/mv_calendar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="6dp"
         android:columnCount="7"
         android:rowCount="7">
         <TextView
-            android:id="@+id/monday_label"
+            android:id="@+id/mv_monday_label"
             android:text="@string/mv_monday"
             style="@style/mv_day_of_week_label" />
         <TextView
-            android:id="@+id/tuesday_label"
+            android:id="@+id/mv_tuesday_label"
             android:text="@string/mv_tuesday"
             style="@style/mv_day_of_week_label" />
         <TextView
-            android:id="@+id/wednesday_label"
+            android:id="@+id/mv_wednesday_label"
             android:text="@string/mv_wednesday"
             style="@style/mv_day_of_week_label" />
         <TextView
-            android:id="@+id/thursday_label"
+            android:id="@+id/mv_thursday_label"
             android:text="@string/mv_thursday"
             style="@style/mv_day_of_week_label" />
         <TextView
-            android:id="@+id/friday_label"
+            android:id="@+id/mv_friday_label"
             android:text="@string/mv_friday"
             style="@style/mv_day_of_week_label" />
         <TextView
-            android:id="@+id/saturday_label"
+            android:id="@+id/mv_saturday_label"
             android:text="@string/mv_saturday"
             style="@style/mv_day_of_week_label" />
         <TextView
-            android:id="@+id/sunday_label"
+            android:id="@+id/mv_sunday_label"
             android:text="@string/mv_sunday"
             style="@style/mv_day_of_week_label" />
     </GridLayout>
 
     <LinearLayout
-        android:id="@+id/bottom_layout"
+        android:id="@+id/mv_bottom_layout"
         android:gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
