@@ -40,7 +40,7 @@ class YearActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         setIntent(intent)
-        setSelectedYear(intent?.extras?.getInt("year") ?: LocalDate.now().year)
+        setSelectedYear(getYearFromIntent(intent) ?: LocalDate.now().year)
         setDayCellsAttributes()
     }
 
@@ -121,7 +121,7 @@ class YearActivity : ComponentActivity() {
         yearSpinner.adapter = adapter
         val onItemSelectedListener = getOnItemSelectedListener { setDayCellsAttributes() }
         yearSpinner.onItemSelectedListener = onItemSelectedListener
-        setSelectedYear(intent?.extras?.getInt("year") ?: LocalDate.now().year)
+        setSelectedYear(getYearFromIntent(intent) ?: LocalDate.now().year)
         shortenSpinnerPopup(yearSpinner, 1600)
     }
 
@@ -140,9 +140,8 @@ class YearActivity : ComponentActivity() {
                 holidayColor,
                 todayCircle
             )
-            val today = LocalDate.now()
-            if (today.year == selectedYear && today.monthValue == monthValue) {
-                val currentMonthBackground = getDrawable(R.drawable.yv_current_month)
+            if (selectedYear == getYearFromIntent(intent) && monthValue == getMonthValueFromIntent(intent)) {
+                val currentMonthBackground = getDrawable(R.drawable.yv_selected_month)
                 monthsCellsWithNames[monthValue - 1].background = currentMonthBackground
             } else {
                 monthsCellsWithNames[monthValue - 1].setBackgroundResource(0)
@@ -180,8 +179,8 @@ class YearActivity : ComponentActivity() {
     }
 
     private fun doOnSwipeBottom() {
-        val year = intent.extras?.getInt("year") ?: LocalDate.now().year
-        val monthValue = intent.extras?.getInt("monthValue") ?: LocalDate.now().monthValue
+        val year = getYearFromIntent(intent) ?: LocalDate.now().year
+        val monthValue = getMonthValueFromIntent(intent) ?: LocalDate.now().monthValue
         switchToMonthView(year, monthValue)
     }
 
@@ -190,8 +189,8 @@ class YearActivity : ComponentActivity() {
 
     private fun switchToMonthView(year: Int, monthValue: Int) {
         val intent = Intent(this@YearActivity, MonthActivity::class.java)
-        intent.putExtra("year", year)
-        intent.putExtra("monthValue", monthValue)
+        setYearToIntent(intent, year)
+        setMonthValueToIntent(intent, monthValue)
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         startActivityIfNeeded(intent, 0)
     }

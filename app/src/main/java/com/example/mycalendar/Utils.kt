@@ -2,6 +2,7 @@ package com.example.mycalendar
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
@@ -119,3 +120,9 @@ fun <T: View> setDayElementsForMonth(
         todayButton.background = todayCircle
     }
 }
+
+fun getMonthValueFromIntent(intent: Intent?): Int? = intent?.extras?.getInt("monthValue")
+fun setMonthValueToIntent(intent: Intent, monthValue: Int) = intent.putExtra("monthValue", monthValue)
+
+fun getYearFromIntent(intent: Intent?): Int? = intent?.extras?.getInt("year")
+fun setYearToIntent(intent: Intent, year: Int) = intent.putExtra("year", year)

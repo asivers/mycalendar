@@ -44,8 +44,8 @@ class MonthActivity : ComponentActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         setIntent(intent)
-        setSelectedMonthValue(intent?.extras?.getInt("monthValue") ?: LocalDate.now().monthValue)
-        setSelectedYear(intent?.extras?.getInt("year") ?: LocalDate.now().year)
+        setSelectedMonthValue(getMonthValueFromIntent(intent) ?: LocalDate.now().monthValue)
+        setSelectedYear(getYearFromIntent(intent) ?: LocalDate.now().year)
         setDayButtonsAttributes()
     }
 
@@ -195,8 +195,8 @@ class MonthActivity : ComponentActivity() {
 
     private fun switchToYearView() {
         val intent = Intent(this@MonthActivity, YearActivity::class.java)
-        intent.putExtra("year", getSelectedYear())
-        intent.putExtra("monthValue", getSelectedMonthValue())
+        setYearToIntent(intent, getSelectedYear())
+        setMonthValueToIntent(intent, getSelectedMonthValue())
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         startActivityIfNeeded(intent, 0)
     }
