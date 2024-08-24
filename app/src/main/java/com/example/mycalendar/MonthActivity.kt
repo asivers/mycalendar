@@ -78,7 +78,7 @@ class MonthActivity : ComponentActivity() {
     }
 
     private fun setupOnSwipeListeners() {
-        val allElements: MutableList<View> = mutableListOf(
+        val monthViewElements: MutableList<View> = mutableListOf(
             findViewById(R.id.root_layout),
             findViewById(R.id.top_layout),
             findViewById(R.id.calendar_layout),
@@ -91,12 +91,13 @@ class MonthActivity : ComponentActivity() {
             findViewById(R.id.saturday_label),
             findViewById(R.id.sunday_label),
             monthSpinner,
-            yearSpinner,
-            yearViewButton
+            yearSpinner
         )
-        allElements.addAll(daysButtons)
+        monthViewElements.addAll(daysButtons)
         val onSwipeListener = getOnSwipeListener({ doOnSwipeLeft() }, { doOnSwipeRight() }, {}, {})
-        allElements.forEach { it.setOnTouchListener(onSwipeListener) }
+        monthViewElements.forEach { it.setOnTouchListener(onSwipeListener) }
+
+        yearViewButton.setOnTouchListener(getOnSwipeListener({}, {}, { switchToYearView() }, {}))
     }
 
     private fun setupOnItemSelectedListeners() {
