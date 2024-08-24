@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mv_root_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    style="@style/mv_root_layout">
 
     <LinearLayout
         android:id="@+id/mv_spinners_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp">
+        style="@style/mv_spinners_layout">
         <Spinner android:id="@+id/month_spinner" style="@style/mv_spinner_month" />
         <Spinner android:id="@+id/year_spinner" style="@style/mv_spinner_year" />
     </LinearLayout>
 
     <GridLayout
         android:id="@+id/mv_calendar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:columnCount="7"
-        android:rowCount="7">
+        style="@style/mv_calendar_layout">
         <TextView
             android:id="@+id/mv_monday_label"
             android:text="@string/mv_monday"
@@ -54,9 +45,7 @@
 
     <LinearLayout
         android:id="@+id/mv_bottom_layout"
-        android:gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        style="@style/mv_bottom_layout">
         <Button
             android:id="@+id/mv_year_view_button"
             style="@style/mv_year_view_button" />

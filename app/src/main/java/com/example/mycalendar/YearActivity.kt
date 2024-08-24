@@ -66,7 +66,9 @@ class YearActivity : ComponentActivity() {
 
         val yearCalendarLayout: GridLayout = findViewById(R.id.yv_calendar_layout)
         monthsCellsWithNames = Array(12) {
-            layoutInflater.inflate(R.layout.yv_month_cell, yearCalendarLayout, false) as LinearLayout
+            layoutInflater.inflate(
+                R.layout.yv_month_cell_with_name, yearCalendarLayout, false
+            ) as LinearLayout
         }
         monthsCellsWithNames.forEachIndexed { index, monthView ->
             yearCalendarLayout.addView(monthView)

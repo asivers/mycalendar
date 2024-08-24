@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="mv_root_layout">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="mv_spinners_layout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+    </style>
     <style name="mv_spinner">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">wrap_content</item>
@@ -54,6 +65,13 @@
         <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
+    <style name="mv_calendar_layout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">6dp</item>
+        <item name="android:columnCount">7</item>
+        <item name="android:rowCount">7</item>
+    </style>
     <style name="mv_calendar_element">
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">fill_horizontal</item>
@@ -74,6 +92,11 @@
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 
+    <style name="mv_bottom_layout">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">bottom</item>
+    </style>
     <style name="mv_year_view_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">64dp</item>
@@ -102,13 +125,18 @@
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
 
-    <style name="yv_header">
+    <style name="yv_header_layout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layoutDirection">rtl</item>
+    </style>
+    <style name="yv_header_element">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:layout_marginBottom">20dp</item>
     </style>
-    <style name="yv_label" parent="yv_header">
+    <style name="yv_label" parent="yv_header_element">
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">90dp</item>
         <item name="android:text">@string/year_view</item>
@@ -117,7 +145,7 @@
         <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
     </style>
-    <style name="yv_spinner_year" parent="yv_header">
+    <style name="yv_spinner_year" parent="yv_header_element">
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:layoutDirection">rtl</item>
         <item name="android:gravity">right</item>
@@ -131,6 +159,20 @@
         <item name="android:columnCount">3</item>
         <item name="android:rowCount">4</item>
         <item name="android:padding">3dp</item>
+    </style>
+    <style name="yv_month_cell_with_name">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+    <style name="yv_month_name_label">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="yv_month_cell">
         <item name="android:layout_height">wrap_content</item>

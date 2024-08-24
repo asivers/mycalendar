@@ -9,9 +9,7 @@
 
         <LinearLayout
             android:id="@+id/yv_header_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layoutDirection="rtl">
+            style="@style/yv_header_layout">
             <Spinner
                 android:id="@+id/yv_spinner_year"
                 style="@style/yv_spinner_year" />
