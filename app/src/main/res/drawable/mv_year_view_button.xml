@@ -7,8 +7,8 @@
                 android:topRightRadius="44dp" />
             <gradient
                 android:angle="270"
-                android:startColor="@color/gradient_year_button_top"
-                android:endColor="@color/gradient_year_button_bottom"
+                android:startColor="@color/mv_gradient_year_view_button_top"
+                android:endColor="@color/mv_gradient_year_view_button_bottom"
                 android:type="linear" />
         </shape>
     </item>

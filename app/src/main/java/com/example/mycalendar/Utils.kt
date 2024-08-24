@@ -33,11 +33,11 @@ fun getYearSpinnerAdapter(
     context: Context,
     yearSpinner: Spinner,
     years: Array<Int>
-) = object : ArrayAdapter<Int>(context, R.layout.year_spinner_header, years) {
+) = object : ArrayAdapter<Int>(context, R.layout.myv_year_spinner_header, years) {
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = super.getDropDownView(position, null, parent)
         if (position == yearSpinner.selectedItemPosition) {
-            val colorToSet = context.resources.getColor(R.color.gradient_month_bottom, null)
+            val colorToSet = context.resources.getColor(R.color.mv_gradient_bottom, null)
             (view as TextView).setTextColor(colorToSet)
             val fontToSet = context.resources.getFont(R.font.montserrat_medium)
             view.setTypeface(fontToSet)

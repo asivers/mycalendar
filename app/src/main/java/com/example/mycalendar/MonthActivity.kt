@@ -25,7 +25,7 @@ class MonthActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_month)
+        setContentView(R.layout.mv_activity)
 
         setBackgroundGradient()
 
@@ -54,8 +54,8 @@ class MonthActivity : ComponentActivity() {
             gradientType = GradientDrawable.LINEAR_GRADIENT
             shape = GradientDrawable.RECTANGLE
         }
-        val topColor = resources.getColor(R.color.gradient_month_top, null)
-        val bottomColor = resources.getColor(R.color.gradient_month_bottom, null)
+        val topColor = resources.getColor(R.color.mv_gradient_top, null)
+        val bottomColor = resources.getColor(R.color.mv_gradient_bottom, null)
         gradientDrawable.setColors(
             intArrayOf(topColor, topColor, bottomColor, bottomColor),
             floatArrayOf(0f, 0.1f, 0.25f, 1f)
@@ -69,11 +69,11 @@ class MonthActivity : ComponentActivity() {
 
         val calendarLayout: GridLayout = findViewById(R.id.calendar_layout)
         daysButtons = Array(42) {
-            layoutInflater.inflate(R.layout.day_button, calendarLayout, false) as Button
+            layoutInflater.inflate(R.layout.mv_day_button, calendarLayout, false) as Button
         }
         daysButtons.forEach { calendarLayout.addView(it) }
 
-        yearViewButton = findViewById(R.id.year_view_btn)
+        yearViewButton = findViewById(R.id.mv_year_view_button)
     }
 
     private fun setupOnSwipeListeners() {
@@ -110,8 +110,8 @@ class MonthActivity : ComponentActivity() {
 
     private fun setupMonthSpinner() {
         val months = resources.getStringArray(R.array.months)
-        val adapter = ArrayAdapter(this, R.layout.month_spinner_header, months)
-        adapter.setDropDownViewResource(R.layout.month_spinner_item)
+        val adapter = ArrayAdapter(this, R.layout.mv_month_spinner_header, months)
+        adapter.setDropDownViewResource(R.layout.mv_month_spinner_item)
         monthSpinner.adapter = adapter
         setSelectedMonthValue(LocalDate.now().monthValue)
     }
@@ -119,7 +119,7 @@ class MonthActivity : ComponentActivity() {
     private fun setupYearSpinner() {
         val years = Array(201) { 1900 + it }
         val adapter = getYearSpinnerAdapter(this@MonthActivity, yearSpinner, years)
-        adapter.setDropDownViewResource(R.layout.year_spinner_item)
+        adapter.setDropDownViewResource(R.layout.myv_year_spinner_item)
         yearSpinner.adapter = adapter
         setSelectedYear(LocalDate.now().year)
         shortenSpinnerPopup(yearSpinner, 1600)
@@ -129,7 +129,7 @@ class MonthActivity : ComponentActivity() {
         val selectedMonthValue = getSelectedMonthValue()
         val selectedYear = getSelectedYear()
         val weekdayColor = resources.getColor(R.color.white, null)
-        val holidayColor = resources.getColor(R.color.green_day_holiday, null)
+        val holidayColor = resources.getColor(R.color.myv_green_day_holiday, null)
         val todayCircle = getTodayCircle()
         setDayElementsForMonth(
             daysButtons,
@@ -142,7 +142,7 @@ class MonthActivity : ComponentActivity() {
     }
 
     private fun getTodayCircle(): LayerDrawable {
-        val todayCircle = getDrawable(R.drawable.today_circle) as LayerDrawable
+        val todayCircle = getDrawable(R.drawable.mv_today_circle) as LayerDrawable
         val width = daysButtons[0].width - 3
         val height = daysButtons[0].width - 3
         if (width < height) {

@@ -1,19 +1,19 @@
 <resources>
     <string name="app_name">mycalendar</string>
-    <string name="monday">Mon</string>
-    <string name="tuesday">Tue</string>
-    <string name="wednesday">Wed</string>
-    <string name="thursday">Thu</string>
-    <string name="friday">Fri</string>
-    <string name="saturday">Sat</string>
-    <string name="sunday">Sun</string>
-    <string name="monday_short">M</string>
-    <string name="tuesday_short">T</string>
-    <string name="wednesday_short">W</string>
-    <string name="thursday_short">T</string>
-    <string name="friday_short">F</string>
-    <string name="saturday_short">S</string>
-    <string name="sunday_short">S</string>
+    <string name="mv_monday">Mon</string>
+    <string name="mv_tuesday">Tue</string>
+    <string name="mv_wednesday">Wed</string>
+    <string name="mv_thursday">Thu</string>
+    <string name="mv_friday">Fri</string>
+    <string name="mv_saturday">Sat</string>
+    <string name="mv_sunday">Sun</string>
+    <string name="yv_monday">M</string>
+    <string name="yv_tuesday">T</string>
+    <string name="yv_wednesday">W</string>
+    <string name="yv_thursday">T</string>
+    <string name="yv_friday">F</string>
+    <string name="yv_saturday">S</string>
+    <string name="yv_sunday">S</string>
     <string-array name="months">
         <item>January</item>
         <item>February</item>
@@ -29,5 +29,4 @@
         <item>December</item>
     </string-array>
     <string name="year_view">Year view</string>
-    <string name="month_view">Go back to month view</string>
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/white" />
+    <GridLayout style="@style/yv_month_cell">
+        <TextView style="@style/yv_day_of_week_label" android:text="@string/yv_monday" />
+        <TextView style="@style/yv_day_of_week_label" android:text="@string/yv_tuesday" />
+        <TextView style="@style/yv_day_of_week_label" android:text="@string/yv_wednesday" />
+        <TextView style="@style/yv_day_of_week_label" android:text="@string/yv_thursday" />
+        <TextView style="@style/yv_day_of_week_label" android:text="@string/yv_friday" />
+        <TextView style="@style/yv_day_of_week_label" android:text="@string/yv_saturday" />
+        <TextView style="@style/yv_day_of_week_label" android:text="@string/yv_sunday" />
+    </GridLayout>
+</LinearLayout>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/year_view_background_block"
-    style="@style/year_view_background_block">
+    android:id="@+id/yv_background_block"
+    style="@style/yv_background_block">
 
     <LinearLayout
-        android:id="@+id/year_view_foreground_block"
-        style="@style/year_view_foreground_block">
+        android:id="@+id/yv_foreground_block"
+        style="@style/yv_foreground_block">
 
         <LinearLayout
             android:id="@+id/year_view_top_layout"
@@ -13,16 +13,16 @@
             android:layout_height="wrap_content"
             android:layoutDirection="rtl">
             <Spinner
-                android:id="@+id/year_view_spinner"
-                style="@style/year_view_spinner" />
+                android:id="@+id/yv_spinner_year"
+                style="@style/yv_spinner_year" />
             <TextView
-                android:id="@+id/year_view_label"
-                style="@style/year_view_label" />
+                android:id="@+id/yv_label"
+                style="@style/yv_label" />
         </LinearLayout>
 
         <GridLayout
             android:id="@+id/year_view_calendar_layout"
-            style="@style/year_view_calendar" />
+            style="@style/yv_calendar_block" />
     </LinearLayout>
 
 </LinearLayout>

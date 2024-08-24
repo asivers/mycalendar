@@ -24,7 +24,7 @@ class YearActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_year)
+        setContentView(R.layout.yv_activity)
 
         setForegroundGradient()
 
@@ -49,23 +49,23 @@ class YearActivity : ComponentActivity() {
             gradientType = GradientDrawable.LINEAR_GRADIENT
             shape = GradientDrawable.RECTANGLE
         }
-        val topColor = resources.getColor(R.color.gradient_year_view_top, null)
-        val centralColor = resources.getColor(R.color.gradient_year_view_center, null)
-        val bottomColor = resources.getColor(R.color.gradient_year_view_bottom, null)
+        val topColor = resources.getColor(R.color.yv_gradient_top, null)
+        val centralColor = resources.getColor(R.color.yv_gradient_center, null)
+        val bottomColor = resources.getColor(R.color.yv_gradient_bottom, null)
         gradientDrawable.setColors(
             intArrayOf(topColor, centralColor, bottomColor),
             floatArrayOf(0f, 0.2f, 1f)
         )
         gradientDrawable.cornerRadii = floatArrayOf(128f, 128f, 128f, 128f, 0f, 0f, 0f, 0f)
-        findViewById<LinearLayout>(R.id.year_view_foreground_block).background = gradientDrawable
+        findViewById<LinearLayout>(R.id.yv_foreground_block).background = gradientDrawable
     }
 
     private fun initAllElements() {
-        yearSpinner = findViewById(R.id.year_view_spinner)
+        yearSpinner = findViewById(R.id.yv_spinner_year)
 
         val yearCalendarLayout: GridLayout = findViewById(R.id.year_view_calendar_layout)
         monthsCellsWithNames = Array(12) {
-            layoutInflater.inflate(R.layout.month_year_cell, yearCalendarLayout, false) as LinearLayout
+            layoutInflater.inflate(R.layout.yv_month_cell, yearCalendarLayout, false) as LinearLayout
         }
         monthsCellsWithNames.forEachIndexed { index, monthView ->
             yearCalendarLayout.addView(monthView)
@@ -78,7 +78,7 @@ class YearActivity : ComponentActivity() {
         dayCells = Array(12) {
             val monthCell = monthsCellsWithNames[it].getChildAt(1) as GridLayout
             Array(42) {
-                layoutInflater.inflate(R.layout.day_year_cell, monthCell, false) as TextView
+                layoutInflater.inflate(R.layout.yv_day_cell, monthCell, false) as TextView
             }
         }
         dayCells.forEachIndexed { index, dayCellsForMonth ->
@@ -92,10 +92,10 @@ class YearActivity : ComponentActivity() {
 
     private fun setupOnSwipeListeners() {
         val allForegroundElements: MutableList<View> = mutableListOf(
-            findViewById(R.id.year_view_foreground_block),
+            findViewById(R.id.yv_foreground_block),
             findViewById(R.id.year_view_top_layout),
             findViewById(R.id.year_view_calendar_layout),
-            findViewById(R.id.year_view_label),
+            findViewById(R.id.yv_label),
             yearSpinner
         )
         allForegroundElements.addAll(monthsCellsWithNames)
@@ -114,7 +114,7 @@ class YearActivity : ComponentActivity() {
     private fun setupYearSpinner() {
         val years = Array(201) { 1900 + it }
         val adapter = getYearSpinnerAdapter(this@YearActivity, yearSpinner, years)
-        adapter.setDropDownViewResource(R.layout.year_spinner_item)
+        adapter.setDropDownViewResource(R.layout.myv_year_spinner_item)
         yearSpinner.adapter = adapter
         val onItemSelectedListener = getOnItemSelectedListener { setDayCellsAttributes() }
         yearSpinner.onItemSelectedListener = onItemSelectedListener
@@ -128,7 +128,7 @@ class YearActivity : ComponentActivity() {
         for (monthValue in 1..12) {
             val dayElements = dayCells[monthValue - 1]
             val weekdayColor = resources.getColor(R.color.white, null)
-            val holidayColor = resources.getColor(R.color.green_day_holiday, null)
+            val holidayColor = resources.getColor(R.color.myv_green_day_holiday, null)
             setDayElementsForMonth(
                 dayElements,
                 monthValue,
@@ -139,7 +139,7 @@ class YearActivity : ComponentActivity() {
             )
             val today = LocalDate.now()
             if (today.year == selectedYear && today.monthValue == monthValue) {
-                val currentMonthBackground = getDrawable(R.drawable.year_view_current_month)
+                val currentMonthBackground = getDrawable(R.drawable.yv_current_month)
                 monthsCellsWithNames[monthValue - 1].background = currentMonthBackground
             } else {
                 monthsCellsWithNames[monthValue - 1].setBackgroundResource(0)
@@ -148,7 +148,7 @@ class YearActivity : ComponentActivity() {
     }
 
     private fun getTodayCircle(): LayerDrawable {
-        val todayCircle = getDrawable(R.drawable.year_view_today_circle) as LayerDrawable
+        val todayCircle = getDrawable(R.drawable.yv_today_circle) as LayerDrawable
 //        val width = dayCells[0][0].width + 10
 //        val height = dayCells[0][0].height + 10
 //        if (width < height) {

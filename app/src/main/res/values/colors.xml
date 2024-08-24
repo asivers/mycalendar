@@ -8,13 +8,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gradient_month_top">#FF5DA493</color>
-    <color name="gradient_month_bottom">#FF337623</color>
-    <color name="green_day_holiday">#FF92D700</color>
-    <color name="gradient_year_button_top">#FF92D700</color>
-    <color name="gradient_year_button_bottom">#FF5B9F14</color>
-    <color name="gradient_year_view_top">#FF91D600</color>
-    <color name="gradient_year_view_center">#FF5CA013</color>
-    <color name="gradient_year_view_bottom">#FF337623</color>
-    <color name="year_view_current_month">#FF5DA493</color>
+    <color name="mv_gradient_top">#FF5DA493</color>
+    <color name="mv_gradient_bottom">#FF337623</color>
+    <color name="myv_green_day_holiday">#FF92D700</color>
+    <color name="mv_gradient_year_view_button_top">#FF92D700</color>
+    <color name="mv_gradient_year_view_button_bottom">#FF5B9F14</color>
+    <color name="yv_gradient_top">#FF91D600</color>
+    <color name="yv_gradient_center">#FF5CA013</color>
+    <color name="yv_gradient_bottom">#FF337623</color>
+    <color name="yv_current_month">#FF5DA493</color>
 </resources>
