@@ -152,25 +152,18 @@ class YearActivity : ComponentActivity() {
 
     private fun getTodayCircle(): LayerDrawable {
         val todayCircle = getDrawable(R.drawable.yv_today_circle) as LayerDrawable
-//        val width = dayCells[0][0].width + 10
-//        val height = dayCells[0][0].height + 10
-//        if (width < height) {
-//            todayCircle.setLayerWidth(0, width)
-//            todayCircle.setLayerHeight(0, width)
-//            todayCircle.setLayerInsetTop(0, (height - width) / 2 + 1)
-//        } else {
-//            todayCircle.setLayerWidth(0, height)
-//            todayCircle.setLayerHeight(0, height)
-//            todayCircle.setLayerInsetTop(0, 1)
-//            if (LocalDate.now().dayOfMonth < 10) {
-//                todayCircle.setLayerInsetLeft(0, (width - height) / 2 + 2)
-//            } else {
-//                todayCircle.setLayerInsetLeft(0, (width - height) / 2)
-//            }
-//        }
-        val circleShape = todayCircle.getDrawable(0) as GradientDrawable
-//        circleShape.setStroke(1, resources.getColor(R.color.white, null))
-        circleShape.setStroke(1, resources.getColor(R.color.transparent, null))
+        val width = dayCells[0][0].width
+        val height = dayCells[0][0].height
+        if (width < height) {
+            todayCircle.setLayerWidth(0, width)
+            todayCircle.setLayerHeight(0, width)
+            todayCircle.setLayerInsetTop(0, (height - width) / 2 + 1)
+        } else {
+            todayCircle.setLayerWidth(0, height)
+            todayCircle.setLayerHeight(0, height)
+            todayCircle.setLayerInsetTop(0, 1)
+            todayCircle.setLayerInsetLeft(0, (width - height) / 2)
+        }
         return todayCircle
     }
 

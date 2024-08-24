@@ -153,38 +153,43 @@
     </style>
 
     <style name="yv_calendar_block">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:columnCount">3</item>
         <item name="android:rowCount">4</item>
         <item name="android:padding">3dp</item>
     </style>
     <style name="yv_month_cell_with_name">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
         <item name="android:orientation">vertical</item>
         <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">fill_horizontal</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:layout_rowWeight">1</item>
     </style>
     <style name="yv_month_name_label">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="yv_month_cell">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:padding">6dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">3dp</item>
         <item name="android:columnCount">7</item>
         <item name="android:rowCount">7</item>
     </style>
     <style name="yv_calendar_element">
         <item name="android:layout_gravity">fill_horizontal</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_margin">2dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_columnWeight">1</item>
     </style>
     <style name="yv_day_of_week_label" parent="yv_calendar_element">
         <item name="android:textColor">@color/white</item>
