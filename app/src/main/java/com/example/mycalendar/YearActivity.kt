@@ -37,6 +37,12 @@ class YearActivity : ComponentActivity() {
         setDayCellsAttributes()
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setSelectedYear(intent?.extras?.getInt("year") ?: LocalDate.now().year)
+        setDayCellsAttributes()
+    }
+
     private fun setForegroundGradient() {
         val gradientDrawable = GradientDrawable().apply {
             orientation = GradientDrawable.Orientation.TOP_BOTTOM
@@ -63,7 +69,7 @@ class YearActivity : ComponentActivity() {
         }
         monthsCellsWithNames.forEachIndexed { index, monthView ->
             yearCalendarLayout.addView(monthView)
-            monthView.setOnClickListener { goToMonthPage() }
+            monthView.setOnClickListener { switchToMonthView(index + 1) }
             val month = Month.of(index + 1)
             val nameToSetOnView = month.name[0] + month.name.substring(1).lowercase()
             (monthView.getChildAt(0) as TextView).text = nameToSetOnView
@@ -79,7 +85,7 @@ class YearActivity : ComponentActivity() {
             val monthCell = monthsCellsWithNames[index].getChildAt(1) as GridLayout
             dayCellsForMonth.forEach {
                 monthCell.addView(it)
-                it.setOnClickListener { goToMonthPage() }
+                it.setOnClickListener { switchToMonthView(index + 1) }
             }
         }
     }
@@ -94,11 +100,13 @@ class YearActivity : ComponentActivity() {
         )
         allForegroundElements.addAll(monthsCellsWithNames)
         allForegroundElements.addAll(dayCells.flatten())
+
+        val monthValueToGoBack = intent.extras?.getInt("monthValue") ?: LocalDate.now().monthValue
         val onSwipeListener = getOnSwipeListener(
             { doOnSwipeLeft() },
             { doOnSwipeRight() },
             {},
-            { goToMonthPage() }
+            { switchToMonthView(monthValueToGoBack) }
         )
         allForegroundElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
@@ -178,12 +186,11 @@ class YearActivity : ComponentActivity() {
     private fun getSelectedYear() = yearSpinner.selectedItemPosition + 1900
     private fun setSelectedYear(year: Int) = yearSpinner.setSelection(year - 1900)
 
-    private fun goToMonthPage() {
+    private fun switchToMonthView(monthValue: Int) {
         val intent = Intent(this@YearActivity, MonthActivity::class.java)
-        startActivity(intent)
-
-        // todo consider this
-//        overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0, Color.TRANSPARENT)
-        // and save month activity state (bundle)
+        intent.putExtra("year", getSelectedYear())
+        intent.putExtra("monthValue", monthValue)
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+        startActivityIfNeeded(intent, 0)
     }
 }

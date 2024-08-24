@@ -2,7 +2,6 @@ package com.example.mycalendar
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
@@ -39,6 +38,13 @@ class MonthActivity : ComponentActivity() {
         setupMonthSpinner()
         setupYearSpinner()
 
+        setDayButtonsAttributes()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setSelectedMonthValue(intent?.extras?.getInt("monthValue") ?: LocalDate.now().monthValue)
+        setSelectedYear(intent?.extras?.getInt("year") ?: LocalDate.now().year)
         setDayButtonsAttributes()
     }
 
@@ -99,11 +105,7 @@ class MonthActivity : ComponentActivity() {
     }
 
     private fun setupOnClickListeners() {
-        yearViewButton.setOnClickListener {
-            val intent = Intent(this@MonthActivity, YearActivity::class.java)
-            startActivity(intent)
-            overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0, Color.TRANSPARENT)
-        }
+        yearViewButton.setOnClickListener { switchToYearView() }
     }
 
     private fun setupMonthSpinner() {
@@ -185,9 +187,16 @@ class MonthActivity : ComponentActivity() {
     }
 
     private fun getSelectedMonthValue() = monthSpinner.selectedItemPosition + 1
-    private fun getSelectedYear() = yearSpinner.selectedItemPosition + 1900
-
     private fun setSelectedMonthValue(monthValue: Int) = monthSpinner.setSelection(monthValue - 1)
+
+    private fun getSelectedYear() = yearSpinner.selectedItemPosition + 1900
     private fun setSelectedYear(year: Int) = yearSpinner.setSelection(year - 1900)
 
+    private fun switchToYearView() {
+        val intent = Intent(this@MonthActivity, YearActivity::class.java)
+        intent.putExtra("year", getSelectedYear())
+        intent.putExtra("monthValue", getSelectedMonthValue())
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+        startActivityIfNeeded(intent, 0)
+    }
 }
