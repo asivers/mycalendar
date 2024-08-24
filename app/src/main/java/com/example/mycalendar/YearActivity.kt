@@ -70,8 +70,9 @@ class YearActivity : ComponentActivity() {
         }
         monthsCellsWithNames.forEachIndexed { index, monthView ->
             yearCalendarLayout.addView(monthView)
-            monthView.setOnClickListener { switchToMonthView(index + 1) }
-            val month = Month.of(index + 1)
+            val monthValue = index + 1
+            monthView.setOnClickListener { switchToMonthView(getSelectedYear(), monthValue) }
+            val month = Month.of(monthValue)
             val nameToSetOnView = month.name[0] + month.name.substring(1).lowercase()
             (monthView.getChildAt(0) as TextView).text = nameToSetOnView
         }
@@ -86,7 +87,8 @@ class YearActivity : ComponentActivity() {
             val monthCell = monthsCellsWithNames[index].getChildAt(1) as GridLayout
             dayCellsForMonth.forEach {
                 monthCell.addView(it)
-                it.setOnClickListener { switchToMonthView(index + 1) }
+                val monthValue = index + 1
+                it.setOnClickListener { switchToMonthView(getSelectedYear(), monthValue) }
             }
         }
     }
@@ -183,16 +185,17 @@ class YearActivity : ComponentActivity() {
     }
 
     private fun doOnSwipeBottom() {
+        val year = intent.extras?.getInt("year") ?: LocalDate.now().year
         val monthValue = intent.extras?.getInt("monthValue") ?: LocalDate.now().monthValue
-        switchToMonthView(monthValue)
+        switchToMonthView(year, monthValue)
     }
 
     private fun getSelectedYear() = yearSpinner.selectedItemPosition + 1900
     private fun setSelectedYear(year: Int) = yearSpinner.setSelection(year - 1900)
 
-    private fun switchToMonthView(monthValue: Int) {
+    private fun switchToMonthView(year: Int, monthValue: Int) {
         val intent = Intent(this@YearActivity, MonthActivity::class.java)
-        intent.putExtra("year", getSelectedYear())
+        intent.putExtra("year", year)
         intent.putExtra("monthValue", monthValue)
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
         startActivityIfNeeded(intent, 0)
