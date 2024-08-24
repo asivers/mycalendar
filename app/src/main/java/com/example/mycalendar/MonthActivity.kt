@@ -43,6 +43,7 @@ class MonthActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        setIntent(intent)
         setSelectedMonthValue(intent?.extras?.getInt("monthValue") ?: LocalDate.now().monthValue)
         setSelectedYear(intent?.extras?.getInt("year") ?: LocalDate.now().year)
         setDayButtonsAttributes()

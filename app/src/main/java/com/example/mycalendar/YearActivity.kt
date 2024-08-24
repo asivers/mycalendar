@@ -39,6 +39,7 @@ class YearActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        setIntent(intent)
         setSelectedYear(intent?.extras?.getInt("year") ?: LocalDate.now().year)
         setDayCellsAttributes()
     }
@@ -100,13 +101,11 @@ class YearActivity : ComponentActivity() {
         )
         allForegroundElements.addAll(monthsCellsWithNames)
         allForegroundElements.addAll(dayCells.flatten())
-
-        val monthValueToGoBack = intent.extras?.getInt("monthValue") ?: LocalDate.now().monthValue
         val onSwipeListener = getOnSwipeListener(
             { doOnSwipeLeft() },
             { doOnSwipeRight() },
             {},
-            { switchToMonthView(monthValueToGoBack) }
+            { doOnSwipeBottom() }
         )
         allForegroundElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
@@ -118,7 +117,7 @@ class YearActivity : ComponentActivity() {
         yearSpinner.adapter = adapter
         val onItemSelectedListener = getOnItemSelectedListener { setDayCellsAttributes() }
         yearSpinner.onItemSelectedListener = onItemSelectedListener
-        setSelectedYear(LocalDate.now().year)
+        setSelectedYear(intent?.extras?.getInt("year") ?: LocalDate.now().year)
         shortenSpinnerPopup(yearSpinner, 1600)
     }
 
@@ -181,6 +180,11 @@ class YearActivity : ComponentActivity() {
         val selectedYear = getSelectedYear()
         setSelectedYear(if (selectedYear > 1900) selectedYear - 1 else 1900)
         setDayCellsAttributes()
+    }
+
+    private fun doOnSwipeBottom() {
+        val monthValue = intent.extras?.getInt("monthValue") ?: LocalDate.now().monthValue
+        switchToMonthView(monthValue)
     }
 
     private fun getSelectedYear() = yearSpinner.selectedItemPosition + 1900
