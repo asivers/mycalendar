@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.asynclayoutinflater.view.AsyncLayoutInflater
 import java.time.LocalDate
 import java.time.Month
 
@@ -18,30 +19,70 @@ import java.time.Month
 class YearActivity : ComponentActivity() {
 
     private lateinit var yearSpinner: Spinner
-    private lateinit var monthsCellsWithNames: Array<LinearLayout>
-    private lateinit var dayCells: Array<Array<TextView>>
+    private val monthsCellsWithNames: MutableList<LinearLayout> = mutableListOf()
+    private val dayCells: Array<MutableList<TextView>> = Array(12) { mutableListOf() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.yv_activity)
+        inflateLayoutAsynchronously()
+        switchToMonthView(LocalDate.now().year, LocalDate.now().monthValue)
+    }
 
-        setForegroundGradient()
-
-        initAllElements()
-
-        setupOnSwipeListeners()
-
-        setupYearSpinner()
-
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        if (!this::yearSpinner.isInitialized) {
+            initAllElements()
+        }
+        setSelectedYear(getYearFromIntent(intent) ?: LocalDate.now().year)
         setDayCellsAttributes()
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        setSelectedYear(getYearFromIntent(intent) ?: LocalDate.now().year)
+    private fun inflateLayoutAsynchronously() {
+        val inflater = AsyncLayoutInflater(this@YearActivity)
+        val yearLayout: GridLayout = findViewById(R.id.yv_calendar_layout)
+        for (i in 0..11) {
+            inflater.inflate(R.layout.yv_month_cell_with_name, yearLayout) { monthCellWithName, _, _ ->
+                monthsCellsWithNames.add(monthCellWithName as LinearLayout)
+                yearLayout.addView(monthCellWithName)
+                for (j in 0..41) {
+                    val monthCell = monthCellWithName.getChildAt(1) as GridLayout
+                    inflater.inflate(R.layout.yv_day_cell, monthCell) { dayCell, _, _ ->
+                        dayCells[i].add(dayCell as TextView)
+                        monthCell.addView(dayCell)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initAllElements() {
+        waitUntilLayoutInflationFinished()
+        setForegroundGradient()
+        setupMonthNames()
+        setupYearSpinner()
+        setupOnSwipeListeners()
+        setupOnClickListeners()
         setDayCellsAttributes()
+    }
+
+    private fun waitUntilLayoutInflationFinished() {
+        while (!isLayoutInflationFinished()) {
+            Thread.sleep(100)
+        }
+    }
+
+    private fun isLayoutInflationFinished(): Boolean {
+        if (monthsCellsWithNames.size < 12) {
+            return false
+        }
+        dayCells.forEach {
+            if (it.size < 42) {
+                return false
+            }
+        }
+        return true
     }
 
     private fun setForegroundGradient() {
@@ -61,38 +102,24 @@ class YearActivity : ComponentActivity() {
         findViewById<LinearLayout>(R.id.yv_foreground_layout).background = gradientDrawable
     }
 
-    private fun initAllElements() {
-        yearSpinner = findViewById(R.id.yv_spinner_year)
-
-        val yearCalendarLayout: GridLayout = findViewById(R.id.yv_calendar_layout)
-        monthsCellsWithNames = Array(12) {
-            layoutInflater.inflate(
-                R.layout.yv_month_cell_with_name, yearCalendarLayout, false
-            ) as LinearLayout
-        }
+    private fun setupMonthNames() {
         monthsCellsWithNames.forEachIndexed { index, monthView ->
-            yearCalendarLayout.addView(monthView)
-            val monthValue = index + 1
-            monthView.setOnClickListener { switchToMonthView(getSelectedYear(), monthValue) }
-            val month = Month.of(monthValue)
+            val month = Month.of(index + 1)
             val nameToSetOnView = month.name[0] + month.name.substring(1).lowercase()
             (monthView.getChildAt(0) as TextView).text = nameToSetOnView
         }
+    }
 
-        dayCells = Array(12) {
-            val monthCell = monthsCellsWithNames[it].getChildAt(1) as GridLayout
-            Array(42) {
-                layoutInflater.inflate(R.layout.yv_day_cell, monthCell, false) as TextView
-            }
-        }
-        dayCells.forEachIndexed { index, dayCellsForMonth ->
-            val monthCell = monthsCellsWithNames[index].getChildAt(1) as GridLayout
-            dayCellsForMonth.forEach {
-                monthCell.addView(it)
-                val monthValue = index + 1
-                it.setOnClickListener { switchToMonthView(getSelectedYear(), monthValue) }
-            }
-        }
+    private fun setupYearSpinner() {
+        yearSpinner = findViewById(R.id.yv_spinner_year)
+        val years = Array(201) { 1900 + it }
+        val adapter = getYearSpinnerAdapter(this@YearActivity, yearSpinner, years)
+        adapter.setDropDownViewResource(R.layout.myv_year_spinner_item)
+        yearSpinner.adapter = adapter
+        val onItemSelectedListener = getOnItemSelectedListener { setDayCellsAttributes() }
+        yearSpinner.onItemSelectedListener = onItemSelectedListener
+        setSelectedYear(LocalDate.now().year)
+        shortenSpinnerPopup(yearSpinner, 1600)
     }
 
     private fun setupOnSwipeListeners() {
@@ -104,7 +131,7 @@ class YearActivity : ComponentActivity() {
             yearSpinner
         )
         allForegroundElements.addAll(monthsCellsWithNames)
-        allForegroundElements.addAll(dayCells.flatten())
+        allForegroundElements.addAll(dayCells.toList().flatten())
         val onSwipeListener = getOnSwipeListener(
             { doOnSwipeLeft() },
             { doOnSwipeRight() },
@@ -114,15 +141,15 @@ class YearActivity : ComponentActivity() {
         allForegroundElements.forEach { it.setOnTouchListener(onSwipeListener) }
     }
 
-    private fun setupYearSpinner() {
-        val years = Array(201) { 1900 + it }
-        val adapter = getYearSpinnerAdapter(this@YearActivity, yearSpinner, years)
-        adapter.setDropDownViewResource(R.layout.myv_year_spinner_item)
-        yearSpinner.adapter = adapter
-        val onItemSelectedListener = getOnItemSelectedListener { setDayCellsAttributes() }
-        yearSpinner.onItemSelectedListener = onItemSelectedListener
-        setSelectedYear(getYearFromIntent(intent) ?: LocalDate.now().year)
-        shortenSpinnerPopup(yearSpinner, 1600)
+    private fun setupOnClickListeners() {
+        monthsCellsWithNames.forEachIndexed { index, monthView ->
+            monthView.setOnClickListener { switchToMonthView(getSelectedYear(), index + 1) }
+        }
+        dayCells.forEachIndexed { index, dayCellsForMonth ->
+            dayCellsForMonth.forEach {
+                it.setOnClickListener { switchToMonthView(getSelectedYear(), index + 1) }
+            }
+        }
     }
 
     private fun setDayCellsAttributes() {
@@ -133,7 +160,7 @@ class YearActivity : ComponentActivity() {
             val weekdayColor = resources.getColor(R.color.white, null)
             val holidayColor = resources.getColor(R.color.myv_green_day_holiday, null)
             setDayElementsForMonth(
-                dayElements,
+                dayElements.toTypedArray(),
                 monthValue,
                 selectedYear,
                 weekdayColor,

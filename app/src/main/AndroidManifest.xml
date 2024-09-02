@@ -13,19 +13,17 @@
         android:theme="@style/Theme.Mycalendar"
         tools:targetApi="31">
         <activity
-            android:name=".MonthActivity"
+            android:name=".YearActivity"
             android:screenOrientation="portrait"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Mycalendar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".YearActivity"
+            android:name=".MonthActivity"
             android:theme="@style/Theme.Mycalendar">
         </activity>
     </application>

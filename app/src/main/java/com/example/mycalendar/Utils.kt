@@ -121,8 +121,8 @@ fun <T: View> setDayElementsForMonth(
     }
 }
 
-fun getMonthValueFromIntent(intent: Intent?): Int? = intent?.extras?.getInt("monthValue")
+fun getMonthValueFromIntent(intent: Intent): Int? = intent.extras?.getInt("monthValue")
 fun setMonthValueToIntent(intent: Intent, monthValue: Int) = intent.putExtra("monthValue", monthValue)
 
-fun getYearFromIntent(intent: Intent?): Int? = intent?.extras?.getInt("year")
+fun getYearFromIntent(intent: Intent): Int? = intent.extras?.getInt("year")
 fun setYearToIntent(intent: Intent, year: Int) = intent.putExtra("year", year)
