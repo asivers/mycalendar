@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "mycalendar"
+rootProject.name = "My Calendar"
 include(":app")
  
