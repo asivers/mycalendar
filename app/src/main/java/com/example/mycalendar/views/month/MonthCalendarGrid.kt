@@ -1,6 +1,7 @@
-package com.example.mycalendar.views
+package com.example.mycalendar.views.month
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,34 +21,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.mycalendar.data.HolidaysInfo
 import com.example.mycalendar.data.MonthInfo
 import com.example.mycalendar.ui.theme.CustomColor
 import com.example.mycalendar.utils.defaultHolidaysInfo
 import com.example.mycalendar.utils.getDayValueForMonthTableElement
 import com.example.mycalendar.utils.getMonthInfo
 import com.example.mycalendar.utils.getTextColor
+import java.util.Calendar.OCTOBER
 
 @Preview(showBackground = true)
 @Composable
-fun MonthViewContentOctober2024() {
-    MonthViewContent(
-        modifier = Modifier,
-        year = 2024,
-        monthIndex = 10,
-        holidaysInfo = defaultHolidaysInfo
-    )
-}
-
-@Composable
-fun MonthViewContent(
-    modifier: Modifier,
-    year: Int,
-    monthIndex: Int,
-    holidaysInfo: HolidaysInfo
-) {
-    Column(
-        modifier = modifier
+fun MonthCalendarGridOctober2024() {
+    Box(
+        modifier = Modifier
             .background(
                 brush = Brush.verticalGradient(
                     colorStops = arrayOf(
@@ -61,7 +47,7 @@ fun MonthViewContent(
             .fillMaxWidth()
     ) {
         MonthCalendarGrid(
-            monthInfo = getMonthInfo(year, monthIndex, holidaysInfo)
+            monthInfo = getMonthInfo(2024, OCTOBER, defaultHolidaysInfo)
         )
     }
 }

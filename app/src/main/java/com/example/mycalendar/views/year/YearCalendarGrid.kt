@@ -1,4 +1,4 @@
-package com.example.mycalendar.views
+package com.example.mycalendar.views.year
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,30 +27,15 @@ import com.example.mycalendar.utils.getTextColor
 
 @Preview(showBackground = true)
 @Composable
-fun YearViewContent2024() {
-    Box(modifier = Modifier.fillMaxWidth()) {
-        YearViewContent(
-            modifier = Modifier,
-            year = 2024,
-            holidaysInfo = defaultHolidaysInfo
-        )
-    }
-}
-
-@Composable
-fun YearViewContent(
-    modifier: Modifier,
-    year: Int,
-    holidaysInfo: HolidaysInfo
-) {
-    Column(
-        modifier = modifier
+fun YearCalendarGrid2024() {
+    Box(
+        modifier = Modifier
             .background(color = CustomColor.Mv_gradient_bottom)
             .fillMaxWidth()
     ) {
         YearCalendarGrid(
-            year = year,
-            holidaysInfo = holidaysInfo
+            year = 2024,
+            holidaysInfo = defaultHolidaysInfo
         )
     }
 }

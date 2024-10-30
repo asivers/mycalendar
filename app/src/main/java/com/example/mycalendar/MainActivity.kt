@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.mycalendar.ui.theme.MyCalendarTheme
 import com.example.mycalendar.utils.defaultHolidaysInfo
-import com.example.mycalendar.views.MonthViewContent
+import com.example.mycalendar.views.month.MonthViewContent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
