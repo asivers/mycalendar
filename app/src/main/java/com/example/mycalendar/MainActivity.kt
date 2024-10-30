@@ -7,11 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.mycalendar.ui.theme.MyCalendarTheme
+import com.example.mycalendar.utils.defaultHolidaysInfo
+import com.example.mycalendar.views.MonthViewContent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,28 +19,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyCalendarTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    MonthViewContent(
+                        modifier = Modifier.padding(innerPadding),
+                        year = 2024,
+                        monthIndex = 10,
+                        holidaysInfo = defaultHolidaysInfo
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyCalendarTheme {
-        Greeting("Android")
     }
 }
