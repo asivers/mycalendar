@@ -78,7 +78,7 @@ fun LabelRowInMonthCalendarGrid() {
             Text(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(0.dp, 0.dp, 0.dp, 2.dp),
+                    .padding(0.dp, 5.dp),
                 text = DAY_OF_WEEK_NAMES_LIST_3[dayOfWeekIndex],
                 fontFamily = CustomFont.MONTSERRAT,
                 fontSize = 12.sp,
@@ -98,6 +98,7 @@ fun WeekInMonthCalendarGrid(
         modifier = Modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
+            .padding(0.dp, 3.dp)
     ) {
         repeat(7) { dayOfWeekIndex ->
             DayInMonthCalendarGrid(

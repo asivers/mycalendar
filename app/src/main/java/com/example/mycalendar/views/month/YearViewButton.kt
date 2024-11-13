@@ -2,6 +2,7 @@ package com.example.mycalendar.views.month
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -29,7 +30,7 @@ fun YearViewButton() {
         onClick = {},
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp, 20.dp))
+            .clip(RoundedCornerShape(36.dp, 36.dp))
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
@@ -37,7 +38,8 @@ fun YearViewButton() {
                         CustomColor.MV_GRADIENT_YEAR_VIEW_BUTTON_BOTTOM
                     )
                 )
-            ),
+            )
+            .padding(0.dp, 8.dp),
         colors = TRANSPARENT_BUTTON_COLORS
     ) {
         Text(
