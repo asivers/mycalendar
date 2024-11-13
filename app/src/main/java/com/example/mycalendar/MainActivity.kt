@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.mycalendar.ui.theme.MyCalendarTheme
-import com.example.mycalendar.utils.defaultHolidaysInfo
+import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.example.mycalendar.utils.getCurrentMonthIndex
+import com.example.mycalendar.utils.getCurrentYear
 import com.example.mycalendar.views.month.MonthViewContent
 
 class MainActivity : ComponentActivity() {
@@ -21,9 +23,9 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     MonthViewContent(
                         modifier = Modifier.padding(innerPadding),
-                        year = 2024,
-                        monthIndex = 10,
-                        holidaysInfo = defaultHolidaysInfo
+                        year = getCurrentYear(),
+                        monthIndex = getCurrentMonthIndex(),
+                        holidaysInfo = DEFAULT_HOLIDAYS_INFO
                     )
                 }
             }

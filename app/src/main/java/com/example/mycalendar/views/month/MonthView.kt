@@ -2,25 +2,28 @@ package com.example.mycalendar.views.month
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.mycalendar.data.HolidaysInfo
-import com.example.mycalendar.ui.theme.CustomColor
-import com.example.mycalendar.utils.defaultHolidaysInfo
+import com.example.mycalendar.constants.MONTH_VIEW_BACKGROUND_GRADIENT
+import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.example.mycalendar.utils.getCurrentMonthIndex
+import com.example.mycalendar.utils.getCurrentYear
 import com.example.mycalendar.utils.getMonthInfo
-import java.util.Calendar.OCTOBER
 
 @Preview(showBackground = true)
 @Composable
-fun MonthViewContentOctober2024() {
+fun MonthViewContentPreview() {
     MonthViewContent(
         modifier = Modifier,
-        year = 2024,
-        monthIndex = OCTOBER,
-        holidaysInfo = defaultHolidaysInfo
+        year = getCurrentYear(),
+        monthIndex = getCurrentMonthIndex(),
+        holidaysInfo = DEFAULT_HOLIDAYS_INFO
     )
 }
 
@@ -34,21 +37,19 @@ fun MonthViewContent(
     Column(
         modifier = modifier
             .background(
-                brush = Brush.verticalGradient(
-                    colorStops = arrayOf(
-                        0.0f to CustomColor.Mv_gradient_top,
-                        0.1f to CustomColor.Mv_gradient_top,
-                        0.25f to CustomColor.Mv_gradient_bottom,
-                        1f to CustomColor.Mv_gradient_bottom,
-                    )
-                )
+                brush = MONTH_VIEW_BACKGROUND_GRADIENT
             )
-            .fillMaxWidth()
+            .fillMaxSize()
     ) {
-        TopDropdowns()
-        MonthCalendarGrid(
-            monthInfo = getMonthInfo(year, monthIndex, holidaysInfo)
-        )
-        YearViewButton()
+        Column {
+            Spacer(modifier = Modifier.height(50.dp))
+            TopDropdowns()
+            Spacer(modifier = Modifier.height(50.dp))
+            MonthCalendarGrid(
+                monthInfo = getMonthInfo(year, monthIndex, holidaysInfo)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            YearViewButton()
+        }
     }
 }

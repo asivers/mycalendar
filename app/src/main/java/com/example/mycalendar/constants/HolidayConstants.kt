@@ -1,10 +1,10 @@
-package com.example.mycalendar.utils
+package com.example.mycalendar.constants
 
 import com.example.mycalendar.data.HolidaysInfo
 import java.util.Calendar
 
 // todo must be set by user
-val defaultHolidaysInfo = HolidaysInfo(
+val DEFAULT_HOLIDAYS_INFO = HolidaysInfo(
     holidayDatesEveryYear = mapOf(
         Calendar.JANUARY to listOf(
             1, // Spain

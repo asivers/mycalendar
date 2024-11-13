@@ -9,16 +9,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mycalendar.data.HolidaysInfo
 import com.example.mycalendar.ui.theme.CustomColor
-import com.example.mycalendar.utils.defaultHolidaysInfo
+import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.example.mycalendar.utils.getCurrentYear
 
 @Preview(showBackground = true)
 @Composable
-fun YearViewContent2024() {
+fun YearViewContentPreview() {
     Box(modifier = Modifier.fillMaxWidth()) {
         YearViewContent(
             modifier = Modifier,
-            year = 2024,
-            holidaysInfo = defaultHolidaysInfo
+            year = getCurrentYear(),
+            holidaysInfo = DEFAULT_HOLIDAYS_INFO
         )
     }
 }

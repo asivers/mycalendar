@@ -1,6 +1,5 @@
 package com.example.mycalendar.utils
 
-import androidx.compose.material3.ButtonColors
 import androidx.compose.ui.graphics.Color
 import com.example.mycalendar.data.HolidaysInfo
 import com.example.mycalendar.data.MonthInfo
@@ -33,13 +32,6 @@ fun getDayValueForMonthTableElement(
     return if (value in 1..numberOfDaysInMonth) value else null
 }
 
-fun getButtonColors(dayValue: Int?): ButtonColors {
-    if (dayValue == null) {
-        return ButtonColors(Color.Transparent, Color.White, Color.Green, Color.Yellow)
-    }
-    return ButtonColors(Color.Transparent, Color.White, Color.Green, Color.Yellow)
-}
-
 fun getTextColor(dayValue: Int?, holidays: Set<Int>, dayOfWeekIndex: Int): Color {
     if (dayValue == null) {
         return CustomColor.Transparent
@@ -49,3 +41,6 @@ fun getTextColor(dayValue: Int?, holidays: Set<Int>, dayOfWeekIndex: Int): Color
     }
     return CustomColor.White
 }
+
+fun getCurrentYear() = Calendar.getInstance().get(Calendar.YEAR)
+fun getCurrentMonthIndex() = Calendar.getInstance().get(Calendar.MONTH)

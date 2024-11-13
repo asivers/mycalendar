@@ -10,11 +10,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -22,32 +20,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mycalendar.data.MonthInfo
-import com.example.mycalendar.ui.theme.CustomColor
-import com.example.mycalendar.utils.defaultHolidaysInfo
+import com.example.mycalendar.constants.MONTH_VIEW_BACKGROUND_GRADIENT
+import com.example.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
+import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.example.mycalendar.utils.getCurrentMonthIndex
+import com.example.mycalendar.utils.getCurrentYear
 import com.example.mycalendar.utils.getDayValueForMonthTableElement
 import com.example.mycalendar.utils.getMonthInfo
 import com.example.mycalendar.utils.getTextColor
-import java.util.Calendar.OCTOBER
 
 @Preview(showBackground = true)
 @Composable
-fun MonthCalendarGridOctober2024() {
+fun MonthCalendarGridPreview() {
     Box(
         modifier = Modifier
             .background(
-                brush = Brush.verticalGradient(
-                    colorStops = arrayOf(
-                        0.0f to CustomColor.Mv_gradient_top,
-                        0.1f to CustomColor.Mv_gradient_top,
-                        0.25f to CustomColor.Mv_gradient_bottom,
-                        1f to CustomColor.Mv_gradient_bottom,
-                    )
-                )
+                brush = MONTH_VIEW_BACKGROUND_GRADIENT
             )
             .fillMaxWidth()
     ) {
         MonthCalendarGrid(
-            monthInfo = getMonthInfo(2024, OCTOBER, defaultHolidaysInfo)
+            monthInfo = getMonthInfo(
+                getCurrentYear(),
+                getCurrentMonthIndex(),
+                DEFAULT_HOLIDAYS_INFO
+            )
         )
     }
 }
@@ -109,11 +106,7 @@ fun DayInMonthCalendarGrid(
         onClick = {},
 //        border = BorderStroke(1.dp, Color.Black),
         shape = RectangleShape,
-        colors = ButtonColors(
-            CustomColor.Transparent,
-            CustomColor.Transparent,
-            CustomColor.Transparent,
-            CustomColor.Transparent),
+        colors = TRANSPARENT_BUTTON_COLORS,
         contentPadding = PaddingValues(0.dp),
     ) {
         Text(

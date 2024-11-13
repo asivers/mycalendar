@@ -20,22 +20,23 @@ import androidx.compose.ui.unit.sp
 import com.example.mycalendar.data.HolidaysInfo
 import com.example.mycalendar.data.MonthInfo
 import com.example.mycalendar.ui.theme.CustomColor
-import com.example.mycalendar.utils.defaultHolidaysInfo
+import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.example.mycalendar.utils.getCurrentYear
 import com.example.mycalendar.utils.getDayValueForMonthTableElement
 import com.example.mycalendar.utils.getMonthInfo
 import com.example.mycalendar.utils.getTextColor
 
 @Preview(showBackground = true)
 @Composable
-fun YearCalendarGrid2024() {
+fun YearCalendarGridPreview() {
     Box(
         modifier = Modifier
             .background(color = CustomColor.Mv_gradient_bottom)
             .fillMaxWidth()
     ) {
         YearCalendarGrid(
-            year = 2024,
-            holidaysInfo = defaultHolidaysInfo
+            year = getCurrentYear(),
+            holidaysInfo = DEFAULT_HOLIDAYS_INFO
         )
     }
 }
