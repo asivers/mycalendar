@@ -43,7 +43,7 @@ fun YearViewButton() {
         Text(
             text = "Year View",
             fontFamily = CustomFont.MONTSERRAT_BOLD,
-            fontSize = 26.sp,
+            fontSize = 24.sp,
             color = CustomColor.WHITE,
             textAlign = TextAlign.Center
         )

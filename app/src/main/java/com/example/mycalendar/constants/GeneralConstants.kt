@@ -14,3 +14,23 @@ val MONTH_NAMES_LIST = listOf(
     "November",
     "December"
 )
+
+val DAY_OF_WEEK_NAMES_LIST_3 = listOf(
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun"
+)
+
+val DAY_OF_WEEK_NAMES_LIST_1 = listOf(
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+)

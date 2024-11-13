@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,11 +19,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.mycalendar.ui.theme.custom.CustomFont
-import com.example.mycalendar.data.MonthInfo
+import com.example.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_3
+import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.example.mycalendar.constants.MONTH_VIEW_BACKGROUND_GRADIENT
 import com.example.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
-import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.example.mycalendar.data.MonthInfo
+import com.example.mycalendar.ui.theme.custom.CustomColor
+import com.example.mycalendar.ui.theme.custom.CustomFont
 import com.example.mycalendar.utils.getCurrentMonthIndex
 import com.example.mycalendar.utils.getCurrentYear
 import com.example.mycalendar.utils.getDayValueForMonthTableElement
@@ -56,10 +59,31 @@ fun MonthCalendarGrid(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
+        LabelRowInMonthCalendarGrid()
         repeat(6) { weekIndex ->
             WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 monthInfo = monthInfo
+            )
+        }
+    }
+}
+
+@Composable
+fun LabelRowInMonthCalendarGrid() {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        repeat(7) { dayOfWeekIndex ->
+            Text(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(0.dp, 0.dp, 0.dp, 2.dp),
+                text = DAY_OF_WEEK_NAMES_LIST_3[dayOfWeekIndex],
+                fontFamily = CustomFont.MONTSERRAT,
+                fontSize = 12.sp,
+                color = CustomColor.WHITE,
+                textAlign = TextAlign.Center,
             )
         }
     }
@@ -112,7 +136,7 @@ fun DayInMonthCalendarGrid(
         Text(
             text = (dayValue ?: "").toString(),
             fontFamily = CustomFont.MONTSERRAT_BOLD,
-            fontSize = 26.sp,
+            fontSize = 24.sp,
             color = getTextColor(dayValue, monthInfo.holidays, dayOfWeekIndex),
             textAlign = TextAlign.Center,
         )

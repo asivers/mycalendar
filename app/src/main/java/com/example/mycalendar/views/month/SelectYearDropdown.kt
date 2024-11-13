@@ -107,7 +107,8 @@ fun SelectYearDropdownList(
                     Text(
                         text = year.toString(),
                         color = CustomColor.MYV_GREEN_DAY_HOLIDAY,
-                        fontFamily = CustomFont.MONTSERRAT
+                        fontFamily = CustomFont.MONTSERRAT,
+                        fontSize = 24.sp
                     )
                 },
                 onClick = {

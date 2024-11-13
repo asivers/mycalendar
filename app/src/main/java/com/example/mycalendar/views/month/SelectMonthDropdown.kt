@@ -106,7 +106,8 @@ fun SelectMonthDropdownList(
                     Text(
                         text = monthName,
                         color = CustomColor.MV_GRADIENT_BOTTOM,
-                        fontFamily = CustomFont.MONTSERRAT_BOLD
+                        fontFamily = CustomFont.MONTSERRAT_BOLD,
+                        fontSize = 20.sp
                     )
                 },
                 onClick = {
