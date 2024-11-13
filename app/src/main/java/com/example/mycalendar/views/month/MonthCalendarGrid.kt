@@ -14,7 +14,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -126,10 +128,13 @@ fun DayInMonthCalendarGrid(
         monthInfo.numberOfDays,
         monthInfo.dayOfWeekOf1st
     )
+    val today = dayValue !== null && dayValue === monthInfo.today
     Button(
-        modifier = modifier,
+        modifier = modifier
+            .drawBehind {
+                if (today) drawCircle(CustomColor.WHITE, style = Stroke(width = 4f))
+            },
         onClick = {},
-//        border = BorderStroke(1.dp, Color.Black),
         shape = RectangleShape,
         colors = TRANSPARENT_BUTTON_COLORS,
         contentPadding = PaddingValues(0.dp),

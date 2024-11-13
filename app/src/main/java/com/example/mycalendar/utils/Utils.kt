@@ -19,7 +19,9 @@ fun getMonthInfo(year: Int, monthIndex: Int, holidaysInfo: HolidaysInfo): MonthI
         monthIndex in holidaysInfo.holidayDatesOneTime[year]!!) {
         holidays.addAll(holidaysInfo.holidayDatesOneTime[year]!![monthIndex]!!)
     }
-    return MonthInfo(numberOfDays, dayOfWeekOf1st, holidays)
+    val today = if (year == getCurrentYear() && monthIndex == getCurrentMonthIndex())
+        getCurrentDayOfMonth() else null
+    return MonthInfo(numberOfDays, dayOfWeekOf1st, holidays, today)
 }
 
 fun getDayValueForMonthTableElement(
@@ -44,3 +46,4 @@ fun getTextColor(dayValue: Int?, holidays: Set<Int>, dayOfWeekIndex: Int): Color
 
 fun getCurrentYear() = Calendar.getInstance().get(Calendar.YEAR)
 fun getCurrentMonthIndex() = Calendar.getInstance().get(Calendar.MONTH)
+fun getCurrentDayOfMonth() = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
