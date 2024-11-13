@@ -14,11 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mycalendar.ui.theme.custom.CustomFont
 import com.example.mycalendar.data.MonthInfo
 import com.example.mycalendar.constants.MONTH_VIEW_BACKGROUND_GRADIENT
 import com.example.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
@@ -111,7 +111,7 @@ fun DayInMonthCalendarGrid(
     ) {
         Text(
             text = (dayValue ?: "").toString(),
-            fontWeight = FontWeight.Bold,
+            fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = 26.sp,
             color = getTextColor(dayValue, monthInfo.holidays, dayOfWeekIndex),
             textAlign = TextAlign.Center,

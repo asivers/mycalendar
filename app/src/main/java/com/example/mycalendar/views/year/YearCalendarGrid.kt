@@ -12,15 +12,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mycalendar.data.HolidaysInfo
 import com.example.mycalendar.data.MonthInfo
-import com.example.mycalendar.ui.theme.CustomColor
+import com.example.mycalendar.ui.theme.custom.CustomColor
 import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.example.mycalendar.ui.theme.custom.CustomFont
 import com.example.mycalendar.utils.getCurrentYear
 import com.example.mycalendar.utils.getDayValueForMonthTableElement
 import com.example.mycalendar.utils.getMonthInfo
@@ -31,7 +31,7 @@ import com.example.mycalendar.utils.getTextColor
 fun YearCalendarGridPreview() {
     Box(
         modifier = Modifier
-            .background(color = CustomColor.Mv_gradient_bottom)
+            .background(color = CustomColor.MV_GRADIENT_BOTTOM)
             .fillMaxWidth()
     ) {
         YearCalendarGrid(
@@ -139,7 +139,7 @@ fun DayInYearCalendarGrid(
     Text(
         modifier = modifier,
         text = (dayValue ?: "").toString(),
-        fontWeight = FontWeight.Bold,
+        fontFamily = CustomFont.MONTSERRAT_BOLD,
         fontSize = 12.sp,
         color = getTextColor(dayValue, monthInfo.holidays, dayOfWeekIndex),
         textAlign = TextAlign.Center,

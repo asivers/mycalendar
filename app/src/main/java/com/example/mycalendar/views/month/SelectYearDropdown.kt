@@ -20,7 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.mycalendar.ui.theme.CustomColor
+import com.example.mycalendar.ui.theme.custom.CustomColor
+import com.example.mycalendar.ui.theme.custom.CustomFont
 import com.example.mycalendar.utils.getCurrentYear
 
 val yearsToSelect = List(201) { 1900 + it }
@@ -31,7 +32,7 @@ fun SelectYearDropdownPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = CustomColor.Mv_gradient_top)
+            .background(color = CustomColor.MV_GRADIENT_TOP)
     ) {
         SelectYearDropdown(modifier = Modifier)
     }
@@ -71,14 +72,15 @@ fun SelectYearDropdownHeader(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .background(CustomColor.Transparent)
+            .background(CustomColor.TRANSPARENT)
             .clickable {
                 isExpanded.value = true
             }
     ) {
         Text(
             text = yearsToSelect[selectedYearIndex.intValue].toString(),
-            color = CustomColor.White,
+            color = CustomColor.WHITE,
+            fontFamily = CustomFont.MONTSERRAT_MEDIUM,
             fontSize = 26.sp
         )
 //            Image(
@@ -104,7 +106,8 @@ fun SelectYearDropdownList(
                 text = {
                     Text(
                         text = year.toString(),
-                        color = CustomColor.Myv_green_day_holiday
+                        color = CustomColor.MYV_GREEN_DAY_HOLIDAY,
+                        fontFamily = CustomFont.MONTSERRAT
                     )
                 },
                 onClick = {

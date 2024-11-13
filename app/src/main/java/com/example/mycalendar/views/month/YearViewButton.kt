@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.mycalendar.ui.theme.CustomColor
+import com.example.mycalendar.ui.theme.custom.CustomColor
 import com.example.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
+import com.example.mycalendar.ui.theme.custom.CustomFont
 
 @Preview
 @Composable
@@ -33,8 +33,8 @@ fun YearViewButton() {
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        CustomColor.Mv_gradient_year_view_button_top,
-                        CustomColor.Mv_gradient_year_view_button_bottom
+                        CustomColor.MV_GRADIENT_YEAR_VIEW_BUTTON_TOP,
+                        CustomColor.MV_GRADIENT_YEAR_VIEW_BUTTON_BOTTOM
                     )
                 )
             ),
@@ -42,9 +42,9 @@ fun YearViewButton() {
     ) {
         Text(
             text = "Year View",
-            fontWeight = FontWeight.Bold,
+            fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = 26.sp,
-            color = CustomColor.White,
+            color = CustomColor.WHITE,
             textAlign = TextAlign.Center
         )
     }

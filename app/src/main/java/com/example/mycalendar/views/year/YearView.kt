@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mycalendar.data.HolidaysInfo
-import com.example.mycalendar.ui.theme.CustomColor
+import com.example.mycalendar.ui.theme.custom.CustomColor
 import com.example.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.example.mycalendar.utils.getCurrentYear
 
@@ -32,7 +32,7 @@ fun YearViewContent(
 ) {
     Column(
         modifier = modifier
-            .background(color = CustomColor.Mv_gradient_bottom)
+            .background(color = CustomColor.MV_GRADIENT_BOTTOM)
             .fillMaxWidth()
     ) {
         YearCalendarGrid(

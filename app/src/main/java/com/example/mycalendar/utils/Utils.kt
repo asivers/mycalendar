@@ -3,7 +3,7 @@ package com.example.mycalendar.utils
 import androidx.compose.ui.graphics.Color
 import com.example.mycalendar.data.HolidaysInfo
 import com.example.mycalendar.data.MonthInfo
-import com.example.mycalendar.ui.theme.CustomColor
+import com.example.mycalendar.ui.theme.custom.CustomColor
 import java.util.Calendar
 import java.util.GregorianCalendar
 
@@ -34,12 +34,12 @@ fun getDayValueForMonthTableElement(
 
 fun getTextColor(dayValue: Int?, holidays: Set<Int>, dayOfWeekIndex: Int): Color {
     if (dayValue == null) {
-        return CustomColor.Transparent
+        return CustomColor.TRANSPARENT
     }
     if (dayOfWeekIndex > 4 || dayValue in holidays) {
-        return CustomColor.Myv_green_day_holiday
+        return CustomColor.MYV_GREEN_DAY_HOLIDAY
     }
-    return CustomColor.White
+    return CustomColor.WHITE
 }
 
 fun getCurrentYear() = Calendar.getInstance().get(Calendar.YEAR)
