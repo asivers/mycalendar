@@ -1,5 +1,6 @@
 package com.example.mycalendar.views.month
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,8 +19,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.mycalendar.R
 import com.example.mycalendar.ui.theme.custom.CustomColor
 import com.example.mycalendar.ui.theme.custom.CustomFont
 import com.example.mycalendar.utils.getCurrentYear
@@ -77,16 +80,17 @@ fun SelectYearDropdownHeader(
                 isExpanded.value = true
             }
     ) {
+        val iconId = if (isExpanded.value) R.drawable.white_arrow_up else R.drawable.white_arrow_down
+        Image(
+            painter = painterResource(id = iconId),
+            contentDescription = "DropDown Icon"
+        )
         Text(
             text = yearsToSelect[selectedYearIndex.intValue].toString(),
             color = CustomColor.WHITE,
             fontFamily = CustomFont.MONTSERRAT_MEDIUM,
             fontSize = 26.sp
         )
-//            Image(
-//                painter = painterResource(id = R.drawable.drop_down_ic),
-//                contentDescription = "DropDown Icon"
-//            )
     }
 }
 
