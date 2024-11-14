@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
@@ -53,34 +53,14 @@ fun SelectMonthDropdown(
     val selectedMonthIndex = remember {
         mutableIntStateOf(getCurrentMonthIndex())
     }
-    Box(
-        modifier = modifier
-    ) {
-        SelectMonthDropdownHeader(
-            isExpanded = isExpanded,
-            selectedMonthIndex = selectedMonthIndex,
-        )
-        SelectMonthDropdownList(
-            isExpanded = isExpanded,
-            selectedMonthIndex = selectedMonthIndex,
-        )
-    }
-}
-
-@Composable
-fun SelectMonthDropdownHeader(
-    isExpanded: MutableState<Boolean>,
-    selectedMonthIndex: MutableIntState
-) {
     Row(
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .wrapContentWidth()
+        modifier = modifier
             .background(CustomColor.TRANSPARENT)
             .clickable {
                 isExpanded.value = true
-            }
+            },
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         val iconId = if (isExpanded.value) R.drawable.white_arrow_up else R.drawable.white_arrow_down
         Image(
@@ -88,12 +68,19 @@ fun SelectMonthDropdownHeader(
             contentDescription = "DropDown Icon"
         )
         Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = MONTH_NAMES_LIST[selectedMonthIndex.intValue],
-            color = CustomColor.WHITE,
-            fontFamily = CustomFont.MONTSERRAT_BOLD,
-            fontSize = 32.sp
-        )
+        Box {
+            Text(
+                modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
+                text = MONTH_NAMES_LIST[selectedMonthIndex.intValue],
+                color = CustomColor.WHITE,
+                fontFamily = CustomFont.MONTSERRAT_BOLD,
+                fontSize = 32.sp
+            )
+            SelectMonthDropdownList(
+                isExpanded = isExpanded,
+                selectedMonthIndex = selectedMonthIndex
+            )
+        }
     }
 }
 
