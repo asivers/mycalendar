@@ -6,8 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
@@ -21,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mycalendar.R
 import com.example.mycalendar.ui.theme.custom.CustomColor
@@ -74,7 +77,7 @@ fun SelectYearDropdownHeader(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .fillMaxWidth()
+            .wrapContentWidth()
             .background(CustomColor.TRANSPARENT)
             .clickable {
                 isExpanded.value = true
@@ -85,11 +88,12 @@ fun SelectYearDropdownHeader(
             painter = painterResource(id = iconId),
             contentDescription = "DropDown Icon"
         )
+        Spacer(modifier = Modifier.width(5.dp))
         Text(
             text = yearsToSelect[selectedYearIndex.intValue].toString(),
             color = CustomColor.WHITE,
             fontFamily = CustomFont.MONTSERRAT_MEDIUM,
-            fontSize = 26.sp
+            fontSize = 28.sp
         )
     }
 }
@@ -112,7 +116,7 @@ fun SelectYearDropdownList(
                         text = year.toString(),
                         color = CustomColor.MYV_GREEN_DAY_HOLIDAY,
                         fontFamily = CustomFont.MONTSERRAT,
-                        fontSize = 24.sp
+                        fontSize = 26.sp
                     )
                 },
                 onClick = {

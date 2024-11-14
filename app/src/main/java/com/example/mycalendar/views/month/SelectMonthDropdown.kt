@@ -6,8 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
@@ -21,12 +23,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mycalendar.R
-import com.example.mycalendar.ui.theme.custom.CustomColor
-import com.example.mycalendar.utils.getCurrentMonthIndex
 import com.example.mycalendar.constants.MONTH_NAMES_LIST
+import com.example.mycalendar.ui.theme.custom.CustomColor
 import com.example.mycalendar.ui.theme.custom.CustomFont
+import com.example.mycalendar.utils.getCurrentMonthIndex
 
 @Preview(showBackground = true)
 @Composable
@@ -73,7 +76,7 @@ fun SelectMonthDropdownHeader(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .fillMaxWidth()
+            .wrapContentWidth()
             .background(CustomColor.TRANSPARENT)
             .clickable {
                 isExpanded.value = true
@@ -84,11 +87,12 @@ fun SelectMonthDropdownHeader(
             painter = painterResource(id = iconId),
             contentDescription = "DropDown Icon"
         )
+        Spacer(modifier = Modifier.width(5.dp))
         Text(
             text = MONTH_NAMES_LIST[selectedMonthIndex.intValue],
             color = CustomColor.WHITE,
             fontFamily = CustomFont.MONTSERRAT_BOLD,
-            fontSize = 26.sp
+            fontSize = 32.sp
         )
     }
 }
@@ -111,7 +115,7 @@ fun SelectMonthDropdownList(
                         text = monthName,
                         color = CustomColor.MV_GRADIENT_BOTTOM,
                         fontFamily = CustomFont.MONTSERRAT_BOLD,
-                        fontSize = 20.sp
+                        fontSize = 22.sp
                     )
                 },
                 onClick = {
