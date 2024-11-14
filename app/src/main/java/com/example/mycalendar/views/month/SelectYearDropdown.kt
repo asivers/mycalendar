@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
@@ -30,7 +32,7 @@ import com.example.mycalendar.ui.theme.custom.CustomColor
 import com.example.mycalendar.ui.theme.custom.CustomFont
 import com.example.mycalendar.utils.getCurrentYear
 
-val yearsToSelect = List(201) { 1900 + it }
+fun getYearByIndex(yearIndex: Int): String = (1900 + yearIndex).toString()
 
 @Preview(showBackground = true)
 @Composable
@@ -54,34 +56,14 @@ fun SelectYearDropdown(
     val selectedYearIndex = remember {
         mutableIntStateOf(getCurrentYear() - 1900)
     }
-    Box(
-        modifier = modifier
-    ) {
-        SelectYearDropdownHeader(
-            isExpanded = isExpanded,
-            selectedYearIndex = selectedYearIndex,
-        )
-        SelectYearDropdownList(
-            isExpanded = isExpanded,
-            selectedYearIndex = selectedYearIndex,
-        )
-    }
-}
-
-@Composable
-fun SelectYearDropdownHeader(
-    isExpanded: MutableState<Boolean>,
-    selectedYearIndex: MutableIntState
-) {
     Row(
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .wrapContentWidth()
+        modifier = modifier
             .background(CustomColor.TRANSPARENT)
             .clickable {
                 isExpanded.value = true
-            }
+            },
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         val iconId = if (isExpanded.value) R.drawable.white_arrow_up else R.drawable.white_arrow_down
         Image(
@@ -89,12 +71,19 @@ fun SelectYearDropdownHeader(
             contentDescription = "DropDown Icon"
         )
         Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            text = yearsToSelect[selectedYearIndex.intValue].toString(),
-            color = CustomColor.WHITE,
-            fontFamily = CustomFont.MONTSERRAT_MEDIUM,
-            fontSize = 28.sp
-        )
+        Box {
+            Text(
+                modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
+                text = getYearByIndex(selectedYearIndex.intValue),
+                color = CustomColor.WHITE,
+                fontFamily = CustomFont.MONTSERRAT_MEDIUM,
+                fontSize = 28.sp
+            )
+            SelectYearDropdownList(
+                isExpanded = isExpanded,
+                selectedYearIndex = selectedYearIndex,
+            )
+        }
     }
 }
 
@@ -109,21 +98,27 @@ fun SelectYearDropdownList(
             isExpanded.value = false
         }
     ) {
-        yearsToSelect.forEachIndexed { index, year ->
-            DropdownMenuItem(
-                text = {
-                    Text(
-                        text = year.toString(),
-                        color = CustomColor.MYV_GREEN_DAY_HOLIDAY,
-                        fontFamily = CustomFont.MONTSERRAT,
-                        fontSize = 26.sp
-                    )
-                },
-                onClick = {
-                    isExpanded.value = false
-                    selectedYearIndex.intValue = index
-                }
-            )
+        LazyColumn(
+            modifier = Modifier
+                .height(600.dp)
+                .width(85.dp)
+        ) {
+            items(201) { yearIndex ->
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = getYearByIndex(yearIndex),
+                            color = CustomColor.MYV_GREEN_DAY_HOLIDAY,
+                            fontFamily = CustomFont.MONTSERRAT,
+                            fontSize = 26.sp
+                        )
+                    },
+                    onClick = {
+                        isExpanded.value = false
+                        selectedYearIndex.intValue = yearIndex
+                    }
+                )
+            }
         }
     }
 }
