@@ -67,7 +67,7 @@ fun SelectMonthDropdown(
             painter = painterResource(id = iconId),
             contentDescription = "DropDown Icon"
         )
-        Spacer(modifier = Modifier.width(5.dp))
+        Spacer(modifier = Modifier.width(10.dp))
         Box {
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),

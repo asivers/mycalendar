@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mycalendar.R
@@ -70,7 +71,7 @@ fun SelectYearDropdown(
             painter = painterResource(id = iconId),
             contentDescription = "DropDown Icon"
         )
-        Spacer(modifier = Modifier.width(5.dp))
+        Spacer(modifier = Modifier.width(10.dp))
         Box {
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
@@ -96,7 +97,8 @@ fun SelectYearDropdownList(
         expanded = isExpanded.value,
         onDismissRequest = {
             isExpanded.value = false
-        }
+        },
+        offset = DpOffset(x = (-10).dp, y = (-52).dp)
     ) {
         LazyColumn(
             modifier = Modifier
@@ -108,8 +110,10 @@ fun SelectYearDropdownList(
                     text = {
                         Text(
                             text = getYearByIndex(yearIndex),
-                            color = CustomColor.MYV_GREEN_DAY_HOLIDAY,
-                            fontFamily = CustomFont.MONTSERRAT,
+                            color = if (selectedYearIndex.intValue == yearIndex)
+                                CustomColor.MV_GRADIENT_BOTTOM else CustomColor.MYV_GREEN_DAY_HOLIDAY,
+                            fontFamily = if (selectedYearIndex.intValue == yearIndex)
+                                CustomFont.MONTSERRAT_MEDIUM else CustomFont.MONTSERRAT,
                             fontSize = 26.sp
                         )
                     },
