@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
@@ -21,6 +22,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -32,6 +34,8 @@ import com.example.mycalendar.R
 import com.example.mycalendar.ui.theme.custom.CustomColor
 import com.example.mycalendar.ui.theme.custom.CustomFont
 import com.example.mycalendar.utils.getCurrentYear
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 fun getYearByIndex(yearIndex: Int): String = (1900 + yearIndex).toString()
 
@@ -93,6 +97,8 @@ fun SelectYearDropdownList(
     isExpanded: MutableState<Boolean>,
     selectedYearIndex: MutableIntState
 ) {
+    val lazyListState = rememberLazyListState(selectedYearIndex.intValue)
+    val coroutineScope = rememberCoroutineScope()
     DropdownMenu(
         expanded = isExpanded.value,
         onDismissRequest = {
@@ -103,7 +109,8 @@ fun SelectYearDropdownList(
         LazyColumn(
             modifier = Modifier
                 .height(600.dp)
-                .width(85.dp)
+                .width(85.dp),
+            state = lazyListState
         ) {
             items(201) { yearIndex ->
                 DropdownMenuItem(
@@ -120,6 +127,10 @@ fun SelectYearDropdownList(
                     onClick = {
                         isExpanded.value = false
                         selectedYearIndex.intValue = yearIndex
+                        coroutineScope.launch {
+                            delay(100)
+                            lazyListState.scrollToItem(index = yearIndex)
+                        }
                     }
                 )
             }
