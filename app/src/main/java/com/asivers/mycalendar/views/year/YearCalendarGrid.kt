@@ -140,7 +140,7 @@ fun DayInYearCalendarGrid(
         modifier = modifier,
         text = (dayValue ?: "").toString(),
         fontFamily = CustomFont.MONTSERRAT_BOLD,
-        fontSize = 12.sp,
+        fontSize = 11.sp,
         color = getTextColor(dayValue, monthInfo.holidays, dayOfWeekIndex),
         textAlign = TextAlign.Center,
     )

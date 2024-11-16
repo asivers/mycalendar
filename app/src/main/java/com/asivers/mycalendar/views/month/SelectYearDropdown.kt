@@ -82,7 +82,7 @@ fun SelectYearDropdown(
                 text = getYearByIndex(selectedYearIndex.intValue),
                 color = CustomColor.WHITE,
                 fontFamily = CustomFont.MONTSERRAT_MEDIUM,
-                fontSize = 28.sp
+                fontSize = 26.sp
             )
             SelectYearDropdownList(
                 isExpanded = isExpanded,
@@ -121,7 +121,7 @@ fun SelectYearDropdownList(
                                 CustomColor.MV_GRADIENT_BOTTOM else CustomColor.MYV_GREEN_DAY_HOLIDAY,
                             fontFamily = if (selectedYearIndex.intValue == yearIndex)
                                 CustomFont.MONTSERRAT_MEDIUM else CustomFont.MONTSERRAT,
-                            fontSize = 26.sp
+                            fontSize = 24.sp
                         )
                     },
                     onClick = {

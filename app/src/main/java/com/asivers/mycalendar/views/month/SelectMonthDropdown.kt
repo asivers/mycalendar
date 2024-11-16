@@ -74,7 +74,7 @@ fun SelectMonthDropdown(
                 text = MONTH_NAMES_LIST[selectedMonthIndex.intValue],
                 color = CustomColor.WHITE,
                 fontFamily = CustomFont.MONTSERRAT_BOLD,
-                fontSize = 32.sp
+                fontSize = 26.sp
             )
             SelectMonthDropdownList(
                 isExpanded = isExpanded,
@@ -102,7 +102,7 @@ fun SelectMonthDropdownList(
                         text = monthName,
                         color = CustomColor.MV_GRADIENT_BOTTOM,
                         fontFamily = CustomFont.MONTSERRAT_BOLD,
-                        fontSize = 22.sp
+                        fontSize = 20.sp
                     )
                 },
                 onClick = {
