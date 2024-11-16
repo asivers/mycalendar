@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.mycalendar"
+    namespace = "com.asivers.mycalendar"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.mycalendar"
+        applicationId = "com.asivers.mycalendar"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

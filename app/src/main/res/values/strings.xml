@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mycalendar</string>
+    <string name="app_name">My Calendar</string>
     <string name="mv_monday">Mon</string>
     <string name="mv_tuesday">Tue</string>
     <string name="mv_wednesday">Wed</string>
