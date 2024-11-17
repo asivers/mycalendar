@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
@@ -22,7 +22,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -34,8 +33,6 @@ import com.asivers.mycalendar.R
 import com.asivers.mycalendar.ui.theme.custom.CustomColor
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
 import com.asivers.mycalendar.utils.getCurrentYear
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Preview(showBackground = true)
 @Composable
@@ -96,8 +93,6 @@ fun SelectYearDropdownList(
     isExpanded: MutableState<Boolean>,
     selectedYear: MutableIntState
 ) {
-    val lazyListState = rememberLazyListState(getYearIndex(selectedYear.intValue))
-    val coroutineScope = rememberCoroutineScope()
     DropdownMenu(
         expanded = isExpanded.value,
         onDismissRequest = {
@@ -109,7 +104,7 @@ fun SelectYearDropdownList(
             modifier = Modifier
                 .height(600.dp)
                 .width(85.dp),
-            state = lazyListState
+            state = LazyListState(getYearIndex(selectedYear.intValue))
         ) {
             items(201) { yearIndex ->
                 DropdownMenuItem(
@@ -126,10 +121,6 @@ fun SelectYearDropdownList(
                     onClick = {
                         isExpanded.value = false
                         selectedYear.intValue = getYear(yearIndex)
-                        coroutineScope.launch {
-                            delay(100)
-                            lazyListState.scrollToItem(index = yearIndex)
-                        }
                     }
                 )
             }
