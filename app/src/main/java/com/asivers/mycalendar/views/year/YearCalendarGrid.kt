@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,10 +17,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_1
 import com.asivers.mycalendar.data.HolidaysInfo
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.ui.theme.custom.CustomColor
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -94,10 +97,39 @@ fun MonthInYearCalendarGrid(
     Column(
         modifier = modifier
     ) {
+        Text(
+            text = MONTH_NAMES_LIST[monthIndex],
+            modifier = Modifier.fillMaxWidth(),
+            fontFamily = CustomFont.MONTSERRAT_BOLD,
+            fontSize = 16.sp,
+            color = CustomColor.WHITE,
+            textAlign = TextAlign.Center
+        )
+        HeaderWeekInYearCalendarGrid()
         repeat(6) { weekIndex ->
             WeekInYearCalendarGrid(
                 weekIndex = weekIndex,
                 monthInfo = getMonthInfo(year, monthIndex, holidaysInfo)
+            )
+        }
+    }
+}
+
+@Composable
+fun HeaderWeekInYearCalendarGrid() {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        repeat(7) { dayOfWeekIndex ->
+            Text(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(0.dp, 5.dp),
+                text = DAY_OF_WEEK_NAMES_LIST_1[dayOfWeekIndex],
+                fontFamily = CustomFont.MONTSERRAT,
+                fontSize = 9.sp,
+                color = CustomColor.WHITE,
+                textAlign = TextAlign.Center,
             )
         }
     }

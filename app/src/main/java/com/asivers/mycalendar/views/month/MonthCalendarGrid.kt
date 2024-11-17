@@ -62,7 +62,7 @@ fun MonthCalendarGrid(
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        LabelRowInMonthCalendarGrid()
+        HeaderWeekInMonthCalendarGrid()
         repeat(6) { weekIndex ->
             WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
@@ -73,7 +73,7 @@ fun MonthCalendarGrid(
 }
 
 @Composable
-fun LabelRowInMonthCalendarGrid() {
+fun HeaderWeekInMonthCalendarGrid() {
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
