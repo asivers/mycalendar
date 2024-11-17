@@ -8,6 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +31,7 @@ import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getTextColor
+import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
 @Composable
@@ -37,7 +43,8 @@ fun YearCalendarGridPreview() {
     ) {
         YearCalendarGrid(
             year = getCurrentYear(),
-            monthIndex = getCurrentMonthIndex(),
+            selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
+            showYearView = remember { mutableStateOf(true) },
             holidaysInfo = DEFAULT_HOLIDAYS_INFO
         )
     }
@@ -46,7 +53,8 @@ fun YearCalendarGridPreview() {
 @Composable
 fun YearCalendarGrid(
     year: Int,
-    monthIndex: Int,
+    selectedMonthIndex: MutableIntState,
+    showYearView: MutableState<Boolean>,
     holidaysInfo: HolidaysInfo
 ) {
     Column(
@@ -57,6 +65,8 @@ fun YearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 year = year,
                 threeMonthRowIndex = threeMonthRowIndex,
+                selectedMonthIndex = selectedMonthIndex,
+                showYearView = showYearView,
                 holidaysInfo = holidaysInfo
             )
         }
@@ -68,6 +78,8 @@ fun ThreeMonthsRowInYearCalendarGrid(
     modifier: Modifier,
     year: Int,
     threeMonthRowIndex: Int,
+    selectedMonthIndex: MutableIntState,
+    showYearView: MutableState<Boolean>,
     holidaysInfo: HolidaysInfo
 ) {
     Row(
@@ -77,7 +89,9 @@ fun ThreeMonthsRowInYearCalendarGrid(
             MonthInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 year = year,
-                monthIndex = threeMonthRowIndex * 3 + monthInRowIndex,
+                thisMonthIndex = threeMonthRowIndex * 3 + monthInRowIndex,
+                selectedMonthIndex = selectedMonthIndex,
+                showYearView = showYearView,
                 holidaysInfo = holidaysInfo
             )
         }
@@ -88,14 +102,21 @@ fun ThreeMonthsRowInYearCalendarGrid(
 fun MonthInYearCalendarGrid(
     modifier: Modifier,
     year: Int,
-    monthIndex: Int,
+    thisMonthIndex: Int,
+    selectedMonthIndex: MutableIntState,
+    showYearView: MutableState<Boolean>,
     holidaysInfo: HolidaysInfo
 ) {
     Column(
-        modifier = modifier.padding(7.dp, 5.dp)
+        modifier = modifier
+            .padding(7.dp, 5.dp)
+            .noRippleClickable {
+                selectedMonthIndex.intValue = thisMonthIndex
+                showYearView.value = false
+            }
     ) {
         Text(
-            text = MONTH_NAMES_LIST[monthIndex],
+            text = MONTH_NAMES_LIST[thisMonthIndex],
             modifier = Modifier.padding(2.dp, 0.dp),
             fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = 14.sp,
@@ -108,7 +129,7 @@ fun MonthInYearCalendarGrid(
             WeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
-                monthInfo = getMonthInfo(year, monthIndex, holidaysInfo)
+                monthInfo = getMonthInfo(year, thisMonthIndex, holidaysInfo)
             )
         }
     }

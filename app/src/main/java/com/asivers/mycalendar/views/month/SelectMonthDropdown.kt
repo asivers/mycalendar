@@ -2,7 +2,6 @@ package com.asivers.mycalendar.views.month
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -32,6 +31,7 @@ import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
 import com.asivers.mycalendar.ui.theme.custom.CustomColor
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
+import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
 @Composable
@@ -59,9 +59,7 @@ fun SelectMonthDropdown(
     Row(
         modifier = modifier
             .background(CustomColor.TRANSPARENT)
-            .clickable(interactionSource = null, indication = null) {
-                isExpanded.value = true
-            },
+            .noRippleClickable { isExpanded.value = true },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

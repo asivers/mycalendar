@@ -84,7 +84,8 @@ fun YearViewContent(
         ) {
             YearCalendarGrid(
                 year = selectedYear.intValue,
-                monthIndex = selectedMonthIndex.intValue,
+                selectedMonthIndex = selectedMonthIndex,
+                showYearView = showYearView,
                 holidaysInfo = holidaysInfo
             )
         }

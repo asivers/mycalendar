@@ -1,5 +1,7 @@
 package com.asivers.mycalendar.utils
 
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.asivers.mycalendar.data.HolidaysInfo
 import com.asivers.mycalendar.data.MonthInfo
@@ -47,3 +49,10 @@ fun getTextColor(dayValue: Int?, holidays: Set<Int>, dayOfWeekIndex: Int): Color
 fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
 fun getCurrentMonthIndex(): Int = Calendar.getInstance().get(Calendar.MONTH)
 fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = this.clickable(
+    interactionSource = null,
+    indication = null
+) {
+    onClick()
+}
