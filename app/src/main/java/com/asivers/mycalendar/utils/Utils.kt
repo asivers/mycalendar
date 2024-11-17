@@ -44,6 +44,6 @@ fun getTextColor(dayValue: Int?, holidays: Set<Int>, dayOfWeekIndex: Int): Color
     return CustomColor.WHITE
 }
 
-fun getCurrentYear() = Calendar.getInstance().get(Calendar.YEAR)
-fun getCurrentMonthIndex() = Calendar.getInstance().get(Calendar.MONTH)
-fun getCurrentDayOfMonth() = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
+fun getCurrentMonthIndex(): Int = Calendar.getInstance().get(Calendar.MONTH)
+fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
