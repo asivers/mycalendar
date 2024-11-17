@@ -1,14 +1,10 @@
 package com.asivers.mycalendar.views.year
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,11 +14,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_1
+import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
+import com.asivers.mycalendar.constants.YEAR_VIEW_BACKGROUND_GRADIENT
 import com.asivers.mycalendar.data.HolidaysInfo
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.ui.theme.custom.CustomColor
-import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
-import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -35,7 +32,7 @@ import com.asivers.mycalendar.utils.getTextColor
 fun YearCalendarGridPreview() {
     Box(
         modifier = Modifier
-            .background(color = CustomColor.MV_GRADIENT_BOTTOM)
+            .background(YEAR_VIEW_BACKGROUND_GRADIENT)
             .fillMaxWidth()
     ) {
         YearCalendarGrid(
@@ -53,32 +50,32 @@ fun YearCalendarGrid(
     holidaysInfo: HolidaysInfo
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(15.dp)
+        modifier = Modifier.padding(0.dp, 4.dp),
     ) {
         repeat(4) { threeMonthRowIndex ->
-            ThreeMonthsRowInYearCalendarGrid(year, threeMonthRowIndex, holidaysInfo)
+            ThreeMonthsRowInYearCalendarGrid(
+                modifier = Modifier.weight(1f),
+                year = year,
+                threeMonthRowIndex = threeMonthRowIndex,
+                holidaysInfo = holidaysInfo
+            )
         }
     }
 }
 
 @Composable
 fun ThreeMonthsRowInYearCalendarGrid(
+    modifier: Modifier,
     year: Int,
     threeMonthRowIndex: Int,
     holidaysInfo: HolidaysInfo
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min),
-        horizontalArrangement = Arrangement.spacedBy(15.dp)
+        modifier = modifier.fillMaxWidth()
     ) {
         repeat(3) { monthInRowIndex ->
             MonthInYearCalendarGrid(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 year = year,
                 monthIndex = threeMonthRowIndex * 3 + monthInRowIndex,
                 holidaysInfo = holidaysInfo
@@ -95,19 +92,21 @@ fun MonthInYearCalendarGrid(
     holidaysInfo: HolidaysInfo
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier.padding(7.dp, 5.dp)
     ) {
         Text(
             text = MONTH_NAMES_LIST[monthIndex],
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.padding(2.dp, 0.dp),
             fontFamily = CustomFont.MONTSERRAT_BOLD,
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             color = CustomColor.WHITE,
-            textAlign = TextAlign.Center
         )
-        HeaderWeekInYearCalendarGrid()
+        HeaderWeekInYearCalendarGrid(
+            modifier = Modifier.weight(1f)
+        )
         repeat(6) { weekIndex ->
             WeekInYearCalendarGrid(
+                modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
                 monthInfo = getMonthInfo(year, monthIndex, holidaysInfo)
             )
@@ -116,18 +115,18 @@ fun MonthInYearCalendarGrid(
 }
 
 @Composable
-fun HeaderWeekInYearCalendarGrid() {
+fun HeaderWeekInYearCalendarGrid(
+    modifier: Modifier
+) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         repeat(7) { dayOfWeekIndex ->
             Text(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(0.dp, 5.dp),
+                modifier = Modifier.weight(1f),
                 text = DAY_OF_WEEK_NAMES_LIST_1[dayOfWeekIndex],
                 fontFamily = CustomFont.MONTSERRAT,
-                fontSize = 9.sp,
+                fontSize = 7.sp,
                 color = CustomColor.WHITE,
                 textAlign = TextAlign.Center,
             )
@@ -137,19 +136,16 @@ fun HeaderWeekInYearCalendarGrid() {
 
 @Composable
 fun WeekInYearCalendarGrid(
+    modifier: Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min)
+        modifier = modifier.fillMaxWidth()
     ) {
         repeat(7) { dayOfWeekIndex ->
             DayInYearCalendarGrid(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1f),
+                modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
                 monthInfo = monthInfo
@@ -175,7 +171,7 @@ fun DayInYearCalendarGrid(
         modifier = modifier,
         text = (dayValue ?: "").toString(),
         fontFamily = CustomFont.MONTSERRAT_BOLD,
-        fontSize = 11.sp,
+        fontSize = 9.sp,
         color = getTextColor(dayValue, monthInfo.holidays, dayOfWeekIndex),
         textAlign = TextAlign.Center,
     )
