@@ -40,7 +40,9 @@ class MainActivity : ComponentActivity() {
                             YearViewContent(
                                 modifier = Modifier.padding(0.dp, 50.dp, 0.dp, 0.dp),
                                 selectedYear = selectedYear,
+                                selectedMonthIndex = selectedMonthIndex,
                                 showYearView = showYearView,
+                                yearFromMonthView = selectedYear.intValue,
                                 holidaysInfo = DEFAULT_HOLIDAYS_INFO
                             )
                         } else {

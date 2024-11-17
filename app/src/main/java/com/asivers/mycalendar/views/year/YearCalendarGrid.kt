@@ -21,6 +21,7 @@ import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.ui.theme.custom.CustomColor
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
 import com.asivers.mycalendar.utils.getMonthInfo
@@ -36,6 +37,7 @@ fun YearCalendarGridPreview() {
     ) {
         YearCalendarGrid(
             year = getCurrentYear(),
+            monthIndex = getCurrentMonthIndex(),
             holidaysInfo = DEFAULT_HOLIDAYS_INFO
         )
     }
@@ -44,6 +46,7 @@ fun YearCalendarGridPreview() {
 @Composable
 fun YearCalendarGrid(
     year: Int,
+    monthIndex: Int,
     holidaysInfo: HolidaysInfo
 ) {
     Column(

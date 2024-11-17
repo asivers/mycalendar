@@ -17,9 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.asivers.mycalendar.constants.YEAR_VIEW_BACKGROUND_GRADIENT
 import com.asivers.mycalendar.data.HolidaysInfo
-import com.asivers.mycalendar.ui.theme.custom.CustomColor
+import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
+import com.asivers.mycalendar.views.month.TopDropdownsRow
 
 @Preview(showBackground = true)
 @Composable
@@ -27,7 +29,9 @@ fun YearViewContentPreview() {
     YearViewContent(
         modifier = Modifier,
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
+        selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(true) },
+        yearFromMonthView = getCurrentYear(),
         holidaysInfo = DEFAULT_HOLIDAYS_INFO
     )
 }
@@ -36,14 +40,16 @@ fun YearViewContentPreview() {
 fun YearViewContent(
     modifier: Modifier,
     selectedYear: MutableIntState,
+    selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
+    yearFromMonthView: Int,
     holidaysInfo: HolidaysInfo
 ) {
     var horizontalOffset by remember { mutableFloatStateOf(0f) }
     var verticalOffset by remember { mutableFloatStateOf(0f) }
     Column(
         modifier = modifier
-            .background(color = CustomColor.MV_GRADIENT_BOTTOM)
+            .background(YEAR_VIEW_BACKGROUND_GRADIENT)
             .fillMaxWidth()
             .pointerInput(Unit) {
                 detectDragGestures(
@@ -53,6 +59,7 @@ fun YearViewContent(
                     },
                     onDragEnd = {
                         if (verticalOffset > 100f) {
+                            selectedYear.intValue = yearFromMonthView
                             showYearView.value = false
                         } else if (horizontalOffset > 100f) {
                             selectedYear.intValue--
@@ -66,8 +73,14 @@ fun YearViewContent(
                 }
             }
     ) {
+        TopDropdownsRow(
+            selectedYear = selectedYear,
+            selectedMonthIndex = selectedMonthIndex,
+            showYearView = showYearView.value
+        )
         YearCalendarGrid(
             year = selectedYear.intValue,
+            monthIndex = selectedMonthIndex.intValue,
             holidaysInfo = holidaysInfo
         )
     }

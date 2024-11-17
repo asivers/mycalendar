@@ -66,7 +66,11 @@ fun MonthViewContent(
                 modifier = Modifier.weight(2f),
                 contentAlignment = Alignment.Center
             ) {
-                TopDropdowns(selectedYear = selectedYear, selectedMonthIndex = selectedMonthIndex)
+                TopDropdownsRow(
+                    selectedYear = selectedYear,
+                    selectedMonthIndex = selectedMonthIndex,
+                    showYearView = showYearView.value
+                )
             }
             Box(modifier = Modifier.weight(7f)) {
                 MonthCalendarGrid(

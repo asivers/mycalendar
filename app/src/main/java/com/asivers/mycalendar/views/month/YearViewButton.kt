@@ -70,7 +70,7 @@ fun YearViewButton(
         interactionSource = NO_RIPPLE_INTERACTION_SOURCE
     ) {
         Text(
-            text = "Year View",
+            text = "Year view",
             fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = 24.sp,
             color = CustomColor.WHITE,
