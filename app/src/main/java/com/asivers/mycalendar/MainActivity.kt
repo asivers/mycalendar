@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.MONTH_VIEW_BACKGROUND_GRADIENT
@@ -37,8 +38,10 @@ class MainActivity : ComponentActivity() {
                         val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
                         val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
                         if (showYearView.value) {
+                            val screenHeightDp = LocalConfiguration.current.screenHeightDp
+                            val paddingTopDp = (screenHeightDp - 32) / 16.5
                             YearViewContent(
-                                modifier = Modifier.padding(0.dp, 50.dp, 0.dp, 0.dp),
+                                modifier = Modifier.padding(0.dp, paddingTopDp.dp, 0.dp, 0.dp),
                                 selectedYear = selectedYear,
                                 selectedMonthIndex = selectedMonthIndex,
                                 showYearView = showYearView,
