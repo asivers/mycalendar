@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_3
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.MONTH_VIEW_BACKGROUND_GRADIENT
+import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.ui.theme.custom.CustomColor
@@ -138,6 +139,7 @@ fun DayInMonthCalendarGrid(
         shape = RectangleShape,
         colors = TRANSPARENT_BUTTON_COLORS,
         contentPadding = PaddingValues(0.dp),
+        interactionSource = NO_RIPPLE_INTERACTION_SOURCE
     ) {
         Text(
             text = (dayValue ?: "").toString(),

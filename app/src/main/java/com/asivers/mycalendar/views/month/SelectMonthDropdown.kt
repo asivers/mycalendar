@@ -56,11 +56,11 @@ fun SelectMonthDropdown(
     Row(
         modifier = modifier
             .background(CustomColor.TRANSPARENT)
-            .clickable {
+            .clickable(interactionSource = null, indication = null) {
                 isExpanded.value = true
             },
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         val iconId = if (isExpanded.value) R.drawable.white_arrow_up else R.drawable.white_arrow_down
         Image(
