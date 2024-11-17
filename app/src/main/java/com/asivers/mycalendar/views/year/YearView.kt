@@ -26,7 +26,7 @@ import com.asivers.mycalendar.utils.getCurrentYear
 fun YearViewContentPreview() {
     YearViewContent(
         modifier = Modifier,
-        year = remember { mutableIntStateOf(getCurrentYear()) },
+        selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         showYearView = remember { mutableStateOf(true) },
         holidaysInfo = DEFAULT_HOLIDAYS_INFO
     )
@@ -35,7 +35,7 @@ fun YearViewContentPreview() {
 @Composable
 fun YearViewContent(
     modifier: Modifier,
-    year: MutableIntState,
+    selectedYear: MutableIntState,
     showYearView: MutableState<Boolean>,
     holidaysInfo: HolidaysInfo
 ) {
@@ -55,9 +55,9 @@ fun YearViewContent(
                         if (verticalOffset > 100f) {
                             showYearView.value = false
                         } else if (horizontalOffset > 100f) {
-                            year.intValue++
+                            selectedYear.intValue--
                         } else if (horizontalOffset < -100f) {
-                            year.intValue--
+                            selectedYear.intValue++
                         }
                     }
                 ) { _, dragAmount ->
@@ -67,7 +67,7 @@ fun YearViewContent(
             }
     ) {
         YearCalendarGrid(
-            year = year.intValue,
+            year = selectedYear.intValue,
             holidaysInfo = holidaysInfo
         )
     }

@@ -6,19 +6,30 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.utils.getCurrentMonthIndex
+import com.asivers.mycalendar.utils.getCurrentYear
 
 @Preview
 @Composable
 fun TopDropdownsPreview() {
-    TopDropdowns()
+    TopDropdowns(
+        selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
+        selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
+    )
 }
 
 @Composable
-fun TopDropdowns() {
+fun TopDropdowns(
+    selectedYear: MutableIntState,
+    selectedMonthIndex: MutableIntState
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,11 +37,13 @@ fun TopDropdowns() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         SelectMonthDropdown(
-            modifier = Modifier.wrapContentWidth()
+            modifier = Modifier.wrapContentWidth(),
+            selectedMonthIndex = selectedMonthIndex
         )
         Spacer(modifier = Modifier.weight(1f))
         SelectYearDropdown(
-            modifier = Modifier.wrapContentWidth()
+            modifier = Modifier.wrapContentWidth(),
+            selectedYear = selectedYear
         )
     }
 }

@@ -37,8 +37,6 @@ import com.asivers.mycalendar.utils.getCurrentYear
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-fun getYearByIndex(yearIndex: Int): String = (1900 + yearIndex).toString()
-
 @Preview(showBackground = true)
 @Composable
 fun SelectYearDropdownPreview() {
@@ -47,19 +45,20 @@ fun SelectYearDropdownPreview() {
             .fillMaxSize()
             .background(color = CustomColor.MV_GRADIENT_TOP)
     ) {
-        SelectYearDropdown(modifier = Modifier)
+        SelectYearDropdown(
+            modifier = Modifier,
+            selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
+        )
     }
 }
 
 @Composable
 fun SelectYearDropdown(
-    modifier: Modifier
+    modifier: Modifier,
+    selectedYear: MutableIntState
 ) {
     val isExpanded = remember {
         mutableStateOf(false)
-    }
-    val selectedYearIndex = remember {
-        mutableIntStateOf(getCurrentYear() - 1900)
     }
     Row(
         modifier = modifier
@@ -79,14 +78,14 @@ fun SelectYearDropdown(
         Box {
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
-                text = getYearByIndex(selectedYearIndex.intValue),
+                text = selectedYear.intValue.toString(),
                 color = CustomColor.WHITE,
                 fontFamily = CustomFont.MONTSERRAT_MEDIUM,
                 fontSize = 26.sp
             )
             SelectYearDropdownList(
                 isExpanded = isExpanded,
-                selectedYearIndex = selectedYearIndex,
+                selectedYear = selectedYear,
             )
         }
     }
@@ -95,9 +94,9 @@ fun SelectYearDropdown(
 @Composable
 fun SelectYearDropdownList(
     isExpanded: MutableState<Boolean>,
-    selectedYearIndex: MutableIntState
+    selectedYear: MutableIntState
 ) {
-    val lazyListState = rememberLazyListState(selectedYearIndex.intValue)
+    val lazyListState = rememberLazyListState(getYearIndex(selectedYear.intValue))
     val coroutineScope = rememberCoroutineScope()
     DropdownMenu(
         expanded = isExpanded.value,
@@ -116,17 +115,17 @@ fun SelectYearDropdownList(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            text = getYearByIndex(yearIndex),
-                            color = if (selectedYearIndex.intValue == yearIndex)
+                            text = getYear(yearIndex).toString(),
+                            color = if (selectedYear.intValue == getYear(yearIndex))
                                 CustomColor.MV_GRADIENT_BOTTOM else CustomColor.MYV_GREEN_DAY_HOLIDAY,
-                            fontFamily = if (selectedYearIndex.intValue == yearIndex)
+                            fontFamily = if (selectedYear.intValue == getYear(yearIndex))
                                 CustomFont.MONTSERRAT_MEDIUM else CustomFont.MONTSERRAT,
                             fontSize = 24.sp
                         )
                     },
                     onClick = {
                         isExpanded.value = false
-                        selectedYearIndex.intValue = yearIndex
+                        selectedYear.intValue = getYear(yearIndex)
                         coroutineScope.launch {
                             delay(100)
                             lazyListState.scrollToItem(index = yearIndex)
@@ -137,3 +136,6 @@ fun SelectYearDropdownList(
         }
     }
 }
+
+private fun getYear(yearIndex: Int): Int = yearIndex + 1900
+private fun getYearIndex(year: Int): Int = year - 1900

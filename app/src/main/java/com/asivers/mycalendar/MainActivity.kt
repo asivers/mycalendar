@@ -35,17 +35,18 @@ class MainActivity : ComponentActivity() {
                     ) {
                         val showYearView = remember { mutableStateOf(false) }
                         val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
+                        val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
                         if (showYearView.value) {
                             YearViewContent(
                                 modifier = Modifier.padding(0.dp, 50.dp, 0.dp, 0.dp),
-                                year = selectedYear,
+                                selectedYear = selectedYear,
                                 showYearView = showYearView,
                                 holidaysInfo = DEFAULT_HOLIDAYS_INFO
                             )
                         } else {
                             MonthViewContent(
-                                year = getCurrentYear(),
-                                monthIndex = getCurrentMonthIndex(),
+                                selectedYear = selectedYear,
+                                selectedMonthIndex = selectedMonthIndex,
                                 showYearView = showYearView,
                                 holidaysInfo = DEFAULT_HOLIDAYS_INFO
                             )

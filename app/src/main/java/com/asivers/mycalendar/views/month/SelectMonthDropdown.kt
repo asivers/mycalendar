@@ -39,19 +39,20 @@ fun SelectMonthDropdownPreview() {
             .fillMaxSize()
             .background(color = CustomColor.MV_GRADIENT_TOP)
     ) {
-        SelectMonthDropdown(modifier = Modifier)
+        SelectMonthDropdown(
+            modifier = Modifier,
+            selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
+        )
     }
 }
 
 @Composable
 fun SelectMonthDropdown(
-    modifier: Modifier
+    modifier: Modifier,
+    selectedMonthIndex: MutableIntState
 ) {
     val isExpanded = remember {
         mutableStateOf(false)
-    }
-    val selectedMonthIndex = remember {
-        mutableIntStateOf(getCurrentMonthIndex())
     }
     Row(
         modifier = modifier
