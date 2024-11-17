@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -33,19 +34,20 @@ class MainActivity : ComponentActivity() {
                         .background(brush = MONTH_VIEW_BACKGROUND_GRADIENT)
                     ) {
                         val showYearView = remember { mutableStateOf(false) }
+                        val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
                         if (showYearView.value) {
                             YearViewContent(
                                 modifier = Modifier.padding(0.dp, 50.dp, 0.dp, 0.dp),
-                                year = getCurrentYear(),
-                                holidaysInfo = DEFAULT_HOLIDAYS_INFO,
-                                showYearView = showYearView
+                                year = selectedYear,
+                                showYearView = showYearView,
+                                holidaysInfo = DEFAULT_HOLIDAYS_INFO
                             )
                         } else {
                             MonthViewContent(
                                 year = getCurrentYear(),
                                 monthIndex = getCurrentMonthIndex(),
-                                holidaysInfo = DEFAULT_HOLIDAYS_INFO,
-                                showYearView = showYearView
+                                showYearView = showYearView,
+                                holidaysInfo = DEFAULT_HOLIDAYS_INFO
                             )
                         }
                     }

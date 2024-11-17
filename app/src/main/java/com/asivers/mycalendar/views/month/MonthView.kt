@@ -21,8 +21,8 @@ fun MonthViewContentPreview() {
     MonthViewContent(
         year = getCurrentYear(),
         monthIndex = getCurrentMonthIndex(),
-        holidaysInfo = DEFAULT_HOLIDAYS_INFO,
-        showYearView = remember { mutableStateOf(false) }
+        showYearView = remember { mutableStateOf(false) },
+        holidaysInfo = DEFAULT_HOLIDAYS_INFO
     )
 }
 
@@ -30,8 +30,8 @@ fun MonthViewContentPreview() {
 fun MonthViewContent(
     year: Int,
     monthIndex: Int,
-    holidaysInfo: HolidaysInfo,
-    showYearView: MutableState<Boolean>
+    showYearView: MutableState<Boolean>,
+    holidaysInfo: HolidaysInfo
 ) {
     Column {
         Column(modifier = Modifier.weight(1f)) {

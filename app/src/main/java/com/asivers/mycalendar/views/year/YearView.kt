@@ -1,13 +1,15 @@
 package com.asivers.mycalendar.views.year
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,39 +26,48 @@ import com.asivers.mycalendar.utils.getCurrentYear
 fun YearViewContentPreview() {
     YearViewContent(
         modifier = Modifier,
-        year = getCurrentYear(),
-        holidaysInfo = DEFAULT_HOLIDAYS_INFO,
-        showYearView = remember { mutableStateOf(true) }
+        year = remember { mutableIntStateOf(getCurrentYear()) },
+        showYearView = remember { mutableStateOf(true) },
+        holidaysInfo = DEFAULT_HOLIDAYS_INFO
     )
 }
 
 @Composable
 fun YearViewContent(
     modifier: Modifier,
-    year: Int,
-    holidaysInfo: HolidaysInfo,
-    showYearView: MutableState<Boolean>
+    year: MutableIntState,
+    showYearView: MutableState<Boolean>,
+    holidaysInfo: HolidaysInfo
 ) {
-    var offset by remember { mutableFloatStateOf(0f) }
+    var horizontalOffset by remember { mutableFloatStateOf(0f) }
+    var verticalOffset by remember { mutableFloatStateOf(0f) }
     Column(
         modifier = modifier
             .background(color = CustomColor.MV_GRADIENT_BOTTOM)
             .fillMaxWidth()
             .pointerInput(Unit) {
-                detectVerticalDragGestures(
-                    onDragStart = { offset = 0f },
+                detectDragGestures(
+                    onDragStart = {
+                        horizontalOffset = 0f
+                        verticalOffset = 0f
+                    },
                     onDragEnd = {
-                        if (offset > 20f) {
+                        if (verticalOffset > 100f) {
                             showYearView.value = false
+                        } else if (horizontalOffset > 100f) {
+                            year.intValue++
+                        } else if (horizontalOffset < -100f) {
+                            year.intValue--
                         }
                     }
                 ) { _, dragAmount ->
-                    offset += dragAmount
+                    horizontalOffset += dragAmount.x
+                    verticalOffset += dragAmount.y
                 }
             }
     ) {
         YearCalendarGrid(
-            year = year,
+            year = year.intValue,
             holidaysInfo = holidaysInfo
         )
     }
