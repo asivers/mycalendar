@@ -37,7 +37,7 @@ fun YearViewContentPreview() {
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(true) },
-        yearFromMonthView = getCurrentYear(),
+        lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
         holidaysInfo = DEFAULT_HOLIDAYS_INFO
     )
 }
@@ -48,7 +48,7 @@ fun YearViewContent(
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
-    yearFromMonthView: Int,
+    lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo
 ) {
     var horizontalOffset by remember { mutableFloatStateOf(0f) }
@@ -66,7 +66,7 @@ fun YearViewContent(
                     },
                     onDragEnd = {
                         if (verticalOffset > 100f) {
-                            selectedYear.intValue = yearFromMonthView
+                            selectedYear.intValue = lastSelectedYearFromMonthView.intValue
                             showYearView.value = false
                         } else if (horizontalOffset > 100f) {
                             selectedYear.intValue--
@@ -90,9 +90,10 @@ fun YearViewContent(
             modifier = Modifier.weight(1f)
         ) {
             YearCalendarGrid(
-                year = selectedYear.intValue,
+                thisYear = selectedYear.intValue,
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
+                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 holidaysInfo = holidaysInfo
             )
         }

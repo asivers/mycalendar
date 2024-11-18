@@ -42,9 +42,10 @@ fun YearCalendarGridPreview() {
             .fillMaxWidth()
     ) {
         YearCalendarGrid(
-            year = getCurrentYear(),
+            thisYear = getCurrentYear(),
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
             showYearView = remember { mutableStateOf(true) },
+            lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
             holidaysInfo = DEFAULT_HOLIDAYS_INFO
         )
     }
@@ -52,9 +53,10 @@ fun YearCalendarGridPreview() {
 
 @Composable
 fun YearCalendarGrid(
-    year: Int,
+    thisYear: Int,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
+    lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo
 ) {
     Column(
@@ -63,10 +65,11 @@ fun YearCalendarGrid(
         repeat(4) { threeMonthRowIndex ->
             ThreeMonthsRowInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
-                year = year,
+                thisYear = thisYear,
                 threeMonthRowIndex = threeMonthRowIndex,
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
+                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 holidaysInfo = holidaysInfo
             )
         }
@@ -76,10 +79,11 @@ fun YearCalendarGrid(
 @Composable
 fun ThreeMonthsRowInYearCalendarGrid(
     modifier: Modifier,
-    year: Int,
+    thisYear: Int,
     threeMonthRowIndex: Int,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
+    lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo
 ) {
     Row(
@@ -88,10 +92,11 @@ fun ThreeMonthsRowInYearCalendarGrid(
         repeat(3) { monthInRowIndex ->
             MonthInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
-                year = year,
+                thisYear = thisYear,
                 thisMonthIndex = threeMonthRowIndex * 3 + monthInRowIndex,
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
+                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 holidaysInfo = holidaysInfo
             )
         }
@@ -101,14 +106,20 @@ fun ThreeMonthsRowInYearCalendarGrid(
 @Composable
 fun MonthInYearCalendarGrid(
     modifier: Modifier,
-    year: Int,
+    thisYear: Int,
     thisMonthIndex: Int,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
+    lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo
 ) {
+    val isLastSelectedMonth = thisYear == lastSelectedYearFromMonthView.intValue
+            && thisMonthIndex == selectedMonthIndex.intValue
+    val background = if (isLastSelectedMonth)
+        CustomColor.YV_LAST_SELECTED_MONTH else CustomColor.TRANSPARENT
     Column(
         modifier = modifier
+            .background(background)
             .padding(7.dp, 5.dp)
             .noRippleClickable {
                 selectedMonthIndex.intValue = thisMonthIndex
@@ -129,7 +140,7 @@ fun MonthInYearCalendarGrid(
             WeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
-                monthInfo = getMonthInfo(year, thisMonthIndex, holidaysInfo)
+                monthInfo = getMonthInfo(thisYear, thisMonthIndex, holidaysInfo)
             )
         }
     }

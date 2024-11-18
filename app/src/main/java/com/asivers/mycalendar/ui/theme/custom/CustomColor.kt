@@ -17,6 +17,6 @@ value class CustomColor(val value: ULong) {
         @Stable val YV_GRADIENT_TOP = Color(0xFF91D600)
         @Stable val YV_GRADIENT_CENTER = Color(0xFF5CA013)
         @Stable val YV_GRADIENT_BOTTOM = Color(0xFF337623)
-        @Stable val YV_CURRENT_MONTH = Color(0xFF5DA493)
+        @Stable val YV_LAST_SELECTED_MONTH = Color(0xFF5DA493)
     }
 }

@@ -34,9 +34,10 @@ class MainActivity : ComponentActivity() {
                         .padding(innerPadding)
                         .background(brush = MONTH_VIEW_BACKGROUND_GRADIENT)
                     ) {
-                        val showYearView = remember { mutableStateOf(false) }
                         val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
                         val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
+                        val showYearView = remember { mutableStateOf(false) }
+                        val lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
                         if (showYearView.value) {
                             val screenHeightDp = LocalConfiguration.current.screenHeightDp
                             val paddingTopDp = (screenHeightDp - 32) / 16.5
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
                                 selectedYear = selectedYear,
                                 selectedMonthIndex = selectedMonthIndex,
                                 showYearView = showYearView,
-                                yearFromMonthView = selectedYear.intValue,
+                                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                                 holidaysInfo = DEFAULT_HOLIDAYS_INFO
                             )
                         } else {
