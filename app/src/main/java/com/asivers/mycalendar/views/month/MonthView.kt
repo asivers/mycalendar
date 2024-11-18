@@ -94,6 +94,7 @@ private fun previousMonth(
     lastSelectedYearFromMonthView: MutableIntState
 ) {
     if (selectedMonthIndex.intValue == 0) {
+        if (selectedYear.intValue == 1900) return
         selectedMonthIndex.intValue = 11
         selectedYear.intValue--
         lastSelectedYearFromMonthView.intValue--
@@ -108,6 +109,7 @@ private fun nextMonth(
     lastSelectedYearFromMonthView: MutableIntState
 ) {
     if (selectedMonthIndex.intValue == 11) {
+        if (selectedYear.intValue == 2100) return
         selectedMonthIndex.intValue = 0
         selectedYear.intValue++
         lastSelectedYearFromMonthView.intValue++
