@@ -132,6 +132,7 @@ fun MonthInYearCalendarGrid(
             .padding(4.dp, 0.dp)
             .noRippleClickable {
                 selectedMonthIndex.intValue = thisMonthIndex
+                lastSelectedYearFromMonthView.intValue = thisYear
                 showYearView.value = false
             }
     ) {
