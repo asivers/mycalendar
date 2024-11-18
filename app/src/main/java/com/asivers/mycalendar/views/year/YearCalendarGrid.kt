@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
@@ -14,6 +16,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_1
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
+import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
 import com.asivers.mycalendar.constants.YEAR_VIEW_BACKGROUND_GRADIENT
 import com.asivers.mycalendar.data.HolidaysInfo
 import com.asivers.mycalendar.data.MonthInfo
@@ -128,7 +133,7 @@ fun MonthInYearCalendarGrid(
     ) {
         Text(
             text = MONTH_NAMES_LIST[thisMonthIndex],
-            modifier = Modifier.padding(2.dp, 0.dp),
+            modifier = Modifier.padding(3.dp, 0.dp),
             fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = 14.sp,
             color = CustomColor.WHITE,
@@ -199,12 +204,17 @@ fun DayInYearCalendarGrid(
         monthInfo.numberOfDays,
         monthInfo.dayOfWeekOf1st
     )
+    val today = dayValue !== null && dayValue === monthInfo.today
     Text(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxSize()
+            .drawBehind { if (today) drawCircle(CustomColor.WHITE, style = Stroke(width = 3f)) }
+            .wrapContentHeight(),
         text = (dayValue ?: "").toString(),
         fontFamily = CustomFont.MONTSERRAT_BOLD,
         fontSize = 9.sp,
         color = getTextColor(dayValue, monthInfo.holidays, dayOfWeekIndex),
         textAlign = TextAlign.Center,
+        style = NO_PADDING_TEXT_STYLE
     )
 }

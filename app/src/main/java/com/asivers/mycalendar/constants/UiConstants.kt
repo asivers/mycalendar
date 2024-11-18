@@ -4,6 +4,8 @@ import androidx.compose.foundation.interaction.Interaction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.ButtonColors
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import com.asivers.mycalendar.ui.theme.custom.CustomColor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
@@ -13,6 +15,12 @@ val TRANSPARENT_BUTTON_COLORS: ButtonColors = ButtonColors(
     CustomColor.TRANSPARENT,
     CustomColor.TRANSPARENT,
     CustomColor.TRANSPARENT
+)
+
+val NO_PADDING_TEXT_STYLE: TextStyle = TextStyle(
+    platformStyle = PlatformTextStyle(
+        includeFontPadding = false
+    )
 )
 
 val MONTH_VIEW_BACKGROUND_GRADIENT: Brush = Brush.verticalGradient(

@@ -132,9 +132,7 @@ fun DayInMonthCalendarGrid(
     val today = dayValue !== null && dayValue === monthInfo.today
     Button(
         modifier = modifier
-            .drawBehind {
-                if (today) drawCircle(CustomColor.WHITE, style = Stroke(width = 4f))
-            },
+            .drawBehind { if (today) drawCircle(CustomColor.WHITE, style = Stroke(width = 4f)) },
         onClick = {},
         shape = RectangleShape,
         colors = TRANSPARENT_BUTTON_COLORS,
