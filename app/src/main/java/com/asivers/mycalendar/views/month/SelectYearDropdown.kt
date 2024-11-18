@@ -47,7 +47,9 @@ fun SelectYearDropdownPreview() {
     ) {
         SelectYearDropdown(
             modifier = Modifier,
-            selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
+            selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
+            showYearView = false,
+            lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
         )
     }
 }
@@ -55,7 +57,9 @@ fun SelectYearDropdownPreview() {
 @Composable
 fun SelectYearDropdown(
     modifier: Modifier,
-    selectedYear: MutableIntState
+    selectedYear: MutableIntState,
+    showYearView: Boolean,
+    lastSelectedYearFromMonthView: MutableIntState
 ) {
     val isExpanded = remember {
         mutableStateOf(false)
@@ -83,6 +87,8 @@ fun SelectYearDropdown(
             SelectYearDropdownList(
                 isExpanded = isExpanded,
                 selectedYear = selectedYear,
+                showYearView = showYearView,
+                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
             )
         }
     }
@@ -91,7 +97,9 @@ fun SelectYearDropdown(
 @Composable
 fun SelectYearDropdownList(
     isExpanded: MutableState<Boolean>,
-    selectedYear: MutableIntState
+    selectedYear: MutableIntState,
+    showYearView: Boolean,
+    lastSelectedYearFromMonthView: MutableIntState
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
     val itemHeightDp = (screenHeightDp - 32) / 18
@@ -124,7 +132,9 @@ fun SelectYearDropdownList(
                     },
                     onClick = {
                         isExpanded.value = false
-                        selectedYear.intValue = getYear(yearIndex)
+                        val selectedYearVal = getYear(yearIndex)
+                        selectedYear.intValue = selectedYearVal
+                        if (!showYearView) lastSelectedYearFromMonthView.intValue = selectedYearVal
                     },
                     modifier = Modifier.height(itemHeightDp.dp),
                     contentPadding = PaddingValues(0.dp)

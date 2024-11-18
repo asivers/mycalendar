@@ -54,6 +54,7 @@ class MainActivity : ComponentActivity() {
                                 selectedYear = selectedYear,
                                 selectedMonthIndex = selectedMonthIndex,
                                 showYearView = showYearView,
+                                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                                 holidaysInfo = DEFAULT_HOLIDAYS_INFO
                             )
                         }

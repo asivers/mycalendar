@@ -29,6 +29,7 @@ fun MonthViewContentPreview() {
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(false) },
+        lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
         holidaysInfo = DEFAULT_HOLIDAYS_INFO
     )
 }
@@ -38,6 +39,7 @@ fun MonthViewContent(
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
+    lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo
 ) {
     Column {
@@ -52,9 +54,11 @@ fun MonthViewContent(
                         },
                         onDragEnd = {
                             if (horizontalOffset > 100f) {
-                                previousMonth(selectedYear, selectedMonthIndex)
+                                previousMonth(selectedYear, selectedMonthIndex,
+                                    lastSelectedYearFromMonthView)
                             } else if (horizontalOffset < -100f) {
-                                nextMonth(selectedYear, selectedMonthIndex)
+                                nextMonth(selectedYear, selectedMonthIndex,
+                                    lastSelectedYearFromMonthView)
                             }
                         }
                     ) { _, dragAmount ->
@@ -69,7 +73,8 @@ fun MonthViewContent(
                 TopDropdownsRow(
                     selectedYear = selectedYear,
                     selectedMonthIndex = selectedMonthIndex,
-                    showYearView = showYearView.value
+                    showYearView = showYearView.value,
+                    lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
                 )
             }
             Box(modifier = Modifier.weight(7f)) {
@@ -83,19 +88,29 @@ fun MonthViewContent(
     }
 }
 
-private fun previousMonth(selectedYear: MutableIntState, selectedMonthIndex: MutableIntState) {
+private fun previousMonth(
+    selectedYear: MutableIntState,
+    selectedMonthIndex: MutableIntState,
+    lastSelectedYearFromMonthView: MutableIntState
+) {
     if (selectedMonthIndex.intValue == 0) {
         selectedMonthIndex.intValue = 11
         selectedYear.intValue--
+        lastSelectedYearFromMonthView.intValue--
     } else {
         selectedMonthIndex.intValue--
     }
 }
 
-private fun nextMonth(selectedYear: MutableIntState, selectedMonthIndex: MutableIntState) {
+private fun nextMonth(
+    selectedYear: MutableIntState,
+    selectedMonthIndex: MutableIntState,
+    lastSelectedYearFromMonthView: MutableIntState
+) {
     if (selectedMonthIndex.intValue == 11) {
         selectedMonthIndex.intValue = 0
         selectedYear.intValue++
+        lastSelectedYearFromMonthView.intValue++
     } else {
         selectedMonthIndex.intValue++
     }

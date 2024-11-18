@@ -84,7 +84,8 @@ fun YearViewContent(
         TopDropdownsRow(
             selectedYear = selectedYear,
             selectedMonthIndex = selectedMonthIndex,
-            showYearView = showYearView.value
+            showYearView = showYearView.value,
+            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
         )
         Box(
             modifier = Modifier.weight(1f)

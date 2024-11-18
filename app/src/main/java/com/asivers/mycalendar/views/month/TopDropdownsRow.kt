@@ -26,7 +26,8 @@ fun TopDropdownsRowPreview() {
     TopDropdownsRow(
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
-        showYearView = false
+        showYearView = false,
+        lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
     )
 }
 
@@ -34,7 +35,8 @@ fun TopDropdownsRowPreview() {
 fun TopDropdownsRow(
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
-    showYearView: Boolean
+    showYearView: Boolean,
+    lastSelectedYearFromMonthView: MutableIntState,
 ) {
     Row(
         modifier = Modifier
@@ -58,7 +60,9 @@ fun TopDropdownsRow(
         Spacer(modifier = Modifier.weight(1f))
         SelectYearDropdown(
             modifier = Modifier.wrapContentWidth(),
-            selectedYear = selectedYear
+            selectedYear = selectedYear,
+            showYearView = showYearView,
+            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
         )
     }
 }
