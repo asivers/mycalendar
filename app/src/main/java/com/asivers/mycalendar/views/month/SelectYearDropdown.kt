@@ -77,7 +77,7 @@ fun SelectYearDropdown(
             contentDescription = "DropDown Icon"
         )
         Spacer(modifier = Modifier.width(10.dp))
-        Box {
+        Box(modifier = Modifier.width(70.dp)) {
             Text(
                 text = selectedYear.intValue.toString(),
                 color = CustomColor.WHITE,
