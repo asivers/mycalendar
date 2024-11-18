@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
@@ -16,6 +17,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
@@ -124,8 +126,10 @@ fun MonthInYearCalendarGrid(
         CustomColor.YV_LAST_SELECTED_MONTH else CustomColor.TRANSPARENT
     Column(
         modifier = modifier
+            .padding(3.dp, 5.dp)
+            .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .background(background)
-            .padding(7.dp, 5.dp)
+            .padding(4.dp, 0.dp)
             .noRippleClickable {
                 selectedMonthIndex.intValue = thisMonthIndex
                 showYearView.value = false
