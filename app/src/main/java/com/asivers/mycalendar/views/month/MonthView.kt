@@ -53,10 +53,10 @@ fun MonthViewContent(
                             horizontalOffset = 0f
                         },
                         onDragEnd = {
-                            if (horizontalOffset > 100f) {
+                            if (horizontalOffset > 50f) {
                                 previousMonth(selectedYear, selectedMonthIndex,
                                     lastSelectedYearFromMonthView)
-                            } else if (horizontalOffset < -100f) {
+                            } else if (horizontalOffset < -50f) {
                                 nextMonth(selectedYear, selectedMonthIndex,
                                     lastSelectedYearFromMonthView)
                             }

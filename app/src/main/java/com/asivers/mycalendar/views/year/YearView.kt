@@ -68,9 +68,9 @@ fun YearViewContent(
                         if (verticalOffset > 100f) {
                             selectedYear.intValue = lastSelectedYearFromMonthView.intValue
                             showYearView.value = false
-                        } else if (horizontalOffset > 100f && selectedYear.intValue > 1900) {
+                        } else if (horizontalOffset > 50f && selectedYear.intValue > 1900) {
                             selectedYear.intValue--
-                        } else if (horizontalOffset < -100f && selectedYear.intValue < 2100) {
+                        } else if (horizontalOffset < -50f && selectedYear.intValue < 2100) {
                             selectedYear.intValue++
                         }
                     }
