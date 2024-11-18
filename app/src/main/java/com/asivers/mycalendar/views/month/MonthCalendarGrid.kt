@@ -60,7 +60,9 @@ fun MonthCalendarGrid(
     monthInfo: MonthInfo
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(3.dp, 0.dp)
     ) {
         HeaderWeekInMonthCalendarGrid()
         repeat(6) { weekIndex ->
@@ -86,7 +88,7 @@ fun HeaderWeekInMonthCalendarGrid() {
                 fontFamily = CustomFont.MONTSERRAT,
                 fontSize = 12.sp,
                 color = CustomColor.WHITE,
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -144,7 +146,7 @@ fun DayInMonthCalendarGrid(
             fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = 24.sp,
             color = getTextColor(dayValue, monthInfo.holidays, dayOfWeekIndex),
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Center
         )
     }
 }
