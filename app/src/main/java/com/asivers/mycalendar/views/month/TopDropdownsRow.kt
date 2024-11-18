@@ -41,7 +41,7 @@ fun TopDropdownsRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp, 8.dp),
+            .padding(18.dp, 8.dp, 16.dp, 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (showYearView) {
