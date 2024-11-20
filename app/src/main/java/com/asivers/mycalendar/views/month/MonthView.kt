@@ -18,29 +18,34 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.data.HolidaysInfo
+import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
+import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getMonthInfo
 
 @Preview(showBackground = true)
 @Composable
-fun MonthViewContentPreview() {
-    MonthViewContent(
+fun MonthViewPreview() {
+    MonthView(
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(false) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-        holidaysInfo = DEFAULT_HOLIDAYS_INFO
+        holidaysInfo = DEFAULT_HOLIDAYS_INFO,
+        colorScheme = summerColorScheme
     )
 }
 
 @Composable
-fun MonthViewContent(
+fun MonthView(
+    // todo add modifier to every compose function
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysInfo: HolidaysInfo
+    holidaysInfo: HolidaysInfo,
+    colorScheme: CustomColorScheme
 ) {
     Column {
         var horizontalOffset by remember { mutableFloatStateOf(0f) }
@@ -74,17 +79,22 @@ fun MonthViewContent(
                     selectedYear = selectedYear,
                     selectedMonthIndex = selectedMonthIndex,
                     showYearView = showYearView.value,
-                    lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
+                    lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                    colorScheme = colorScheme
                 )
             }
             Box(modifier = Modifier.weight(7f)) {
                 MonthCalendarGrid(
                     monthInfo = getMonthInfo(
-                        selectedYear.intValue, selectedMonthIndex.intValue, holidaysInfo)
+                        selectedYear.intValue, selectedMonthIndex.intValue, holidaysInfo),
+                    colorScheme = colorScheme
                 )
             }
         }
-        YearViewButton(showYearView = showYearView)
+        YearViewButton(
+            showYearView = showYearView,
+            colorScheme = colorScheme
+        )
     }
 }
 

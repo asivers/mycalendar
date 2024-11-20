@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,20 +25,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
-import com.asivers.mycalendar.ui.theme.custom.CustomColor
+import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 
 @Preview
 @Composable
 fun YearViewButtonPreview() {
     YearViewButton(
-        showYearView = remember { mutableStateOf(false) }
+        showYearView = remember { mutableStateOf(false) },
+        colorScheme = summerColorScheme
     )
 }
 
 @Composable
 fun YearViewButton(
-    showYearView: MutableState<Boolean>
+    showYearView: MutableState<Boolean>,
+    colorScheme: CustomColorScheme
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
     Button(
@@ -48,8 +52,8 @@ fun YearViewButton(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        CustomColor.MV_GRADIENT_YEAR_VIEW_BUTTON_TOP,
-                        CustomColor.MV_GRADIENT_YEAR_VIEW_BUTTON_BOTTOM
+                        colorScheme.mvBtnLight,
+                        colorScheme.mvBtnDark
                     )
                 )
             )
@@ -73,7 +77,7 @@ fun YearViewButton(
             text = "Year view",
             fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = 24.sp,
-            color = CustomColor.WHITE,
+            color = Color.White,
             textAlign = TextAlign.Center
         )
     }

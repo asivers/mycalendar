@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,8 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
-import com.asivers.mycalendar.ui.theme.custom.CustomColor
+import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.noRippleClickable
 
@@ -39,11 +41,12 @@ fun SelectMonthDropdownPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = CustomColor.MV_GRADIENT_TOP)
+            .background(color = summerColorScheme.mvLight)
     ) {
         SelectMonthDropdown(
             modifier = Modifier,
-            selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
+            selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
+            colorScheme = summerColorScheme
         )
     }
 }
@@ -51,14 +54,15 @@ fun SelectMonthDropdownPreview() {
 @Composable
 fun SelectMonthDropdown(
     modifier: Modifier,
-    selectedMonthIndex: MutableIntState
+    selectedMonthIndex: MutableIntState,
+    colorScheme: CustomColorScheme
 ) {
     val isExpanded = remember {
         mutableStateOf(false)
     }
     Row(
         modifier = modifier
-            .background(CustomColor.TRANSPARENT)
+            .background(Color.Transparent)
             .noRippleClickable { isExpanded.value = true },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -73,13 +77,14 @@ fun SelectMonthDropdown(
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
                 text = MONTH_NAMES_LIST[selectedMonthIndex.intValue],
-                color = CustomColor.WHITE,
+                color = Color.White,
                 fontFamily = CustomFont.MONTSERRAT_BOLD,
                 fontSize = 26.sp
             )
             SelectMonthDropdownList(
                 isExpanded = isExpanded,
-                selectedMonthIndex = selectedMonthIndex
+                selectedMonthIndex = selectedMonthIndex,
+                colorScheme = colorScheme
             )
         }
     }
@@ -88,7 +93,8 @@ fun SelectMonthDropdown(
 @Composable
 fun SelectMonthDropdownList(
     isExpanded: MutableState<Boolean>,
-    selectedMonthIndex: MutableIntState
+    selectedMonthIndex: MutableIntState,
+    colorScheme: CustomColorScheme
 ) {
     DropdownMenu(
         expanded = isExpanded.value,
@@ -103,7 +109,7 @@ fun SelectMonthDropdownList(
                 text = {
                     Text(
                         text = monthName,
-                        color = CustomColor.MV_GRADIENT_BOTTOM,
+                        color = colorScheme.myvDark,
                         fontFamily = CustomFont.MONTSERRAT_BOLD,
                         fontSize = 20.sp
                     )

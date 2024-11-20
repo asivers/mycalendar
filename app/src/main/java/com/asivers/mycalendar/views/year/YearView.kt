@@ -23,33 +23,37 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
-import com.asivers.mycalendar.constants.YEAR_VIEW_BACKGROUND_GRADIENT
 import com.asivers.mycalendar.data.HolidaysInfo
+import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
+import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
+import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 import com.asivers.mycalendar.views.month.TopDropdownsRow
 
 @Preview(showBackground = true)
 @Composable
-fun YearViewContentPreview() {
-    YearViewContent(
+fun YearViewPreview() {
+    YearView(
         modifier = Modifier,
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(true) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-        holidaysInfo = DEFAULT_HOLIDAYS_INFO
+        holidaysInfo = DEFAULT_HOLIDAYS_INFO,
+        colorScheme = summerColorScheme
     )
 }
 
 @Composable
-fun YearViewContent(
+fun YearView(
     modifier: Modifier,
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysInfo: HolidaysInfo
+    holidaysInfo: HolidaysInfo,
+    colorScheme: CustomColorScheme
 ) {
     var horizontalOffset by remember { mutableFloatStateOf(0f) }
     var verticalOffset by remember { mutableFloatStateOf(0f) }
@@ -57,7 +61,7 @@ fun YearViewContent(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(36.dp, 36.dp))
-            .background(YEAR_VIEW_BACKGROUND_GRADIENT)
+            .background(getYearViewBackgroundGradient(colorScheme))
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDragStart = {
@@ -85,7 +89,8 @@ fun YearViewContent(
             selectedYear = selectedYear,
             selectedMonthIndex = selectedMonthIndex,
             showYearView = showYearView.value,
-            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
+            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+            colorScheme = colorScheme
         )
         Box(
             modifier = Modifier.weight(1f)
@@ -95,7 +100,8 @@ fun YearViewContent(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                holidaysInfo = holidaysInfo
+                holidaysInfo = holidaysInfo,
+                colorScheme = colorScheme
             )
         }
     }

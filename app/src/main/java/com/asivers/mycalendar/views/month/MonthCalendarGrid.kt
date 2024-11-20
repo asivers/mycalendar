@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
@@ -23,17 +24,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_3
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
-import com.asivers.mycalendar.constants.MONTH_VIEW_BACKGROUND_GRADIENT
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.MonthInfo
-import com.asivers.mycalendar.ui.theme.custom.CustomColor
+import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
 import com.asivers.mycalendar.utils.getMonthInfo
-import com.asivers.mycalendar.utils.getTextColor
+import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
+import com.asivers.mycalendar.utils.isHoliday
 
 @Preview(showBackground = true)
 @Composable
@@ -41,7 +43,7 @@ fun MonthCalendarGridPreview() {
     Box(
         modifier = Modifier
             .background(
-                brush = MONTH_VIEW_BACKGROUND_GRADIENT
+                brush = getMonthViewBackgroundGradient(summerColorScheme)
             )
             .fillMaxWidth()
     ) {
@@ -50,14 +52,16 @@ fun MonthCalendarGridPreview() {
                 getCurrentYear(),
                 getCurrentMonthIndex(),
                 DEFAULT_HOLIDAYS_INFO
-            )
+            ),
+            colorScheme = summerColorScheme
         )
     }
 }
 
 @Composable
 fun MonthCalendarGrid(
-    monthInfo: MonthInfo
+    monthInfo: MonthInfo,
+    colorScheme: CustomColorScheme
 ) {
     Column(
         modifier = Modifier
@@ -68,7 +72,8 @@ fun MonthCalendarGrid(
         repeat(6) { weekIndex ->
             WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
-                monthInfo = monthInfo
+                monthInfo = monthInfo,
+                colorScheme = colorScheme
             )
         }
     }
@@ -87,7 +92,7 @@ fun HeaderWeekInMonthCalendarGrid() {
                 text = DAY_OF_WEEK_NAMES_LIST_3[dayOfWeekIndex],
                 fontFamily = CustomFont.MONTSERRAT,
                 fontSize = 12.sp,
-                color = CustomColor.WHITE,
+                color = Color.White,
                 textAlign = TextAlign.Center
             )
         }
@@ -97,7 +102,8 @@ fun HeaderWeekInMonthCalendarGrid() {
 @Composable
 fun WeekInMonthCalendarGrid(
     weekIndex: Int,
-    monthInfo: MonthInfo
+    monthInfo: MonthInfo,
+    colorScheme: CustomColorScheme
 ) {
     Row(
         modifier = Modifier
@@ -112,7 +118,8 @@ fun WeekInMonthCalendarGrid(
                     .weight(1f),
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
-                monthInfo = monthInfo
+                monthInfo = monthInfo,
+                colorScheme = colorScheme
             )
         }
     }
@@ -123,7 +130,8 @@ fun DayInMonthCalendarGrid(
     modifier: Modifier,
     weekIndex: Int,
     dayOfWeekIndex: Int,
-    monthInfo: MonthInfo
+    monthInfo: MonthInfo,
+    colorScheme: CustomColorScheme
 ) {
     val dayValue = getDayValueForMonthTableElement(
         weekIndex,
@@ -132,9 +140,10 @@ fun DayInMonthCalendarGrid(
         monthInfo.dayOfWeekOf1st
     )
     val today = dayValue !== null && dayValue === monthInfo.today
+    val holiday = isHoliday(dayValue, dayOfWeekIndex, monthInfo.holidays)
     Button(
         modifier = modifier
-            .drawBehind { if (today) drawCircle(CustomColor.WHITE, style = Stroke(width = 4f)) },
+            .drawBehind { if (today) drawCircle(Color.White, style = Stroke(width = 4f)) },
         onClick = {},
         shape = RectangleShape,
         colors = TRANSPARENT_BUTTON_COLORS,
@@ -145,7 +154,7 @@ fun DayInMonthCalendarGrid(
             text = (dayValue ?: "").toString(),
             fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = 24.sp,
-            color = getTextColor(dayValue, monthInfo.holidays, dayOfWeekIndex),
+            color = if (holiday) colorScheme.mvBtnLight else Color.White,
             textAlign = TextAlign.Center
         )
     }

@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -32,8 +33,9 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.R
-import com.asivers.mycalendar.ui.theme.custom.CustomColor
+import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.noRippleClickable
 
@@ -43,13 +45,14 @@ fun SelectYearDropdownPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = CustomColor.MV_GRADIENT_TOP)
+            .background(color = summerColorScheme.mvLight)
     ) {
         SelectYearDropdown(
             modifier = Modifier,
             selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
             showYearView = false,
-            lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
+            lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
+            colorScheme = summerColorScheme
         )
     }
 }
@@ -59,14 +62,15 @@ fun SelectYearDropdown(
     modifier: Modifier,
     selectedYear: MutableIntState,
     showYearView: Boolean,
-    lastSelectedYearFromMonthView: MutableIntState
+    lastSelectedYearFromMonthView: MutableIntState,
+    colorScheme: CustomColorScheme
 ) {
     val isExpanded = remember {
         mutableStateOf(false)
     }
     Row(
         modifier = modifier
-            .background(CustomColor.TRANSPARENT)
+            .background(Color.Transparent)
             .noRippleClickable { isExpanded.value = true },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -80,7 +84,7 @@ fun SelectYearDropdown(
         Box(modifier = Modifier.width(70.dp)) {
             Text(
                 text = selectedYear.intValue.toString(),
-                color = CustomColor.WHITE,
+                color = Color.White,
                 fontFamily = CustomFont.MONTSERRAT_MEDIUM,
                 fontSize = 26.sp
             )
@@ -88,7 +92,8 @@ fun SelectYearDropdown(
                 isExpanded = isExpanded,
                 selectedYear = selectedYear,
                 showYearView = showYearView,
-                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
+                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                colorScheme = colorScheme
             )
         }
     }
@@ -99,7 +104,8 @@ fun SelectYearDropdownList(
     isExpanded: MutableState<Boolean>,
     selectedYear: MutableIntState,
     showYearView: Boolean,
-    lastSelectedYearFromMonthView: MutableIntState
+    lastSelectedYearFromMonthView: MutableIntState,
+    colorScheme: CustomColorScheme
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
     val itemHeightDp = (screenHeightDp - 32) / 18
@@ -123,7 +129,7 @@ fun SelectYearDropdownList(
                             text = getYear(yearIndex).toString(),
                             modifier = Modifier.fillMaxWidth(),
                             color = if (selectedYear.intValue == getYear(yearIndex))
-                                CustomColor.MV_GRADIENT_BOTTOM else CustomColor.MYV_GREEN_DAY_HOLIDAY,
+                                colorScheme.myvDark else colorScheme.mvBtnLight,
                             fontFamily = if (selectedYear.intValue == getYear(yearIndex))
                                 CustomFont.MONTSERRAT_MEDIUM else CustomFont.MONTSERRAT,
                             fontSize = 24.sp,

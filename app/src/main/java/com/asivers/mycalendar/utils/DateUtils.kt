@@ -1,11 +1,7 @@
 package com.asivers.mycalendar.utils
 
-import androidx.compose.foundation.clickable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.asivers.mycalendar.data.HolidaysInfo
 import com.asivers.mycalendar.data.MonthInfo
-import com.asivers.mycalendar.ui.theme.custom.CustomColor
 import java.util.Calendar
 import java.util.GregorianCalendar
 
@@ -36,23 +32,14 @@ fun getDayValueForMonthTableElement(
     return if (value in 1..numberOfDaysInMonth) value else null
 }
 
-fun getTextColor(dayValue: Int?, holidays: Set<Int>, dayOfWeekIndex: Int): Color {
-    if (dayValue == null) {
-        return CustomColor.TRANSPARENT
-    }
-    if (dayOfWeekIndex > 4 || dayValue in holidays) {
-        return CustomColor.MYV_GREEN_DAY_HOLIDAY
-    }
-    return CustomColor.WHITE
-}
-
 fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
 fun getCurrentMonthIndex(): Int = Calendar.getInstance().get(Calendar.MONTH)
 fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
-fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = this.clickable(
-    interactionSource = null,
-    indication = null
-) {
-    onClick()
+fun isHoliday(
+    dayValue: Int?,
+    dayOfWeekIndex: Int,
+    holidays: Set<Int>
+): Boolean {
+    return dayValue !== null && (dayOfWeekIndex > 4 || dayValue in holidays)
 }

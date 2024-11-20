@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
-import com.asivers.mycalendar.constants.MONTH_VIEW_BACKGROUND_GRADIENT
 import com.asivers.mycalendar.ui.theme.MyCalendarTheme
+import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.views.month.MonthViewContent
-import com.asivers.mycalendar.views.year.YearViewContent
+import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
+import com.asivers.mycalendar.views.month.MonthView
+import com.asivers.mycalendar.views.year.YearView
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,32 +31,35 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyCalendarTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
+                    val colorScheme = getColorScheme(selectedMonthIndex.intValue)
                     Box(modifier = Modifier
                         .padding(innerPadding)
-                        .background(brush = MONTH_VIEW_BACKGROUND_GRADIENT)
+                        .background(brush = getMonthViewBackgroundGradient(colorScheme))
                     ) {
                         val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
-                        val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
                         val showYearView = remember { mutableStateOf(false) }
                         val lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
                         if (showYearView.value) {
                             val screenHeightDp = LocalConfiguration.current.screenHeightDp
                             val paddingTopDp = (screenHeightDp - 32) / 16.5
-                            YearViewContent(
+                            YearView(
                                 modifier = Modifier.padding(0.dp, paddingTopDp.dp, 0.dp, 0.dp),
                                 selectedYear = selectedYear,
                                 selectedMonthIndex = selectedMonthIndex,
                                 showYearView = showYearView,
                                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                                holidaysInfo = DEFAULT_HOLIDAYS_INFO
+                                holidaysInfo = DEFAULT_HOLIDAYS_INFO,
+                                colorScheme = colorScheme
                             )
                         } else {
-                            MonthViewContent(
+                            MonthView(
                                 selectedYear = selectedYear,
                                 selectedMonthIndex = selectedMonthIndex,
                                 showYearView = showYearView,
                                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                                holidaysInfo = DEFAULT_HOLIDAYS_INFO
+                                holidaysInfo = DEFAULT_HOLIDAYS_INFO,
+                                colorScheme = colorScheme
                             )
                         }
                     }

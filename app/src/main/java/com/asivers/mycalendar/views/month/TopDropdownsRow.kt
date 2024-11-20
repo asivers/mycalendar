@@ -12,11 +12,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.asivers.mycalendar.ui.theme.custom.CustomColor
+import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 
@@ -27,7 +29,8 @@ fun TopDropdownsRowPreview() {
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = false,
-        lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
+        lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
+        colorScheme = summerColorScheme
     )
 }
 
@@ -37,6 +40,7 @@ fun TopDropdownsRow(
     selectedMonthIndex: MutableIntState,
     showYearView: Boolean,
     lastSelectedYearFromMonthView: MutableIntState,
+    colorScheme: CustomColorScheme
 ) {
     Row(
         modifier = Modifier
@@ -49,12 +53,13 @@ fun TopDropdownsRow(
                 text = "Year view",
                 fontFamily = CustomFont.MONTSERRAT_BOLD,
                 fontSize = 24.sp,
-                color = CustomColor.WHITE,
+                color = Color.White,
             )
         } else {
             SelectMonthDropdown(
                 modifier = Modifier.wrapContentWidth(),
-                selectedMonthIndex = selectedMonthIndex
+                selectedMonthIndex = selectedMonthIndex,
+                colorScheme = colorScheme
             )
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -62,7 +67,8 @@ fun TopDropdownsRow(
             modifier = Modifier.wrapContentWidth(),
             selectedYear = selectedYear,
             showYearView = showYearView,
-            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
+            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+            colorScheme = colorScheme
         )
     }
 }
