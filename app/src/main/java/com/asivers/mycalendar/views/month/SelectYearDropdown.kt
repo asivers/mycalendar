@@ -48,7 +48,6 @@ fun SelectYearDropdownPreview() {
             .background(color = summerColorScheme.mvLight)
     ) {
         SelectYearDropdown(
-            modifier = Modifier,
             selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
             showYearView = false,
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
@@ -59,7 +58,7 @@ fun SelectYearDropdownPreview() {
 
 @Composable
 fun SelectYearDropdown(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     selectedYear: MutableIntState,
     showYearView: Boolean,
     lastSelectedYearFromMonthView: MutableIntState,
@@ -101,6 +100,7 @@ fun SelectYearDropdown(
 
 @Composable
 fun SelectYearDropdownList(
+    modifier: Modifier = Modifier,
     isExpanded: MutableState<Boolean>,
     selectedYear: MutableIntState,
     showYearView: Boolean,
@@ -114,6 +114,7 @@ fun SelectYearDropdownList(
         onDismissRequest = {
             isExpanded.value = false
         },
+        modifier = modifier,
         offset = DpOffset(x = (-5).dp, y = (-itemHeightDp - 5).dp)
     ) {
         LazyColumn(

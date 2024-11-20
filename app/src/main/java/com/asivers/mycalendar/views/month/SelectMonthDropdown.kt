@@ -44,7 +44,6 @@ fun SelectMonthDropdownPreview() {
             .background(color = summerColorScheme.mvLight)
     ) {
         SelectMonthDropdown(
-            modifier = Modifier,
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
             colorScheme = summerColorScheme
         )
@@ -53,7 +52,7 @@ fun SelectMonthDropdownPreview() {
 
 @Composable
 fun SelectMonthDropdown(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     selectedMonthIndex: MutableIntState,
     colorScheme: CustomColorScheme
 ) {
@@ -92,6 +91,7 @@ fun SelectMonthDropdown(
 
 @Composable
 fun SelectMonthDropdownList(
+    modifier: Modifier = Modifier,
     isExpanded: MutableState<Boolean>,
     selectedMonthIndex: MutableIntState,
     colorScheme: CustomColorScheme
@@ -100,7 +100,8 @@ fun SelectMonthDropdownList(
         expanded = isExpanded.value,
         onDismissRequest = {
             isExpanded.value = false
-        }
+        },
+        modifier = modifier
     ) {
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         val itemHeightDp = (screenHeightDp - 32) / 17

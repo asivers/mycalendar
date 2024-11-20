@@ -40,13 +40,14 @@ fun YearViewButtonPreview() {
 
 @Composable
 fun YearViewButton(
+    modifier: Modifier = Modifier,
     showYearView: MutableState<Boolean>,
     colorScheme: CustomColorScheme
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
     Button(
         onClick = { showYearView.value = true },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(36.dp, 36.dp))
             .background(

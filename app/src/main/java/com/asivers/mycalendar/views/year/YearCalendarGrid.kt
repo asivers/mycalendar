@@ -63,6 +63,7 @@ fun YearCalendarGridPreview() {
 
 @Composable
 fun YearCalendarGrid(
+    modifier: Modifier = Modifier,
     thisYear: Int,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
@@ -71,7 +72,7 @@ fun YearCalendarGrid(
     colorScheme: CustomColorScheme
 ) {
     Column(
-        modifier = Modifier.padding(0.dp, 4.dp),
+        modifier = modifier.padding(0.dp, 4.dp),
     ) {
         repeat(4) { threeMonthRowIndex ->
             ThreeMonthsRowInYearCalendarGrid(
@@ -90,7 +91,7 @@ fun YearCalendarGrid(
 
 @Composable
 fun ThreeMonthsRowInYearCalendarGrid(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     thisYear: Int,
     threeMonthRowIndex: Int,
     selectedMonthIndex: MutableIntState,
@@ -119,7 +120,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
 
 @Composable
 fun MonthInYearCalendarGrid(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     thisYear: Int,
     thisMonthIndex: Int,
     selectedMonthIndex: MutableIntState,
@@ -166,7 +167,7 @@ fun MonthInYearCalendarGrid(
 
 @Composable
 fun HeaderWeekInYearCalendarGrid(
-    modifier: Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -186,7 +187,7 @@ fun HeaderWeekInYearCalendarGrid(
 
 @Composable
 fun WeekInYearCalendarGrid(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo,
     colorScheme: CustomColorScheme
@@ -208,7 +209,7 @@ fun WeekInYearCalendarGrid(
 
 @Composable
 fun DayInYearCalendarGrid(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,

@@ -39,7 +39,7 @@ fun MonthViewPreview() {
 
 @Composable
 fun MonthView(
-    // todo add modifier to every compose function
+    modifier: Modifier = Modifier,
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
@@ -47,7 +47,7 @@ fun MonthView(
     holidaysInfo: HolidaysInfo,
     colorScheme: CustomColorScheme
 ) {
-    Column {
+    Column(modifier = modifier) {
         var horizontalOffset by remember { mutableFloatStateOf(0f) }
         Column(
             modifier = Modifier

@@ -36,6 +36,7 @@ fun TopDropdownsRowPreview() {
 
 @Composable
 fun TopDropdownsRow(
+    modifier: Modifier = Modifier,
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
     showYearView: Boolean,
@@ -43,7 +44,7 @@ fun TopDropdownsRow(
     colorScheme: CustomColorScheme
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(18.dp, 8.dp, 16.dp, 8.dp),
         verticalAlignment = Alignment.CenterVertically

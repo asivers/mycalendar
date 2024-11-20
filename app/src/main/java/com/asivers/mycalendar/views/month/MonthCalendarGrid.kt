@@ -60,11 +60,12 @@ fun MonthCalendarGridPreview() {
 
 @Composable
 fun MonthCalendarGrid(
+    modifier: Modifier = Modifier,
     monthInfo: MonthInfo,
     colorScheme: CustomColorScheme
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(3.dp, 0.dp)
     ) {
@@ -80,9 +81,11 @@ fun MonthCalendarGrid(
 }
 
 @Composable
-fun HeaderWeekInMonthCalendarGrid() {
+fun HeaderWeekInMonthCalendarGrid(
+    modifier: Modifier = Modifier
+) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         repeat(7) { dayOfWeekIndex ->
             Text(
@@ -101,12 +104,13 @@ fun HeaderWeekInMonthCalendarGrid() {
 
 @Composable
 fun WeekInMonthCalendarGrid(
+    modifier: Modifier = Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo,
     colorScheme: CustomColorScheme
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
             .padding(0.dp, 3.dp)
@@ -127,7 +131,7 @@ fun WeekInMonthCalendarGrid(
 
 @Composable
 fun DayInMonthCalendarGrid(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,

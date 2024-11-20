@@ -35,7 +35,6 @@ import com.asivers.mycalendar.views.month.TopDropdownsRow
 @Composable
 fun YearViewPreview() {
     YearView(
-        modifier = Modifier,
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(true) },
@@ -47,7 +46,7 @@ fun YearViewPreview() {
 
 @Composable
 fun YearView(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
