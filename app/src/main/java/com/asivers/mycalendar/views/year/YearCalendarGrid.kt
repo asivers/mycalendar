@@ -24,7 +24,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_1
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
@@ -33,6 +32,7 @@ import com.asivers.mycalendar.data.HolidaysInfo
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.sizeScheme
 import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -134,7 +134,7 @@ fun MonthInYearCalendarGrid(
     val background = if (isLastSelectedMonth) colorScheme.mvLight else Color.Transparent
     Column(
         modifier = modifier
-            .padding(3.dp, 5.dp)
+            .padding(sizeScheme.yvMonthHorizontalPadding, sizeScheme.yvMonthVerticalPadding)
             .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .background(background)
             .padding(4.dp, 0.dp)
@@ -148,7 +148,7 @@ fun MonthInYearCalendarGrid(
             text = MONTH_NAMES_LIST[thisMonthIndex],
             modifier = Modifier.padding(3.dp, 0.dp),
             fontFamily = CustomFont.MONTSERRAT_BOLD,
-            fontSize = 14.sp,
+            fontSize = sizeScheme.font.yvMonthName,
             color = Color.White,
         )
         HeaderWeekInYearCalendarGrid(
@@ -177,7 +177,7 @@ fun HeaderWeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 text = DAY_OF_WEEK_NAMES_LIST_1[dayOfWeekIndex],
                 fontFamily = CustomFont.MONTSERRAT,
-                fontSize = 7.sp,
+                fontSize = sizeScheme.font.yvHeaderWeek,
                 color = Color.White,
                 textAlign = TextAlign.Center,
             )
@@ -230,7 +230,7 @@ fun DayInYearCalendarGrid(
             .wrapContentHeight(),
         text = (dayValue ?: "").toString(),
         fontFamily = CustomFont.MONTSERRAT_BOLD,
-        fontSize = 9.sp,
+        fontSize = sizeScheme.font.yvDay,
         color = if (holiday) colorScheme.yvVeryLight else Color.White,
         textAlign = TextAlign.Center,
         style = NO_PADDING_TEXT_STYLE

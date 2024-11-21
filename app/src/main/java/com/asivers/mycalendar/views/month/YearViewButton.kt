@@ -22,11 +22,11 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.sizeScheme
 import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 
 @Preview
@@ -77,7 +77,7 @@ fun YearViewButton(
         Text(
             text = "Year view",
             fontFamily = CustomFont.MONTSERRAT_BOLD,
-            fontSize = 24.sp,
+            fontSize = sizeScheme.font.main,
             color = Color.White,
             textAlign = TextAlign.Center
         )

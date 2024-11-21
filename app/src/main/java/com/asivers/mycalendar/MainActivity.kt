@@ -14,9 +14,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.ui.theme.MyCalendarTheme
+import com.asivers.mycalendar.ui.theme.custom.setCustomSizeScheme
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -31,6 +33,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyCalendarTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    setCustomSizeScheme(LocalConfiguration.current, LocalDensity.current)
                     val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
                     val colorScheme = getColorScheme(selectedMonthIndex.intValue)
                     Box(modifier = Modifier

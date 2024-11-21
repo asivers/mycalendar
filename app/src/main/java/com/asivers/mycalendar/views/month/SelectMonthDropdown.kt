@@ -26,11 +26,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
 import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.sizeScheme
 import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.noRippleClickable
@@ -78,7 +78,7 @@ fun SelectMonthDropdown(
                 text = MONTH_NAMES_LIST[selectedMonthIndex.intValue],
                 color = Color.White,
                 fontFamily = CustomFont.MONTSERRAT_BOLD,
-                fontSize = 26.sp
+                fontSize = sizeScheme.font.dropdownHeader
             )
             SelectMonthDropdownList(
                 isExpanded = isExpanded,
@@ -112,7 +112,7 @@ fun SelectMonthDropdownList(
                         text = monthName,
                         color = colorScheme.myvDark,
                         fontFamily = CustomFont.MONTSERRAT_BOLD,
-                        fontSize = 20.sp
+                        fontSize = sizeScheme.font.monthDropdownItem
                     )
                 },
                 onClick = {

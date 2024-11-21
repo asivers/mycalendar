@@ -31,10 +31,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.sizeScheme
 import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.noRippleClickable
@@ -80,12 +80,12 @@ fun SelectYearDropdown(
             contentDescription = "DropDown Icon"
         )
         Spacer(modifier = Modifier.width(10.dp))
-        Box(modifier = Modifier.width(70.dp)) {
+        Box(modifier = Modifier.width(sizeScheme.yearDropdownWidth)) {
             Text(
                 text = selectedYear.intValue.toString(),
                 color = Color.White,
                 fontFamily = CustomFont.MONTSERRAT_MEDIUM,
-                fontSize = 26.sp
+                fontSize = sizeScheme.font.dropdownHeader
             )
             SelectYearDropdownList(
                 isExpanded = isExpanded,
@@ -120,7 +120,7 @@ fun SelectYearDropdownList(
         LazyColumn(
             modifier = Modifier
                 .height((itemHeightDp * 14).dp)
-                .width(75.dp),
+                .width(sizeScheme.yearDropdownWidth.plus(5.dp)),
             state = LazyListState(getYearIndex(selectedYear.intValue))
         ) {
             items(201) { yearIndex ->
@@ -133,7 +133,7 @@ fun SelectYearDropdownList(
                                 colorScheme.myvDark else colorScheme.mvBtnLight,
                             fontFamily = if (selectedYear.intValue == getYear(yearIndex))
                                 CustomFont.MONTSERRAT_MEDIUM else CustomFont.MONTSERRAT,
-                            fontSize = 24.sp,
+                            fontSize = sizeScheme.font.main,
                             textAlign = TextAlign.Center
                         )
                     },

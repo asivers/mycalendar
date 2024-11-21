@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_3
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
@@ -29,6 +28,7 @@ import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
 import com.asivers.mycalendar.ui.theme.custom.CustomFont
+import com.asivers.mycalendar.ui.theme.custom.sizeScheme
 import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -94,7 +94,7 @@ fun HeaderWeekInMonthCalendarGrid(
                     .padding(0.dp, 5.dp),
                 text = DAY_OF_WEEK_NAMES_LIST_3[dayOfWeekIndex],
                 fontFamily = CustomFont.MONTSERRAT,
-                fontSize = 12.sp,
+                fontSize = sizeScheme.font.mvHeaderWeek,
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
@@ -157,7 +157,7 @@ fun DayInMonthCalendarGrid(
         Text(
             text = (dayValue ?: "").toString(),
             fontFamily = CustomFont.MONTSERRAT_BOLD,
-            fontSize = 24.sp,
+            fontSize = sizeScheme.font.main,
             color = if (holiday) colorScheme.mvBtnLight else Color.White,
             textAlign = TextAlign.Center
         )
