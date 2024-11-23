@@ -149,10 +149,12 @@ fun MonthInYearCalendarGrid(
             modifier = Modifier.padding(3.dp, 0.dp),
             fontFamily = CustomFont.MONTSERRAT_BOLD,
             fontSize = sizeScheme.font.yvMonthName,
-            color = Color.White,
+            color = Color.White
         )
         HeaderWeekInYearCalendarGrid(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier
+                .wrapContentHeight()
+                .padding(0.dp, 5.dp, 0.dp, 3.dp)
         )
         repeat(6) { weekIndex ->
             WeekInYearCalendarGrid(
@@ -180,6 +182,7 @@ fun HeaderWeekInYearCalendarGrid(
                 fontSize = sizeScheme.font.yvHeaderWeek,
                 color = Color.White,
                 textAlign = TextAlign.Center,
+                style = NO_PADDING_TEXT_STYLE
             )
         }
     }
@@ -226,7 +229,7 @@ fun DayInYearCalendarGrid(
     Text(
         modifier = modifier
             .fillMaxSize()
-            .drawBehind { if (today) drawCircle(Color.White, style = Stroke(width = 3f)) }
+            .drawBehind { if (today) drawCircle(Color.White, style = Stroke(width = 2f)) }
             .wrapContentHeight(),
         text = (dayValue ?: "").toString(),
         fontFamily = CustomFont.MONTSERRAT_BOLD,
