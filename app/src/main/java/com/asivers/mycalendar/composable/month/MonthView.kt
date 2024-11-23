@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.views.month
+package com.asivers.mycalendar.composable.month
 
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
@@ -15,14 +15,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.HolidaysInfo
-import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
-import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
+import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getMonthInfo
+import com.asivers.mycalendar.utils.getSizeScheme
 
 @Preview(showBackground = true)
 @Composable
@@ -33,7 +38,8 @@ fun MonthViewPreview() {
         showYearView = remember { mutableStateOf(false) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
         holidaysInfo = DEFAULT_HOLIDAYS_INFO,
-        colorScheme = summerColorScheme
+        colorScheme = SUMMER,
+        sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
     )
 }
 
@@ -45,7 +51,8 @@ fun MonthView(
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     Column(modifier = modifier) {
         var horizontalOffset by remember { mutableFloatStateOf(0f) }
@@ -80,20 +87,23 @@ fun MonthView(
                     selectedMonthIndex = selectedMonthIndex,
                     showYearView = showYearView.value,
                     lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                    colorScheme = colorScheme
+                    colorScheme = colorScheme,
+                    sizeScheme = sizeScheme
                 )
             }
             Box(modifier = Modifier.weight(7f)) {
                 MonthCalendarGrid(
                     monthInfo = getMonthInfo(
                         selectedYear.intValue, selectedMonthIndex.intValue, holidaysInfo),
-                    colorScheme = colorScheme
+                    colorScheme = colorScheme,
+                    sizeScheme = sizeScheme
                 )
             }
         }
         YearViewButton(
             showYearView = showYearView,
-            colorScheme = colorScheme
+            colorScheme = colorScheme,
+            sizeScheme = sizeScheme
         )
     }
 }

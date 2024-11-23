@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.views.month
+package com.asivers.mycalendar.composable.month
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,23 +18,27 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_3
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.asivers.mycalendar.constants.MONTSERRAT
+import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
+import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.MonthInfo
-import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
-import com.asivers.mycalendar.ui.theme.custom.CustomFont
-import com.asivers.mycalendar.ui.theme.custom.sizeScheme
-import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
+import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
+import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.isHoliday
 
 @Preview(showBackground = true)
@@ -43,7 +47,7 @@ fun MonthCalendarGridPreview() {
     Box(
         modifier = Modifier
             .background(
-                brush = getMonthViewBackgroundGradient(summerColorScheme)
+                brush = getMonthViewBackgroundGradient(SUMMER)
             )
             .fillMaxWidth()
     ) {
@@ -53,7 +57,8 @@ fun MonthCalendarGridPreview() {
                 getCurrentMonthIndex(),
                 DEFAULT_HOLIDAYS_INFO
             ),
-            colorScheme = summerColorScheme
+            colorScheme = SUMMER,
+            sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
         )
     }
 }
@@ -62,19 +67,23 @@ fun MonthCalendarGridPreview() {
 fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
     monthInfo: MonthInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(3.dp, 0.dp)
     ) {
-        HeaderWeekInMonthCalendarGrid()
+        HeaderWeekInMonthCalendarGrid(
+            sizeScheme = sizeScheme
+        )
         repeat(6) { weekIndex ->
             WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 monthInfo = monthInfo,
-                colorScheme = colorScheme
+                colorScheme = colorScheme,
+                sizeScheme = sizeScheme
             )
         }
     }
@@ -82,7 +91,8 @@ fun MonthCalendarGrid(
 
 @Composable
 fun HeaderWeekInMonthCalendarGrid(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    sizeScheme: SizeScheme
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -93,7 +103,7 @@ fun HeaderWeekInMonthCalendarGrid(
                     .weight(1f)
                     .padding(0.dp, 5.dp),
                 text = DAY_OF_WEEK_NAMES_LIST_3[dayOfWeekIndex],
-                fontFamily = CustomFont.MONTSERRAT,
+                fontFamily = MONTSERRAT,
                 fontSize = sizeScheme.font.mvHeaderWeek,
                 color = Color.White,
                 textAlign = TextAlign.Center
@@ -107,7 +117,8 @@ fun WeekInMonthCalendarGrid(
     modifier: Modifier = Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     Row(
         modifier = modifier
@@ -123,7 +134,8 @@ fun WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
                 monthInfo = monthInfo,
-                colorScheme = colorScheme
+                colorScheme = colorScheme,
+                sizeScheme = sizeScheme
             )
         }
     }
@@ -135,7 +147,8 @@ fun DayInMonthCalendarGrid(
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     val dayValue = getDayValueForMonthTableElement(
         weekIndex,
@@ -156,7 +169,7 @@ fun DayInMonthCalendarGrid(
     ) {
         Text(
             text = (dayValue ?: "").toString(),
-            fontFamily = CustomFont.MONTSERRAT_BOLD,
+            fontFamily = MONTSERRAT_BOLD,
             fontSize = sizeScheme.font.main,
             color = if (holiday) colorScheme.mvBtnLight else Color.White,
             textAlign = TextAlign.Center

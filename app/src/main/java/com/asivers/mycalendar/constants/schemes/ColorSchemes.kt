@@ -1,20 +1,9 @@
-package com.asivers.mycalendar.ui.theme.custom
+package com.asivers.mycalendar.constants.schemes
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import com.asivers.mycalendar.data.scheme.ColorScheme
 
-@Immutable
-class CustomColorScheme(
-    val mvLight: Color,
-    val myvDark: Color,
-    val mvBtnLight: Color,
-    val mvBtnDark: Color,
-    val yvVeryLight: Color,
-    val yvLight: Color,
-    val yvMedium: Color
-)
-
-val summerColorScheme = CustomColorScheme(
+val SUMMER = ColorScheme(
     mvLight = Color(0xFF5DA493),
     myvDark = Color(0xFF337623),
     mvBtnLight = Color(0xFF92D700),
@@ -24,7 +13,7 @@ val summerColorScheme = CustomColorScheme(
     yvMedium = Color(0xFF5CA013)
 )
 
-val autumnColorScheme = CustomColorScheme(
+val AUTUMN = ColorScheme(
     mvLight = Color(0xFF9FA45D),
     myvDark = Color(0xFF86400D),
     mvBtnLight = Color(0xFFFCA600),
@@ -34,7 +23,7 @@ val autumnColorScheme = CustomColorScheme(
     yvMedium = Color(0xFFB87C04)
 )
 
-val winterColorScheme = CustomColorScheme(
+val WINTER = ColorScheme(
     mvLight = Color(0xFFA45D5D),
     myvDark = Color(0xFF116446),
     mvBtnLight = Color(0xFF44B9DD),
@@ -44,7 +33,7 @@ val winterColorScheme = CustomColorScheme(
     yvMedium = Color(0xFF248683)
 )
 
-val springColorScheme = CustomColorScheme(
+val SPRING = ColorScheme(
     mvLight = Color(0xFF5D82A4),
     myvDark = Color(0xFF52580B),
     mvBtnLight = Color(0xFF28E125),

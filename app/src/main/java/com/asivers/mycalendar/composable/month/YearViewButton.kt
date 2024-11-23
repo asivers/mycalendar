@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.views.month
+package com.asivers.mycalendar.composable.month
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
@@ -19,22 +19,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
-import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
-import com.asivers.mycalendar.ui.theme.custom.CustomFont
-import com.asivers.mycalendar.ui.theme.custom.sizeScheme
-import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
+import com.asivers.mycalendar.constants.schemes.SUMMER
+import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.size.SizeScheme
+import com.asivers.mycalendar.utils.getSizeScheme
 
 @Preview
 @Composable
 fun YearViewButtonPreview() {
     YearViewButton(
         showYearView = remember { mutableStateOf(false) },
-        colorScheme = summerColorScheme
+        colorScheme = SUMMER,
+        sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
     )
 }
 
@@ -42,7 +46,8 @@ fun YearViewButtonPreview() {
 fun YearViewButton(
     modifier: Modifier = Modifier,
     showYearView: MutableState<Boolean>,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
     Button(
@@ -76,7 +81,7 @@ fun YearViewButton(
     ) {
         Text(
             text = "Year view",
-            fontFamily = CustomFont.MONTSERRAT_BOLD,
+            fontFamily = MONTSERRAT_BOLD,
             fontSize = sizeScheme.font.main,
             color = Color.White,
             textAlign = TextAlign.Center

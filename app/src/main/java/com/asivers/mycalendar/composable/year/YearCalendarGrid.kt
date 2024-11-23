@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.views.year
+package com.asivers.mycalendar.composable.year
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,23 +21,27 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_1
 import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
+import com.asivers.mycalendar.constants.MONTSERRAT
+import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
+import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.HolidaysInfo
 import com.asivers.mycalendar.data.MonthInfo
-import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
-import com.asivers.mycalendar.ui.theme.custom.CustomFont
-import com.asivers.mycalendar.ui.theme.custom.sizeScheme
-import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
+import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
 import com.asivers.mycalendar.utils.getMonthInfo
+import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.isHoliday
 import com.asivers.mycalendar.utils.noRippleClickable
@@ -47,7 +51,7 @@ import com.asivers.mycalendar.utils.noRippleClickable
 fun YearCalendarGridPreview() {
     Box(
         modifier = Modifier
-            .background(getYearViewBackgroundGradient(summerColorScheme))
+            .background(getYearViewBackgroundGradient(SUMMER))
             .fillMaxWidth()
     ) {
         YearCalendarGrid(
@@ -56,7 +60,8 @@ fun YearCalendarGridPreview() {
             showYearView = remember { mutableStateOf(true) },
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
             holidaysInfo = DEFAULT_HOLIDAYS_INFO,
-            colorScheme = summerColorScheme
+            colorScheme = SUMMER,
+            sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
         )
     }
 }
@@ -69,7 +74,8 @@ fun YearCalendarGrid(
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     Column(
         modifier = modifier.padding(0.dp, 4.dp),
@@ -83,7 +89,8 @@ fun YearCalendarGrid(
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 holidaysInfo = holidaysInfo,
-                colorScheme = colorScheme
+                colorScheme = colorScheme,
+                sizeScheme = sizeScheme
             )
         }
     }
@@ -98,7 +105,8 @@ fun ThreeMonthsRowInYearCalendarGrid(
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -112,7 +120,8 @@ fun ThreeMonthsRowInYearCalendarGrid(
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 holidaysInfo = holidaysInfo,
-                colorScheme = colorScheme
+                colorScheme = colorScheme,
+                sizeScheme = sizeScheme
             )
         }
     }
@@ -127,7 +136,8 @@ fun MonthInYearCalendarGrid(
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
     holidaysInfo: HolidaysInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     val isLastSelectedMonth = thisYear == lastSelectedYearFromMonthView.intValue
             && thisMonthIndex == selectedMonthIndex.intValue
@@ -147,21 +157,23 @@ fun MonthInYearCalendarGrid(
         Text(
             text = MONTH_NAMES_LIST[thisMonthIndex],
             modifier = Modifier.padding(3.dp, 0.dp),
-            fontFamily = CustomFont.MONTSERRAT_BOLD,
+            fontFamily = MONTSERRAT_BOLD,
             fontSize = sizeScheme.font.yvMonthName,
             color = Color.White
         )
         HeaderWeekInYearCalendarGrid(
             modifier = Modifier
                 .wrapContentHeight()
-                .padding(0.dp, 5.dp, 0.dp, 3.dp)
+                .padding(0.dp, 5.dp, 0.dp, 3.dp),
+            sizeScheme = sizeScheme
         )
         repeat(6) { weekIndex ->
             WeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
                 monthInfo = getMonthInfo(thisYear, thisMonthIndex, holidaysInfo),
-                colorScheme = colorScheme
+                colorScheme = colorScheme,
+                sizeScheme = sizeScheme
             )
         }
     }
@@ -170,6 +182,7 @@ fun MonthInYearCalendarGrid(
 @Composable
 fun HeaderWeekInYearCalendarGrid(
     modifier: Modifier = Modifier,
+    sizeScheme: SizeScheme
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -178,7 +191,7 @@ fun HeaderWeekInYearCalendarGrid(
             Text(
                 modifier = Modifier.weight(1f),
                 text = DAY_OF_WEEK_NAMES_LIST_1[dayOfWeekIndex],
-                fontFamily = CustomFont.MONTSERRAT,
+                fontFamily = MONTSERRAT,
                 fontSize = sizeScheme.font.yvHeaderWeek,
                 color = Color.White,
                 textAlign = TextAlign.Center,
@@ -193,7 +206,8 @@ fun WeekInYearCalendarGrid(
     modifier: Modifier = Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -204,7 +218,8 @@ fun WeekInYearCalendarGrid(
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
                 monthInfo = monthInfo,
-                colorScheme = colorScheme
+                colorScheme = colorScheme,
+                sizeScheme = sizeScheme
             )
         }
     }
@@ -216,7 +231,8 @@ fun DayInYearCalendarGrid(
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     val dayValue = getDayValueForMonthTableElement(
         weekIndex,
@@ -232,7 +248,7 @@ fun DayInYearCalendarGrid(
             .drawBehind { if (today) drawCircle(Color.White, style = Stroke(width = 2f)) }
             .wrapContentHeight(),
         text = (dayValue ?: "").toString(),
-        fontFamily = CustomFont.MONTSERRAT_BOLD,
+        fontFamily = MONTSERRAT_BOLD,
         fontSize = sizeScheme.font.yvDay,
         color = if (holiday) colorScheme.yvVeryLight else Color.White,
         textAlign = TextAlign.Center,

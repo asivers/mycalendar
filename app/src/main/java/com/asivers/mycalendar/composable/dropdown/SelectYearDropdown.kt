@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.views.month
+package com.asivers.mycalendar.composable.dropdown
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,17 +26,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
-import com.asivers.mycalendar.ui.theme.custom.CustomColorScheme
-import com.asivers.mycalendar.ui.theme.custom.CustomFont
-import com.asivers.mycalendar.ui.theme.custom.sizeScheme
-import com.asivers.mycalendar.ui.theme.custom.summerColorScheme
+import com.asivers.mycalendar.constants.MONTSERRAT
+import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
+import com.asivers.mycalendar.constants.schemes.SUMMER
+import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentYear
+import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
@@ -45,13 +48,14 @@ fun SelectYearDropdownPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = summerColorScheme.mvLight)
+            .background(color = SUMMER.mvLight)
     ) {
         SelectYearDropdown(
             selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
             showYearView = false,
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-            colorScheme = summerColorScheme
+            colorScheme = SUMMER,
+            sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
         )
     }
 }
@@ -62,7 +66,8 @@ fun SelectYearDropdown(
     selectedYear: MutableIntState,
     showYearView: Boolean,
     lastSelectedYearFromMonthView: MutableIntState,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     val isExpanded = remember {
         mutableStateOf(false)
@@ -84,7 +89,7 @@ fun SelectYearDropdown(
             Text(
                 text = selectedYear.intValue.toString(),
                 color = Color.White,
-                fontFamily = CustomFont.MONTSERRAT_MEDIUM,
+                fontFamily = MONTSERRAT_MEDIUM,
                 fontSize = sizeScheme.font.dropdownHeader
             )
             SelectYearDropdownList(
@@ -92,7 +97,8 @@ fun SelectYearDropdown(
                 selectedYear = selectedYear,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                colorScheme = colorScheme
+                colorScheme = colorScheme,
+                sizeScheme = sizeScheme
             )
         }
     }
@@ -105,7 +111,8 @@ fun SelectYearDropdownList(
     selectedYear: MutableIntState,
     showYearView: Boolean,
     lastSelectedYearFromMonthView: MutableIntState,
-    colorScheme: CustomColorScheme
+    colorScheme: ColorScheme,
+    sizeScheme: SizeScheme
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
     val itemHeightDp = (screenHeightDp - 32) / 18
@@ -132,7 +139,7 @@ fun SelectYearDropdownList(
                             color = if (selectedYear.intValue == getYear(yearIndex))
                                 colorScheme.myvDark else colorScheme.mvBtnLight,
                             fontFamily = if (selectedYear.intValue == getYear(yearIndex))
-                                CustomFont.MONTSERRAT_MEDIUM else CustomFont.MONTSERRAT,
+                                MONTSERRAT_MEDIUM else MONTSERRAT,
                             fontSize = sizeScheme.font.main,
                             textAlign = TextAlign.Center
                         )
