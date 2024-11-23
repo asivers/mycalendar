@@ -80,7 +80,7 @@ fun SelectYearDropdown(
             contentDescription = "DropDown Icon"
         )
         Spacer(modifier = Modifier.width(10.dp))
-        Box(modifier = Modifier.width(sizeScheme.yearDropdownWidth)) {
+        Box(modifier = Modifier.width(sizeScheme.horizontal.yearDropdown)) {
             Text(
                 text = selectedYear.intValue.toString(),
                 color = Color.White,
@@ -120,7 +120,7 @@ fun SelectYearDropdownList(
         LazyColumn(
             modifier = Modifier
                 .height((itemHeightDp * 14).dp)
-                .width(sizeScheme.yearDropdownWidth.plus(5.dp)),
+                .width(sizeScheme.horizontal.yearDropdown.plus(5.dp)),
             state = LazyListState(getYearIndex(selectedYear.intValue))
         ) {
             items(201) { yearIndex ->

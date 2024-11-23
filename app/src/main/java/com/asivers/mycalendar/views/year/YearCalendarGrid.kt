@@ -134,7 +134,7 @@ fun MonthInYearCalendarGrid(
     val background = if (isLastSelectedMonth) colorScheme.mvLight else Color.Transparent
     Column(
         modifier = modifier
-            .padding(sizeScheme.yvMonthHorizontalPadding, sizeScheme.yvMonthVerticalPadding)
+            .padding(sizeScheme.horizontal.yvMonthPadding, sizeScheme.vertical.yvMonthPadding)
             .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .background(background)
             .padding(4.dp, 0.dp)
