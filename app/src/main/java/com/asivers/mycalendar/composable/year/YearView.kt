@@ -89,7 +89,7 @@ fun YearView(
                 }
             }
     ) {
-        Spacer(modifier = Modifier.height(13.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         TopDropdownsRow(
             selectedYear = selectedYear,
             selectedMonthIndex = selectedMonthIndex,

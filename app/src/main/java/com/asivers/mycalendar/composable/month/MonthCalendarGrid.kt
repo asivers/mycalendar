@@ -160,7 +160,7 @@ fun DayInMonthCalendarGrid(
     val holiday = isHoliday(dayValue, dayOfWeekIndex, monthInfo.holidays)
     Button(
         modifier = modifier
-            .drawBehind { if (today) drawCircle(Color.White, style = Stroke(width = 4f)) },
+            .drawBehind { if (today) drawCircle(color = Color.White, style = Stroke(width = 4f)) },
         onClick = {},
         shape = RectangleShape,
         colors = TRANSPARENT_BUTTON_COLORS,

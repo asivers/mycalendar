@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
@@ -147,7 +148,7 @@ fun MonthInYearCalendarGrid(
             .padding(sizeScheme.horizontal.yvMonthPadding, sizeScheme.vertical.yvMonthPadding)
             .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .background(background)
-            .padding(4.dp, 0.dp)
+            .padding(4.dp, 2.dp)
             .noRippleClickable {
                 selectedMonthIndex.intValue = thisMonthIndex
                 lastSelectedYearFromMonthView.intValue = thisYear
@@ -245,7 +246,11 @@ fun DayInYearCalendarGrid(
     Text(
         modifier = modifier
             .fillMaxSize()
-            .drawBehind { if (today) drawCircle(Color.White, style = Stroke(width = 2f)) }
+            .drawBehind { if (today) drawCircle(
+                color = Color.White,
+                style = Stroke(width = 2f),
+                center = this.center.plus(Offset(x = -1f, y = 0f))
+            )}
             .wrapContentHeight(),
         text = (dayValue ?: "").toString(),
         fontFamily = MONTSERRAT_BOLD,
