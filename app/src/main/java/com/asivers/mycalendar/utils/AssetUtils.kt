@@ -1,7 +1,7 @@
 package com.asivers.mycalendar.utils
 
 import android.content.Context
-import com.asivers.mycalendar.constants.Country
+import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.data.HolidaysForCountry
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json

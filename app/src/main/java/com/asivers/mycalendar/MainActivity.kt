@@ -18,7 +18,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.month.MonthView
 import com.asivers.mycalendar.composable.year.YearView
-import com.asivers.mycalendar.constants.Country
+import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear

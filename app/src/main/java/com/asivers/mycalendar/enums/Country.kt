@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.constants
+package com.asivers.mycalendar.enums
 
 enum class Country(val jsonAsset: String) {
     SPAIN("spain.json"),

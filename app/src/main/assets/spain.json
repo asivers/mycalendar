@@ -1,31 +1,31 @@
 {
     "everyYear": {
         "1": {
-            "1": "Año Nuevo",
-            "6": "Epifanía del Señor"
+            "1": { "msg": "Año Nuevo" },
+            "6": { "msg": "Epifanía del Señor" }
         },
         "5": {
-            "1": "Día del Trabajador"
+            "1": { "msg": "Día del Trabajador" }
         },
         "8": {
-            "15": "Asunción"
+            "15": { "msg": "Asunción" }
         },
         "10": {
-            "12": "Fiesta Nacional de España"
+            "12": { "msg": "Fiesta Nacional de España" }
         },
         "11": {
-            "1": "Día de todos los Santos"
+            "1": { "msg": "Día de todos los Santos" }
         },
         "12": {
-            "6": "Dia de la Constitucion Espanola",
-            "8": "Inmaculada Concepción",
-            "25": "Navidad"
+            "6": { "msg": "Dia de la Constitucion Espanola" },
+            "8": { "msg": "Inmaculada Concepción" },
+            "25": { "msg": "Navidad" }
         }
     },
     "oneTime": {
         "2024": {
             "3": {
-                "29": "Pascua de Resurrección"
+                "29": { "msg": "Pascua de Resurrección" }
             }
         }
     }
