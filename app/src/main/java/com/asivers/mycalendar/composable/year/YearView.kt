@@ -25,13 +25,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
-import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.HolidaysInfo
+import com.asivers.mycalendar.data.HolidaysForCountry
 import com.asivers.mycalendar.data.scheme.ColorScheme
 import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
+import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 
@@ -43,7 +43,7 @@ fun YearViewPreview() {
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(true) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-        holidaysInfo = DEFAULT_HOLIDAYS_INFO,
+        holidaysForCountry = getHolidaysForCountryForPreview(),
         colorScheme = SUMMER,
         sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
     )
@@ -56,7 +56,7 @@ fun YearView(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysInfo: HolidaysInfo,
+    holidaysForCountry: HolidaysForCountry,
     colorScheme: ColorScheme,
     sizeScheme: SizeScheme
 ) {
@@ -106,7 +106,7 @@ fun YearView(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                holidaysInfo = holidaysInfo,
+                holidaysForCountry = holidaysForCountry,
                 colorScheme = colorScheme,
                 sizeScheme = sizeScheme
             )

@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_3
-import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
@@ -36,6 +35,7 @@ import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
+import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
@@ -55,7 +55,7 @@ fun MonthCalendarGridPreview() {
             monthInfo = getMonthInfo(
                 getCurrentYear(),
                 getCurrentMonthIndex(),
-                DEFAULT_HOLIDAYS_INFO
+                getHolidaysForCountryForPreview()
             ),
             colorScheme = SUMMER,
             sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)

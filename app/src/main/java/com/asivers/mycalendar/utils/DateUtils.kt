@@ -1,25 +1,34 @@
 package com.asivers.mycalendar.utils
 
-import com.asivers.mycalendar.data.HolidaysInfo
+import com.asivers.mycalendar.data.HolidaysForCountry
 import com.asivers.mycalendar.data.MonthInfo
 import java.util.Calendar
 import java.util.GregorianCalendar
 
-fun getMonthInfo(year: Int, monthIndex: Int, holidaysInfo: HolidaysInfo): MonthInfo {
+fun getMonthInfo(year: Int, monthIndex: Int, holidaysForCountry: HolidaysForCountry): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
     val numberOfDays = firstOfThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
-    val holidays = mutableSetOf<Int>()
-    if (monthIndex in holidaysInfo.holidayDatesEveryYear) {
-        holidays.addAll(holidaysInfo.holidayDatesEveryYear[monthIndex]!!)
-    }
-    if (year in holidaysInfo.holidayDatesOneTime &&
-        monthIndex in holidaysInfo.holidayDatesOneTime[year]!!) {
-        holidays.addAll(holidaysInfo.holidayDatesOneTime[year]!![monthIndex]!!)
-    }
+    val holidays = getMonthInfoHolidays(year, monthIndex, holidaysForCountry)
     val today = if (year == getCurrentYear() && monthIndex == getCurrentMonthIndex())
         getCurrentDayOfMonth() else null
     return MonthInfo(numberOfDays, dayOfWeekOf1st, holidays, today)
+}
+
+private fun getMonthInfoHolidays(
+    year: Int, monthIndex:
+    Int,
+    holidaysForCountry: HolidaysForCountry
+): Map<Int, String> {
+    val holidays = mutableMapOf<Int, String>()
+    val monthIndexFrom1To12 = monthIndex + 1
+    if (monthIndexFrom1To12 in holidaysForCountry.everyYear) {
+        holidays.putAll(holidaysForCountry.everyYear[monthIndexFrom1To12]!!)
+    }
+    if (year in holidaysForCountry.oneTime && monthIndexFrom1To12 in holidaysForCountry.oneTime[year]!!) {
+        holidays.putAll(holidaysForCountry.oneTime[year]!![monthIndexFrom1To12]!!)
+    }
+    return holidays
 }
 
 fun getDayValueForMonthTableElement(
@@ -39,7 +48,7 @@ fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MON
 fun isHoliday(
     dayValue: Int?,
     dayOfWeekIndex: Int,
-    holidays: Set<Int>
+    holidays: Map<Int, String>
 ): Boolean {
     return dayValue !== null && (dayOfWeekIndex > 4 || dayValue in holidays)
 }

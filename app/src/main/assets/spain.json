@@ -1,0 +1,32 @@
+{
+    "everyYear": {
+        "1": {
+            "1": "Año Nuevo",
+            "6": "Epifanía del Señor"
+        },
+        "5": {
+            "1": "Día del Trabajador"
+        },
+        "8": {
+            "15": "Asunción"
+        },
+        "10": {
+            "12": "Fiesta Nacional de España"
+        },
+        "11": {
+            "1": "Día de todos los Santos"
+        },
+        "12": {
+            "6": "Dia de la Constitucion Espanola",
+            "8": "Inmaculada Concepción",
+            "25": "Navidad"
+        }
+    },
+    "oneTime": {
+        "2024": {
+            "3": {
+                "29": "Pascua de Resurrección"
+            }
+        }
+    }
+}

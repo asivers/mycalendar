@@ -28,19 +28,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_1
-import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
 import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
 import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.HolidaysInfo
+import com.asivers.mycalendar.data.HolidaysForCountry
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.scheme.ColorScheme
 import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
+import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
@@ -60,7 +60,7 @@ fun YearCalendarGridPreview() {
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
             showYearView = remember { mutableStateOf(true) },
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-            holidaysInfo = DEFAULT_HOLIDAYS_INFO,
+            holidaysForCountry = getHolidaysForCountryForPreview(),
             colorScheme = SUMMER,
             sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
         )
@@ -74,7 +74,7 @@ fun YearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysInfo: HolidaysInfo,
+    holidaysForCountry: HolidaysForCountry,
     colorScheme: ColorScheme,
     sizeScheme: SizeScheme
 ) {
@@ -89,7 +89,7 @@ fun YearCalendarGrid(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                holidaysInfo = holidaysInfo,
+                holidaysForCountry = holidaysForCountry,
                 colorScheme = colorScheme,
                 sizeScheme = sizeScheme
             )
@@ -105,7 +105,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysInfo: HolidaysInfo,
+    holidaysForCountry: HolidaysForCountry,
     colorScheme: ColorScheme,
     sizeScheme: SizeScheme
 ) {
@@ -120,7 +120,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                holidaysInfo = holidaysInfo,
+                holidaysForCountry = holidaysForCountry,
                 colorScheme = colorScheme,
                 sizeScheme = sizeScheme
             )
@@ -136,7 +136,7 @@ fun MonthInYearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysInfo: HolidaysInfo,
+    holidaysForCountry: HolidaysForCountry,
     colorScheme: ColorScheme,
     sizeScheme: SizeScheme
 ) {
@@ -172,7 +172,7 @@ fun MonthInYearCalendarGrid(
             WeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
-                monthInfo = getMonthInfo(thisYear, thisMonthIndex, holidaysInfo),
+                monthInfo = getMonthInfo(thisYear, thisMonthIndex, holidaysForCountry),
                 colorScheme = colorScheme,
                 sizeScheme = sizeScheme
             )

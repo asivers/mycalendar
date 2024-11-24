@@ -1,0 +1,44 @@
+{
+    "everyYear": {
+        "1": {
+            "1": "España - Año Nuevo",
+            "6": "España - Epifanía del Señor"
+        },
+        "5": {
+            "1": "España - Día del Trabajador"
+        },
+        "6": {
+            "24": "Cataluña - Sant Joan",
+            "29": "Reus - Sant Pere"
+        },
+        "8": {
+            "15": "España - Asunción"
+        },
+        "9": {
+            "11": "Cataluña - Diada Nacional de Catalunya",
+            "25": "Reus - Misericòrdia"
+        },
+        "10": {
+            "12": "España - Fiesta Nacional de España"
+        },
+        "11": {
+            "1": "España - Día de todos los Santos"
+        },
+        "12": {
+            "6": "España - Dia de la Constitucion Espanola",
+            "8": "España - Inmaculada Concepción",
+            "25": "España - Navidad",
+            "26": "Cataluña - Sant Esteve"
+        }
+    },
+    "oneTime": {
+        "2024": {
+            "3": {
+                "29": "España - Pascua de Resurrección"
+            },
+            "4": {
+                "1": "Cataluña - Pasqua"
+            }
+        }
+    }
+}

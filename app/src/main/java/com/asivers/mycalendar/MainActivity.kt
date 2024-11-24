@@ -18,10 +18,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.month.MonthView
 import com.asivers.mycalendar.composable.year.YearView
-import com.asivers.mycalendar.constants.DEFAULT_HOLIDAYS_INFO
+import com.asivers.mycalendar.constants.Country
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
+import com.asivers.mycalendar.utils.getHolidaysForCountry
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
 
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                val holidaysForCountry = getHolidaysForCountry(Country.SPAIN_REUS, applicationContext)
                 val sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
                 val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
                 val colorScheme = getColorScheme(selectedMonthIndex.intValue)
@@ -52,7 +54,7 @@ class MainActivity : ComponentActivity() {
                             selectedMonthIndex = selectedMonthIndex,
                             showYearView = showYearView,
                             lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                            holidaysInfo = DEFAULT_HOLIDAYS_INFO,
+                            holidaysForCountry = holidaysForCountry,
                             colorScheme = colorScheme,
                             sizeScheme = sizeScheme
                         )
@@ -62,7 +64,7 @@ class MainActivity : ComponentActivity() {
                             selectedMonthIndex = selectedMonthIndex,
                             showYearView = showYearView,
                             lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                            holidaysInfo = DEFAULT_HOLIDAYS_INFO,
+                            holidaysForCountry = holidaysForCountry,
                             colorScheme = colorScheme,
                             sizeScheme = sizeScheme
                         )
