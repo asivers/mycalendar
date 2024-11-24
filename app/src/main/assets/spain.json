@@ -25,7 +25,12 @@
     "oneTime": {
         "2024": {
             "3": {
-                "29": { "msg": "Pascua de Resurrección" }
+                "29": { "msg": "Viernes Santo" }
+            }
+        },
+        "2025": {
+            "4": {
+                "18": { "msg": "Viernes Santo" }
             }
         }
     }

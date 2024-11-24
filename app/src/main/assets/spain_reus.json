@@ -8,8 +8,7 @@
             "1": { "msg": "España - Día del Trabajador" }
         },
         "6": {
-            "24": { "msg": "Cataluña - Sant Joan" },
-            "29": { "msg": "Reus - Sant Pere" }
+            "24": { "msg": "Cataluña - Sant Joan" }
         },
         "8": {
             "15": { "msg": "España - Asunción" }
@@ -34,10 +33,22 @@
     "oneTime": {
         "2024": {
             "3": {
-                "29": { "msg": "España - Pascua de Resurrección" }
+                "29": { "msg": "España - Viernes Santo" }
             },
             "4": {
-                "1": { "msg": "Cataluña - Pasqua" }
+                "1": { "msg": "Cataluña - Lunes de Pascua" }
+            },
+            "6": {
+                "29": { "msg": "Reus - Sant Pere" }
+            }
+        },
+        "2025": {
+            "4": {
+                "18": { "msg": "España - Viernes Santo" },
+                "21": { "msg": "Cataluña - Lunes de Pascua" }
+            },
+            "6": {
+                "30": { "msg": "Reus - Sant Pere" }
             }
         }
     }

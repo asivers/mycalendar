@@ -15,8 +15,7 @@ fun getHolidaysForCountryForPreview(): HolidaysForCountry {
                 Pair(1, DayInfo("España - Día del Trabajador"))
             ),
             Calendar.JUNE to mapOf(
-                Pair(24, DayInfo("Cataluña - Sant Joan")),
-                Pair(29, DayInfo("Reus - Sant Pere"))
+                Pair(24, DayInfo("Cataluña - Sant Joan"))
             ),
             Calendar.AUGUST to mapOf(
                 Pair(15, DayInfo("España - Asunción"))
@@ -36,17 +35,29 @@ fun getHolidaysForCountryForPreview(): HolidaysForCountry {
                 Pair(8, DayInfo("España - Inmaculada Concepción")),
                 Pair(25, DayInfo("España - Navidad")),
                 Pair(26, DayInfo("Cataluña - Sant Esteve"))
-            ),
+            )
         ),
         oneTime = mapOf(
             2024 to mapOf(
                 Calendar.MARCH to mapOf(
-                    Pair(29, DayInfo("España - Pascua de Resurrección"))
+                    Pair(29, DayInfo("España - Viernes Santo"))
                 ),
                 Calendar.APRIL to mapOf(
-                    Pair(1, DayInfo("Cataluña - Pasqua"))
+                    Pair(1, DayInfo("Cataluña - Lunes de Pascua"))
                 ),
+                Calendar.JUNE to mapOf(
+                    Pair(29, DayInfo("Reus - Sant Pere"))
+                )
             ),
+            2025 to mapOf(
+                Calendar.APRIL to mapOf(
+                    Pair(18, DayInfo("España - Viernes Santo")),
+                    Pair(21, DayInfo("Cataluña - Lunes de Pascua"))
+                ),
+                Calendar.JUNE to mapOf(
+                    Pair(30, DayInfo("Reus - Sant Pere"))
+                )
+            )
         )
     )
 }
