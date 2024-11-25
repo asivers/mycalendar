@@ -1,36 +1,36 @@
 {
     "everyYear": {
         "1": {
-            "1": { "holiday": "Año Nuevo" },
-            "6": { "holiday": "Epifanía del Señor" }
+            "1": { "holiday": { "en": "Año Nuevo" } },
+            "6": { "holiday": { "en": "Epifanía del Señor" } }
         },
         "5": {
-            "1": { "holiday": "Día del Trabajador" }
+            "1": { "holiday": { "en": "Día del Trabajador" } }
         },
         "8": {
-            "15": { "holiday": "Asunción" }
+            "15": { "holiday": { "en": "Asunción" } }
         },
         "10": {
-            "12": { "holiday": "Fiesta Nacional de España" }
+            "12": { "holiday": { "en": "Fiesta Nacional de España" } }
         },
         "11": {
-            "1": { "holiday": "Día de todos los Santos" }
+            "1": { "holiday": { "en": "Día de todos los Santos" } }
         },
         "12": {
-            "6": { "holiday": "Dia de la Constitucion Espanola" },
-            "8": { "holiday": "Inmaculada Concepción" },
-            "25": { "holiday": "Navidad" }
+            "6": { "holiday": { "en": "Dia de la Constitucion Espanola" } },
+            "8": { "holiday": { "en": "Inmaculada Concepción" } },
+            "25": { "holiday": { "en": "Navidad" } }
         }
     },
     "oneTime": {
         "2024": {
             "3": {
-                "29": { "holiday": "Viernes Santo" }
+                "29": { "holiday": { "en": "Viernes Santo" } }
             }
         },
         "2025": {
             "4": {
-                "18": { "holiday": "Viernes Santo" }
+                "18": { "holiday": { "en": "Viernes Santo" } }
             }
         }
     }

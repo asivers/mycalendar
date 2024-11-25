@@ -1,6 +1,7 @@
 package com.asivers.mycalendar.utils
 
 import com.asivers.mycalendar.data.HolidaysForCountry
+import com.asivers.mycalendar.data.LocalString
 import com.asivers.mycalendar.data.MonthInfo
 import java.util.Calendar
 import java.util.GregorianCalendar
@@ -11,8 +12,8 @@ fun getMonthInfo(year: Int, monthIndex: Int, holidaysForCountry: HolidaysForCoun
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
 
     val monthIndexFrom1To12 = monthIndex + 1
-    val holidays = mutableMapOf<Int, String>()
-    val notHolidays = mutableMapOf<Int, String>()
+    val holidays = mutableMapOf<Int, LocalString>()
+    val notHolidays = mutableMapOf<Int, LocalString>()
     if (monthIndexFrom1To12 in holidaysForCountry.everyYear) {
         holidaysForCountry.everyYear[monthIndexFrom1To12]!!.forEach {
             if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
@@ -52,8 +53,8 @@ fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MON
 fun isHoliday(
     dayValue: Int?,
     dayOfWeekIndex: Int,
-    holidays: Map<Int, String>,
-    notHolidays: Map<Int, String>
+    holidays: Map<Int, LocalString>,
+    notHolidays: Map<Int, LocalString>
 ): Boolean {
     if (dayValue == null || dayValue in notHolidays) return false
     return dayOfWeekIndex > 4 || dayValue in holidays

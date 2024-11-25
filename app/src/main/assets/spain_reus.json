@@ -1,54 +1,54 @@
 {
     "everyYear": {
         "1": {
-            "1": { "holiday": "España - Año Nuevo" },
-            "6": { "holiday": "España - Epifanía del Señor" }
+            "1": { "holiday": { "en": "España - Año Nuevo" } },
+            "6": { "holiday": { "en": "España - Epifanía del Señor" } }
         },
         "5": {
-            "1": { "holiday": "España - Día del Trabajador" }
+            "1": { "holiday": { "en": "España - Día del Trabajador" } }
         },
         "6": {
-            "24": { "holiday": "Cataluña - Sant Joan" }
+            "24": { "holiday": { "en": "Cataluña - Sant Joan" } }
         },
         "8": {
-            "15": { "holiday": "España - Asunción" }
+            "15": { "holiday": { "en": "España - Asunción" } }
         },
         "9": {
-            "11": { "holiday": "Cataluña - Diada Nacional de Catalunya" },
-            "25": { "holiday": "Reus - Misericòrdia" }
+            "11": { "holiday": { "en": "Cataluña - Diada Nacional de Catalunya" } },
+            "25": { "holiday": { "en": "Reus - Misericòrdia" } }
         },
         "10": {
-            "12": { "holiday": "España - Fiesta Nacional de España" }
+            "12": { "holiday": { "en": "España - Fiesta Nacional de España" } }
         },
         "11": {
-            "1": { "holiday": "España - Día de todos los Santos" }
+            "1": { "holiday": { "en": "España - Día de todos los Santos" } }
         },
         "12": {
-            "6": { "holiday": "España - Dia de la Constitucion Espanola" },
-            "8": { "holiday": "España - Inmaculada Concepción" },
-            "25": { "holiday": "España - Navidad" },
-            "26": { "holiday": "Cataluña - Sant Esteve" }
+            "6": { "holiday": { "en": "España - Dia de la Constitucion Espanola" } },
+            "8": { "holiday": { "en": "España - Inmaculada Concepción" } },
+            "25": { "holiday": { "en": "España - Navidad" } },
+            "26": { "holiday": { "en": "Cataluña - Sant Esteve" } }
         }
     },
     "oneTime": {
         "2024": {
             "3": {
-                "29": { "holiday": "España - Viernes Santo" }
+                "29": { "holiday": { "en": "España - Viernes Santo" } }
             },
             "4": {
-                "1": { "holiday": "Cataluña - Lunes de Pascua" }
+                "1": { "holiday": { "en": "Cataluña - Lunes de Pascua" } }
             },
             "6": {
-                "29": { "holiday": "Reus - Sant Pere" }
+                "29": { "holiday": { "en": "Reus - Sant Pere" } }
             }
         },
         "2025": {
             "4": {
-                "18": { "holiday": "España - Viernes Santo" },
-                "21": { "holiday": "Cataluña - Lunes de Pascua" }
+                "18": { "holiday": { "en": "España - Viernes Santo" } },
+                "21": { "holiday": { "en": "Cataluña - Lunes de Pascua" } }
             },
             "6": {
-                "30": { "holiday": "Reus - Sant Pere" }
+                "30": { "holiday": { "en": "Reus - Sant Pere" } }
             }
         }
     }
