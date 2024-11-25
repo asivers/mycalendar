@@ -1,9 +1,7 @@
 package com.asivers.mycalendar.utils
 
-import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.HolidaysForCountry
 import com.asivers.mycalendar.data.MonthInfo
-import com.asivers.mycalendar.enums.DayType
 import java.util.Calendar
 import java.util.GregorianCalendar
 
@@ -13,18 +11,18 @@ fun getMonthInfo(year: Int, monthIndex: Int, holidaysForCountry: HolidaysForCoun
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
 
     val monthIndexFrom1To12 = monthIndex + 1
-    val holidays = mutableMapOf<Int, DayInfo>()
-    val notHolidays = mutableMapOf<Int, DayInfo>()
+    val holidays = mutableMapOf<Int, String>()
+    val notHolidays = mutableMapOf<Int, String>()
     if (monthIndexFrom1To12 in holidaysForCountry.everyYear) {
         holidaysForCountry.everyYear[monthIndexFrom1To12]!!.forEach {
-            if (it.value.type == DayType.HOLIDAY) holidays[it.key] = it.value
-            else if (it.value.type == DayType.NOT_HOLIDAY) notHolidays[it.key] = it.value
+            if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
+            else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
         }
     }
     if (year in holidaysForCountry.oneTime && monthIndexFrom1To12 in holidaysForCountry.oneTime[year]!!) {
         holidaysForCountry.oneTime[year]!![monthIndexFrom1To12]!!.forEach {
-            if (it.value.type == DayType.HOLIDAY) holidays[it.key] = it.value
-            else if (it.value.type == DayType.NOT_HOLIDAY) notHolidays[it.key] = it.value
+            if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
+            else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
         }
     }
 
@@ -54,8 +52,8 @@ fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MON
 fun isHoliday(
     dayValue: Int?,
     dayOfWeekIndex: Int,
-    holidays: Map<Int, DayInfo>,
-    notHolidays: Map<Int, DayInfo>
+    holidays: Map<Int, String>,
+    notHolidays: Map<Int, String>
 ): Boolean {
     if (dayValue == null || dayValue in notHolidays) return false
     return dayOfWeekIndex > 4 || dayValue in holidays
