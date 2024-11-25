@@ -36,6 +36,15 @@ private fun getTodayValue(year: Int, monthIndex: Int): Int? {
     return if (isCurrentMonth) getCurrentDayOfMonth() else null
 }
 
+fun getNumberOfWeeksInMonth(monthInfo: MonthInfo): Int {
+    return when (monthInfo.dayOfWeekOf1st) {
+        0 -> if (monthInfo.numberOfDays == 28) 4 else 5
+        5 -> if (monthInfo.numberOfDays == 31) 6 else 5
+        6 -> if (monthInfo.numberOfDays >= 30) 6 else 5
+        else -> 5
+    }
+}
+
 fun getDayValueForMonthTableElement(
     weekIndex: Int,
     dayOfWeekIndex: Int,

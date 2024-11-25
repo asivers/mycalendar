@@ -38,6 +38,7 @@ import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
 import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
+import com.asivers.mycalendar.utils.getNumberOfWeeksInMonth
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.isHoliday
 
@@ -78,7 +79,8 @@ fun MonthCalendarGrid(
         HeaderWeekInMonthCalendarGrid(
             sizeScheme = sizeScheme
         )
-        repeat(6) { weekIndex ->
+        val numberOfWeeksInMonth = getNumberOfWeeksInMonth(monthInfo)
+        repeat(numberOfWeeksInMonth) { weekIndex ->
             WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 monthInfo = monthInfo,

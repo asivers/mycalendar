@@ -3,6 +3,10 @@ package com.asivers.mycalendar.composable.month
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
@@ -28,6 +32,7 @@ import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSizeScheme
+import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
 @Composable
@@ -66,11 +71,17 @@ fun MonthView(
                         },
                         onDragEnd = {
                             if (horizontalOffset > 50f) {
-                                previousMonth(selectedYear, selectedMonthIndex,
-                                    lastSelectedYearFromMonthView)
+                                previousMonth(
+                                    selectedYear,
+                                    selectedMonthIndex,
+                                    lastSelectedYearFromMonthView
+                                )
                             } else if (horizontalOffset < -50f) {
-                                nextMonth(selectedYear, selectedMonthIndex,
-                                    lastSelectedYearFromMonthView)
+                                nextMonth(
+                                    selectedYear,
+                                    selectedMonthIndex,
+                                    lastSelectedYearFromMonthView
+                                )
                             }
                         }
                     ) { _, dragAmount ->
@@ -91,13 +102,46 @@ fun MonthView(
                     sizeScheme = sizeScheme
                 )
             }
-            Box(modifier = Modifier.weight(7f)) {
+            Column(modifier = Modifier.weight(7f)) {
                 MonthCalendarGrid(
                     monthInfo = getMonthInfo(
                         selectedYear.intValue, selectedMonthIndex.intValue, holidaysForCountry),
                     colorScheme = colorScheme,
                     sizeScheme = sizeScheme
                 )
+                Row(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(3f)
+                            .noRippleClickable {
+                                previousMonth(
+                                    selectedYear,
+                                    selectedMonthIndex,
+                                    lastSelectedYearFromMonthView
+                                )
+                            }
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(1f)
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .weight(3f)
+                            .noRippleClickable {
+                                nextMonth(
+                                    selectedYear,
+                                    selectedMonthIndex,
+                                    lastSelectedYearFromMonthView
+                                )
+                            }
+                    )
+                }
             }
         }
         YearViewButton(
