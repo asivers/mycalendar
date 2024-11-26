@@ -24,11 +24,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
@@ -36,6 +34,7 @@ import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.HolidaysForCountry
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.TranslationsScheme
 import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -43,6 +42,7 @@ import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
 import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSizeScheme
+import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.isHoliday
 import com.asivers.mycalendar.utils.noRippleClickable
@@ -62,6 +62,7 @@ fun YearCalendarGridPreview() {
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
             holidaysForCountry = getHolidaysForCountryForPreview(),
             colorScheme = SUMMER,
+            translationsScheme = getTranslationsSchemeForPreview(),
             sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
         )
     }
@@ -76,6 +77,7 @@ fun YearCalendarGrid(
     lastSelectedYearFromMonthView: MutableIntState,
     holidaysForCountry: HolidaysForCountry,
     colorScheme: ColorScheme,
+    translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
 ) {
     Column(
@@ -91,6 +93,7 @@ fun YearCalendarGrid(
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 holidaysForCountry = holidaysForCountry,
                 colorScheme = colorScheme,
+                translationsScheme = translationsScheme,
                 sizeScheme = sizeScheme
             )
         }
@@ -107,6 +110,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
     lastSelectedYearFromMonthView: MutableIntState,
     holidaysForCountry: HolidaysForCountry,
     colorScheme: ColorScheme,
+    translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
 ) {
     Row(
@@ -122,6 +126,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 holidaysForCountry = holidaysForCountry,
                 colorScheme = colorScheme,
+                translationsScheme = translationsScheme,
                 sizeScheme = sizeScheme
             )
         }
@@ -138,6 +143,7 @@ fun MonthInYearCalendarGrid(
     lastSelectedYearFromMonthView: MutableIntState,
     holidaysForCountry: HolidaysForCountry,
     colorScheme: ColorScheme,
+    translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
 ) {
     val isLastSelectedMonth = thisYear == lastSelectedYearFromMonthView.intValue
@@ -156,7 +162,7 @@ fun MonthInYearCalendarGrid(
             }
     ) {
         Text(
-            text = stringArrayResource(R.array.months)[thisMonthIndex],
+            text = translationsScheme.months[thisMonthIndex],
             modifier = Modifier.padding(3.dp, 0.dp),
             fontFamily = MONTSERRAT_BOLD,
             fontSize = sizeScheme.font.yvMonthName,
@@ -166,6 +172,7 @@ fun MonthInYearCalendarGrid(
             modifier = Modifier
                 .wrapContentHeight()
                 .padding(0.dp, 5.dp, 0.dp, 3.dp),
+            translationsScheme = translationsScheme,
             sizeScheme = sizeScheme
         )
         repeat(6) { weekIndex ->
@@ -183,6 +190,7 @@ fun MonthInYearCalendarGrid(
 @Composable
 fun HeaderWeekInYearCalendarGrid(
     modifier: Modifier = Modifier,
+    translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
 ) {
     Row(
@@ -191,7 +199,7 @@ fun HeaderWeekInYearCalendarGrid(
         repeat(7) { dayOfWeekIndex ->
             Text(
                 modifier = Modifier.weight(1f),
-                text = stringArrayResource(R.array.days_of_week_3)[dayOfWeekIndex],
+                text = translationsScheme.daysOfWeek3[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
                 fontSize = sizeScheme.font.yvHeaderWeek,
                 color = Color.White,

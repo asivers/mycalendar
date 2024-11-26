@@ -26,12 +26,14 @@ import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.HolidaysForCountry
 import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.TranslationsScheme
 import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSizeScheme
+import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
@@ -44,6 +46,7 @@ fun MonthViewPreview() {
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
         holidaysForCountry = getHolidaysForCountryForPreview(),
         colorScheme = SUMMER,
+        translationsScheme = getTranslationsSchemeForPreview(),
         sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
     )
 }
@@ -57,6 +60,7 @@ fun MonthView(
     lastSelectedYearFromMonthView: MutableIntState,
     holidaysForCountry: HolidaysForCountry,
     colorScheme: ColorScheme,
+    translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
 ) {
     Column(modifier = modifier) {
@@ -99,6 +103,7 @@ fun MonthView(
                     showYearView = showYearView.value,
                     lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                     colorScheme = colorScheme,
+                    translationsScheme = translationsScheme,
                     sizeScheme = sizeScheme
                 )
             }
@@ -107,6 +112,7 @@ fun MonthView(
                     monthInfo = getMonthInfo(
                         selectedYear.intValue, selectedMonthIndex.intValue, holidaysForCountry),
                     colorScheme = colorScheme,
+                    translationsScheme = translationsScheme,
                     sizeScheme = sizeScheme
                 )
                 Row(
@@ -147,6 +153,7 @@ fun MonthView(
         YearViewButton(
             showYearView = showYearView,
             colorScheme = colorScheme,
+            translationsScheme = translationsScheme,
             sizeScheme = sizeScheme
         )
     }

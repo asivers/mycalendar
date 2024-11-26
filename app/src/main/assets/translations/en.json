@@ -1,0 +1,35 @@
+{
+  "yearView": "Year view",
+  "months": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "daysOfWeek3": [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun"
+  ],
+  "daysOfWeek1": [
+    "M",
+    "T",
+    "W",
+    "T",
+    "F",
+    "S",
+    "S"
+  ]
+}

@@ -20,11 +20,9 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
@@ -32,6 +30,7 @@ import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.TranslationsScheme
 import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -41,6 +40,7 @@ import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
 import com.asivers.mycalendar.utils.getNumberOfWeeksInMonth
 import com.asivers.mycalendar.utils.getSizeScheme
+import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
 import com.asivers.mycalendar.utils.isHoliday
 
 @Preview(showBackground = true)
@@ -60,6 +60,7 @@ fun MonthCalendarGridPreview() {
                 getHolidaysForCountryForPreview()
             ),
             colorScheme = SUMMER,
+            translationsScheme = getTranslationsSchemeForPreview(),
             sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
         )
     }
@@ -70,6 +71,7 @@ fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
     monthInfo: MonthInfo,
     colorScheme: ColorScheme,
+    translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
 ) {
     Column(
@@ -78,6 +80,7 @@ fun MonthCalendarGrid(
             .padding(3.dp, 0.dp)
     ) {
         HeaderWeekInMonthCalendarGrid(
+            translationsScheme = translationsScheme,
             sizeScheme = sizeScheme
         )
         val numberOfWeeksInMonth = getNumberOfWeeksInMonth(monthInfo)
@@ -95,6 +98,7 @@ fun MonthCalendarGrid(
 @Composable
 fun HeaderWeekInMonthCalendarGrid(
     modifier: Modifier = Modifier,
+    translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
 ) {
     Row(
@@ -105,7 +109,7 @@ fun HeaderWeekInMonthCalendarGrid(
                 modifier = Modifier
                     .weight(1f)
                     .padding(0.dp, 5.dp),
-                text = stringArrayResource(R.array.days_of_week_3)[dayOfWeekIndex],
+                text = translationsScheme.daysOfWeek3[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
                 fontSize = sizeScheme.font.mvHeaderWeek,
                 color = Color.White,

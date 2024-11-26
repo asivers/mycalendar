@@ -3,6 +3,7 @@ package com.asivers.mycalendar.utils
 import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.HolidaysForCountry
 import com.asivers.mycalendar.data.LocalString
+import com.asivers.mycalendar.data.scheme.TranslationsScheme
 import java.util.Calendar
 
 fun getHolidaysForCountryForPreview(): HolidaysForCountry {
@@ -59,6 +60,44 @@ fun getHolidaysForCountryForPreview(): HolidaysForCountry {
                     Pair(30, DayInfo(holiday = LocalString(en = "Reus - Saint Peter", es = "Reus - Sant Pere")))
                 )
             )
+        )
+    )
+}
+
+fun getTranslationsSchemeForPreview(): TranslationsScheme {
+    return TranslationsScheme(
+        yearView = "Year view",
+        months = listOf(
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ),
+        daysOfWeek3 = listOf(
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat",
+            "Sun"
+        ),
+        daysOfWeek1 = listOf(
+            "M",
+            "T",
+            "W",
+            "T",
+            "F",
+            "S",
+            "S"
         )
     )
 }

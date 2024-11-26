@@ -21,18 +21,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.TranslationsScheme
 import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getSizeScheme
+import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
 
 @Preview
 @Composable
@@ -40,6 +40,7 @@ fun YearViewButtonPreview() {
     YearViewButton(
         showYearView = remember { mutableStateOf(false) },
         colorScheme = SUMMER,
+        translationsScheme = getTranslationsSchemeForPreview(),
         sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
     )
 }
@@ -49,6 +50,7 @@ fun YearViewButton(
     modifier: Modifier = Modifier,
     showYearView: MutableState<Boolean>,
     colorScheme: ColorScheme,
+    translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
@@ -82,7 +84,7 @@ fun YearViewButton(
         interactionSource = NO_RIPPLE_INTERACTION_SOURCE
     ) {
         Text(
-            text = stringResource(id = R.string.year_view),
+            text = translationsScheme.yearView,
             fontFamily = MONTSERRAT_BOLD,
             fontSize = sizeScheme.font.main,
             color = Color.White,
