@@ -23,10 +23,10 @@ import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getExistingLocaleForLanguage
-import com.asivers.mycalendar.utils.getHolidaysForCountry
+import com.asivers.mycalendar.utils.getHolidaysSchemeForCountry
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationsForExistingLocale
+import com.asivers.mycalendar.utils.getTranslationsSchemeForExistingLocale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                val holidaysForCountry = getHolidaysForCountry(
+                val countryHolidaysScheme = getHolidaysSchemeForCountry(
                     Country.SPAIN_REUS, applicationContext)
 
                 val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
                 val language = LocalConfiguration.current.locales[0].language
                 val existingLocale = getExistingLocaleForLanguage(language)
-                val translationsScheme = getTranslationsForExistingLocale(
+                val translationsScheme = getTranslationsSchemeForExistingLocale(
                     existingLocale, applicationContext)
 
                 val sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                             selectedMonthIndex = selectedMonthIndex,
                             showYearView = showYearView,
                             lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                            holidaysForCountry = holidaysForCountry,
+                            countryHolidaysScheme = countryHolidaysScheme,
                             translationsScheme = translationsScheme,
                             colorScheme = colorScheme,
                             sizeScheme = sizeScheme
@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
                             selectedMonthIndex = selectedMonthIndex,
                             showYearView = showYearView,
                             lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                            holidaysForCountry = holidaysForCountry,
+                            countryHolidaysScheme = countryHolidaysScheme,
                             translationsScheme = translationsScheme,
                             colorScheme = colorScheme,
                             sizeScheme = sizeScheme

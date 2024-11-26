@@ -1,27 +1,27 @@
 package com.asivers.mycalendar.utils
 
-import com.asivers.mycalendar.data.HolidaysForCountry
-import com.asivers.mycalendar.data.LocalString
+import com.asivers.mycalendar.data.scheme.CountryHolidaysScheme
+import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.MonthInfo
 import java.util.Calendar
 import java.util.GregorianCalendar
 
-fun getMonthInfo(year: Int, monthIndex: Int, holidaysForCountry: HolidaysForCountry): MonthInfo {
+fun getMonthInfo(year: Int, monthIndex: Int, countryHolidaysScheme: CountryHolidaysScheme): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
     val numberOfDays = firstOfThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
 
     val monthIndexFrom1To12 = monthIndex + 1
-    val holidays = mutableMapOf<Int, LocalString>()
-    val notHolidays = mutableMapOf<Int, LocalString>()
-    if (monthIndexFrom1To12 in holidaysForCountry.everyYear) {
-        holidaysForCountry.everyYear[monthIndexFrom1To12]!!.forEach {
+    val holidays = mutableMapOf<Int, HolidayInfo>()
+    val notHolidays = mutableMapOf<Int, HolidayInfo>()
+    if (monthIndexFrom1To12 in countryHolidaysScheme.everyYear) {
+        countryHolidaysScheme.everyYear[monthIndexFrom1To12]!!.forEach {
             if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
             else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
         }
     }
-    if (year in holidaysForCountry.oneTime && monthIndexFrom1To12 in holidaysForCountry.oneTime[year]!!) {
-        holidaysForCountry.oneTime[year]!![monthIndexFrom1To12]!!.forEach {
+    if (year in countryHolidaysScheme.oneTime && monthIndexFrom1To12 in countryHolidaysScheme.oneTime[year]!!) {
+        countryHolidaysScheme.oneTime[year]!![monthIndexFrom1To12]!!.forEach {
             if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
             else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
         }
@@ -62,8 +62,8 @@ fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MON
 fun isHoliday(
     dayValue: Int?,
     dayOfWeekIndex: Int,
-    holidays: Map<Int, LocalString>,
-    notHolidays: Map<Int, LocalString>
+    holidays: Map<Int, HolidayInfo>,
+    notHolidays: Map<Int, HolidayInfo>
 ): Boolean {
     if (dayValue == null || dayValue in notHolidays) return false
     return dayOfWeekIndex > 4 || dayValue in holidays

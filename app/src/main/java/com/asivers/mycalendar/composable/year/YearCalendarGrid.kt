@@ -31,7 +31,7 @@ import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
 import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.HolidaysForCountry
+import com.asivers.mycalendar.data.scheme.CountryHolidaysScheme
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.scheme.ColorScheme
 import com.asivers.mycalendar.data.scheme.TranslationsScheme
@@ -39,7 +39,7 @@ import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
-import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
+import com.asivers.mycalendar.utils.getCountryHolidaysSchemeForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
@@ -60,7 +60,7 @@ fun YearCalendarGridPreview() {
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
             showYearView = remember { mutableStateOf(true) },
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-            holidaysForCountry = getHolidaysForCountryForPreview(),
+            countryHolidaysScheme = getCountryHolidaysSchemeForPreview(),
             colorScheme = SUMMER,
             translationsScheme = getTranslationsSchemeForPreview(),
             sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
@@ -75,7 +75,7 @@ fun YearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysForCountry: HolidaysForCountry,
+    countryHolidaysScheme: CountryHolidaysScheme,
     colorScheme: ColorScheme,
     translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
@@ -91,7 +91,7 @@ fun YearCalendarGrid(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                holidaysForCountry = holidaysForCountry,
+                countryHolidaysScheme = countryHolidaysScheme,
                 colorScheme = colorScheme,
                 translationsScheme = translationsScheme,
                 sizeScheme = sizeScheme
@@ -108,7 +108,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysForCountry: HolidaysForCountry,
+    countryHolidaysScheme: CountryHolidaysScheme,
     colorScheme: ColorScheme,
     translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
@@ -124,7 +124,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                holidaysForCountry = holidaysForCountry,
+                countryHolidaysScheme = countryHolidaysScheme,
                 colorScheme = colorScheme,
                 translationsScheme = translationsScheme,
                 sizeScheme = sizeScheme
@@ -141,7 +141,7 @@ fun MonthInYearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysForCountry: HolidaysForCountry,
+    countryHolidaysScheme: CountryHolidaysScheme,
     colorScheme: ColorScheme,
     translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
@@ -179,7 +179,7 @@ fun MonthInYearCalendarGrid(
             WeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
-                monthInfo = getMonthInfo(thisYear, thisMonthIndex, holidaysForCountry),
+                monthInfo = getMonthInfo(thisYear, thisMonthIndex, countryHolidaysScheme),
                 colorScheme = colorScheme,
                 sizeScheme = sizeScheme
             )

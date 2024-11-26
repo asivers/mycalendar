@@ -35,7 +35,7 @@ import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
-import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
+import com.asivers.mycalendar.utils.getCountryHolidaysSchemeForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
 import com.asivers.mycalendar.utils.getNumberOfWeeksInMonth
@@ -57,7 +57,7 @@ fun MonthCalendarGridPreview() {
             monthInfo = getMonthInfo(
                 getCurrentYear(),
                 getCurrentMonthIndex(),
-                getHolidaysForCountryForPreview()
+                getCountryHolidaysSchemeForPreview()
             ),
             colorScheme = SUMMER,
             translationsScheme = getTranslationsSchemeForPreview(),

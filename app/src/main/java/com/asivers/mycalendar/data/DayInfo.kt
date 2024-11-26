@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DayInfo(
-    val holiday: LocalString? = null,
-    val notHoliday: LocalString? = null,
+    val holiday: HolidayInfo? = null,
+    val notHoliday: HolidayInfo? = null,
     val notes: List<NoteInfo> = listOf()
 )

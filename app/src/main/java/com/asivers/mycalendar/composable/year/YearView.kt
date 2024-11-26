@@ -26,13 +26,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.HolidaysForCountry
+import com.asivers.mycalendar.data.scheme.CountryHolidaysScheme
 import com.asivers.mycalendar.data.scheme.ColorScheme
 import com.asivers.mycalendar.data.scheme.TranslationsScheme
 import com.asivers.mycalendar.data.scheme.size.SizeScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.utils.getHolidaysForCountryForPreview
+import com.asivers.mycalendar.utils.getCountryHolidaysSchemeForPreview
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
@@ -45,7 +45,7 @@ fun YearViewPreview() {
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(true) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-        holidaysForCountry = getHolidaysForCountryForPreview(),
+        countryHolidaysScheme = getCountryHolidaysSchemeForPreview(),
         colorScheme = SUMMER,
         translationsScheme = getTranslationsSchemeForPreview(),
         sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
@@ -59,7 +59,7 @@ fun YearView(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    holidaysForCountry: HolidaysForCountry,
+    countryHolidaysScheme: CountryHolidaysScheme,
     colorScheme: ColorScheme,
     translationsScheme: TranslationsScheme,
     sizeScheme: SizeScheme
@@ -111,7 +111,7 @@ fun YearView(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                holidaysForCountry = holidaysForCountry,
+                countryHolidaysScheme = countryHolidaysScheme,
                 colorScheme = colorScheme,
                 translationsScheme = translationsScheme,
                 sizeScheme = sizeScheme
