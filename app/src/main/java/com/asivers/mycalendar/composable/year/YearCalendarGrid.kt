@@ -31,18 +31,13 @@ import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
 import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.scheme.CountryHolidaysScheme
 import com.asivers.mycalendar.data.MonthInfo
-import com.asivers.mycalendar.data.scheme.ColorScheme
-import com.asivers.mycalendar.data.scheme.TranslationsScheme
-import com.asivers.mycalendar.data.scheme.size.SizeScheme
+import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
-import com.asivers.mycalendar.utils.getCountryHolidaysSchemeForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
-import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
+import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.isHoliday
 import com.asivers.mycalendar.utils.noRippleClickable
@@ -60,10 +55,7 @@ fun YearCalendarGridPreview() {
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
             showYearView = remember { mutableStateOf(true) },
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-            countryHolidaysScheme = getCountryHolidaysSchemeForPreview(),
-            colorScheme = SUMMER,
-            translationsScheme = getTranslationsSchemeForPreview(),
-            sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
+            schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
     }
 }
@@ -75,10 +67,7 @@ fun YearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    countryHolidaysScheme: CountryHolidaysScheme,
-    colorScheme: ColorScheme,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     Column(
         modifier = modifier.padding(0.dp, 4.dp),
@@ -91,10 +80,7 @@ fun YearCalendarGrid(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                countryHolidaysScheme = countryHolidaysScheme,
-                colorScheme = colorScheme,
-                translationsScheme = translationsScheme,
-                sizeScheme = sizeScheme
+                schemes = schemes
             )
         }
     }
@@ -108,10 +94,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    countryHolidaysScheme: CountryHolidaysScheme,
-    colorScheme: ColorScheme,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -124,10 +107,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                countryHolidaysScheme = countryHolidaysScheme,
-                colorScheme = colorScheme,
-                translationsScheme = translationsScheme,
-                sizeScheme = sizeScheme
+                schemes = schemes
             )
         }
     }
@@ -141,17 +121,14 @@ fun MonthInYearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    countryHolidaysScheme: CountryHolidaysScheme,
-    colorScheme: ColorScheme,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     val isLastSelectedMonth = thisYear == lastSelectedYearFromMonthView.intValue
             && thisMonthIndex == selectedMonthIndex.intValue
-    val background = if (isLastSelectedMonth) colorScheme.mvLight else Color.Transparent
+    val background = if (isLastSelectedMonth) schemes.color.mvLight else Color.Transparent
     Column(
         modifier = modifier
-            .padding(sizeScheme.horizontal.yvMonthPadding, sizeScheme.vertical.yvMonthPadding)
+            .padding(schemes.size.horizontal.yvMonthPadding, schemes.size.vertical.yvMonthPadding)
             .clip(RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             .background(background)
             .padding(4.dp, 2.dp)
@@ -162,26 +139,24 @@ fun MonthInYearCalendarGrid(
             }
     ) {
         Text(
-            text = translationsScheme.months[thisMonthIndex],
+            text = schemes.translation.months[thisMonthIndex],
             modifier = Modifier.padding(3.dp, 0.dp),
             fontFamily = MONTSERRAT_BOLD,
-            fontSize = sizeScheme.font.yvMonthName,
+            fontSize = schemes.size.font.yvMonthName,
             color = Color.White
         )
         HeaderWeekInYearCalendarGrid(
             modifier = Modifier
                 .wrapContentHeight()
                 .padding(0.dp, 5.dp, 0.dp, 3.dp),
-            translationsScheme = translationsScheme,
-            sizeScheme = sizeScheme
+            schemes = schemes
         )
         repeat(6) { weekIndex ->
             WeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
-                monthInfo = getMonthInfo(thisYear, thisMonthIndex, countryHolidaysScheme),
-                colorScheme = colorScheme,
-                sizeScheme = sizeScheme
+                monthInfo = getMonthInfo(thisYear, thisMonthIndex, schemes.countryHoliday),
+                schemes = schemes
             )
         }
     }
@@ -190,8 +165,7 @@ fun MonthInYearCalendarGrid(
 @Composable
 fun HeaderWeekInYearCalendarGrid(
     modifier: Modifier = Modifier,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -199,9 +173,9 @@ fun HeaderWeekInYearCalendarGrid(
         repeat(7) { dayOfWeekIndex ->
             Text(
                 modifier = Modifier.weight(1f),
-                text = translationsScheme.daysOfWeek3[dayOfWeekIndex],
+                text = schemes.translation.daysOfWeek1[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
-                fontSize = sizeScheme.font.yvHeaderWeek,
+                fontSize = schemes.size.font.yvHeaderWeek,
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 style = NO_PADDING_TEXT_STYLE
@@ -215,8 +189,7 @@ fun WeekInYearCalendarGrid(
     modifier: Modifier = Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo,
-    colorScheme: ColorScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -227,8 +200,7 @@ fun WeekInYearCalendarGrid(
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
                 monthInfo = monthInfo,
-                colorScheme = colorScheme,
-                sizeScheme = sizeScheme
+                schemes = schemes
             )
         }
     }
@@ -240,8 +212,7 @@ fun DayInYearCalendarGrid(
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,
-    colorScheme: ColorScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     val dayValue = getDayValueForMonthTableElement(
         weekIndex,
@@ -262,8 +233,8 @@ fun DayInYearCalendarGrid(
             .wrapContentHeight(),
         text = (dayValue ?: "").toString(),
         fontFamily = MONTSERRAT_BOLD,
-        fontSize = sizeScheme.font.yvDay,
-        color = if (holiday) colorScheme.yvVeryLight else Color.White,
+        fontSize = schemes.size.font.yvDay,
+        color = if (holiday) schemes.color.yvVeryLight else Color.White,
         textAlign = TextAlign.Center,
         style = NO_PADDING_TEXT_STYLE
     )

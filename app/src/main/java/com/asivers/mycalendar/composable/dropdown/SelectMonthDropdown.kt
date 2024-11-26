@@ -30,12 +30,9 @@ import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.scheme.ColorScheme
-import com.asivers.mycalendar.data.scheme.TranslationsScheme
-import com.asivers.mycalendar.data.scheme.size.SizeScheme
+import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
-import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
+import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
@@ -48,9 +45,7 @@ fun SelectMonthDropdownPreview() {
     ) {
         SelectMonthDropdown(
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
-            colorScheme = SUMMER,
-            translationsScheme = getTranslationsSchemeForPreview(),
-            sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
+            schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
     }
 }
@@ -59,9 +54,7 @@ fun SelectMonthDropdownPreview() {
 fun SelectMonthDropdown(
     modifier: Modifier = Modifier,
     selectedMonthIndex: MutableIntState,
-    colorScheme: ColorScheme,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     val isExpanded = remember {
         mutableStateOf(false)
@@ -82,17 +75,15 @@ fun SelectMonthDropdown(
         Box {
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
-                text = translationsScheme.months[selectedMonthIndex.intValue],
+                text = schemes.translation.months[selectedMonthIndex.intValue],
                 color = Color.White,
                 fontFamily = MONTSERRAT_BOLD,
-                fontSize = sizeScheme.font.dropdownHeader
+                fontSize = schemes.size.font.dropdownHeader
             )
             SelectMonthDropdownList(
                 isExpanded = isExpanded,
                 selectedMonthIndex = selectedMonthIndex,
-                colorScheme = colorScheme,
-                translationsScheme = translationsScheme,
-                sizeScheme = sizeScheme
+                schemes = schemes
             )
         }
     }
@@ -103,9 +94,7 @@ fun SelectMonthDropdownList(
     modifier: Modifier = Modifier,
     isExpanded: MutableState<Boolean>,
     selectedMonthIndex: MutableIntState,
-    translationsScheme: TranslationsScheme,
-    colorScheme: ColorScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     DropdownMenu(
         expanded = isExpanded.value,
@@ -116,14 +105,14 @@ fun SelectMonthDropdownList(
     ) {
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         val itemHeightDp = (screenHeightDp - 32) / 17
-        translationsScheme.months.forEachIndexed { index, monthName ->
+        schemes.translation.months.forEachIndexed { index, monthName ->
             DropdownMenuItem(
                 text = {
                     Text(
                         text = monthName,
-                        color = colorScheme.myvDark,
+                        color = schemes.color.myvDark,
                         fontFamily = MONTSERRAT_BOLD,
-                        fontSize = sizeScheme.font.monthDropdownItem
+                        fontSize = schemes.size.font.monthDropdownItem
                     )
                 },
                 onClick = {

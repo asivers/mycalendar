@@ -36,10 +36,9 @@ import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.scheme.ColorScheme
-import com.asivers.mycalendar.data.scheme.size.SizeScheme
+import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.utils.getSizeScheme
+import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
@@ -54,8 +53,7 @@ fun SelectYearDropdownPreview() {
             selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
             showYearView = false,
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-            colorScheme = SUMMER,
-            sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
+            schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
     }
 }
@@ -66,8 +64,7 @@ fun SelectYearDropdown(
     selectedYear: MutableIntState,
     showYearView: Boolean,
     lastSelectedYearFromMonthView: MutableIntState,
-    colorScheme: ColorScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     val isExpanded = remember {
         mutableStateOf(false)
@@ -85,20 +82,19 @@ fun SelectYearDropdown(
             contentDescription = "DropDown Icon"
         )
         Spacer(modifier = Modifier.width(10.dp))
-        Box(modifier = Modifier.width(sizeScheme.horizontal.yearDropdown)) {
+        Box(modifier = Modifier.width(schemes.size.horizontal.yearDropdown)) {
             Text(
                 text = selectedYear.intValue.toString(),
                 color = Color.White,
                 fontFamily = MONTSERRAT_MEDIUM,
-                fontSize = sizeScheme.font.dropdownHeader
+                fontSize = schemes.size.font.dropdownHeader
             )
             SelectYearDropdownList(
                 isExpanded = isExpanded,
                 selectedYear = selectedYear,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                colorScheme = colorScheme,
-                sizeScheme = sizeScheme
+                schemes = schemes
             )
         }
     }
@@ -111,8 +107,7 @@ fun SelectYearDropdownList(
     selectedYear: MutableIntState,
     showYearView: Boolean,
     lastSelectedYearFromMonthView: MutableIntState,
-    colorScheme: ColorScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
     val itemHeightDp = (screenHeightDp - 32) / 18
@@ -127,7 +122,7 @@ fun SelectYearDropdownList(
         LazyColumn(
             modifier = Modifier
                 .height((itemHeightDp * 14).dp)
-                .width(sizeScheme.horizontal.yearDropdown.plus(5.dp)),
+                .width(schemes.size.horizontal.yearDropdown.plus(5.dp)),
             state = LazyListState(getYearIndex(selectedYear.intValue))
         ) {
             items(201) { yearIndex ->
@@ -137,10 +132,10 @@ fun SelectYearDropdownList(
                             text = getYear(yearIndex).toString(),
                             modifier = Modifier.fillMaxWidth(),
                             color = if (selectedYear.intValue == getYear(yearIndex))
-                                colorScheme.myvDark else colorScheme.mvBtnLight,
+                                schemes.color.myvDark else schemes.color.mvBtnLight,
                             fontFamily = if (selectedYear.intValue == getYear(yearIndex))
                                 MONTSERRAT_MEDIUM else MONTSERRAT,
-                            fontSize = sizeScheme.font.main,
+                            fontSize = schemes.size.font.main,
                             textAlign = TextAlign.Center
                         )
                     },

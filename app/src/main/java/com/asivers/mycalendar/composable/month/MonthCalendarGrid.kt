@@ -29,18 +29,15 @@ import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.MonthInfo
-import com.asivers.mycalendar.data.scheme.ColorScheme
-import com.asivers.mycalendar.data.scheme.TranslationsScheme
-import com.asivers.mycalendar.data.scheme.size.SizeScheme
+import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.utils.getCountryHolidaySchemeForPreview
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
-import com.asivers.mycalendar.utils.getCountryHolidaysSchemeForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
 import com.asivers.mycalendar.utils.getNumberOfWeeksInMonth
-import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
+import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.isHoliday
 
 @Preview(showBackground = true)
@@ -57,11 +54,9 @@ fun MonthCalendarGridPreview() {
             monthInfo = getMonthInfo(
                 getCurrentYear(),
                 getCurrentMonthIndex(),
-                getCountryHolidaysSchemeForPreview()
+                getCountryHolidaySchemeForPreview()
             ),
-            colorScheme = SUMMER,
-            translationsScheme = getTranslationsSchemeForPreview(),
-            sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
+            schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
     }
 }
@@ -70,9 +65,7 @@ fun MonthCalendarGridPreview() {
 fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
     monthInfo: MonthInfo,
-    colorScheme: ColorScheme,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     Column(
         modifier = modifier
@@ -80,16 +73,14 @@ fun MonthCalendarGrid(
             .padding(3.dp, 0.dp)
     ) {
         HeaderWeekInMonthCalendarGrid(
-            translationsScheme = translationsScheme,
-            sizeScheme = sizeScheme
+            schemes = schemes
         )
         val numberOfWeeksInMonth = getNumberOfWeeksInMonth(monthInfo)
         repeat(numberOfWeeksInMonth) { weekIndex ->
             WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 monthInfo = monthInfo,
-                colorScheme = colorScheme,
-                sizeScheme = sizeScheme
+                schemes = schemes
             )
         }
     }
@@ -98,8 +89,7 @@ fun MonthCalendarGrid(
 @Composable
 fun HeaderWeekInMonthCalendarGrid(
     modifier: Modifier = Modifier,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
@@ -109,9 +99,9 @@ fun HeaderWeekInMonthCalendarGrid(
                 modifier = Modifier
                     .weight(1f)
                     .padding(0.dp, 5.dp),
-                text = translationsScheme.daysOfWeek3[dayOfWeekIndex],
+                text = schemes.translation.daysOfWeek3[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
-                fontSize = sizeScheme.font.mvHeaderWeek,
+                fontSize = schemes.size.font.mvHeaderWeek,
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
@@ -124,8 +114,7 @@ fun WeekInMonthCalendarGrid(
     modifier: Modifier = Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo,
-    colorScheme: ColorScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     Row(
         modifier = modifier
@@ -141,8 +130,7 @@ fun WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
                 monthInfo = monthInfo,
-                colorScheme = colorScheme,
-                sizeScheme = sizeScheme
+                schemes = schemes
             )
         }
     }
@@ -154,8 +142,7 @@ fun DayInMonthCalendarGrid(
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,
-    colorScheme: ColorScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     val dayValue = getDayValueForMonthTableElement(
         weekIndex,
@@ -177,8 +164,8 @@ fun DayInMonthCalendarGrid(
         Text(
             text = (dayValue ?: "").toString(),
             fontFamily = MONTSERRAT_BOLD,
-            fontSize = sizeScheme.font.main,
-            color = if (holiday) colorScheme.mvBtnLight else Color.White,
+            fontSize = schemes.size.font.main,
+            color = if (holiday) schemes.color.mvBtnLight else Color.White,
             textAlign = TextAlign.Center
         )
     }

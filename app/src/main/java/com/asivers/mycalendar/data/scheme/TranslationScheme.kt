@@ -3,7 +3,7 @@ package com.asivers.mycalendar.data.scheme
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TranslationsScheme(
+data class TranslationScheme(
     val yearView: String,
     val months: List<String>,
     val daysOfWeek3: List<String>,

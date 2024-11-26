@@ -27,21 +27,15 @@ import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
-import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.scheme.ColorScheme
-import com.asivers.mycalendar.data.scheme.TranslationsScheme
-import com.asivers.mycalendar.data.scheme.size.SizeScheme
-import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
+import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.utils.getSchemesForPreview
 
 @Preview
 @Composable
 fun YearViewButtonPreview() {
     YearViewButton(
         showYearView = remember { mutableStateOf(false) },
-        colorScheme = SUMMER,
-        translationsScheme = getTranslationsSchemeForPreview(),
-        sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
+        schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
 }
 
@@ -49,9 +43,7 @@ fun YearViewButtonPreview() {
 fun YearViewButton(
     modifier: Modifier = Modifier,
     showYearView: MutableState<Boolean>,
-    colorScheme: ColorScheme,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
     Button(
@@ -62,8 +54,8 @@ fun YearViewButton(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        colorScheme.mvBtnLight,
-                        colorScheme.mvBtnDark
+                        schemes.color.mvBtnLight,
+                        schemes.color.mvBtnDark
                     )
                 )
             )
@@ -84,9 +76,9 @@ fun YearViewButton(
         interactionSource = NO_RIPPLE_INTERACTION_SOURCE
     ) {
         Text(
-            text = translationsScheme.yearView,
+            text = schemes.translation.yearView,
             fontFamily = MONTSERRAT_BOLD,
-            fontSize = sizeScheme.font.main,
+            fontSize = schemes.size.font.main,
             color = Color.White,
             textAlign = TextAlign.Center
         )

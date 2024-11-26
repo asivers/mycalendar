@@ -25,16 +25,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
-import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.scheme.CountryHolidaysScheme
-import com.asivers.mycalendar.data.scheme.ColorScheme
-import com.asivers.mycalendar.data.scheme.TranslationsScheme
-import com.asivers.mycalendar.data.scheme.size.SizeScheme
+import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.utils.getCountryHolidaysSchemeForPreview
-import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
+import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 
 @Preview(showBackground = true)
@@ -45,10 +39,7 @@ fun YearViewPreview() {
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(true) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-        countryHolidaysScheme = getCountryHolidaysSchemeForPreview(),
-        colorScheme = SUMMER,
-        translationsScheme = getTranslationsSchemeForPreview(),
-        sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
+        schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
 }
 
@@ -59,10 +50,7 @@ fun YearView(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    countryHolidaysScheme: CountryHolidaysScheme,
-    colorScheme: ColorScheme,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     var horizontalOffset by remember { mutableFloatStateOf(0f) }
     var verticalOffset by remember { mutableFloatStateOf(0f) }
@@ -70,7 +58,7 @@ fun YearView(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(36.dp, 36.dp))
-            .background(getYearViewBackgroundGradient(colorScheme))
+            .background(getYearViewBackgroundGradient(schemes.color))
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDragStart = {
@@ -99,9 +87,7 @@ fun YearView(
             selectedMonthIndex = selectedMonthIndex,
             showYearView = showYearView.value,
             lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-            colorScheme = colorScheme,
-            translationsScheme = translationsScheme,
-            sizeScheme = sizeScheme
+            schemes = schemes
         )
         Box(
             modifier = Modifier.weight(1f)
@@ -111,10 +97,7 @@ fun YearView(
                 selectedMonthIndex = selectedMonthIndex,
                 showYearView = showYearView,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                countryHolidaysScheme = countryHolidaysScheme,
-                colorScheme = colorScheme,
-                translationsScheme = translationsScheme,
-                sizeScheme = sizeScheme
+                schemes = schemes
             )
         }
     }

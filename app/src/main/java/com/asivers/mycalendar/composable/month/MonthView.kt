@@ -23,17 +23,11 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
-import com.asivers.mycalendar.constants.schemes.SUMMER
-import com.asivers.mycalendar.data.scheme.CountryHolidaysScheme
-import com.asivers.mycalendar.data.scheme.ColorScheme
-import com.asivers.mycalendar.data.scheme.TranslationsScheme
-import com.asivers.mycalendar.data.scheme.size.SizeScheme
+import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.utils.getCountryHolidaysSchemeForPreview
 import com.asivers.mycalendar.utils.getMonthInfo
-import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationsSchemeForPreview
+import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
@@ -44,10 +38,7 @@ fun MonthViewPreview() {
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         showYearView = remember { mutableStateOf(false) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
-        countryHolidaysScheme = getCountryHolidaysSchemeForPreview(),
-        colorScheme = SUMMER,
-        translationsScheme = getTranslationsSchemeForPreview(),
-        sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
+        schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
 }
 
@@ -58,10 +49,7 @@ fun MonthView(
     selectedMonthIndex: MutableIntState,
     showYearView: MutableState<Boolean>,
     lastSelectedYearFromMonthView: MutableIntState,
-    countryHolidaysScheme: CountryHolidaysScheme,
-    colorScheme: ColorScheme,
-    translationsScheme: TranslationsScheme,
-    sizeScheme: SizeScheme
+    schemes: SchemeContainer
 ) {
     Column(modifier = modifier) {
         var horizontalOffset by remember { mutableFloatStateOf(0f) }
@@ -102,18 +90,18 @@ fun MonthView(
                     selectedMonthIndex = selectedMonthIndex,
                     showYearView = showYearView.value,
                     lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                    colorScheme = colorScheme,
-                    translationsScheme = translationsScheme,
-                    sizeScheme = sizeScheme
+                    schemes = schemes
                 )
             }
             Column(modifier = Modifier.weight(7f)) {
+                val monthInfo = getMonthInfo(
+                    year = selectedYear.intValue,
+                    monthIndex = selectedMonthIndex.intValue,
+                    countryHolidayScheme = schemes.countryHoliday
+                )
                 MonthCalendarGrid(
-                    monthInfo = getMonthInfo(
-                        selectedYear.intValue, selectedMonthIndex.intValue, countryHolidaysScheme),
-                    colorScheme = colorScheme,
-                    translationsScheme = translationsScheme,
-                    sizeScheme = sizeScheme
+                    monthInfo = monthInfo,
+                    schemes = schemes
                 )
                 Row(
                     modifier = Modifier.fillMaxSize()
@@ -152,9 +140,7 @@ fun MonthView(
         }
         YearViewButton(
             showYearView = showYearView,
-            colorScheme = colorScheme,
-            translationsScheme = translationsScheme,
-            sizeScheme = sizeScheme
+            schemes = schemes
         )
     }
 }

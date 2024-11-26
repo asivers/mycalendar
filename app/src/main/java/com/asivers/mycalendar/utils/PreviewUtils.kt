@@ -1,13 +1,26 @@
 package com.asivers.mycalendar.utils
 
+import android.content.res.Configuration
+import androidx.compose.ui.unit.Density
+import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.DayInfo
-import com.asivers.mycalendar.data.scheme.CountryHolidaysScheme
+import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.data.HolidayInfo
-import com.asivers.mycalendar.data.scheme.TranslationsScheme
+import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.scheme.TranslationScheme
 import java.util.Calendar
 
-fun getCountryHolidaysSchemeForPreview(): CountryHolidaysScheme {
-    return CountryHolidaysScheme(
+fun getSchemesForPreview(config: Configuration, density: Density): SchemeContainer {
+    return SchemeContainer(
+        countryHoliday = getCountryHolidaySchemeForPreview(),
+        translation = getTranslationSchemeForPreview(),
+        color = SUMMER,
+        size = getSizeScheme(config, density)
+    )
+}
+
+fun getCountryHolidaySchemeForPreview(): CountryHolidayScheme {
+    return CountryHolidayScheme(
         everyYear = mapOf(
             Calendar.JANUARY to mapOf(
                 Pair(1, DayInfo(holiday = HolidayInfo(en = "Spain - New Year's Day", es = "España - Año Nuevo"))),
@@ -64,8 +77,8 @@ fun getCountryHolidaysSchemeForPreview(): CountryHolidaysScheme {
     )
 }
 
-fun getTranslationsSchemeForPreview(): TranslationsScheme {
-    return TranslationsScheme(
+fun getTranslationSchemeForPreview(): TranslationScheme {
+    return TranslationScheme(
         yearView = "Year view",
         months = listOf(
             "January",

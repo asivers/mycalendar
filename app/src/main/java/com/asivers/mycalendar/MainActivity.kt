@@ -18,15 +18,16 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.month.MonthView
 import com.asivers.mycalendar.composable.year.YearView
+import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getExistingLocaleForLanguage
-import com.asivers.mycalendar.utils.getHolidaysSchemeForCountry
+import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
 import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationsSchemeForExistingLocale
+import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,18 +36,25 @@ class MainActivity : ComponentActivity() {
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                val countryHolidaysScheme = getHolidaysSchemeForCountry(
+                val countryHolidayScheme = getHolidaySchemeForCountry(
                     Country.SPAIN_REUS, applicationContext)
+
+                val language = LocalConfiguration.current.locales[0].language
+                val existingLocale = getExistingLocaleForLanguage(language)
+                val translationScheme = getTranslationSchemeForExistingLocale(
+                    existingLocale, applicationContext)
 
                 val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
                 val colorScheme = getColorScheme(selectedMonthIndex.intValue)
 
-                val language = LocalConfiguration.current.locales[0].language
-                val existingLocale = getExistingLocaleForLanguage(language)
-                val translationsScheme = getTranslationsSchemeForExistingLocale(
-                    existingLocale, applicationContext)
-
                 val sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
+
+                val schemes = SchemeContainer(
+                    countryHoliday = countryHolidayScheme,
+                    translation = translationScheme,
+                    color = colorScheme,
+                    size = sizeScheme
+                )
 
                 Box(
                     modifier = Modifier
@@ -66,10 +74,7 @@ class MainActivity : ComponentActivity() {
                             selectedMonthIndex = selectedMonthIndex,
                             showYearView = showYearView,
                             lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                            countryHolidaysScheme = countryHolidaysScheme,
-                            translationsScheme = translationsScheme,
-                            colorScheme = colorScheme,
-                            sizeScheme = sizeScheme
+                            schemes = schemes
                         )
                     } else {
                         MonthView(
@@ -77,10 +82,7 @@ class MainActivity : ComponentActivity() {
                             selectedMonthIndex = selectedMonthIndex,
                             showYearView = showYearView,
                             lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                            countryHolidaysScheme = countryHolidaysScheme,
-                            translationsScheme = translationsScheme,
-                            colorScheme = colorScheme,
-                            sizeScheme = sizeScheme
+                            schemes = schemes
                         )
                     }
                 }

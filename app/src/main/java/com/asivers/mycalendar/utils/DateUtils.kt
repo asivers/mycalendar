@@ -1,12 +1,12 @@
 package com.asivers.mycalendar.utils
 
-import com.asivers.mycalendar.data.scheme.CountryHolidaysScheme
+import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.MonthInfo
 import java.util.Calendar
 import java.util.GregorianCalendar
 
-fun getMonthInfo(year: Int, monthIndex: Int, countryHolidaysScheme: CountryHolidaysScheme): MonthInfo {
+fun getMonthInfo(year: Int, monthIndex: Int, countryHolidayScheme: CountryHolidayScheme): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
     val numberOfDays = firstOfThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
@@ -14,14 +14,14 @@ fun getMonthInfo(year: Int, monthIndex: Int, countryHolidaysScheme: CountryHolid
     val monthIndexFrom1To12 = monthIndex + 1
     val holidays = mutableMapOf<Int, HolidayInfo>()
     val notHolidays = mutableMapOf<Int, HolidayInfo>()
-    if (monthIndexFrom1To12 in countryHolidaysScheme.everyYear) {
-        countryHolidaysScheme.everyYear[monthIndexFrom1To12]!!.forEach {
+    if (monthIndexFrom1To12 in countryHolidayScheme.everyYear) {
+        countryHolidayScheme.everyYear[monthIndexFrom1To12]!!.forEach {
             if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
             else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
         }
     }
-    if (year in countryHolidaysScheme.oneTime && monthIndexFrom1To12 in countryHolidaysScheme.oneTime[year]!!) {
-        countryHolidaysScheme.oneTime[year]!![monthIndexFrom1To12]!!.forEach {
+    if (year in countryHolidayScheme.oneTime && monthIndexFrom1To12 in countryHolidayScheme.oneTime[year]!!) {
+        countryHolidayScheme.oneTime[year]!![monthIndexFrom1To12]!!.forEach {
             if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
             else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
         }
