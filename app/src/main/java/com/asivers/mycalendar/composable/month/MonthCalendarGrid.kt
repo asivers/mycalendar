@@ -20,10 +20,11 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_3
+import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
@@ -104,7 +105,7 @@ fun HeaderWeekInMonthCalendarGrid(
                 modifier = Modifier
                     .weight(1f)
                     .padding(0.dp, 5.dp),
-                text = DAY_OF_WEEK_NAMES_LIST_3[dayOfWeekIndex],
+                text = stringArrayResource(R.array.days_of_week_3)[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
                 fontSize = sizeScheme.font.mvHeaderWeek,
                 color = Color.White,

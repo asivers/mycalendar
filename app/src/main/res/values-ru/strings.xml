@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">My Calendar</string>
+    <string name="year_view">Календарь на год</string>
+    <string-array name="months">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </string-array>
+    <string-array name="days_of_week_3">
+        <item>Пон</item>
+        <item>Вто</item>
+        <item>Сре</item>
+        <item>Чет</item>
+        <item>Пят</item>
+        <item>Суб</item>
+        <item>Вос</item>
+    </string-array>
+    <string-array name="days_of_week_1">
+        <item>П</item>
+        <item>В</item>
+        <item>С</item>
+        <item>Ч</item>
+        <item>П</item>
+        <item>С</item>
+        <item>В</item>
+    </string-array>
+</resources>

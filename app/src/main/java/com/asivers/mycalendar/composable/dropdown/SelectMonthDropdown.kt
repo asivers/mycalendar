@@ -25,10 +25,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
-import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.scheme.ColorScheme
@@ -77,9 +77,10 @@ fun SelectMonthDropdown(
         )
         Spacer(modifier = Modifier.width(10.dp))
         Box {
+            val monthNames: Array<String> = stringArrayResource(R.array.months)
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
-                text = MONTH_NAMES_LIST[selectedMonthIndex.intValue],
+                text = monthNames[selectedMonthIndex.intValue],
                 color = Color.White,
                 fontFamily = MONTSERRAT_BOLD,
                 fontSize = sizeScheme.font.dropdownHeader
@@ -87,6 +88,7 @@ fun SelectMonthDropdown(
             SelectMonthDropdownList(
                 isExpanded = isExpanded,
                 selectedMonthIndex = selectedMonthIndex,
+                monthNames = monthNames,
                 colorScheme = colorScheme,
                 sizeScheme = sizeScheme
             )
@@ -99,6 +101,7 @@ fun SelectMonthDropdownList(
     modifier: Modifier = Modifier,
     isExpanded: MutableState<Boolean>,
     selectedMonthIndex: MutableIntState,
+    monthNames: Array<String> = stringArrayResource(R.array.months),
     colorScheme: ColorScheme,
     sizeScheme: SizeScheme
 ) {
@@ -111,7 +114,7 @@ fun SelectMonthDropdownList(
     ) {
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         val itemHeightDp = (screenHeightDp - 32) / 17
-        MONTH_NAMES_LIST.forEachIndexed { index, monthName ->
+        monthNames.forEachIndexed { index, monthName ->
             DropdownMenuItem(
                 text = {
                     Text(

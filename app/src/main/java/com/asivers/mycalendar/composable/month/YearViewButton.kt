@@ -21,9 +21,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
@@ -80,7 +82,7 @@ fun YearViewButton(
         interactionSource = NO_RIPPLE_INTERACTION_SOURCE
     ) {
         Text(
-            text = "Year view",
+            text = stringResource(id = R.string.year_view),
             fontFamily = MONTSERRAT_BOLD,
             fontSize = sizeScheme.font.main,
             color = Color.White,

@@ -15,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.scheme.ColorScheme
@@ -56,7 +58,7 @@ fun TopDropdownsRow(
     ) {
         if (showYearView) {
             Text(
-                text = "Year view",
+                text = stringResource(id = R.string.year_view),
                 fontFamily = MONTSERRAT_BOLD,
                 fontSize = sizeScheme.font.main,
                 color = Color.White,

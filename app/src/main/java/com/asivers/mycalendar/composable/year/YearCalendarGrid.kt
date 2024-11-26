@@ -24,11 +24,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.asivers.mycalendar.constants.DAY_OF_WEEK_NAMES_LIST_1
-import com.asivers.mycalendar.constants.MONTH_NAMES_LIST
+import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
@@ -156,7 +156,7 @@ fun MonthInYearCalendarGrid(
             }
     ) {
         Text(
-            text = MONTH_NAMES_LIST[thisMonthIndex],
+            text = stringArrayResource(R.array.months)[thisMonthIndex],
             modifier = Modifier.padding(3.dp, 0.dp),
             fontFamily = MONTSERRAT_BOLD,
             fontSize = sizeScheme.font.yvMonthName,
@@ -191,7 +191,7 @@ fun HeaderWeekInYearCalendarGrid(
         repeat(7) { dayOfWeekIndex ->
             Text(
                 modifier = Modifier.weight(1f),
-                text = DAY_OF_WEEK_NAMES_LIST_1[dayOfWeekIndex],
+                text = stringArrayResource(R.array.days_of_week_3)[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
                 fontSize = sizeScheme.font.yvHeaderWeek,
                 color = Color.White,
