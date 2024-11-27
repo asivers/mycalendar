@@ -220,7 +220,7 @@ fun DayInYearCalendarGrid(
         monthInfo.numberOfDays,
         monthInfo.dayOfWeekOf1st
     )
-    val today = dayValue !== null && dayValue === monthInfo.today
+    val today = dayValue != null && dayValue == monthInfo.today
     val holiday = isHoliday(dayValue, dayOfWeekIndex, monthInfo.holidays, monthInfo.notHolidays)
     Text(
         modifier = modifier
