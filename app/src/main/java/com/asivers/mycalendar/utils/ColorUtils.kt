@@ -19,17 +19,17 @@ fun getColorScheme(selectedMonthIndex: Int): ColorScheme {
 
 fun getMonthViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colorStops = arrayOf(
-        0.0f to colorScheme.mvLight,
-        0.1f to colorScheme.mvLight,
-        0.25f to colorScheme.myvDark,
-        1f to colorScheme.myvDark,
+        0.0f to colorScheme.monthViewTop,
+        0.1f to colorScheme.monthViewTop,
+        0.25f to colorScheme.viewsBottom,
+        1f to colorScheme.viewsBottom,
     )
 )
 
 fun getYearViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colorStops = arrayOf(
-        0.0f to colorScheme.yvLight,
-        0.2f to colorScheme.yvMedium,
-        1f to colorScheme.myvDark,
+        0.0f to colorScheme.yearViewTop,
+        0.2f to colorScheme.yearViewMedium,
+        1f to colorScheme.viewsBottom,
     )
 )

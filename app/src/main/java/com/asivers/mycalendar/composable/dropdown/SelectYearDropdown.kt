@@ -47,7 +47,7 @@ fun SelectYearDropdownPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = SUMMER.mvLight)
+            .background(color = SUMMER.monthViewTop)
     ) {
         SelectYearDropdown(
             selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
@@ -132,7 +132,7 @@ fun SelectYearDropdownList(
                             text = getYear(yearIndex).toString(),
                             modifier = Modifier.fillMaxWidth(),
                             color = if (selectedYear.intValue == getYear(yearIndex))
-                                schemes.color.myvDark else schemes.color.mvBtnLight,
+                                schemes.color.viewsBottom else schemes.color.yearViewTop,
                             fontFamily = if (selectedYear.intValue == getYear(yearIndex))
                                 MONTSERRAT_MEDIUM else MONTSERRAT,
                             fontSize = schemes.size.font.main,

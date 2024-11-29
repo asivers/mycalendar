@@ -165,7 +165,7 @@ fun DayInMonthCalendarGrid(
             text = (dayValue ?: "").toString(),
             fontFamily = MONTSERRAT_BOLD,
             fontSize = schemes.size.font.main,
-            color = if (holiday) schemes.color.mvBtnLight else Color.White,
+            color = if (holiday) schemes.color.yearViewTop else Color.White,
             textAlign = TextAlign.Center
         )
     }

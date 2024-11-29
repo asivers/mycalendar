@@ -125,7 +125,7 @@ fun MonthInYearCalendarGrid(
 ) {
     val isLastSelectedMonth = thisYear == lastSelectedYearFromMonthView.intValue
             && thisMonthIndex == selectedMonthIndex.intValue
-    val background = if (isLastSelectedMonth) schemes.color.mvLight else Color.Transparent
+    val background = if (isLastSelectedMonth) schemes.color.monthViewTop else Color.Transparent
     Column(
         modifier = modifier
             .padding(schemes.size.horizontal.yvMonthPadding, schemes.size.vertical.yvMonthPadding)
@@ -234,7 +234,7 @@ fun DayInYearCalendarGrid(
         text = (dayValue ?: "").toString(),
         fontFamily = MONTSERRAT_BOLD,
         fontSize = schemes.size.font.yvDay,
-        color = if (holiday) schemes.color.yvVeryLight else Color.White,
+        color = if (holiday) schemes.color.lightElement else Color.White,
         textAlign = TextAlign.Center,
         style = NO_PADDING_TEXT_STYLE
     )

@@ -41,7 +41,7 @@ fun SelectMonthDropdownPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = SUMMER.mvLight)
+            .background(color = SUMMER.monthViewTop)
     ) {
         SelectMonthDropdown(
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
@@ -110,7 +110,7 @@ fun SelectMonthDropdownList(
                 text = {
                     Text(
                         text = monthName,
-                        color = schemes.color.myvDark,
+                        color = schemes.color.viewsBottom,
                         fontFamily = MONTSERRAT_BOLD,
                         fontSize = schemes.size.font.monthDropdownItem
                     )
