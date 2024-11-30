@@ -4,10 +4,9 @@ import androidx.compose.ui.graphics.Color
 
 data class ColorScheme(
     val monthViewTop: Color, // month view top gradient, year view selected month
-    val viewsBottom: Color, // all views bottom gradient, month dropdown text, current year dropdown text, inactive settings gear
-    val yearViewBtnBottom: Color, // YearViewButton bottom gradient
-    val lightElement: Color, // year view holidays, settings view elements
-    val yearViewTop: Color, // year view and YearViewButton top gradient, month view holidays, not current year dropdown text
-    val yearViewMedium: Color, // year view medium gradient
+    val viewsBottom: Color, // all views bottom gradient, month dropdown item, current year dropdown item, inactive settings gear
+    val yearViewBtnTop: Color, // year view and YearViewButton top gradient, not current year dropdown item
+    val yearViewBtnBottom: Color, // year view medium gradient and YearViewButton bottom gradient
+    val brightElement: Color, // holidays, active settings elements
     val settingsViewTop: Color // settings view top gradient
 )

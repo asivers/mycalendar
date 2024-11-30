@@ -28,8 +28,8 @@ fun getMonthViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.vert
 
 fun getYearViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colorStops = arrayOf(
-        0.0f to colorScheme.yearViewTop,
-        0.2f to colorScheme.yearViewMedium,
+        0.0f to colorScheme.yearViewBtnTop,
+        0.2f to colorScheme.yearViewBtnBottom,
         1f to colorScheme.viewsBottom,
     )
 )

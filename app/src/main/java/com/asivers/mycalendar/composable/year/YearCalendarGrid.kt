@@ -234,7 +234,7 @@ fun DayInYearCalendarGrid(
         text = (dayValue ?: "").toString(),
         fontFamily = MONTSERRAT_BOLD,
         fontSize = schemes.size.font.yvDay,
-        color = if (holiday) schemes.color.lightElement else Color.White,
+        color = if (holiday) schemes.color.brightElement else Color.White,
         textAlign = TextAlign.Center,
         style = NO_PADDING_TEXT_STYLE
     )

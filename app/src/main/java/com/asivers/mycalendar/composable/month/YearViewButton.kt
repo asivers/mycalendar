@@ -54,7 +54,7 @@ fun YearViewButton(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        schemes.color.yearViewTop,
+                        schemes.color.yearViewBtnTop,
                         schemes.color.yearViewBtnBottom
                     )
                 )

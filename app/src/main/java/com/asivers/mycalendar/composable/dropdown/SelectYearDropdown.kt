@@ -132,7 +132,7 @@ fun SelectYearDropdownList(
                             text = getYear(yearIndex).toString(),
                             modifier = Modifier.fillMaxWidth(),
                             color = if (selectedYear.intValue == getYear(yearIndex))
-                                schemes.color.viewsBottom else schemes.color.yearViewTop,
+                                schemes.color.viewsBottom else schemes.color.yearViewBtnTop,
                             fontFamily = if (selectedYear.intValue == getYear(yearIndex))
                                 MONTSERRAT_MEDIUM else MONTSERRAT,
                             fontSize = schemes.size.font.main,
