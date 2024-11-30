@@ -16,14 +16,16 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
+import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.ViewShownInfo
+import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getMonthInfo
@@ -36,7 +38,7 @@ fun MonthViewPreview() {
     MonthView(
         selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
-        showYearView = remember { mutableStateOf(false) },
+        viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
@@ -47,11 +49,15 @@ fun MonthView(
     modifier: Modifier = Modifier,
     selectedYear: MutableIntState,
     selectedMonthIndex: MutableIntState,
-    showYearView: MutableState<Boolean>,
+    viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
     schemes: SchemeContainer
 ) {
     Column(modifier = modifier) {
+        SettingsHeader(
+            viewShownInfo = viewShownInfo,
+            schemes = schemes
+        )
         var horizontalOffset by remember { mutableFloatStateOf(0f) }
         Column(
             modifier = Modifier
@@ -81,19 +87,17 @@ fun MonthView(
                     }
                 }
         ) {
-            Box(
-                modifier = Modifier.weight(2f),
-                contentAlignment = Alignment.Center
-            ) {
+            Spacer(modifier = Modifier.weight(3f))
+            Box(modifier = Modifier.weight(13f)) {
                 TopDropdownsRow(
                     selectedYear = selectedYear,
                     selectedMonthIndex = selectedMonthIndex,
-                    showYearView = showYearView.value,
+                    showYearView = viewShownInfo.value.current == ViewShown.YEAR,
                     lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                     schemes = schemes
                 )
             }
-            Column(modifier = Modifier.weight(7f)) {
+            Column(modifier = Modifier.weight(80f)) {
                 val monthInfo = getMonthInfo(
                     year = selectedYear.intValue,
                     monthIndex = selectedMonthIndex.intValue,
@@ -139,7 +143,7 @@ fun MonthView(
             }
         }
         YearViewButton(
-            showYearView = showYearView,
+            viewShownInfo = viewShownInfo,
             schemes = schemes
         )
     }

@@ -33,6 +33,9 @@ import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.ViewShownInfo
+import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
@@ -53,7 +56,7 @@ fun YearCalendarGridPreview() {
         YearCalendarGrid(
             thisYear = getCurrentYear(),
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
-            showYearView = remember { mutableStateOf(true) },
+            viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.YEAR, ViewShown.MONTH)) },
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
@@ -65,7 +68,7 @@ fun YearCalendarGrid(
     modifier: Modifier = Modifier,
     thisYear: Int,
     selectedMonthIndex: MutableIntState,
-    showYearView: MutableState<Boolean>,
+    viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
     schemes: SchemeContainer
 ) {
@@ -78,7 +81,7 @@ fun YearCalendarGrid(
                 thisYear = thisYear,
                 threeMonthRowIndex = threeMonthRowIndex,
                 selectedMonthIndex = selectedMonthIndex,
-                showYearView = showYearView,
+                viewShownInfo = viewShownInfo,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 schemes = schemes
             )
@@ -92,7 +95,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
     thisYear: Int,
     threeMonthRowIndex: Int,
     selectedMonthIndex: MutableIntState,
-    showYearView: MutableState<Boolean>,
+    viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
     schemes: SchemeContainer
 ) {
@@ -105,7 +108,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
                 thisYear = thisYear,
                 thisMonthIndex = threeMonthRowIndex * 3 + monthInRowIndex,
                 selectedMonthIndex = selectedMonthIndex,
-                showYearView = showYearView,
+                viewShownInfo = viewShownInfo,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 schemes = schemes
             )
@@ -119,7 +122,7 @@ fun MonthInYearCalendarGrid(
     thisYear: Int,
     thisMonthIndex: Int,
     selectedMonthIndex: MutableIntState,
-    showYearView: MutableState<Boolean>,
+    viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
     schemes: SchemeContainer
 ) {
@@ -135,7 +138,7 @@ fun MonthInYearCalendarGrid(
             .noRippleClickable {
                 selectedMonthIndex.intValue = thisMonthIndex
                 lastSelectedYearFromMonthView.intValue = thisYear
-                showYearView.value = false
+                changeView(viewShownInfo, ViewShown.MONTH)
             }
     ) {
         Text(

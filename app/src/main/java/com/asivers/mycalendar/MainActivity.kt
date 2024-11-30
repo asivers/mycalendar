@@ -15,11 +15,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.month.MonthView
+import com.asivers.mycalendar.composable.settings.SettingsView
 import com.asivers.mycalendar.composable.year.YearView
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.Country
+import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -35,6 +37,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
+                val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
+                val viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) }
+                val lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
 
                 val countryHolidayScheme = getHolidaySchemeForCountry(
                     Country.SPAIN_REUS, applicationContext)
@@ -44,7 +50,6 @@ class MainActivity : ComponentActivity() {
                 val translationScheme = getTranslationSchemeForExistingLocale(
                     existingLocale, applicationContext)
 
-                val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
                 val colorScheme = getColorScheme(selectedMonthIndex.intValue)
 
                 val sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
@@ -56,34 +61,35 @@ class MainActivity : ComponentActivity() {
                     size = sizeScheme
                 )
 
-                Box(
-                    modifier = Modifier
-                        .padding(innerPadding)
-                        .background(brush = getMonthViewBackgroundGradient(colorScheme)
+                if (viewShownInfo.value.current == ViewShown.SETTINGS) {
+                    SettingsView(
+                        modifier = Modifier.padding(innerPadding),
+                        viewShownInfo = viewShownInfo,
+                        schemes = schemes
                     )
-                ) {
-                    val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
-                    val showYearView = remember { mutableStateOf(false) }
-                    val lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
-                    if (showYearView.value) {
-                        val screenHeightDp = LocalConfiguration.current.screenHeightDp
-                        val paddingTopDp = (screenHeightDp - 32) / 16.5
-                        YearView(
-                            modifier = Modifier.padding(0.dp, paddingTopDp.dp, 0.dp, 0.dp),
-                            selectedYear = selectedYear,
-                            selectedMonthIndex = selectedMonthIndex,
-                            showYearView = showYearView,
-                            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                            schemes = schemes
-                        )
-                    } else {
-                        MonthView(
-                            selectedYear = selectedYear,
-                            selectedMonthIndex = selectedMonthIndex,
-                            showYearView = showYearView,
-                            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                            schemes = schemes
-                        )
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .background(getMonthViewBackgroundGradient(schemes.color))
+                    ) {
+                        if (viewShownInfo.value.current == ViewShown.MONTH) {
+                            MonthView(
+                                selectedYear = selectedYear,
+                                selectedMonthIndex = selectedMonthIndex,
+                                viewShownInfo = viewShownInfo,
+                                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                                schemes = schemes
+                            )
+                        } else {
+                            YearView(
+                                selectedYear = selectedYear,
+                                selectedMonthIndex = selectedMonthIndex,
+                                viewShownInfo = viewShownInfo,
+                                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                                schemes = schemes
+                            )
+                        }
                     }
                 }
             }

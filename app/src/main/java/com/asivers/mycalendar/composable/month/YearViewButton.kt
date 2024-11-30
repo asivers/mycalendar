@@ -28,13 +28,16 @@ import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.ViewShownInfo
+import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getSchemesForPreview
 
 @Preview
 @Composable
 fun YearViewButtonPreview() {
     YearViewButton(
-        showYearView = remember { mutableStateOf(false) },
+        viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
 }
@@ -42,12 +45,12 @@ fun YearViewButtonPreview() {
 @Composable
 fun YearViewButton(
     modifier: Modifier = Modifier,
-    showYearView: MutableState<Boolean>,
+    viewShownInfo: MutableState<ViewShownInfo>,
     schemes: SchemeContainer
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
     Button(
-        onClick = { showYearView.value = true },
+        onClick = { changeView(viewShownInfo, ViewShown.YEAR) },
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(36.dp, 36.dp))
@@ -65,7 +68,7 @@ fun YearViewButton(
                     onDragStart = { offset = 0f },
                     onDragEnd = {
                         if (offset < -20f) {
-                            showYearView.value = true
+                            changeView(viewShownInfo, ViewShown.YEAR)
                         }
                     }
                 ) { _, dragAmount ->
