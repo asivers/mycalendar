@@ -26,7 +26,7 @@ val WINTER = ColorScheme(
     viewsBottom = Color(0xFF116446),
     yearViewBtnTop = Color(0xFF44B9DD),
     yearViewBtnBottom = Color(0xFF248683),
-    brightElement = Color(0xFF5BFEF4), // todo change value
+    brightElement = Color(0xFF5BDBF4),
     settingsViewTop = Color(0xFF4C9369) // todo change value
 )
 
