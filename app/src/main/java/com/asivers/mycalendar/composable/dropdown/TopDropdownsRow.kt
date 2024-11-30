@@ -1,23 +1,23 @@
 package com.asivers.mycalendar.composable.dropdown
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
+import com.asivers.mycalendar.R
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -51,11 +51,10 @@ fun TopDropdownsRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (showYearView) {
-            Text(
-                text = schemes.translation.yearView,
-                fontFamily = MONTSERRAT_BOLD,
-                fontSize = schemes.size.font.main,
-                color = Color.White,
+            Image(
+                modifier = Modifier.padding(4.dp, 0.dp),
+                painter = painterResource(id = R.drawable.year_rat),
+                contentDescription = "Symbol of the year icon"
             )
         } else {
             SelectMonthDropdown(
