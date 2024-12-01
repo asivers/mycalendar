@@ -21,7 +21,9 @@ import com.asivers.mycalendar.composable.year.YearView
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.Country
+import com.asivers.mycalendar.enums.UserTheme
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -37,20 +39,24 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                val systemLanguage = LocalConfiguration.current.locales[0].language
+                val existingLocaleForSystem = getExistingLocaleForLanguage(systemLanguage)
+
+                val selectedCountry = remember { mutableStateOf(Country.SPAIN_REUS) }
+                val selectedLocale = remember { mutableStateOf(existingLocaleForSystem) }
+                val selectedTheme = remember { mutableStateOf(UserTheme.CHANGE_BY_SEASON) }
+                val selectedWeekendMode = remember { mutableStateOf(WeekendMode.SATURDAY_SUNDAY) }
+
                 val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
                 val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
                 val viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) }
                 val lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
 
                 val countryHolidayScheme = getHolidaySchemeForCountry(
-                    Country.SPAIN_REUS, applicationContext)
-
-                val language = LocalConfiguration.current.locales[0].language
-                val existingLocale = getExistingLocaleForLanguage(language)
+                    selectedCountry.value, applicationContext)
                 val translationScheme = getTranslationSchemeForExistingLocale(
-                    existingLocale, applicationContext)
-
-                val colorScheme = getColorScheme(selectedMonthIndex.intValue)
+                    selectedLocale.value, applicationContext)
+                val colorScheme = getColorScheme(selectedTheme.value, selectedMonthIndex.intValue)
 
                 val sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
 
@@ -65,6 +71,10 @@ class MainActivity : ComponentActivity() {
                     SettingsView(
                         modifier = Modifier.padding(innerPadding),
                         viewShownInfo = viewShownInfo,
+                        selectedCountry = selectedCountry,
+                        selectedLocale = selectedLocale,
+                        selectedTheme = selectedTheme,
+                        selectedWeekendMode = selectedWeekendMode,
                         schemes = schemes
                     )
                 } else {

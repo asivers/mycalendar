@@ -6,8 +6,19 @@ import com.asivers.mycalendar.constants.schemes.SPRING
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.constants.schemes.WINTER
 import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.enums.UserTheme
 
-fun getColorScheme(selectedMonthIndex: Int): ColorScheme {
+fun getColorScheme(selectedTheme: UserTheme, selectedMonthIndex: Int): ColorScheme {
+    return when (selectedTheme) {
+        UserTheme.THEME_SUMMER -> SUMMER
+        UserTheme.THEME_AUTUMN -> AUTUMN
+        UserTheme.THEME_WINTER -> WINTER
+        UserTheme.THEME_SPRING -> SPRING
+        UserTheme.CHANGE_BY_SEASON -> getColorSchemeByMonthIndex(selectedMonthIndex)
+    }
+}
+
+private fun getColorSchemeByMonthIndex(selectedMonthIndex: Int): ColorScheme {
     return when (selectedMonthIndex) {
         11, 0, 1 -> WINTER
         2, 3, 4 -> SPRING

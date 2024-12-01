@@ -33,6 +33,10 @@ fun SettingsViewPreview() {
         SettingsView(
             modifier = Modifier.padding(innerPadding),
             viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.SETTINGS, ViewShown.MONTH)) },
+            selectedCountry = remember { mutableStateOf(Country.RUSSIA) },
+            selectedLocale = remember { mutableStateOf(ExistingLocale.RU) },
+            selectedTheme = remember { mutableStateOf(UserTheme.THEME_SUMMER) },
+            selectedWeekendMode = remember { mutableStateOf(WeekendMode.SATURDAY_SUNDAY) },
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
     }
@@ -42,6 +46,10 @@ fun SettingsViewPreview() {
 fun SettingsView(
     modifier: Modifier = Modifier,
     viewShownInfo: MutableState<ViewShownInfo>,
+    selectedCountry: MutableState<Country>,
+    selectedLocale: MutableState<ExistingLocale>,
+    selectedTheme: MutableState<UserTheme>,
+    selectedWeekendMode: MutableState<WeekendMode>,
     schemes: SchemeContainer
 ) {
     Column(
@@ -53,61 +61,46 @@ fun SettingsView(
             viewShownInfo = viewShownInfo,
             schemes = schemes
         )
-        SettingsContent(
-            modifier = Modifier.padding(25.dp, 5.dp),
-            schemes = schemes
-        )
-    }
-}
-
-@Composable
-fun SettingsContent(
-    modifier: Modifier = Modifier,
-    schemes: SchemeContainer
-) {
-    val country = remember { mutableStateOf(Country.RUSSIA) }
-    val locale = remember { mutableStateOf(ExistingLocale.RU) }
-    val theme = remember { mutableStateOf(UserTheme.THEME_SUMMER) }
-    val weekendMode = remember { mutableStateOf(WeekendMode.SATURDAY_SUNDAY) }
-
-    val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
-
-    Column {
-        SettingsDropdown(
-            modifier = modifier.padding(0.dp, 20.dp),
-            expanded = expanded,
-            selectedItem = country,
-            settingsParam = SettingsParam.COUNTRY,
-            allItems = enumEntries<Country>(),
-            maxItemsDisplayed = 14,
-            schemes = schemes
-        )
-        SettingsDropdown(
-            modifier = modifier.padding(0.dp, 20.dp),
-            expanded = expanded,
-            selectedItem = locale,
-            settingsParam = SettingsParam.EXISTING_LOCALE,
-            allItems = enumEntries<ExistingLocale>(),
-            maxItemsDisplayed = 11, // todo measure
-            schemes = schemes
-        )
-        SettingsDropdown(
-            modifier = modifier.padding(0.dp, 20.dp),
-            expanded = expanded,
-            selectedItem = theme,
-            settingsParam = SettingsParam.USER_THEME,
-            allItems = enumEntries<UserTheme>(),
-            maxItemsDisplayed = 6,
-            schemes = schemes
-        )
-        SettingsDropdown(
-            modifier = modifier.padding(0.dp, 20.dp),
-            expanded = expanded,
-            selectedItem = weekendMode,
-            settingsParam = SettingsParam.WEEKEND_MODE,
-            allItems = enumEntries<WeekendMode>(),
-            maxItemsDisplayed = 3,
-            schemes = schemes
-        )
+        val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
+        Column(
+            modifier = Modifier.padding(25.dp, 5.dp)
+        ) {
+            SettingsDropdown(
+                modifier = Modifier.padding(0.dp, 20.dp),
+                expanded = expanded,
+                selectedItem = selectedCountry,
+                settingsParam = SettingsParam.COUNTRY,
+                allItems = enumEntries<Country>(),
+                maxItemsDisplayed = 14,
+                schemes = schemes
+            )
+            SettingsDropdown(
+                modifier = Modifier.padding(0.dp, 20.dp),
+                expanded = expanded,
+                selectedItem = selectedLocale,
+                settingsParam = SettingsParam.EXISTING_LOCALE,
+                allItems = enumEntries<ExistingLocale>(),
+                maxItemsDisplayed = 11, // todo measure
+                schemes = schemes
+            )
+            SettingsDropdown(
+                modifier = Modifier.padding(0.dp, 20.dp),
+                expanded = expanded,
+                selectedItem = selectedTheme,
+                settingsParam = SettingsParam.USER_THEME,
+                allItems = enumEntries<UserTheme>(),
+                maxItemsDisplayed = 6,
+                schemes = schemes
+            )
+            SettingsDropdown(
+                modifier = Modifier.padding(0.dp, 20.dp),
+                expanded = expanded,
+                selectedItem = selectedWeekendMode,
+                settingsParam = SettingsParam.WEEKEND_MODE,
+                allItems = enumEntries<WeekendMode>(),
+                maxItemsDisplayed = 3,
+                schemes = schemes
+            )
+        }
     }
 }
