@@ -1,8 +1,9 @@
 package com.asivers.mycalendar.utils
 
-import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.MonthInfo
+import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
+import com.asivers.mycalendar.enums.WeekendMode
 import java.util.Calendar
 import java.util.GregorianCalendar
 
@@ -59,12 +60,28 @@ fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
 fun getCurrentMonthIndex(): Int = Calendar.getInstance().get(Calendar.MONTH)
 fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
 
-fun isHoliday(
+fun isWeekend(
     dayValue: Int?,
     dayOfWeekIndex: Int,
+    weekendMode: WeekendMode,
+    notHolidays: Map<Int, HolidayInfo>
+): Boolean {
+    if (dayValue == null || weekendMode == WeekendMode.NO_DISPLAY || dayValue in notHolidays) {
+        return false
+    }
+    if (weekendMode == WeekendMode.ONLY_SUNDAY) {
+        return dayOfWeekIndex == 6
+    }
+    return dayOfWeekIndex >= 5
+}
+
+fun isHoliday(
+    dayValue: Int?,
     holidays: Map<Int, HolidayInfo>,
     notHolidays: Map<Int, HolidayInfo>
 ): Boolean {
-    if (dayValue == null || dayValue in notHolidays) return false
-    return dayOfWeekIndex > 4 || dayValue in holidays
+    if (dayValue == null || dayValue in notHolidays) {
+        return false
+    }
+    return dayValue in holidays
 }

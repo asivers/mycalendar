@@ -30,6 +30,7 @@ import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -44,6 +45,7 @@ fun YearViewPreview() {
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.YEAR, ViewShown.MONTH)) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
+        weekendMode = WeekendMode.SATURDAY_SUNDAY,
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
 }
@@ -55,6 +57,7 @@ fun YearView(
     selectedMonthIndex: MutableIntState,
     viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
@@ -111,6 +114,7 @@ fun YearView(
                     selectedMonthIndex = selectedMonthIndex,
                     viewShownInfo = viewShownInfo,
                     lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                    weekendMode = weekendMode,
                     schemes = schemes
                 )
             }

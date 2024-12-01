@@ -30,6 +30,7 @@ import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getCountryHolidaySchemeForPreview
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -39,6 +40,7 @@ import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
 import com.asivers.mycalendar.utils.getNumberOfWeeksInMonth
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.isHoliday
+import com.asivers.mycalendar.utils.isWeekend
 
 @Preview(showBackground = true)
 @Composable
@@ -56,6 +58,7 @@ fun MonthCalendarGridPreview() {
                 getCurrentMonthIndex(),
                 getCountryHolidaySchemeForPreview()
             ),
+            weekendMode = WeekendMode.SATURDAY_SUNDAY,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
     }
@@ -65,6 +68,7 @@ fun MonthCalendarGridPreview() {
 fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
     monthInfo: MonthInfo,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     Column(
@@ -80,6 +84,7 @@ fun MonthCalendarGrid(
             WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 monthInfo = monthInfo,
+                weekendMode = weekendMode,
                 schemes = schemes
             )
         }
@@ -114,6 +119,7 @@ fun WeekInMonthCalendarGrid(
     modifier: Modifier = Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     Row(
@@ -130,6 +136,7 @@ fun WeekInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
                 monthInfo = monthInfo,
+                weekendMode = weekendMode,
                 schemes = schemes
             )
         }
@@ -142,6 +149,7 @@ fun DayInMonthCalendarGrid(
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     val dayValue = getDayValueForMonthTableElement(
@@ -151,7 +159,8 @@ fun DayInMonthCalendarGrid(
         monthInfo.dayOfWeekOf1st
     )
     val today = dayValue != null && dayValue == monthInfo.today
-    val holiday = isHoliday(dayValue, dayOfWeekIndex, monthInfo.holidays, monthInfo.notHolidays)
+    val weekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, monthInfo.notHolidays)
+    val holiday = isHoliday(dayValue, monthInfo.holidays, monthInfo.notHolidays)
     Button(
         modifier = modifier
             .drawBehind { if (today) drawCircle(color = Color.White, style = Stroke(width = 4f)) },
@@ -165,7 +174,7 @@ fun DayInMonthCalendarGrid(
             text = (dayValue ?: "").toString(),
             fontFamily = MONTSERRAT_BOLD,
             fontSize = schemes.size.font.main,
-            color = if (holiday) schemes.color.brightElement else Color.White,
+            color = if (weekend || holiday) schemes.color.brightElement else Color.White,
             textAlign = TextAlign.Center
         )
     }

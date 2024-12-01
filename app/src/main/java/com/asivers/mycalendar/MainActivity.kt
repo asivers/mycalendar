@@ -89,6 +89,7 @@ class MainActivity : ComponentActivity() {
                                 selectedMonthIndex = selectedMonthIndex,
                                 viewShownInfo = viewShownInfo,
                                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                                weekendMode = selectedWeekendMode.value,
                                 schemes = schemes
                             )
                         } else {
@@ -97,6 +98,7 @@ class MainActivity : ComponentActivity() {
                                 selectedMonthIndex = selectedMonthIndex,
                                 viewShownInfo = viewShownInfo,
                                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                                weekendMode = selectedWeekendMode.value,
                                 schemes = schemes
                             )
                         }

@@ -35,6 +35,7 @@ import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -43,6 +44,7 @@ import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.isHoliday
+import com.asivers.mycalendar.utils.isWeekend
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
@@ -58,6 +60,7 @@ fun YearCalendarGridPreview() {
             selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
             viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.YEAR, ViewShown.MONTH)) },
             lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
+            weekendMode = WeekendMode.SATURDAY_SUNDAY,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
     }
@@ -70,6 +73,7 @@ fun YearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     Column(
@@ -83,6 +87,7 @@ fun YearCalendarGrid(
                 selectedMonthIndex = selectedMonthIndex,
                 viewShownInfo = viewShownInfo,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                weekendMode = weekendMode,
                 schemes = schemes
             )
         }
@@ -97,6 +102,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     Row(
@@ -110,6 +116,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
                 selectedMonthIndex = selectedMonthIndex,
                 viewShownInfo = viewShownInfo,
                 lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                weekendMode = weekendMode,
                 schemes = schemes
             )
         }
@@ -124,6 +131,7 @@ fun MonthInYearCalendarGrid(
     selectedMonthIndex: MutableIntState,
     viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     val isLastSelectedMonth = thisYear == lastSelectedYearFromMonthView.intValue
@@ -159,6 +167,7 @@ fun MonthInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
                 monthInfo = getMonthInfo(thisYear, thisMonthIndex, schemes.countryHoliday),
+                weekendMode = weekendMode,
                 schemes = schemes
             )
         }
@@ -192,6 +201,7 @@ fun WeekInYearCalendarGrid(
     modifier: Modifier = Modifier,
     weekIndex: Int,
     monthInfo: MonthInfo,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     Row(
@@ -203,6 +213,7 @@ fun WeekInYearCalendarGrid(
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
                 monthInfo = monthInfo,
+                weekendMode = weekendMode,
                 schemes = schemes
             )
         }
@@ -215,6 +226,7 @@ fun DayInYearCalendarGrid(
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     val dayValue = getDayValueForMonthTableElement(
@@ -224,7 +236,8 @@ fun DayInYearCalendarGrid(
         monthInfo.dayOfWeekOf1st
     )
     val today = dayValue != null && dayValue == monthInfo.today
-    val holiday = isHoliday(dayValue, dayOfWeekIndex, monthInfo.holidays, monthInfo.notHolidays)
+    val weekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, monthInfo.notHolidays)
+    val holiday = isHoliday(dayValue, monthInfo.holidays, monthInfo.notHolidays)
     Text(
         modifier = modifier
             .fillMaxSize()
@@ -237,7 +250,7 @@ fun DayInYearCalendarGrid(
         text = (dayValue ?: "").toString(),
         fontFamily = MONTSERRAT_BOLD,
         fontSize = schemes.size.font.yvDay,
-        color = if (holiday) schemes.color.brightElement else Color.White,
+        color = if (weekend || holiday) schemes.color.brightElement else Color.White,
         textAlign = TextAlign.Center,
         style = NO_PADDING_TEXT_STYLE
     )

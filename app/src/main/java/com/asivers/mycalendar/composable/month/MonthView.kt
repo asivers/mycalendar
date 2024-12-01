@@ -26,6 +26,7 @@ import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getMonthInfo
@@ -40,6 +41,7 @@ fun MonthViewPreview() {
         selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
         viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
         lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
+        weekendMode = WeekendMode.SATURDAY_SUNDAY,
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
 }
@@ -51,6 +53,7 @@ fun MonthView(
     selectedMonthIndex: MutableIntState,
     viewShownInfo: MutableState<ViewShownInfo>,
     lastSelectedYearFromMonthView: MutableIntState,
+    weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     Column(modifier = modifier) {
@@ -105,6 +108,7 @@ fun MonthView(
                 )
                 MonthCalendarGrid(
                     monthInfo = monthInfo,
+                    weekendMode = weekendMode,
                     schemes = schemes
                 )
                 Row(
