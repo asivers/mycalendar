@@ -5,12 +5,11 @@ import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.data.scheme.TranslationScheme
 import com.asivers.mycalendar.enums.ExistingLocale
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File
 
-fun getHolidaySchemeForCountry(country: Country?, ctx: Context): CountryHolidayScheme {
-    if (country == null) {
+fun getHolidaySchemeForCountry(country: Country, ctx: Context): CountryHolidayScheme {
+    if (country == Country.NO_DISPLAY) {
         return CountryHolidayScheme(mapOf(), mapOf())
     }
     val fileName = "holidays" + File.separator + country.assetName + ".json"
