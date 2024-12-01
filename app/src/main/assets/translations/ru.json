@@ -31,5 +31,30 @@
     "П",
     "С",
     "В"
-  ]
+  ],
+  "countriesParam": "Праздники страны",
+  "countries": {
+    "noDisplay": "Не показывать",
+    "russia": "Россия",
+    "spain": "Испания"
+  },
+  "localesParam": "Язык",
+  "locales": {
+    "en": "Английский",
+    "ru": "Русский"
+  },
+  "themesParam": "Тема",
+  "themes": {
+    "changeBySeason": "Менять по сезонам",
+    "summer": "Лето",
+    "autumn": "Осень",
+    "winter": "Зима",
+    "spring": "Весна"
+  },
+  "weekendModesParam": "Отображение выходных",
+  "weekendModes": {
+    "saturdaySunday": "Суббота и воскресенье",
+    "onlySunday": "Только воскресенье",
+    "noDisplay": "Не показывать"
+  }
 }

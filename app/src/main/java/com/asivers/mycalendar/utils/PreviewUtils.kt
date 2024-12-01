@@ -111,6 +111,31 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
             "F",
             "S",
             "S"
-        )
+        ),
+        countriesParam = "Country",
+        countries = mapOf(
+            Pair("noDisplay", "Do not display"),
+            Pair("russia", "Russia"),
+            Pair("spain", "Spain")
+        ),
+        localesParam = "Language",
+        locales = mapOf(
+            Pair("en", "English"),
+            Pair("ru", "Russian")
+        ),
+        themesParam = "Theme",
+        themes = mapOf(
+            Pair("changeBySeason", "Change by season"),
+            Pair("summer", "Summer"),
+            Pair("autumn", "Autumn"),
+            Pair("winter", "Winter"),
+            Pair("spring", "Spring")
+        ),
+        weekendModesParam = "Weekend mode",
+        weekendModes = mapOf(
+            Pair("saturdaySunday", "Saturday & Sunday"),
+            Pair("onlySunday", "Only Sunday"),
+            Pair("noDisplay", "Do not display")
+        ),
     )
 }

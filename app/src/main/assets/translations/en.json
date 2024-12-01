@@ -31,5 +31,30 @@
     "F",
     "S",
     "S"
-  ]
+  ],
+  "countriesParam": "Holidays for country",
+  "countries": {
+    "noDisplay": "Do not display",
+    "russia": "Russia",
+    "spain": "Spain"
+  },
+  "localesParam": "Language",
+  "locales": {
+    "en": "English",
+    "ru": "Russian"
+  },
+  "themesParam": "Theme",
+  "themes": {
+    "changeBySeason": "Change by season",
+    "summer": "Summer",
+    "autumn": "Autumn",
+    "winter": "Winter",
+    "spring": "Spring"
+  },
+  "weekendModesParam": "Display weekends",
+  "weekendModes": {
+    "saturdaySunday": "Saturday & Sunday",
+    "onlySunday": "Only Sunday",
+    "noDisplay": "Do not display"
+  }
 }
