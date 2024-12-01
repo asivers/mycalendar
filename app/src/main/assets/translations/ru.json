@@ -51,10 +51,10 @@
     "winter": "Зима",
     "spring": "Весна"
   },
-  "weekendModesParam": "Отображение выходных",
+  "weekendModesParam": "Режим выходных",
   "weekendModes": {
-    "saturdaySunday": "Суббота и воскресенье",
-    "onlySunday": "Только воскресенье",
+    "saturdaySunday": "СБ и ВС",
+    "onlySunday": "Только ВС",
     "noDisplay": "Не показывать"
   }
 }
