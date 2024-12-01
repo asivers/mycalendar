@@ -24,7 +24,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -46,8 +48,6 @@ import com.asivers.mycalendar.utils.getTranslatedSettingsParamName
 import com.asivers.mycalendar.utils.noRippleClickable
 import kotlin.enums.enumEntries
 
-private const val MAX_ITEMS_DISPLAYED: Int = 14
-
 @Preview(showBackground = true)
 @Composable
 fun SettingsDropdownPreview() {
@@ -60,10 +60,11 @@ fun SettingsDropdownPreview() {
                 .padding(10.dp, 10.dp)
         ) {
             SettingsDropdown(
+                expanded = remember { mutableStateOf(null) },
+                selectedItem = remember { mutableStateOf(Country.RUSSIA) },
                 settingsParam = SettingsParam.COUNTRY,
                 allItems = enumEntries<Country>(),
-                selectedItem = remember { mutableStateOf(Country.RUSSIA) },
-                expanded = remember { mutableStateOf(null) },
+                maxItemsDisplayed = 14,
                 schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
             )
         }
@@ -73,13 +74,15 @@ fun SettingsDropdownPreview() {
 @Composable
 fun <T : SettingsItem> SettingsDropdown(
     modifier: Modifier = Modifier,
+    expanded: MutableState<SettingsParam?>,
+    selectedItem: MutableState<T>,
     settingsParam: SettingsParam,
     allItems: List<T>,
-    selectedItem: MutableState<T>,
-    expanded: MutableState<SettingsParam?>,
+    maxItemsDisplayed: Int,
     schemes: SchemeContainer
 ) {
     val translatedParamName = getTranslatedSettingsParamName(settingsParam, schemes.translation)
+    val enabled = expanded.value == null || expanded.value == settingsParam
     Column(
         modifier = modifier
             .background(Color.Transparent)
@@ -89,33 +92,39 @@ fun <T : SettingsItem> SettingsDropdown(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val iconId = if (expanded.value != null)
+            val iconId = if (expanded.value == settingsParam)
                 R.drawable.white_arrow_up else R.drawable.white_arrow_down
             Image(
                 painter = painterResource(id = iconId),
+                colorFilter = ColorFilter.tint(if (enabled) Color.White else Color.Transparent),
                 contentDescription = "DropDown Icon"
             )
             Spacer(modifier = Modifier.width(10.dp))
             Box {
                 Text(
                     text = translatedParamName,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
+                    modifier = Modifier
+                        .padding(0.dp, 0.dp, 0.dp, 3.dp)
+                        .alpha(if (enabled) 1f else 0.5f),
                     color = Color.White,
                     fontFamily = MONTSERRAT_BOLD,
                     fontSize = schemes.size.font.dropdownHeader
                 )
-                if (allItems.size > MAX_ITEMS_DISPLAYED) {
+                if (allItems.size > maxItemsDisplayed) {
                     SettingsScrollableDropdownList(
-                        allItems = allItems,
-                        selectedItem = selectedItem,
                         expanded = expanded,
+                        selectedItem = selectedItem,
+                        settingsParam = settingsParam,
+                        allItems = allItems,
+                        maxItemsDisplayed = maxItemsDisplayed,
                         schemes = schemes
                     )
                 } else {
                     SettingsDropdownList(
-                        allItems = allItems,
-                        selectedItem = selectedItem,
                         expanded = expanded,
+                        selectedItem = selectedItem,
+                        settingsParam = settingsParam,
+                        allItems = allItems,
                         schemes = schemes
                     )
                 }
@@ -123,7 +132,9 @@ fun <T : SettingsItem> SettingsDropdown(
         }
         Text(
             text = getTranslatedSettingsItemName(selectedItem.value, schemes.translation),
-            modifier = Modifier.offset(x = 25.dp, y = 2.dp),
+            modifier = Modifier
+                .offset(x = 25.dp, y = 2.dp)
+                .alpha(if (enabled) 1f else 0.5f),
             color = schemes.color.brightElement,
             fontFamily = MONTSERRAT_MEDIUM,
             fontSize = schemes.size.font.main
@@ -134,9 +145,10 @@ fun <T : SettingsItem> SettingsDropdown(
 @Composable
 fun <T : SettingsItem> SettingsDropdownList(
     modifier: Modifier = Modifier,
-    allItems: List<T>,
-    selectedItem: MutableState<T>,
     expanded: MutableState<SettingsParam?>,
+    selectedItem: MutableState<T>,
+    settingsParam: SettingsParam,
+    allItems: List<T>,
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
@@ -144,7 +156,7 @@ fun <T : SettingsItem> SettingsDropdownList(
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
     DropdownMenu(
-        expanded = expanded.value != null,
+        expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
         modifier = modifier
     ) {
@@ -173,9 +185,11 @@ fun <T : SettingsItem> SettingsDropdownList(
 @Composable
 fun <T : SettingsItem> SettingsScrollableDropdownList(
     modifier: Modifier = Modifier,
-    allItems: List<T>,
-    selectedItem: MutableState<T>,
     expanded: MutableState<SettingsParam?>,
+    selectedItem: MutableState<T>,
+    settingsParam: SettingsParam,
+    allItems: List<T>,
+    maxItemsDisplayed: Int,
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
@@ -183,13 +197,13 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
     DropdownMenu(
-        expanded = expanded.value != null,
+        expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
         modifier = modifier
     ) {
         LazyColumn(
             modifier = Modifier
-                .height((MAX_ITEMS_DISPLAYED * itemHeightDp).dp)
+                .height((maxItemsDisplayed * itemHeightDp).dp)
                 .width(205.dp), // todo adapt for different size schemes
             state = LazyListState(selectedItemIndex)
         ) {
