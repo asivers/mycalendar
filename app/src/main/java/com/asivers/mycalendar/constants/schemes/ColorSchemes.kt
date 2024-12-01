@@ -18,7 +18,7 @@ val AUTUMN = ColorScheme(
     yearViewBtnTop = Color(0xFFFCA600),
     yearViewBtnBottom = Color(0xFFB87C04),
     brightElement = Color(0xFFFCF200),
-    settingsViewTop = Color(0xFF4C9369) // todo change value
+    settingsViewTop = Color(0xFF988A47)
 )
 
 val WINTER = ColorScheme(
@@ -27,7 +27,7 @@ val WINTER = ColorScheme(
     yearViewBtnTop = Color(0xFF44B9DD),
     yearViewBtnBottom = Color(0xFF248683),
     brightElement = Color(0xFF5BDBF4),
-    settingsViewTop = Color(0xFF4C9369) // todo change value
+    settingsViewTop = Color(0xFF945D5A)
 )
 
 val SPRING = ColorScheme(
