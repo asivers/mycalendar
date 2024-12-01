@@ -1,15 +1,21 @@
 package com.asivers.mycalendar.composable.settings
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +28,7 @@ import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
+import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import kotlin.enums.enumEntries
@@ -61,9 +68,25 @@ fun SettingsView(
             viewShownInfo = viewShownInfo,
             schemes = schemes
         )
+        var horizontalOffset by remember { mutableFloatStateOf(0f) }
         val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
         Column(
-            modifier = Modifier.padding(25.dp, 5.dp)
+            modifier = Modifier
+                .padding(25.dp, 5.dp)
+                .pointerInput(Unit) {
+                    detectHorizontalDragGestures(
+                        onDragStart = {
+                            horizontalOffset = 0f
+                        },
+                        onDragEnd = {
+                            if (horizontalOffset > 50f || horizontalOffset < -50f) {
+                                backToPreviousView(viewShownInfo)
+                            }
+                        }
+                    ) { _, dragAmount ->
+                        horizontalOffset += dragAmount
+                    }
+                }
         ) {
             SettingsDropdown(
                 modifier = Modifier.padding(0.dp, 20.dp),
@@ -101,6 +124,7 @@ fun SettingsView(
                 maxItemsDisplayed = 3,
                 schemes = schemes
             )
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
