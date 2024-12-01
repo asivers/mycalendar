@@ -3,7 +3,7 @@ package com.asivers.mycalendar.enums
 enum class Country(
     val assetName: String?,
     override val translationKey: String
-): SettingsEnum {
+): SettingsItem {
     NO_DISPLAY(
         assetName = null,
         translationKey = "noDisplay"

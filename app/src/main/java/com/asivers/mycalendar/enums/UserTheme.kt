@@ -9,7 +9,7 @@ import com.asivers.mycalendar.data.scheme.ColorScheme
 enum class UserTheme(
     val colorScheme: ColorScheme?,
     override val translationKey: String
-): SettingsEnum {
+): SettingsItem {
     CHANGE_BY_SEASON(
         colorScheme = null,
         translationKey = "changeBySeason"

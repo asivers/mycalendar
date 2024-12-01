@@ -3,7 +3,7 @@ package com.asivers.mycalendar.enums
 enum class ExistingLocale(
     val assetName: String,
     override val translationKey: String
-): SettingsEnum {
+): SettingsItem {
     EN(
         assetName = "en",
         translationKey = "en"

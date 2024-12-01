@@ -2,7 +2,7 @@ package com.asivers.mycalendar.enums
 
 enum class WeekendMode(
     override val translationKey: String
-): SettingsEnum {
+): SettingsItem {
     SATURDAY_SUNDAY(
         translationKey = "saturdaySunday"
     ),

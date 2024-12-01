@@ -36,7 +36,8 @@ import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.Country
-import com.asivers.mycalendar.enums.SettingsEnum
+import com.asivers.mycalendar.enums.SettingsItem
+import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import com.asivers.mycalendar.utils.getTranslatedSettingsItemName
@@ -45,7 +46,7 @@ import com.asivers.mycalendar.utils.getTranslatedSettingsParamName
 import com.asivers.mycalendar.utils.noRippleClickable
 import kotlin.enums.enumEntries
 
-private const val MAX_ITEMS_DISPLAYED: Int = 3
+private const val MAX_ITEMS_DISPLAYED: Int = 14
 
 @Preview(showBackground = true)
 @Composable
@@ -59,8 +60,10 @@ fun SettingsDropdownPreview() {
                 .padding(10.dp, 10.dp)
         ) {
             SettingsDropdown(
-                selectedItem = remember { mutableStateOf(Country.RUSSIA) },
+                settingsParam = SettingsParam.COUNTRY,
                 allItems = enumEntries<Country>(),
+                selectedItem = remember { mutableStateOf(Country.RUSSIA) },
+                expanded = remember { mutableStateOf(null) },
                 schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
             )
         }
@@ -68,26 +71,26 @@ fun SettingsDropdownPreview() {
 }
 
 @Composable
-fun <T : SettingsEnum> SettingsDropdown(
+fun <T : SettingsItem> SettingsDropdown(
     modifier: Modifier = Modifier,
-    selectedItem: MutableState<T>,
+    settingsParam: SettingsParam,
     allItems: List<T>,
+    selectedItem: MutableState<T>,
+    expanded: MutableState<SettingsParam?>,
     schemes: SchemeContainer
 ) {
-    val isExpanded = remember {
-        mutableStateOf(false)
-    }
-    val translatedParamName = getTranslatedSettingsParamName(allItems, schemes.translation)
+    val translatedParamName = getTranslatedSettingsParamName(settingsParam, schemes.translation)
     Column(
         modifier = modifier
             .background(Color.Transparent)
-            .noRippleClickable { isExpanded.value = true }
+            .noRippleClickable { expanded.value = settingsParam }
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            val iconId = if (isExpanded.value) R.drawable.white_arrow_up else R.drawable.white_arrow_down
+            val iconId = if (expanded.value != null)
+                R.drawable.white_arrow_up else R.drawable.white_arrow_down
             Image(
                 painter = painterResource(id = iconId),
                 contentDescription = "DropDown Icon"
@@ -103,16 +106,16 @@ fun <T : SettingsEnum> SettingsDropdown(
                 )
                 if (allItems.size > MAX_ITEMS_DISPLAYED) {
                     SettingsScrollableDropdownList(
-                        isExpanded = isExpanded,
-                        selectedItem = selectedItem,
                         allItems = allItems,
+                        selectedItem = selectedItem,
+                        expanded = expanded,
                         schemes = schemes
                     )
                 } else {
                     SettingsDropdownList(
-                        isExpanded = isExpanded,
-                        selectedItem = selectedItem,
                         allItems = allItems,
+                        selectedItem = selectedItem,
+                        expanded = expanded,
                         schemes = schemes
                     )
                 }
@@ -123,17 +126,17 @@ fun <T : SettingsEnum> SettingsDropdown(
             modifier = Modifier.offset(x = 25.dp, y = 2.dp),
             color = schemes.color.brightElement,
             fontFamily = MONTSERRAT_MEDIUM,
-            fontSize = schemes.size.font.dropdownHeader
+            fontSize = schemes.size.font.main
         )
     }
 }
 
 @Composable
-fun <T : SettingsEnum> SettingsDropdownList(
+fun <T : SettingsItem> SettingsDropdownList(
     modifier: Modifier = Modifier,
-    isExpanded: MutableState<Boolean>,
-    selectedItem: MutableState<T>,
     allItems: List<T>,
+    selectedItem: MutableState<T>,
+    expanded: MutableState<SettingsParam?>,
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
@@ -141,10 +144,8 @@ fun <T : SettingsEnum> SettingsDropdownList(
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
     DropdownMenu(
-        expanded = isExpanded.value,
-        onDismissRequest = {
-            isExpanded.value = false
-        },
+        expanded = expanded.value != null,
+        onDismissRequest = { expanded.value = null },
         modifier = modifier
     ) {
         translatedItemsNames.forEachIndexed { index, translatedItemName ->
@@ -160,7 +161,7 @@ fun <T : SettingsEnum> SettingsDropdownList(
                     )
                 },
                 onClick = {
-                    isExpanded.value = false
+                    expanded.value = null
                     selectedItem.value = allItems[index]
                 },
                 modifier = Modifier.height(itemHeightDp.dp)
@@ -170,11 +171,11 @@ fun <T : SettingsEnum> SettingsDropdownList(
 }
 
 @Composable
-fun <T : SettingsEnum> SettingsScrollableDropdownList(
+fun <T : SettingsItem> SettingsScrollableDropdownList(
     modifier: Modifier = Modifier,
-    isExpanded: MutableState<Boolean>,
-    selectedItem: MutableState<T>,
     allItems: List<T>,
+    selectedItem: MutableState<T>,
+    expanded: MutableState<SettingsParam?>,
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
@@ -182,10 +183,8 @@ fun <T : SettingsEnum> SettingsScrollableDropdownList(
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
     DropdownMenu(
-        expanded = isExpanded.value,
-        onDismissRequest = {
-            isExpanded.value = false
-        },
+        expanded = expanded.value != null,
+        onDismissRequest = { expanded.value = null },
         modifier = modifier
     ) {
         LazyColumn(
@@ -207,7 +206,7 @@ fun <T : SettingsEnum> SettingsScrollableDropdownList(
                         )
                     },
                     onClick = {
-                        isExpanded.value = false
+                        expanded.value = null
                         selectedItem.value = allItems[index]
                     },
                     modifier = Modifier.height(itemHeightDp.dp)

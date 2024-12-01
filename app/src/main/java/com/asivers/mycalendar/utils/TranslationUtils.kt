@@ -3,7 +3,8 @@ package com.asivers.mycalendar.utils
 import com.asivers.mycalendar.data.scheme.TranslationScheme
 import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.enums.ExistingLocale
-import com.asivers.mycalendar.enums.SettingsEnum
+import com.asivers.mycalendar.enums.SettingsItem
+import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
 import com.asivers.mycalendar.enums.WeekendMode
 
@@ -14,22 +15,19 @@ fun getExistingLocaleForLanguage(language: String): ExistingLocale {
 }
 
 fun getTranslatedSettingsParamName(
-    items: List<SettingsEnum>,
+    param: SettingsParam,
     translationScheme: TranslationScheme
 ): String {
-    if (items.isEmpty()) {
-        return ""
-    }
-    return when (items[0]) {
-        is Country -> translationScheme.countriesParam
-        is ExistingLocale -> translationScheme.localesParam
-        is UserTheme -> translationScheme.themesParam
-        is WeekendMode -> translationScheme.weekendModesParam
+    return when (param) {
+        SettingsParam.COUNTRY -> translationScheme.countriesParam
+        SettingsParam.EXISTING_LOCALE -> translationScheme.localesParam
+        SettingsParam.USER_THEME -> translationScheme.themesParam
+        SettingsParam.WEEKEND_MODE -> translationScheme.weekendModesParam
     }
 }
 
 fun getTranslatedSettingsItemName(
-    item: SettingsEnum,
+    item: SettingsItem,
     translationScheme: TranslationScheme
 ): String {
     val translationSchemeMap = when (item) {
@@ -42,8 +40,8 @@ fun getTranslatedSettingsItemName(
         ?: item.translationKey.replaceFirstChar(Char::titlecase)
 }
 
-fun getTranslatedSettingsItemsNames(
-    items: List<SettingsEnum>,
+fun <T : SettingsItem> getTranslatedSettingsItemsNames(
+    items: List<T>,
     translationScheme: TranslationScheme
 ): List<String> {
     if (items.isEmpty()) {
@@ -54,6 +52,7 @@ fun getTranslatedSettingsItemsNames(
         is ExistingLocale -> translationScheme.locales
         is UserTheme -> translationScheme.themes
         is WeekendMode -> translationScheme.weekendModes
+        else -> throw IllegalArgumentException() // will never happen
     }
     return items.map {
         translationSchemeMap[it.translationKey]
