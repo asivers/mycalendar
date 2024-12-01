@@ -72,7 +72,7 @@ fun SettingsView(
         val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
         Column(
             modifier = Modifier
-                .padding(25.dp, 5.dp)
+                .padding(22.dp, 12.dp) // todo calc precise vertical spacer weight
                 .pointerInput(Unit) {
                     detectHorizontalDragGestures(
                         onDragStart = {
@@ -89,7 +89,7 @@ fun SettingsView(
                 }
         ) {
             SettingsDropdown(
-                modifier = Modifier.padding(0.dp, 20.dp),
+                modifier = Modifier.padding(0.dp, 16.dp),
                 expanded = expanded,
                 selectedItem = selectedCountry,
                 settingsParam = SettingsParam.COUNTRY,
@@ -98,7 +98,7 @@ fun SettingsView(
                 schemes = schemes
             )
             SettingsDropdown(
-                modifier = Modifier.padding(0.dp, 20.dp),
+                modifier = Modifier.padding(0.dp, 16.dp),
                 expanded = expanded,
                 selectedItem = selectedLocale,
                 settingsParam = SettingsParam.EXISTING_LOCALE,
@@ -107,7 +107,7 @@ fun SettingsView(
                 schemes = schemes
             )
             SettingsDropdown(
-                modifier = Modifier.padding(0.dp, 20.dp),
+                modifier = Modifier.padding(0.dp, 16.dp),
                 expanded = expanded,
                 selectedItem = selectedTheme,
                 settingsParam = SettingsParam.USER_THEME,
@@ -116,7 +116,7 @@ fun SettingsView(
                 schemes = schemes
             )
             SettingsDropdown(
-                modifier = Modifier.padding(0.dp, 20.dp),
+                modifier = Modifier.padding(0.dp, 16.dp),
                 expanded = expanded,
                 selectedItem = selectedWeekendMode,
                 settingsParam = SettingsParam.WEEKEND_MODE,

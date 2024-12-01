@@ -112,7 +112,7 @@ fun SelectMonthDropdownList(
                         text = monthName,
                         color = schemes.color.viewsBottom,
                         fontFamily = MONTSERRAT_BOLD,
-                        fontSize = schemes.size.font.monthDropdownItem
+                        fontSize = schemes.size.font.dropdownItem
                     )
                 },
                 onClick = {

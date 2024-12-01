@@ -54,7 +54,7 @@ private fun getFontSizeSpScheme(dpScheme: FontSizeDpScheme, density: Density): F
     return FontSizeSpScheme(
         main = with(density) { dpScheme.main.toSp() },
         dropdownHeader = with(density) { dpScheme.dropdownHeader.toSp() },
-        monthDropdownItem = with(density) { dpScheme.monthDropdownItem.toSp() },
+        dropdownItem = with(density) { dpScheme.dropdownItem.toSp() },
         mvHeaderWeek = with(density) { dpScheme.mvHeaderWeek.toSp() },
         yvMonthName = with(density) { dpScheme.yvMonthName.toSp() },
         yvHeaderWeek = with(density) { dpScheme.yvHeaderWeek.toSp() },

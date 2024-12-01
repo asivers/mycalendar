@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.TextUnit
 data class FontSizeSpScheme(
     val main: TextUnit,
     val dropdownHeader: TextUnit,
-    val monthDropdownItem: TextUnit,
+    val dropdownItem: TextUnit, // except year dropdown
     val mvHeaderWeek: TextUnit,
     val yvMonthName: TextUnit,
     val yvHeaderWeek: TextUnit,

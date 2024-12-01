@@ -108,7 +108,7 @@ fun <T : SettingsItem> SettingsDropdown(
                         .alpha(if (enabled) 1f else 0.5f),
                     color = Color.White,
                     fontFamily = MONTSERRAT_BOLD,
-                    fontSize = schemes.size.font.dropdownHeader
+                    fontSize = schemes.size.font.main
                 )
                 if (allItems.size > maxItemsDisplayed) {
                     SettingsScrollableDropdownList(
@@ -137,7 +137,7 @@ fun <T : SettingsItem> SettingsDropdown(
                 .alpha(if (enabled) 1f else 0.5f),
             color = schemes.color.brightElement,
             fontFamily = MONTSERRAT_MEDIUM,
-            fontSize = schemes.size.font.main
+            fontSize = schemes.size.font.dropdownItem
         )
     }
 }
@@ -169,7 +169,7 @@ fun <T : SettingsItem> SettingsDropdownList(
                             schemes.color.viewsBottom else schemes.color.settingsViewTop,
                         fontFamily = if (selectedItemIndex == index)
                             MONTSERRAT_BOLD else MONTSERRAT_MEDIUM,
-                        fontSize = schemes.size.font.main
+                        fontSize = schemes.size.font.dropdownItem
                     )
                 },
                 onClick = {
@@ -216,7 +216,7 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
                                 schemes.color.viewsBottom else schemes.color.settingsViewTop,
                             fontFamily = if (selectedItemIndex == index)
                                 MONTSERRAT_BOLD else MONTSERRAT_MEDIUM,
-                            fontSize = schemes.size.font.main
+                            fontSize = schemes.size.font.dropdownItem
                         )
                     },
                     onClick = {
