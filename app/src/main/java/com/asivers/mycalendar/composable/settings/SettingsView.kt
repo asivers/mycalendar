@@ -5,6 +5,7 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ import com.asivers.mycalendar.enums.UserTheme
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.backToPreviousView
+import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import kotlin.enums.enumEntries
@@ -59,6 +61,7 @@ fun SettingsView(
     selectedWeekendMode: MutableState<WeekendMode>,
     schemes: SchemeContainer
 ) {
+    val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -70,9 +73,10 @@ fun SettingsView(
         )
         var horizontalOffset by remember { mutableFloatStateOf(0f) }
         val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
+        Spacer(modifier = Modifier.height(indentFromHeaderDp.dp))
         Column(
             modifier = Modifier
-                .padding(22.dp, 12.dp) // todo calc precise vertical spacer weight
+                .padding(18.dp, 0.dp)
                 .pointerInput(Unit) {
                     detectHorizontalDragGestures(
                         onDragStart = {
@@ -89,7 +93,6 @@ fun SettingsView(
                 }
         ) {
             SettingsDropdown(
-                modifier = Modifier.padding(0.dp, 16.dp),
                 expanded = expanded,
                 selectedItem = selectedCountry,
                 settingsParam = SettingsParam.COUNTRY,
@@ -97,8 +100,8 @@ fun SettingsView(
                 maxItemsDisplayed = 14,
                 schemes = schemes
             )
+            Spacer(modifier = Modifier.height(32.dp))
             SettingsDropdown(
-                modifier = Modifier.padding(0.dp, 16.dp),
                 expanded = expanded,
                 selectedItem = selectedLocale,
                 settingsParam = SettingsParam.EXISTING_LOCALE,
@@ -106,8 +109,8 @@ fun SettingsView(
                 maxItemsDisplayed = 11, // todo measure
                 schemes = schemes
             )
+            Spacer(modifier = Modifier.height(32.dp))
             SettingsDropdown(
-                modifier = Modifier.padding(0.dp, 16.dp),
                 expanded = expanded,
                 selectedItem = selectedTheme,
                 settingsParam = SettingsParam.USER_THEME,
@@ -115,8 +118,8 @@ fun SettingsView(
                 maxItemsDisplayed = 6,
                 schemes = schemes
             )
+            Spacer(modifier = Modifier.height(32.dp))
             SettingsDropdown(
-                modifier = Modifier.padding(0.dp, 16.dp),
                 expanded = expanded,
                 selectedItem = selectedWeekendMode,
                 settingsParam = SettingsParam.WEEKEND_MODE,

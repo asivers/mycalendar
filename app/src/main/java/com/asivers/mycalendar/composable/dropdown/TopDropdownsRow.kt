@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -47,8 +46,7 @@ fun TopDropdownsRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(18.dp, 8.dp, 16.dp, 8.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(18.dp, 0.dp, 16.dp, 0.dp),
     ) {
         if (showYearView) {
             Image(

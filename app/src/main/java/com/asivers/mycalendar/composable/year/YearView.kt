@@ -34,6 +34,7 @@ import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
+import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 
@@ -60,9 +61,9 @@ fun YearView(
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
-    val screenHeightDp = LocalConfiguration.current.screenHeightDp
-//    val paddingTopDp = ((screenHeightDp - 48 - 32) * 3 / (3 + 13 + 80)) - 8
-    val paddingTopDp = (screenHeightDp - 80) / 32 - 8
+    val indentFromHeaderToDropdownsDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
+    val indentFromHeaderToFrameDp = 12
+    val indentFromFrameToDropdowns = indentFromHeaderToDropdownsDp - indentFromHeaderToFrameDp
     Column(modifier = modifier) {
         SettingsHeader(
             viewShownInfo = viewShownInfo,
@@ -72,7 +73,7 @@ fun YearView(
         var verticalOffset by remember { mutableFloatStateOf(0f) }
         Column(
             modifier = modifier
-                .padding(0.dp, paddingTopDp.dp, 0.dp, 0.dp)
+                .padding(0.dp, indentFromHeaderToFrameDp.dp, 0.dp, 0.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(36.dp, 36.dp))
                 .background(getYearViewBackgroundGradient(schemes.color))
@@ -98,7 +99,7 @@ fun YearView(
                     }
                 }
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(indentFromFrameToDropdowns.dp))
             TopDropdownsRow(
                 selectedYear = selectedYear,
                 selectedMonthIndex = selectedMonthIndex,

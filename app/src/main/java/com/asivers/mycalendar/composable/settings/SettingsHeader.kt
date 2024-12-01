@@ -48,7 +48,7 @@ fun SettingsHeader(
         modifier = modifier
             .fillMaxWidth()
             .height(48.dp)
-            .padding(20.dp, 20.dp, 20.dp, 0.dp)
+            .padding(18.dp, 20.dp, 18.dp, 0.dp)
     ) {
         if (viewShownInfo.value.current == ViewShown.SETTINGS) {
             Image(

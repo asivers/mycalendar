@@ -3,7 +3,7 @@ package com.asivers.mycalendar.composable.month
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -53,6 +53,7 @@ fun YearViewButton(
         onClick = { changeView(viewShownInfo, ViewShown.YEAR) },
         modifier = modifier
             .fillMaxWidth()
+            .height(64.dp) // todo add to size scheme
             .clip(RoundedCornerShape(36.dp, 36.dp))
             .background(
                 brush = Brush.verticalGradient(
@@ -62,7 +63,6 @@ fun YearViewButton(
                     )
                 )
             )
-            .padding(0.dp, 8.dp)
             .pointerInput(Unit) {
                 detectVerticalDragGestures(
                     onDragStart = { offset = 0f },

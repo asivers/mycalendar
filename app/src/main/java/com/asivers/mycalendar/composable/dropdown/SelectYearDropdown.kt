@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -84,6 +85,7 @@ fun SelectYearDropdown(
         Spacer(modifier = Modifier.width(10.dp))
         Box(modifier = Modifier.width(schemes.size.horizontal.yearDropdown)) {
             Text(
+                modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
                 text = selectedYear.intValue.toString(),
                 color = Color.White,
                 fontFamily = MONTSERRAT_MEDIUM,

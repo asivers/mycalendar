@@ -1,12 +1,12 @@
 package com.asivers.mycalendar.composable.month
 
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
@@ -21,6 +21,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.data.SchemeContainer
@@ -29,6 +30,7 @@ import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
+import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
@@ -56,11 +58,13 @@ fun MonthView(
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
+    val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
     Column(modifier = modifier) {
         SettingsHeader(
             viewShownInfo = viewShownInfo,
             schemes = schemes
         )
+        Spacer(modifier = Modifier.height(indentFromHeaderDp.dp))
         var horizontalOffset by remember { mutableFloatStateOf(0f) }
         Column(
             modifier = Modifier
@@ -90,17 +94,15 @@ fun MonthView(
                     }
                 }
         ) {
-            Spacer(modifier = Modifier.weight(3f))
-            Box(modifier = Modifier.weight(13f)) {
-                TopDropdownsRow(
-                    selectedYear = selectedYear,
-                    selectedMonthIndex = selectedMonthIndex,
-                    showYearView = viewShownInfo.value.current == ViewShown.YEAR,
-                    lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
-                    schemes = schemes
-                )
-            }
-            Column(modifier = Modifier.weight(80f)) {
+            TopDropdownsRow(
+                modifier = Modifier.weight(1f),
+                selectedYear = selectedYear,
+                selectedMonthIndex = selectedMonthIndex,
+                showYearView = viewShownInfo.value.current == ViewShown.YEAR,
+                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                schemes = schemes
+            )
+            Column(modifier = Modifier.weight(8f)) {
                 val monthInfo = getMonthInfo(
                     year = selectedYear.intValue,
                     monthIndex = selectedMonthIndex.intValue,
