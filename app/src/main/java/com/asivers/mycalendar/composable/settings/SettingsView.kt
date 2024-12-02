@@ -61,7 +61,8 @@ fun SettingsView(
     selectedWeekendMode: MutableState<WeekendMode>,
     schemes: SchemeContainer
 ) {
-    val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
+    // todo adapt for different fonts
+    val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp) + 1
     Column(
         modifier = modifier
             .fillMaxSize()
