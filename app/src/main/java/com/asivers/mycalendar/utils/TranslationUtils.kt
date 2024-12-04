@@ -8,12 +8,6 @@ import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
 import com.asivers.mycalendar.enums.WeekendMode
 
-fun getExistingLocaleForLanguage(language: String): ExistingLocale {
-    return enumValues<ExistingLocale>()
-        .find { language == it.assetName }
-        ?: ExistingLocale.EN
-}
-
 fun getTranslatedSettingsParamName(
     param: SettingsParam,
     translationScheme: TranslationScheme

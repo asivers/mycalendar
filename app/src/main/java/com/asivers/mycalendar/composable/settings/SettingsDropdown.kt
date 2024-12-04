@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,6 +47,7 @@ import com.asivers.mycalendar.utils.getTranslatedSettingsItemName
 import com.asivers.mycalendar.utils.getTranslatedSettingsItemsNames
 import com.asivers.mycalendar.utils.getTranslatedSettingsParamName
 import com.asivers.mycalendar.utils.noRippleClickable
+import com.asivers.mycalendar.utils.updateOneSetting
 import kotlin.enums.enumEntries
 
 @Preview(showBackground = true)
@@ -155,6 +157,7 @@ fun <T : SettingsItem> SettingsDropdownList(
     val itemHeightDp = (screenHeightDp - 32) / 17
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
+    val ctx = LocalContext.current
     DropdownMenu(
         expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
@@ -174,7 +177,9 @@ fun <T : SettingsItem> SettingsDropdownList(
                 },
                 onClick = {
                     expanded.value = null
-                    selectedItem.value = allItems[index]
+                    val newSelectedItem = allItems[index]
+                    selectedItem.value = newSelectedItem
+                    updateOneSetting(settingsParam, newSelectedItem, ctx)
                 },
                 modifier = Modifier.height(itemHeightDp.dp)
             )
@@ -196,6 +201,7 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
     val itemHeightDp = (screenHeightDp - 32) / 17 // todo change
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
+    val ctx = LocalContext.current
     DropdownMenu(
         expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
@@ -221,7 +227,9 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
                     },
                     onClick = {
                         expanded.value = null
-                        selectedItem.value = allItems[index]
+                        val newSelectedItem = allItems[index]
+                        selectedItem.value = newSelectedItem
+                        updateOneSetting(settingsParam, newSelectedItem, ctx)
                     },
                     modifier = Modifier.height(itemHeightDp.dp)
                 )
