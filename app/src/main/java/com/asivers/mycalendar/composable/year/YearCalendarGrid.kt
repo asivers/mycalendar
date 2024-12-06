@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -33,6 +31,8 @@ import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.SelectedMonthInfo
+import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
@@ -56,10 +56,9 @@ fun YearCalendarGridPreview() {
             .fillMaxWidth()
     ) {
         YearCalendarGrid(
-            thisYear = getCurrentYear(),
-            selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
-            viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.YEAR, ViewShown.MONTH)) },
-            lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
+            selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
+            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
+            viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
             weekendMode = WeekendMode.SATURDAY_SUNDAY,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
@@ -69,10 +68,9 @@ fun YearCalendarGridPreview() {
 @Composable
 fun YearCalendarGrid(
     modifier: Modifier = Modifier,
-    thisYear: Int,
-    selectedMonthIndex: MutableIntState,
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
     viewShownInfo: MutableState<ViewShownInfo>,
-    lastSelectedYearFromMonthView: MutableIntState,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -82,11 +80,10 @@ fun YearCalendarGrid(
         repeat(4) { threeMonthRowIndex ->
             ThreeMonthsRowInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
-                thisYear = thisYear,
-                threeMonthRowIndex = threeMonthRowIndex,
-                selectedMonthIndex = selectedMonthIndex,
+                selectedYearInfo = selectedYearInfo,
+                selectedMonthInfo = selectedMonthInfo,
                 viewShownInfo = viewShownInfo,
-                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                threeMonthRowIndex = threeMonthRowIndex,
                 weekendMode = weekendMode,
                 schemes = schemes
             )
@@ -97,11 +94,10 @@ fun YearCalendarGrid(
 @Composable
 fun ThreeMonthsRowInYearCalendarGrid(
     modifier: Modifier = Modifier,
-    thisYear: Int,
-    threeMonthRowIndex: Int,
-    selectedMonthIndex: MutableIntState,
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
     viewShownInfo: MutableState<ViewShownInfo>,
-    lastSelectedYearFromMonthView: MutableIntState,
+    threeMonthRowIndex: Int,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -111,11 +107,10 @@ fun ThreeMonthsRowInYearCalendarGrid(
         repeat(3) { monthInRowIndex ->
             MonthInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
-                thisYear = thisYear,
-                thisMonthIndex = threeMonthRowIndex * 3 + monthInRowIndex,
-                selectedMonthIndex = selectedMonthIndex,
+                selectedYearInfo = selectedYearInfo,
+                selectedMonthInfo = selectedMonthInfo,
                 viewShownInfo = viewShownInfo,
-                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
+                thisMonthIndex = threeMonthRowIndex * 3 + monthInRowIndex,
                 weekendMode = weekendMode,
                 schemes = schemes
             )
@@ -126,16 +121,16 @@ fun ThreeMonthsRowInYearCalendarGrid(
 @Composable
 fun MonthInYearCalendarGrid(
     modifier: Modifier = Modifier,
-    thisYear: Int,
-    thisMonthIndex: Int,
-    selectedMonthIndex: MutableIntState,
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
     viewShownInfo: MutableState<ViewShownInfo>,
-    lastSelectedYearFromMonthView: MutableIntState,
+    thisMonthIndex: Int,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
-    val isLastSelectedMonth = thisYear == lastSelectedYearFromMonthView.intValue
-            && thisMonthIndex == selectedMonthIndex.intValue
+    val thisYear = selectedYearInfo.value.year
+    val isLastSelectedMonth = thisYear == selectedYearInfo.value.lastSelectedYearFromMonthView
+            && thisMonthIndex == selectedMonthInfo.value.monthIndex
     val background = if (isLastSelectedMonth) schemes.color.monthViewTop else Color.Transparent
     Column(
         modifier = modifier
@@ -144,8 +139,8 @@ fun MonthInYearCalendarGrid(
             .background(background)
             .padding(4.dp, 2.dp)
             .noRippleClickable {
-                selectedMonthIndex.intValue = thisMonthIndex
-                lastSelectedYearFromMonthView.intValue = thisYear
+                selectedYearInfo.value = SelectedYearInfo(thisYear)
+                selectedMonthInfo.value = SelectedMonthInfo(thisMonthIndex)
                 changeView(viewShownInfo, ViewShown.MONTH)
             }
     ) {

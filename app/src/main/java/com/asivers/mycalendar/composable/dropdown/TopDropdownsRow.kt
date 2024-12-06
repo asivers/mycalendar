@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableIntState
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -18,6 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.SelectedMonthInfo
+import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getSchemesForPreview
@@ -26,10 +28,9 @@ import com.asivers.mycalendar.utils.getSchemesForPreview
 @Composable
 fun TopDropdownsRowPreview() {
     TopDropdownsRow(
-        selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
-        selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
+        selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
+        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
         showYearView = false,
-        lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
 }
@@ -37,10 +38,9 @@ fun TopDropdownsRowPreview() {
 @Composable
 fun TopDropdownsRow(
     modifier: Modifier = Modifier,
-    selectedYear: MutableIntState,
-    selectedMonthIndex: MutableIntState,
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
     showYearView: Boolean,
-    lastSelectedYearFromMonthView: MutableIntState,
     schemes: SchemeContainer
 ) {
     Row(
@@ -57,16 +57,15 @@ fun TopDropdownsRow(
         } else {
             SelectMonthDropdown(
                 modifier = Modifier.wrapContentWidth(),
-                selectedMonthIndex = selectedMonthIndex,
+                selectedMonthInfo = selectedMonthInfo,
                 schemes = schemes
             )
         }
         Spacer(modifier = Modifier.weight(1f))
         SelectYearDropdown(
             modifier = Modifier.wrapContentWidth(),
-            selectedYear = selectedYear,
+            selectedYearInfo = selectedYearInfo,
             showYearView = showYearView,
-            lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
             schemes = schemes
         )
     }

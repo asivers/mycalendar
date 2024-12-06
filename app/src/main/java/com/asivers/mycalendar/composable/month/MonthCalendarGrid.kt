@@ -1,5 +1,9 @@
 package com.asivers.mycalendar.composable.month
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
@@ -30,8 +37,9 @@ import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.SelectedMonthInfo
+import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.enums.WeekendMode
-import com.asivers.mycalendar.utils.getCountryHolidaySchemeForPreview
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
@@ -41,6 +49,10 @@ import com.asivers.mycalendar.utils.getNumberOfWeeksInMonth
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.isHoliday
 import com.asivers.mycalendar.utils.isWeekend
+import com.asivers.mycalendar.utils.slideInFromLeft
+import com.asivers.mycalendar.utils.slideInFromRight
+import com.asivers.mycalendar.utils.slideOutToLeft
+import com.asivers.mycalendar.utils.slideOutToRight
 
 @Preview(showBackground = true)
 @Composable
@@ -53,11 +65,8 @@ fun MonthCalendarGridPreview() {
             .fillMaxWidth()
     ) {
         MonthCalendarGrid(
-            monthInfo = getMonthInfo(
-                getCurrentYear(),
-                getCurrentMonthIndex(),
-                getCountryHolidaySchemeForPreview()
-            ),
+            selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
+            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
             weekendMode = WeekendMode.SATURDAY_SUNDAY,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
@@ -67,7 +76,8 @@ fun MonthCalendarGridPreview() {
 @Composable
 fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
-    monthInfo: MonthInfo,
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -79,14 +89,38 @@ fun MonthCalendarGrid(
         HeaderWeekInMonthCalendarGrid(
             schemes = schemes
         )
-        val numberOfWeeksInMonth = getNumberOfWeeksInMonth(monthInfo)
-        repeat(numberOfWeeksInMonth) { weekIndex ->
-            WeekInMonthCalendarGrid(
-                weekIndex = weekIndex,
-                monthInfo = monthInfo,
-                weekendMode = weekendMode,
-                schemes = schemes
+        AnimatedContent(
+            targetState = selectedMonthInfo.value,
+            transitionSpec = {
+                if (targetState.byDropdown) {
+                    fadeIn() togetherWith fadeOut()
+                } else {
+                    val monthIndexDifference = targetState.monthIndex - initialState.monthIndex
+                    if (monthIndexDifference == 1 || monthIndexDifference == -11) {
+                        slideInFromRight() togetherWith slideOutToLeft()
+                    } else {
+                        slideInFromLeft() togetherWith slideOutToRight()
+                    }
+                }
+            },
+            label = "month calendar animated content"
+        ) {
+            val monthInfo = getMonthInfo(
+                year = selectedYearInfo.value.year,
+                monthIndex = it.monthIndex,
+                countryHolidayScheme = schemes.countryHoliday
             )
+            val numberOfWeeksInMonth = getNumberOfWeeksInMonth(monthInfo)
+            Column {
+                repeat(numberOfWeeksInMonth) { weekIndex ->
+                    WeekInMonthCalendarGrid(
+                        weekIndex = weekIndex,
+                        monthInfo = monthInfo,
+                        weekendMode = weekendMode,
+                        schemes = schemes
+                    )
+                }
+            }
         }
     }
 }

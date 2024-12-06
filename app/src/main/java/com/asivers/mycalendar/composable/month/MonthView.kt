@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -25,13 +23,14 @@ import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.SelectedMonthInfo
+import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
-import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
 
@@ -39,10 +38,9 @@ import com.asivers.mycalendar.utils.noRippleClickable
 @Composable
 fun MonthViewPreview() {
     MonthView(
-        selectedYear = remember { mutableIntStateOf(getCurrentYear()) },
-        selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) },
+        selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
+        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
         viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
-        lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) },
         weekendMode = WeekendMode.SATURDAY_SUNDAY,
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
@@ -51,10 +49,9 @@ fun MonthViewPreview() {
 @Composable
 fun MonthView(
     modifier: Modifier = Modifier,
-    selectedYear: MutableIntState,
-    selectedMonthIndex: MutableIntState,
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
     viewShownInfo: MutableState<ViewShownInfo>,
-    lastSelectedYearFromMonthView: MutableIntState,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -76,17 +73,9 @@ fun MonthView(
                         },
                         onDragEnd = {
                             if (horizontalOffset > 50f) {
-                                previousMonth(
-                                    selectedYear,
-                                    selectedMonthIndex,
-                                    lastSelectedYearFromMonthView
-                                )
+                                previousMonth(selectedYearInfo, selectedMonthInfo)
                             } else if (horizontalOffset < -50f) {
-                                nextMonth(
-                                    selectedYear,
-                                    selectedMonthIndex,
-                                    lastSelectedYearFromMonthView
-                                )
+                                nextMonth(selectedYearInfo, selectedMonthInfo)
                             }
                         }
                     ) { _, dragAmount ->
@@ -96,20 +85,15 @@ fun MonthView(
         ) {
             TopDropdownsRow(
                 modifier = Modifier.weight(1f),
-                selectedYear = selectedYear,
-                selectedMonthIndex = selectedMonthIndex,
+                selectedYearInfo = selectedYearInfo,
+                selectedMonthInfo = selectedMonthInfo,
                 showYearView = viewShownInfo.value.current == ViewShown.YEAR,
-                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                 schemes = schemes
             )
             Column(modifier = Modifier.weight(8f)) {
-                val monthInfo = getMonthInfo(
-                    year = selectedYear.intValue,
-                    monthIndex = selectedMonthIndex.intValue,
-                    countryHolidayScheme = schemes.countryHoliday
-                )
                 MonthCalendarGrid(
-                    monthInfo = monthInfo,
+                    selectedYearInfo = selectedYearInfo,
+                    selectedMonthInfo = selectedMonthInfo,
                     weekendMode = weekendMode,
                     schemes = schemes
                 )
@@ -121,11 +105,7 @@ fun MonthView(
                             .fillMaxHeight()
                             .weight(3f)
                             .noRippleClickable {
-                                previousMonth(
-                                    selectedYear,
-                                    selectedMonthIndex,
-                                    lastSelectedYearFromMonthView
-                                )
+                                previousMonth(selectedYearInfo, selectedMonthInfo)
                             }
                     )
                     Spacer(
@@ -138,11 +118,7 @@ fun MonthView(
                             .fillMaxHeight()
                             .weight(3f)
                             .noRippleClickable {
-                                nextMonth(
-                                    selectedYear,
-                                    selectedMonthIndex,
-                                    lastSelectedYearFromMonthView
-                                )
+                                nextMonth(selectedYearInfo, selectedMonthInfo)
                             }
                     )
                 }
@@ -156,31 +132,33 @@ fun MonthView(
 }
 
 private fun previousMonth(
-    selectedYear: MutableIntState,
-    selectedMonthIndex: MutableIntState,
-    lastSelectedYearFromMonthView: MutableIntState
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
 ) {
-    if (selectedMonthIndex.intValue == 0) {
-        if (selectedYear.intValue == 1900) return
-        selectedMonthIndex.intValue = 11
-        selectedYear.intValue--
-        lastSelectedYearFromMonthView.intValue--
+    val monthIndexBeforeUpdate = selectedMonthInfo.value.monthIndex
+    val yearBeforeUpdate = selectedYearInfo.value.year
+
+    if (monthIndexBeforeUpdate == 0) {
+        if (yearBeforeUpdate == 1900) return
+        selectedMonthInfo.value = SelectedMonthInfo(11)
+        selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate - 1)
     } else {
-        selectedMonthIndex.intValue--
+        selectedMonthInfo.value = SelectedMonthInfo(monthIndexBeforeUpdate - 1)
     }
 }
 
 private fun nextMonth(
-    selectedYear: MutableIntState,
-    selectedMonthIndex: MutableIntState,
-    lastSelectedYearFromMonthView: MutableIntState
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
 ) {
-    if (selectedMonthIndex.intValue == 11) {
-        if (selectedYear.intValue == 2100) return
-        selectedMonthIndex.intValue = 0
-        selectedYear.intValue++
-        lastSelectedYearFromMonthView.intValue++
+    val monthIndexBeforeUpdate = selectedMonthInfo.value.monthIndex
+    val yearBeforeUpdate = selectedYearInfo.value.year
+
+    if (monthIndexBeforeUpdate == 11) {
+        if (yearBeforeUpdate == 2100) return
+        selectedMonthInfo.value = SelectedMonthInfo(0)
+        selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate + 1)
     } else {
-        selectedMonthIndex.intValue++
+        selectedMonthInfo.value = SelectedMonthInfo(monthIndexBeforeUpdate + 1)
     }
 }

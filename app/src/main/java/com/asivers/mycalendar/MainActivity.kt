@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,6 +19,8 @@ import com.asivers.mycalendar.composable.month.MonthView
 import com.asivers.mycalendar.composable.settings.SettingsView
 import com.asivers.mycalendar.composable.year.YearView
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.SelectedMonthInfo
+import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.getColorScheme
@@ -55,16 +56,15 @@ class MainActivity : ComponentActivity() {
                 val selectedTheme = remember { mutableStateOf(savedTheme) }
                 val selectedWeekendMode = remember { mutableStateOf(savedWeekendMode) }
 
-                val selectedYear = remember { mutableIntStateOf(getCurrentYear()) }
-                val selectedMonthIndex = remember { mutableIntStateOf(getCurrentMonthIndex()) }
+                val selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) }
+                val selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) }
                 val viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) }
-                val lastSelectedYearFromMonthView = remember { mutableIntStateOf(getCurrentYear()) }
 
                 val countryHolidayScheme = getHolidaySchemeForCountry(
                     selectedCountry.value, applicationContext)
                 val translationScheme = getTranslationSchemeForExistingLocale(
                     selectedLocale.value, applicationContext)
-                val colorScheme = getColorScheme(selectedTheme.value, selectedMonthIndex.intValue)
+                val colorScheme = getColorScheme(selectedTheme.value, selectedMonthInfo.value.monthIndex)
 
                 val sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
 
@@ -93,19 +93,17 @@ class MainActivity : ComponentActivity() {
                     ) {
                         if (viewShownInfo.value.current == ViewShown.MONTH) {
                             MonthView(
-                                selectedYear = selectedYear,
-                                selectedMonthIndex = selectedMonthIndex,
+                                selectedYearInfo = selectedYearInfo,
+                                selectedMonthInfo = selectedMonthInfo,
                                 viewShownInfo = viewShownInfo,
-                                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                                 weekendMode = selectedWeekendMode.value,
                                 schemes = schemes
                             )
                         } else {
                             YearView(
-                                selectedYear = selectedYear,
-                                selectedMonthIndex = selectedMonthIndex,
+                                selectedYearInfo = selectedYearInfo,
+                                selectedMonthInfo = selectedMonthInfo,
                                 viewShownInfo = viewShownInfo,
-                                lastSelectedYearFromMonthView = lastSelectedYearFromMonthView,
                                 weekendMode = selectedWeekendMode.value,
                                 schemes = schemes
                             )
