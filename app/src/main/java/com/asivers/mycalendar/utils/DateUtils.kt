@@ -1,17 +1,51 @@
 package com.asivers.mycalendar.utils
 
+import com.asivers.mycalendar.data.AdjacentMonthsInfo
+import com.asivers.mycalendar.data.DayInMonthGridInfo
 import com.asivers.mycalendar.data.HolidayInfo
+import com.asivers.mycalendar.data.HolidaysAndNotHolidays
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.enums.WeekendMode
 import java.util.Calendar
 import java.util.GregorianCalendar
 
-fun getMonthInfo(year: Int, monthIndex: Int, countryHolidayScheme: CountryHolidayScheme): MonthInfo {
+fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
+fun getCurrentMonthIndex(): Int = Calendar.getInstance().get(Calendar.MONTH)
+fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+fun getMonthInfo(
+    year: Int,
+    monthIndex: Int,
+    countryHolidayScheme: CountryHolidayScheme,
+    forMonthView: Boolean
+): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
     val numberOfDays = firstOfThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
+    val holidaysAndNotHolidays = getHolidaysAndNotHolidays(year, monthIndex, countryHolidayScheme)
+    val today = getTodayValue(year, monthIndex)
+    val adjacentMonthsInfo = if (forMonthView)
+        getAdjacentMonthsInfo(firstOfThisMonth, countryHolidayScheme) else null
+    return MonthInfo(
+        numberOfDays,
+        dayOfWeekOf1st,
+        holidaysAndNotHolidays,
+        today,
+        adjacentMonthsInfo
+    )
+}
 
+private fun getTodayValue(year: Int, monthIndex: Int): Int? {
+    val isCurrentMonth = year == getCurrentYear() && monthIndex == getCurrentMonthIndex()
+    return if (isCurrentMonth) getCurrentDayOfMonth() else null
+}
+
+private fun getHolidaysAndNotHolidays(
+    year: Int,
+    monthIndex: Int,
+    countryHolidayScheme: CountryHolidayScheme
+): HolidaysAndNotHolidays {
     val monthIndexFrom1To12 = monthIndex + 1
     val holidays = mutableMapOf<Int, HolidayInfo>()
     val notHolidays = mutableMapOf<Int, HolidayInfo>()
@@ -27,46 +61,90 @@ fun getMonthInfo(year: Int, monthIndex: Int, countryHolidayScheme: CountryHolida
             else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
         }
     }
-
-    val today = getTodayValue(year, monthIndex)
-    return MonthInfo(numberOfDays, dayOfWeekOf1st, holidays, notHolidays, today)
+    return HolidaysAndNotHolidays(holidays, notHolidays)
 }
 
-private fun getTodayValue(year: Int, monthIndex: Int): Int? {
-    val isCurrentMonth = year == getCurrentYear() && monthIndex == getCurrentMonthIndex()
-    return if (isCurrentMonth) getCurrentDayOfMonth() else null
+private fun getAdjacentMonthsInfo(
+    firstOfMonth: GregorianCalendar, // now it is current month
+    countryHolidayScheme: CountryHolidayScheme,
+): AdjacentMonthsInfo {
+
+    firstOfMonth.add(Calendar.MONTH, -1) // now it is previous month
+    val prevMonthNumberOfDays = firstOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
+    val prevMonthYear = firstOfMonth.get(Calendar.YEAR)
+    val prevMonthMonthIndex = firstOfMonth.get(Calendar.MONTH)
+    val prevMonthHolidaysAndNotHolidays = getHolidaysAndNotHolidays(
+        year = prevMonthYear,
+        monthIndex = prevMonthMonthIndex,
+        countryHolidayScheme = countryHolidayScheme
+    )
+    val prevMonthToday = getTodayValue(prevMonthYear, prevMonthMonthIndex)
+
+    firstOfMonth.add(Calendar.MONTH, 2) // now it is next month
+    val nextMonthYear = firstOfMonth.get(Calendar.YEAR)
+    val nextMonthMonthIndex = firstOfMonth.get(Calendar.MONTH)
+    val nextMonthHolidaysAndNotHolidays = getHolidaysAndNotHolidays(
+        year = nextMonthYear,
+        monthIndex = nextMonthMonthIndex,
+        countryHolidayScheme = countryHolidayScheme
+    )
+    val nextMonthToday = getTodayValue(nextMonthYear, nextMonthMonthIndex)
+
+    return AdjacentMonthsInfo(
+        prevMonthNumberOfDays,
+        prevMonthHolidaysAndNotHolidays,
+        prevMonthToday,
+        nextMonthHolidaysAndNotHolidays,
+        nextMonthToday
+    )
 }
 
-fun getNumberOfWeeksInMonth(monthInfo: MonthInfo): Int {
-    return when (monthInfo.dayOfWeekOf1st) {
-        0 -> if (monthInfo.numberOfDays == 28) 4 else 5
-        5 -> if (monthInfo.numberOfDays == 31) 6 else 5
-        6 -> if (monthInfo.numberOfDays >= 30) 6 else 5
-        else -> 5
-    }
-}
-
-fun getDayValueForMonthTableElement(
+fun getDayInMonthGridInfo(
     weekIndex: Int,
     dayOfWeekIndex: Int,
-    numberOfDaysInMonth: Int,
-    dayOfWeekOf1stOfMonth : Int
-): Int? {
-    val value = weekIndex * 7 + dayOfWeekIndex - dayOfWeekOf1stOfMonth + 1
-    return if (value in 1..numberOfDaysInMonth) value else null
+    monthInfo: MonthInfo,
+    weekendMode: WeekendMode
+): DayInMonthGridInfo {
+    val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 1
+    val inPrevMonth = dayValueRaw <= 0
+    val inThisMonth = dayValueRaw in 1..monthInfo.numberOfDays
+
+    if (monthInfo.adjacentMonthsInfo == null) {
+        return DayInMonthGridInfo(dayValueRaw, inThisMonth)
+    }
+
+    val dayValue: Int
+    val holidaysAndNotHolidays: HolidaysAndNotHolidays
+    val today: Int?
+
+    if (inThisMonth) {
+        dayValue = dayValueRaw
+        holidaysAndNotHolidays = monthInfo.holidaysAndNotHolidays
+        today = monthInfo.today
+    } else if (inPrevMonth) {
+        dayValue = dayValueRaw + monthInfo.adjacentMonthsInfo.prevMonthNumberOfDays
+        holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.prevMonthHolidaysAndNotHolidays
+        today = monthInfo.adjacentMonthsInfo.prevMonthToday
+    } else {
+        dayValue = dayValueRaw - monthInfo.numberOfDays
+        holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.nextMonthHolidaysAndNotHolidays
+        today = monthInfo.adjacentMonthsInfo.nextMonthToday
+    }
+
+    val isToday = dayValue == today
+    val isWeekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, holidaysAndNotHolidays)
+    val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
+
+    return DayInMonthGridInfo(dayValue, inThisMonth, isToday, isWeekend, isHoliday)
 }
 
-fun getCurrentYear(): Int = Calendar.getInstance().get(Calendar.YEAR)
-fun getCurrentMonthIndex(): Int = Calendar.getInstance().get(Calendar.MONTH)
-fun getCurrentDayOfMonth(): Int = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-
-fun isWeekend(
-    dayValue: Int?,
+private fun isWeekend(
+    dayValue: Int,
     dayOfWeekIndex: Int,
     weekendMode: WeekendMode,
-    notHolidays: Map<Int, HolidayInfo>
+    holidaysAndNotHolidays: HolidaysAndNotHolidays
 ): Boolean {
-    if (dayValue == null || weekendMode == WeekendMode.NO_DISPLAY || dayValue in notHolidays) {
+    if (weekendMode == WeekendMode.NO_DISPLAY || dayValue in holidaysAndNotHolidays.notHolidays) {
         return false
     }
     if (weekendMode == WeekendMode.ONLY_SUNDAY) {
@@ -75,13 +153,7 @@ fun isWeekend(
     return dayOfWeekIndex >= 5
 }
 
-fun isHoliday(
-    dayValue: Int?,
-    holidays: Map<Int, HolidayInfo>,
-    notHolidays: Map<Int, HolidayInfo>
-): Boolean {
-    if (dayValue == null || dayValue in notHolidays) {
-        return false
-    }
-    return dayValue in holidays
+private fun isHoliday(dayValue: Int, holidaysAndNotHolidays: HolidaysAndNotHolidays): Boolean {
+    return dayValue !in holidaysAndNotHolidays.notHolidays &&
+            dayValue in holidaysAndNotHolidays.holidays
 }

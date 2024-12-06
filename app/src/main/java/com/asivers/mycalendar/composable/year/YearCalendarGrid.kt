@@ -39,12 +39,10 @@ import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
+import com.asivers.mycalendar.utils.getDayInMonthGridInfo
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
-import com.asivers.mycalendar.utils.isHoliday
-import com.asivers.mycalendar.utils.isWeekend
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
@@ -157,11 +155,17 @@ fun MonthInYearCalendarGrid(
                 .padding(0.dp, 5.dp, 0.dp, 3.dp),
             schemes = schemes
         )
+        val monthInfo = getMonthInfo(
+            year = thisYear,
+            monthIndex = thisMonthIndex,
+            countryHolidayScheme = schemes.countryHoliday,
+            forMonthView = false
+        )
         repeat(6) { weekIndex ->
             WeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
-                monthInfo = getMonthInfo(thisYear, thisMonthIndex, schemes.countryHoliday),
+                monthInfo = monthInfo,
                 weekendMode = weekendMode,
                 schemes = schemes
             )
@@ -224,28 +228,30 @@ fun DayInYearCalendarGrid(
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
-    val dayValue = getDayValueForMonthTableElement(
+    val dayInMonthGridInfo = getDayInMonthGridInfo(
         weekIndex,
         dayOfWeekIndex,
-        monthInfo.numberOfDays,
-        monthInfo.dayOfWeekOf1st
+        monthInfo,
+        weekendMode
     )
-    val today = dayValue != null && dayValue == monthInfo.today
-    val weekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, monthInfo.notHolidays)
-    val holiday = isHoliday(dayValue, monthInfo.holidays, monthInfo.notHolidays)
+    val dayValue = dayInMonthGridInfo.dayValue
+    val inThisMonth = dayInMonthGridInfo.inThisMonth
+    val isToday = dayInMonthGridInfo.isToday
+    val isWeekend = dayInMonthGridInfo.isWeekend
+    val isHoliday = dayInMonthGridInfo.isHoliday
     Text(
         modifier = modifier
             .fillMaxSize()
-            .drawBehind { if (today) drawCircle(
+            .drawBehind { if (isToday) drawCircle(
                 color = Color.White,
                 style = Stroke(width = 2f),
                 center = this.center.plus(Offset(x = -1f, y = 0f))
             )}
             .wrapContentHeight(),
-        text = (dayValue ?: "").toString(),
+        text = (if (inThisMonth) dayValue else "").toString(),
         fontFamily = MONTSERRAT_BOLD,
         fontSize = schemes.size.font.yvDay,
-        color = if (weekend || holiday) schemes.color.brightElement else Color.White,
+        color = if (isWeekend || isHoliday) schemes.color.brightElement else Color.White,
         textAlign = TextAlign.Center,
         style = NO_PADDING_TEXT_STYLE
     )

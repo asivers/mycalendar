@@ -4,7 +4,6 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
@@ -31,19 +30,19 @@ fun fadeOutLow(): ExitTransition {
 }
 
 fun slideInFromLeft(): EnterTransition {
-    return slideInHorizontally(tween(220)) { width -> -width }
+    return slideInHorizontally(spring(stiffness = Spring.StiffnessLow)) { width -> -width }
 }
 
 fun slideInFromRight(): EnterTransition {
-    return slideInHorizontally(tween(220)) { width -> width }
+    return slideInHorizontally(spring(stiffness = Spring.StiffnessLow)) { width -> width }
 }
 
 fun slideOutToLeft(): ExitTransition {
-    return slideOutHorizontally(tween(220)) { width -> -width }
+    return slideOutHorizontally(spring(stiffness = Spring.StiffnessLow)) { width -> -width }
 }
 
 fun slideOutToRight(): ExitTransition {
-    return slideOutHorizontally(tween(220)) { width -> width }
+    return slideOutHorizontally(spring(stiffness = Spring.StiffnessLow)) { width -> width }
 }
 
 fun Modifier.whiteBorder(): Modifier = this.border(
