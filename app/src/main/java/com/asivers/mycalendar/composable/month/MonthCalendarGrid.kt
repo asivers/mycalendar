@@ -1,8 +1,6 @@
 package com.asivers.mycalendar.composable.month
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,6 +38,8 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.enums.WeekendMode
+import com.asivers.mycalendar.utils.fadeInLow
+import com.asivers.mycalendar.utils.fadeOutLow
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayValueForMonthTableElement
@@ -90,35 +90,41 @@ fun MonthCalendarGrid(
             schemes = schemes
         )
         AnimatedContent(
-            targetState = selectedMonthInfo.value,
-            transitionSpec = {
-                if (targetState.byDropdown) {
-                    fadeIn() togetherWith fadeOut()
-                } else {
-                    val monthIndexDifference = targetState.monthIndex - initialState.monthIndex
-                    if (monthIndexDifference == 1 || monthIndexDifference == -11) {
-                        slideInFromRight() togetherWith slideOutToLeft()
+            targetState = selectedYearInfo.value,
+            transitionSpec = { fadeInLow() togetherWith fadeOutLow() },
+            label = "month calendar animated content by year value"
+        ) { selectedYearInfoValue ->
+            AnimatedContent(
+                targetState = selectedMonthInfo.value,
+                transitionSpec = {
+                    if (targetState.byDropdown) {
+                        fadeInLow() togetherWith fadeOutLow()
                     } else {
-                        slideInFromLeft() togetherWith slideOutToRight()
+                        val monthIndexDifference = targetState.monthIndex - initialState.monthIndex
+                        if (monthIndexDifference == 1 || monthIndexDifference == -11) {
+                            slideInFromRight() togetherWith slideOutToLeft()
+                        } else {
+                            slideInFromLeft() togetherWith slideOutToRight()
+                        }
                     }
-                }
-            },
-            label = "month calendar animated content"
-        ) {
-            val monthInfo = getMonthInfo(
-                year = selectedYearInfo.value.year,
-                monthIndex = it.monthIndex,
-                countryHolidayScheme = schemes.countryHoliday
-            )
-            val numberOfWeeksInMonth = getNumberOfWeeksInMonth(monthInfo)
-            Column {
-                repeat(numberOfWeeksInMonth) { weekIndex ->
-                    WeekInMonthCalendarGrid(
-                        weekIndex = weekIndex,
-                        monthInfo = monthInfo,
-                        weekendMode = weekendMode,
-                        schemes = schemes
-                    )
+                },
+                label = "month calendar animated content by month value"
+            ) { selectedMonthInfoValue ->
+                val monthInfo = getMonthInfo(
+                    year = selectedYearInfoValue.year,
+                    monthIndex = selectedMonthInfoValue.monthIndex,
+                    countryHolidayScheme = schemes.countryHoliday
+                )
+                val numberOfWeeksInMonth = getNumberOfWeeksInMonth(monthInfo)
+                Column {
+                    repeat(numberOfWeeksInMonth) { weekIndex ->
+                        WeekInMonthCalendarGrid(
+                            weekIndex = weekIndex,
+                            monthInfo = monthInfo,
+                            weekendMode = weekendMode,
+                            schemes = schemes
+                        )
+                    }
                 }
             }
         }
