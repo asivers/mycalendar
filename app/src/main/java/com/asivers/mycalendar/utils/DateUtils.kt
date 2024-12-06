@@ -109,10 +109,6 @@ fun getDayInMonthGridInfo(
     val inPrevMonth = dayValueRaw <= 0
     val inThisMonth = dayValueRaw in 1..monthInfo.numberOfDays
 
-    if (monthInfo.adjacentMonthsInfo == null) {
-        return DayInMonthGridInfo(dayValueRaw, inThisMonth)
-    }
-
     val dayValue: Int
     val holidaysAndNotHolidays: HolidaysAndNotHolidays
     val today: Int?
@@ -121,14 +117,19 @@ fun getDayInMonthGridInfo(
         dayValue = dayValueRaw
         holidaysAndNotHolidays = monthInfo.holidaysAndNotHolidays
         today = monthInfo.today
-    } else if (inPrevMonth) {
-        dayValue = dayValueRaw + monthInfo.adjacentMonthsInfo.prevMonthNumberOfDays
-        holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.prevMonthHolidaysAndNotHolidays
-        today = monthInfo.adjacentMonthsInfo.prevMonthToday
     } else {
-        dayValue = dayValueRaw - monthInfo.numberOfDays
-        holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.nextMonthHolidaysAndNotHolidays
-        today = monthInfo.adjacentMonthsInfo.nextMonthToday
+        if (monthInfo.adjacentMonthsInfo == null) {
+            return DayInMonthGridInfo(dayValueRaw, false)
+        }
+        if (inPrevMonth) {
+            dayValue = dayValueRaw + monthInfo.adjacentMonthsInfo.prevMonthNumberOfDays
+            holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.prevMonthHolidaysAndNotHolidays
+            today = monthInfo.adjacentMonthsInfo.prevMonthToday
+        } else {
+            dayValue = dayValueRaw - monthInfo.numberOfDays
+            holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.nextMonthHolidaysAndNotHolidays
+            today = monthInfo.adjacentMonthsInfo.nextMonthToday
+        }
     }
 
     val isToday = dayValue == today
