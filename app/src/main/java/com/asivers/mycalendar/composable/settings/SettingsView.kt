@@ -74,7 +74,7 @@ fun SettingsView(
                         horizontalOffset = 0f
                     },
                     onDragEnd = {
-                        if (horizontalOffset > 50f || horizontalOffset < -50f) {
+                        if (horizontalOffset < -50f) {
                             backToPreviousView(viewShownInfo)
                         }
                     }
