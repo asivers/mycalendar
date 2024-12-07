@@ -31,6 +31,7 @@ import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
+import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
 
@@ -43,7 +44,7 @@ fun SelectMonthDropdownPreview() {
             .background(color = SUMMER.monthViewTop)
     ) {
         SelectMonthDropdown(
-            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
+            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
     }
@@ -117,6 +118,7 @@ fun SelectMonthDropdownList(
                 onClick = {
                     isExpanded.value = false
                     selectedMonthInfo.value = SelectedMonthInfo(
+                        year = selectedMonthInfo.value.year,
                         monthIndex = index,
                         byDropdown = true
                     )

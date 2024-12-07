@@ -43,7 +43,7 @@ import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
 fun YearViewPreview() {
     YearView(
         selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
+        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
         viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
         weekendMode = WeekendMode.SATURDAY_SUNDAY,
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
@@ -83,22 +83,14 @@ fun YearView(
                         },
                         onDragEnd = {
                             val yearBeforeUpdate = selectedYearInfo.value.year
-                            val lastSelectedYearFromMonthView = selectedYearInfo.value.lastSelectedYearFromMonthView
+                            val lastSelectedYearFromMonthView = selectedMonthInfo.value.year
                             if (verticalOffset > 100f) {
-                                selectedYearInfo.value = SelectedYearInfo(
-                                    year = lastSelectedYearFromMonthView
-                                )
+                                selectedYearInfo.value = SelectedYearInfo(lastSelectedYearFromMonthView)
                                 changeView(viewShownInfo, ViewShown.MONTH)
                             } else if (horizontalOffset > 50f && yearBeforeUpdate > 1900) {
-                                selectedYearInfo.value = SelectedYearInfo(
-                                    year = yearBeforeUpdate - 1,
-                                    lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
-                                )
+                                selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate - 1)
                             } else if (horizontalOffset < -50f && yearBeforeUpdate < 2100) {
-                                selectedYearInfo.value = SelectedYearInfo(
-                                    year = yearBeforeUpdate + 1,
-                                    lastSelectedYearFromMonthView = lastSelectedYearFromMonthView
-                                )
+                                selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate + 1)
                             }
                         }
                     ) { _, dragAmount ->

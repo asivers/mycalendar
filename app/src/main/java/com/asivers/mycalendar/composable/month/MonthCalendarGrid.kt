@@ -64,7 +64,7 @@ fun MonthCalendarGridPreview() {
     ) {
         MonthCalendarGrid(
             selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
+            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
             weekendMode = WeekendMode.SATURDAY_SUNDAY,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
@@ -94,16 +94,16 @@ fun MonthCalendarGrid(
                 label = "month calendar animated content by year value"
             ) {
                 AnimatedValuableWeeksInMonthCalendarGrid(
-                    selectedYearInfoValue = it,
                     selectedMonthInfo = selectedMonthInfo,
+                    thisYear = it.year,
                     weekendMode = weekendMode,
                     schemes = schemes
                 )
             }
         } else {
             AnimatedValuableWeeksInMonthCalendarGrid(
-                selectedYearInfoValue = selectedYearInfo.value,
                 selectedMonthInfo = selectedMonthInfo,
+                thisYear = selectedYearInfo.value.year,
                 weekendMode = weekendMode,
                 schemes = schemes
             )
@@ -137,8 +137,8 @@ fun HeaderWeekInMonthCalendarGrid(
 @Composable
 fun AnimatedValuableWeeksInMonthCalendarGrid(
     modifier: Modifier = Modifier,
-    selectedYearInfoValue: SelectedYearInfo,
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
+    thisYear: Int,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -160,7 +160,7 @@ fun AnimatedValuableWeeksInMonthCalendarGrid(
         label = "month calendar animated content by month value"
     ) {
         val monthInfo = getMonthInfo(
-            year = selectedYearInfoValue.year,
+            year = thisYear,
             monthIndex = it.monthIndex,
             countryHolidayScheme = schemes.countryHoliday,
             forMonthView = true

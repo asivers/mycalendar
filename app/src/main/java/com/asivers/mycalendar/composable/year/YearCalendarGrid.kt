@@ -1,5 +1,7 @@
 package com.asivers.mycalendar.composable.year
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +39,8 @@ import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
+import com.asivers.mycalendar.utils.fadeInLow
+import com.asivers.mycalendar.utils.fadeOutLow
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayInMonthGridInfo
@@ -55,7 +59,7 @@ fun YearCalendarGridPreview() {
     ) {
         YearCalendarGrid(
             selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
+            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
             viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
             weekendMode = WeekendMode.SATURDAY_SUNDAY,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
@@ -127,7 +131,7 @@ fun MonthInYearCalendarGrid(
     schemes: SchemeContainer
 ) {
     val thisYear = selectedYearInfo.value.year
-    val isLastSelectedMonth = thisYear == selectedYearInfo.value.lastSelectedYearFromMonthView
+    val isLastSelectedMonth = thisYear == selectedMonthInfo.value.year
             && thisMonthIndex == selectedMonthInfo.value.monthIndex
     val background = if (isLastSelectedMonth) schemes.color.monthViewTop else Color.Transparent
     Column(
@@ -137,8 +141,7 @@ fun MonthInYearCalendarGrid(
             .background(background)
             .padding(4.dp, 2.dp)
             .noRippleClickable {
-                selectedYearInfo.value = SelectedYearInfo(thisYear)
-                selectedMonthInfo.value = SelectedMonthInfo(thisMonthIndex)
+                selectedMonthInfo.value = SelectedMonthInfo(thisYear, thisMonthIndex)
                 changeView(viewShownInfo, ViewShown.MONTH)
             }
     ) {
@@ -155,20 +158,28 @@ fun MonthInYearCalendarGrid(
                 .padding(0.dp, 5.dp, 0.dp, 3.dp),
             schemes = schemes
         )
-        val monthInfo = getMonthInfo(
-            year = thisYear,
-            monthIndex = thisMonthIndex,
-            countryHolidayScheme = schemes.countryHoliday,
-            forMonthView = false
-        )
-        repeat(6) { weekIndex ->
-            WeekInYearCalendarGrid(
-                modifier = Modifier.weight(1f),
-                weekIndex = weekIndex,
-                monthInfo = monthInfo,
-                weekendMode = weekendMode,
-                schemes = schemes
+        AnimatedContent(
+            targetState = selectedYearInfo.value,
+            transitionSpec = { fadeInLow() togetherWith fadeOutLow() },
+            label = "year calendar animated content"
+        ) {
+            val monthInfo = getMonthInfo(
+                year = it.year,
+                monthIndex = thisMonthIndex,
+                countryHolidayScheme = schemes.countryHoliday,
+                forMonthView = false
             )
+            Column {
+                repeat(6) { weekIndex ->
+                    WeekInYearCalendarGrid(
+                        modifier = Modifier.weight(1f),
+                        weekIndex = weekIndex,
+                        monthInfo = monthInfo,
+                        weekendMode = weekendMode,
+                        schemes = schemes
+                    )
+                }
+            }
         }
     }
 }

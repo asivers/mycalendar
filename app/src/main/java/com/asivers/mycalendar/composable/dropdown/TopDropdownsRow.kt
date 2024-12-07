@@ -29,7 +29,7 @@ import com.asivers.mycalendar.utils.getSchemesForPreview
 fun TopDropdownsRowPreview() {
     TopDropdownsRow(
         selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
+        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
         showYearView = false,
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
@@ -65,6 +65,7 @@ fun TopDropdownsRow(
         SelectYearDropdown(
             modifier = Modifier.wrapContentWidth(),
             selectedYearInfo = selectedYearInfo,
+            selectedMonthInfo = selectedMonthInfo.value,
             showYearView = showYearView,
             schemes = schemes
         )

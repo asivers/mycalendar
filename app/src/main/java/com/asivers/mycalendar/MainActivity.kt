@@ -50,14 +50,17 @@ class MainActivity : ComponentActivity() {
             val savedTheme = getSavedTheme(savedSettings)
             val savedWeekendMode = getSavedWeekendMode(savedSettings)
 
+            val currentYear = getCurrentYear()
+            val currentMonthIndex = getCurrentMonthIndex()
+
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                 val selectedCountry = remember { mutableStateOf(savedCountry) }
                 val selectedLocale = remember { mutableStateOf(savedLocale) }
                 val selectedTheme = remember { mutableStateOf(savedTheme) }
                 val selectedWeekendMode = remember { mutableStateOf(savedWeekendMode) }
 
-                val selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) }
-                val selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) }
+                val selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(currentYear)) }
+                val selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(currentYear, currentMonthIndex)) }
                 val viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) }
 
                 val countryHolidayScheme = getHolidaySchemeForCountry(

@@ -36,7 +36,9 @@ import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
+import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
@@ -51,6 +53,7 @@ fun SelectYearDropdownPreview() {
     ) {
         SelectYearDropdown(
             selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
+            selectedMonthInfo = SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex()),
             showYearView = false,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
@@ -61,6 +64,7 @@ fun SelectYearDropdownPreview() {
 fun SelectYearDropdown(
     modifier: Modifier = Modifier,
     selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: SelectedMonthInfo,
     showYearView: Boolean,
     schemes: SchemeContainer
 ) {
@@ -91,6 +95,7 @@ fun SelectYearDropdown(
             SelectYearDropdownList(
                 isExpanded = isExpanded,
                 selectedYearInfo = selectedYearInfo,
+                selectedMonthInfo = selectedMonthInfo,
                 showYearView = showYearView,
                 schemes = schemes
             )
@@ -103,6 +108,7 @@ fun SelectYearDropdownList(
     modifier: Modifier = Modifier,
     isExpanded: MutableState<Boolean>,
     selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: SelectedMonthInfo,
     showYearView: Boolean,
     schemes: SchemeContainer
 ) {
@@ -139,16 +145,13 @@ fun SelectYearDropdownList(
                     onClick = {
                         isExpanded.value = false
                         val selectedYearVal = getYear(yearIndex)
-                        val newLastSelectedYearFromMonthView = if (showYearView)
-                            selectedYearVal
-                        else
-                            selectedYearInfo.value.lastSelectedYearFromMonthView
-
                         selectedYearInfo.value = SelectedYearInfo(
-                            year = selectedYearVal,
-                            lastSelectedYearFromMonthView = newLastSelectedYearFromMonthView,
+                            year = getYear(yearIndex),
                             byDropdown = true
                         )
+                        if (!showYearView) {
+                            selectedMonthInfo.year = selectedYearVal
+                        }
                     },
                     modifier = Modifier.height(itemHeightDp.dp),
                     contentPadding = PaddingValues(0.dp)

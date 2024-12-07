@@ -39,7 +39,7 @@ import com.asivers.mycalendar.utils.noRippleClickable
 fun MonthViewPreview() {
     MonthView(
         selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentMonthIndex())) },
+        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
         viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
         weekendMode = WeekendMode.SATURDAY_SUNDAY,
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
@@ -140,10 +140,12 @@ private fun previousMonth(
 
     if (monthIndexBeforeUpdate == 0) {
         if (yearBeforeUpdate == 1900) return
-        selectedMonthInfo.value = SelectedMonthInfo(11)
-        selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate - 1)
+        val yearAfterUpdate = yearBeforeUpdate - 1
+        selectedMonthInfo.value = SelectedMonthInfo(yearAfterUpdate, 11)
+        selectedYearInfo.value = SelectedYearInfo(yearAfterUpdate)
     } else {
-        selectedMonthInfo.value = SelectedMonthInfo(monthIndexBeforeUpdate - 1)
+        val monthIndexAfterUpdate = monthIndexBeforeUpdate - 1
+        selectedMonthInfo.value = SelectedMonthInfo(yearBeforeUpdate, monthIndexAfterUpdate)
     }
 }
 
@@ -156,9 +158,11 @@ private fun nextMonth(
 
     if (monthIndexBeforeUpdate == 11) {
         if (yearBeforeUpdate == 2100) return
-        selectedMonthInfo.value = SelectedMonthInfo(0)
-        selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate + 1)
+        val yearAfterUpdate = yearBeforeUpdate + 1
+        selectedMonthInfo.value = SelectedMonthInfo(yearAfterUpdate, 0)
+        selectedYearInfo.value = SelectedYearInfo(yearAfterUpdate)
     } else {
-        selectedMonthInfo.value = SelectedMonthInfo(monthIndexBeforeUpdate + 1)
+        val monthIndexAfterUpdate = monthIndexBeforeUpdate + 1
+        selectedMonthInfo.value = SelectedMonthInfo(yearBeforeUpdate, monthIndexAfterUpdate)
     }
 }
