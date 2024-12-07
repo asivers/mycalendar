@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -21,7 +21,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
-import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
@@ -56,72 +55,65 @@ fun MonthView(
     schemes: SchemeContainer
 ) {
     val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
-    Column(modifier = modifier) {
-        SettingsHeader(
+    var horizontalOffset by remember { mutableFloatStateOf(0f) }
+    Column(
+        modifier = modifier
+            .padding(0.dp, indentFromHeaderDp.dp, 0.dp, 0.dp)
+            .pointerInput(Unit) {
+                detectHorizontalDragGestures(
+                    onDragStart = {
+                        horizontalOffset = 0f
+                    },
+                    onDragEnd = {
+                        if (horizontalOffset > 50f) {
+                            previousMonth(selectedYearInfo, selectedMonthInfo)
+                        } else if (horizontalOffset < -50f) {
+                            nextMonth(selectedYearInfo, selectedMonthInfo)
+                        }
+                    }
+                ) { _, dragAmount ->
+                    horizontalOffset += dragAmount
+                }
+            }
+    ) {
+        TopDropdownsRow(
+            modifier = Modifier.weight(1f),
+            selectedYearInfo = selectedYearInfo,
+            selectedMonthInfo = selectedMonthInfo,
             viewShownInfo = viewShownInfo,
             schemes = schemes
         )
-        Spacer(modifier = Modifier.height(indentFromHeaderDp.dp))
-        var horizontalOffset by remember { mutableFloatStateOf(0f) }
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .pointerInput(Unit) {
-                    detectHorizontalDragGestures(
-                        onDragStart = {
-                            horizontalOffset = 0f
-                        },
-                        onDragEnd = {
-                            if (horizontalOffset > 50f) {
-                                previousMonth(selectedYearInfo, selectedMonthInfo)
-                            } else if (horizontalOffset < -50f) {
-                                nextMonth(selectedYearInfo, selectedMonthInfo)
-                            }
-                        }
-                    ) { _, dragAmount ->
-                        horizontalOffset += dragAmount
-                    }
-                }
-        ) {
-            TopDropdownsRow(
-                modifier = Modifier.weight(1f),
+        Column(modifier = Modifier.weight(8f)) {
+            MonthCalendarGrid(
                 selectedYearInfo = selectedYearInfo,
                 selectedMonthInfo = selectedMonthInfo,
-                showYearView = viewShownInfo.value.current == ViewShown.YEAR,
+                weekendMode = weekendMode,
                 schemes = schemes
             )
-            Column(modifier = Modifier.weight(8f)) {
-                MonthCalendarGrid(
-                    selectedYearInfo = selectedYearInfo,
-                    selectedMonthInfo = selectedMonthInfo,
-                    weekendMode = weekendMode,
-                    schemes = schemes
+            Row(
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .weight(3f)
+                        .noRippleClickable {
+                            previousMonth(selectedYearInfo, selectedMonthInfo)
+                        }
                 )
-                Row(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .weight(3f)
-                            .noRippleClickable {
-                                previousMonth(selectedYearInfo, selectedMonthInfo)
-                            }
-                    )
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .weight(1f)
-                    )
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .weight(3f)
-                            .noRippleClickable {
-                                nextMonth(selectedYearInfo, selectedMonthInfo)
-                            }
-                    )
-                }
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .weight(1f)
+                )
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .weight(3f)
+                        .noRippleClickable {
+                            nextMonth(selectedYearInfo, selectedMonthInfo)
+                        }
+                )
             }
         }
         YearViewButton(

@@ -5,7 +5,6 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,7 +23,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
-import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
@@ -62,61 +60,54 @@ fun YearView(
     val indentFromHeaderToDropdownsDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
     val indentFromHeaderToFrameDp = 12
     val indentFromFrameToDropdowns = indentFromHeaderToDropdownsDp - indentFromHeaderToFrameDp
-    Column(modifier = modifier) {
-        SettingsHeader(
+    var horizontalOffset by remember { mutableFloatStateOf(0f) }
+    var verticalOffset by remember { mutableFloatStateOf(0f) }
+    Column(
+        modifier = modifier
+            .padding(0.dp, indentFromHeaderToFrameDp.dp, 0.dp, 0.dp)
+            .clip(RoundedCornerShape(36.dp, 36.dp))
+            .background(getYearViewBackgroundGradient(schemes.color))
+            .pointerInput(Unit) {
+                detectDragGestures(
+                    onDragStart = {
+                        horizontalOffset = 0f
+                        verticalOffset = 0f
+                    },
+                    onDragEnd = {
+                        val yearBeforeUpdate = selectedYearInfo.value.year
+                        val lastSelectedYearFromMonthView = selectedMonthInfo.value.year
+                        if (verticalOffset > 100f) {
+                            selectedYearInfo.value = SelectedYearInfo(lastSelectedYearFromMonthView)
+                            changeView(viewShownInfo, ViewShown.MONTH)
+                        } else if (horizontalOffset > 50f && yearBeforeUpdate > 1900) {
+                            selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate - 1)
+                        } else if (horizontalOffset < -50f && yearBeforeUpdate < 2100) {
+                            selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate + 1)
+                        }
+                    }
+                ) { _, dragAmount ->
+                    horizontalOffset += dragAmount.x
+                    verticalOffset += dragAmount.y
+                }
+            }
+    ) {
+        Spacer(modifier = Modifier.height(indentFromFrameToDropdowns.dp))
+        TopDropdownsRow(
+            selectedYearInfo = selectedYearInfo,
+            selectedMonthInfo = selectedMonthInfo,
             viewShownInfo = viewShownInfo,
             schemes = schemes
         )
-        var horizontalOffset by remember { mutableFloatStateOf(0f) }
-        var verticalOffset by remember { mutableFloatStateOf(0f) }
-        Column(
-            modifier = modifier
-                .padding(0.dp, indentFromHeaderToFrameDp.dp, 0.dp, 0.dp)
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(36.dp, 36.dp))
-                .background(getYearViewBackgroundGradient(schemes.color))
-                .pointerInput(Unit) {
-                    detectDragGestures(
-                        onDragStart = {
-                            horizontalOffset = 0f
-                            verticalOffset = 0f
-                        },
-                        onDragEnd = {
-                            val yearBeforeUpdate = selectedYearInfo.value.year
-                            val lastSelectedYearFromMonthView = selectedMonthInfo.value.year
-                            if (verticalOffset > 100f) {
-                                selectedYearInfo.value = SelectedYearInfo(lastSelectedYearFromMonthView)
-                                changeView(viewShownInfo, ViewShown.MONTH)
-                            } else if (horizontalOffset > 50f && yearBeforeUpdate > 1900) {
-                                selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate - 1)
-                            } else if (horizontalOffset < -50f && yearBeforeUpdate < 2100) {
-                                selectedYearInfo.value = SelectedYearInfo(yearBeforeUpdate + 1)
-                            }
-                        }
-                    ) { _, dragAmount ->
-                        horizontalOffset += dragAmount.x
-                        verticalOffset += dragAmount.y
-                    }
-                }
+        Box(
+            modifier = Modifier.weight(1f)
         ) {
-            Spacer(modifier = Modifier.height(indentFromFrameToDropdowns.dp))
-            TopDropdownsRow(
+            YearCalendarGrid(
                 selectedYearInfo = selectedYearInfo,
                 selectedMonthInfo = selectedMonthInfo,
-                showYearView = viewShownInfo.value.current == ViewShown.YEAR,
+                viewShownInfo = viewShownInfo,
+                weekendMode = weekendMode,
                 schemes = schemes
             )
-            Box(
-                modifier = Modifier.weight(1f)
-            ) {
-                YearCalendarGrid(
-                    selectedYearInfo = selectedYearInfo,
-                    selectedMonthInfo = selectedMonthInfo,
-                    viewShownInfo = viewShownInfo,
-                    weekendMode = weekendMode,
-                    schemes = schemes
-                )
-            }
         }
     }
 }

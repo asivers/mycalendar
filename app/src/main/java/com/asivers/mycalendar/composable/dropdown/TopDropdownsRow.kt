@@ -1,5 +1,7 @@
 package com.asivers.mycalendar.composable.dropdown
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +22,10 @@ import com.asivers.mycalendar.R
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
+import com.asivers.mycalendar.data.ViewShownInfo
+import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.utils.fadeInFast
+import com.asivers.mycalendar.utils.fadeOutFast
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getSchemesForPreview
@@ -30,7 +36,7 @@ fun TopDropdownsRowPreview() {
     TopDropdownsRow(
         selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
         selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
-        showYearView = false,
+        viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
     )
 }
@@ -40,7 +46,7 @@ fun TopDropdownsRow(
     modifier: Modifier = Modifier,
     selectedYearInfo: MutableState<SelectedYearInfo>,
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
-    showYearView: Boolean,
+    viewShownInfo: MutableState<ViewShownInfo>,
     schemes: SchemeContainer
 ) {
     Row(
@@ -48,25 +54,31 @@ fun TopDropdownsRow(
             .fillMaxWidth()
             .padding(18.dp, 0.dp, 16.dp, 0.dp),
     ) {
-        if (showYearView) {
-            Image(
-                modifier = Modifier.padding(4.dp, 0.dp),
-                painter = painterResource(id = R.drawable.year_rat),
-                contentDescription = "Symbol of the year icon"
-            )
-        } else {
-            SelectMonthDropdown(
-                modifier = Modifier.wrapContentWidth(),
-                selectedMonthInfo = selectedMonthInfo,
-                schemes = schemes
-            )
+        AnimatedContent(
+            targetState = viewShownInfo.value,
+            transitionSpec = { fadeInFast() togetherWith fadeOutFast() },
+            label = "symbol of the year icon animated content"
+        ) {
+            if (it.current == ViewShown.YEAR) {
+                Image(
+                    modifier = Modifier.padding(4.dp, 0.dp),
+                    painter = painterResource(id = R.drawable.year_rat),
+                    contentDescription = "Symbol of the year icon"
+                )
+            } else {
+                SelectMonthDropdown(
+                    modifier = Modifier.wrapContentWidth(),
+                    selectedMonthInfo = selectedMonthInfo,
+                    schemes = schemes
+                )
+            }
         }
         Spacer(modifier = Modifier.weight(1f))
         SelectYearDropdown(
             modifier = Modifier.wrapContentWidth(),
             selectedYearInfo = selectedYearInfo,
             selectedMonthInfo = selectedMonthInfo.value,
-            showYearView = showYearView,
+            showYearView = viewShownInfo.value.current == ViewShown.YEAR,
             schemes = schemes
         )
     }

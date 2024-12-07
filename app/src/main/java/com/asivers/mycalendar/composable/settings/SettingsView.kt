@@ -1,6 +1,5 @@
 package com.asivers.mycalendar.composable.settings
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -32,7 +31,6 @@ import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getSchemesForPreview
-import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import kotlin.enums.enumEntries
 
 @Preview(showBackground = true)
@@ -63,72 +61,61 @@ fun SettingsView(
 ) {
     // todo adapt for different fonts
     val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp) + 1
+    var horizontalOffset by remember { mutableFloatStateOf(0f) }
+    val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .background(brush = getSettingViewBackgroundGradient(schemes.color))
+            .padding(18.dp, indentFromHeaderDp.dp, 18.dp, 0.dp)
+            .pointerInput(Unit) {
+                detectHorizontalDragGestures(
+                    onDragStart = {
+                        horizontalOffset = 0f
+                    },
+                    onDragEnd = {
+                        if (horizontalOffset > 50f || horizontalOffset < -50f) {
+                            backToPreviousView(viewShownInfo)
+                        }
+                    }
+                ) { _, dragAmount ->
+                    horizontalOffset += dragAmount
+                }
+            }
     ) {
-        SettingsHeader(
-            viewShownInfo = viewShownInfo,
+        SettingsDropdown(
+            expanded = expanded,
+            selectedItem = selectedCountry,
+            settingsParam = SettingsParam.COUNTRY,
+            allItems = enumEntries<Country>(),
+            maxItemsDisplayed = 14,
             schemes = schemes
         )
-        var horizontalOffset by remember { mutableFloatStateOf(0f) }
-        val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
-        Spacer(modifier = Modifier.height(indentFromHeaderDp.dp))
-        Column(
-            modifier = Modifier
-                .padding(18.dp, 0.dp)
-                .pointerInput(Unit) {
-                    detectHorizontalDragGestures(
-                        onDragStart = {
-                            horizontalOffset = 0f
-                        },
-                        onDragEnd = {
-                            if (horizontalOffset > 50f || horizontalOffset < -50f) {
-                                backToPreviousView(viewShownInfo)
-                            }
-                        }
-                    ) { _, dragAmount ->
-                        horizontalOffset += dragAmount
-                    }
-                }
-        ) {
-            SettingsDropdown(
-                expanded = expanded,
-                selectedItem = selectedCountry,
-                settingsParam = SettingsParam.COUNTRY,
-                allItems = enumEntries<Country>(),
-                maxItemsDisplayed = 14,
-                schemes = schemes
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            SettingsDropdown(
-                expanded = expanded,
-                selectedItem = selectedLocale,
-                settingsParam = SettingsParam.EXISTING_LOCALE,
-                allItems = enumEntries<ExistingLocale>(),
-                maxItemsDisplayed = 11, // todo measure
-                schemes = schemes
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            SettingsDropdown(
-                expanded = expanded,
-                selectedItem = selectedTheme,
-                settingsParam = SettingsParam.USER_THEME,
-                allItems = enumEntries<UserTheme>(),
-                maxItemsDisplayed = 6,
-                schemes = schemes
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            SettingsDropdown(
-                expanded = expanded,
-                selectedItem = selectedWeekendMode,
-                settingsParam = SettingsParam.WEEKEND_MODE,
-                allItems = enumEntries<WeekendMode>(),
-                maxItemsDisplayed = 3,
-                schemes = schemes
-            )
-            Spacer(modifier = Modifier.weight(1f))
-        }
+        Spacer(modifier = Modifier.height(32.dp))
+        SettingsDropdown(
+            expanded = expanded,
+            selectedItem = selectedLocale,
+            settingsParam = SettingsParam.EXISTING_LOCALE,
+            allItems = enumEntries<ExistingLocale>(),
+            maxItemsDisplayed = 11, // todo measure
+            schemes = schemes
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        SettingsDropdown(
+            expanded = expanded,
+            selectedItem = selectedTheme,
+            settingsParam = SettingsParam.USER_THEME,
+            allItems = enumEntries<UserTheme>(),
+            maxItemsDisplayed = 6,
+            schemes = schemes
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        SettingsDropdown(
+            expanded = expanded,
+            selectedItem = selectedWeekendMode,
+            settingsParam = SettingsParam.WEEKEND_MODE,
+            allItems = enumEntries<WeekendMode>(),
+            maxItemsDisplayed = 3,
+            schemes = schemes
+        )
+        Spacer(modifier = Modifier.weight(1f))
     }
 }

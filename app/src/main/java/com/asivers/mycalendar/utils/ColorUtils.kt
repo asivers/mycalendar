@@ -28,7 +28,7 @@ private fun getColorSchemeByMonthIndex(selectedMonthIndex: Int): ColorScheme {
     }
 }
 
-fun getMonthViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
+fun getMonthAndYearViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colorStops = arrayOf(
         0.0f to colorScheme.monthViewTop,
         0.12f to colorScheme.monthViewTop,

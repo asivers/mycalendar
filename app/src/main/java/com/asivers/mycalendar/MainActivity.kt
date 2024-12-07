@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -16,6 +18,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import com.asivers.mycalendar.composable.month.MonthView
+import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.composable.settings.SettingsView
 import com.asivers.mycalendar.composable.year.YearView
 import com.asivers.mycalendar.data.SchemeContainer
@@ -23,16 +26,19 @@ import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.utils.fadeInFast
+import com.asivers.mycalendar.utils.fadeOutFast
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
-import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
+import com.asivers.mycalendar.utils.getMonthAndYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSavedCountry
 import com.asivers.mycalendar.utils.getSavedLocale
 import com.asivers.mycalendar.utils.getSavedSettings
 import com.asivers.mycalendar.utils.getSavedTheme
 import com.asivers.mycalendar.utils.getSavedWeekendMode
+import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
 
@@ -78,38 +84,52 @@ class MainActivity : ComponentActivity() {
                     size = sizeScheme
                 )
 
-                if (viewShownInfo.value.current == ViewShown.SETTINGS) {
-                    SettingsView(
-                        modifier = Modifier.padding(innerPadding),
+                val backgroundGradient = if (viewShownInfo.value.current == ViewShown.SETTINGS)
+                    getSettingViewBackgroundGradient(schemes.color)
+                else
+                    getMonthAndYearViewBackgroundGradient(schemes.color)
+
+                Column(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .background(backgroundGradient)
+                ) {
+                    SettingsHeader(
                         viewShownInfo = viewShownInfo,
-                        selectedCountry = selectedCountry,
-                        selectedLocale = selectedLocale,
-                        selectedTheme = selectedTheme,
-                        selectedWeekendMode = selectedWeekendMode,
                         schemes = schemes
                     )
-                } else {
-                    Box(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .background(getMonthViewBackgroundGradient(schemes.color))
-                    ) {
-                        if (viewShownInfo.value.current == ViewShown.MONTH) {
-                            MonthView(
-                                selectedYearInfo = selectedYearInfo,
-                                selectedMonthInfo = selectedMonthInfo,
-                                viewShownInfo = viewShownInfo,
-                                weekendMode = selectedWeekendMode.value,
-                                schemes = schemes
-                            )
-                        } else {
-                            YearView(
-                                selectedYearInfo = selectedYearInfo,
-                                selectedMonthInfo = selectedMonthInfo,
-                                viewShownInfo = viewShownInfo,
-                                weekendMode = selectedWeekendMode.value,
-                                schemes = schemes
-                            )
+                    if (viewShownInfo.value.current == ViewShown.SETTINGS) {
+                        SettingsView(
+                            viewShownInfo = viewShownInfo,
+                            selectedCountry = selectedCountry,
+                            selectedLocale = selectedLocale,
+                            selectedTheme = selectedTheme,
+                            selectedWeekendMode = selectedWeekendMode,
+                            schemes = schemes
+                        )
+                    } else {
+                        AnimatedContent(
+                            targetState = viewShownInfo.value,
+                            transitionSpec = { fadeInFast() togetherWith fadeOutFast() },
+                            label = "year view animated content"
+                        ) {
+                            if (it.current == ViewShown.MONTH) {
+                                MonthView(
+                                    selectedYearInfo = selectedYearInfo,
+                                    selectedMonthInfo = selectedMonthInfo,
+                                    viewShownInfo = viewShownInfo,
+                                    weekendMode = selectedWeekendMode.value,
+                                    schemes = schemes
+                                )
+                            } else {
+                                YearView(
+                                    selectedYearInfo = selectedYearInfo,
+                                    selectedMonthInfo = selectedMonthInfo,
+                                    viewShownInfo = viewShownInfo,
+                                    weekendMode = selectedWeekendMode.value,
+                                    schemes = schemes
+                                )
+                            }
                         }
                     }
                 }

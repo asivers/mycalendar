@@ -39,13 +39,13 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.enums.WeekendMode
-import com.asivers.mycalendar.utils.fadeInLow
-import com.asivers.mycalendar.utils.fadeOutLow
+import com.asivers.mycalendar.utils.fadeInSlow
+import com.asivers.mycalendar.utils.fadeOutSlow
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayInMonthGridInfo
 import com.asivers.mycalendar.utils.getMonthInfo
-import com.asivers.mycalendar.utils.getMonthViewBackgroundGradient
+import com.asivers.mycalendar.utils.getMonthAndYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.slideInFromLeft
 import com.asivers.mycalendar.utils.slideInFromRight
@@ -58,7 +58,7 @@ fun MonthCalendarGridPreview() {
     Box(
         modifier = Modifier
             .background(
-                brush = getMonthViewBackgroundGradient(SUMMER)
+                brush = getMonthAndYearViewBackgroundGradient(SUMMER)
             )
             .fillMaxWidth()
     ) {
@@ -90,7 +90,7 @@ fun MonthCalendarGrid(
         if (selectedYearInfo.value.byDropdown) {
             AnimatedContent(
                 targetState = selectedYearInfo.value,
-                transitionSpec = { fadeInLow() togetherWith fadeOutLow() },
+                transitionSpec = { fadeInSlow() togetherWith fadeOutSlow() },
                 label = "month calendar animated content by year value"
             ) {
                 AnimatedValuableWeeksInMonthCalendarGrid(
@@ -147,7 +147,7 @@ fun AnimatedValuableWeeksInMonthCalendarGrid(
         targetState = selectedMonthInfo.value,
         transitionSpec = {
             if (targetState.byDropdown) {
-                fadeInLow() togetherWith fadeOutLow()
+                fadeInSlow() togetherWith fadeOutSlow()
             } else {
                 val monthIndexDifference = targetState.monthIndex - initialState.monthIndex
                 if (monthIndexDifference == 1 || monthIndexDifference == -11) {

@@ -39,8 +39,8 @@ import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
-import com.asivers.mycalendar.utils.fadeInLow
-import com.asivers.mycalendar.utils.fadeOutLow
+import com.asivers.mycalendar.utils.fadeInSlow
+import com.asivers.mycalendar.utils.fadeOutSlow
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayInMonthGridInfo
@@ -160,7 +160,7 @@ fun MonthInYearCalendarGrid(
         )
         AnimatedContent(
             targetState = selectedYearInfo.value,
-            transitionSpec = { fadeInLow() togetherWith fadeOutLow() },
+            transitionSpec = { fadeInSlow() togetherWith fadeOutSlow() },
             label = "year calendar animated content"
         ) {
             val monthInfo = getMonthInfo(

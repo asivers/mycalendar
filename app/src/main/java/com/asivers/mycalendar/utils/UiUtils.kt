@@ -21,12 +21,20 @@ fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = this.clickable(
     onClick()
 }
 
-fun fadeInLow(): EnterTransition {
+fun fadeInSlow(): EnterTransition {
     return fadeIn(spring(stiffness = Spring.StiffnessLow))
 }
 
-fun fadeOutLow(): ExitTransition {
+fun fadeOutSlow(): ExitTransition {
     return fadeOut(spring(stiffness = Spring.StiffnessLow))
+}
+
+fun fadeInFast(): EnterTransition {
+    return fadeIn(spring(stiffness = Spring.StiffnessMediumLow))
+}
+
+fun fadeOutFast(): ExitTransition {
+    return fadeOut(spring(stiffness = Spring.StiffnessMediumLow))
 }
 
 fun slideInFromLeft(): EnterTransition {
