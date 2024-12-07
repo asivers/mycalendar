@@ -7,7 +7,8 @@ import com.asivers.mycalendar.enums.ViewShown
 fun changeView(viewShownInfo: MutableState<ViewShownInfo>, changeTo: ViewShown) {
     viewShownInfo.value = ViewShownInfo(
         current = changeTo,
-        previous = viewShownInfo.value.current
+        previous = viewShownInfo.value.current,
+        yearViewWasShown = changeTo == ViewShown.YEAR || viewShownInfo.value.yearViewWasShown
     )
 }
 

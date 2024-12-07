@@ -1,7 +1,6 @@
 package com.asivers.mycalendar.composable.month
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,18 +38,15 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.enums.WeekendMode
-import com.asivers.mycalendar.utils.fadeInSlow
-import com.asivers.mycalendar.utils.fadeOutSlow
+import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayInMonthGridInfo
-import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getMonthAndYearViewBackgroundGradient
+import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSchemesForPreview
-import com.asivers.mycalendar.utils.slideInFromLeft
-import com.asivers.mycalendar.utils.slideInFromRight
-import com.asivers.mycalendar.utils.slideOutToLeft
-import com.asivers.mycalendar.utils.slideOutToRight
+import com.asivers.mycalendar.utils.slideFromLeftToRight
+import com.asivers.mycalendar.utils.slideFromRightToLeft
 
 @Preview(showBackground = true)
 @Composable
@@ -90,7 +86,7 @@ fun MonthCalendarGrid(
         if (selectedYearInfo.value.byDropdown) {
             AnimatedContent(
                 targetState = selectedYearInfo.value,
-                transitionSpec = { fadeInSlow() togetherWith fadeOutSlow() },
+                transitionSpec = { fadeSlow() },
                 label = "month calendar animated content by year value"
             ) {
                 AnimatedValuableWeeksInMonthCalendarGrid(
@@ -147,14 +143,11 @@ fun AnimatedValuableWeeksInMonthCalendarGrid(
         targetState = selectedMonthInfo.value,
         transitionSpec = {
             if (targetState.byDropdown) {
-                fadeInSlow() togetherWith fadeOutSlow()
+                fadeSlow()
             } else {
-                val monthIndexDifference = targetState.monthIndex - initialState.monthIndex
-                if (monthIndexDifference == 1 || monthIndexDifference == -11) {
-                    slideInFromRight() togetherWith slideOutToLeft()
-                } else {
-                    slideInFromLeft() togetherWith slideOutToRight()
-                }
+                val monthIndexDiff = targetState.monthIndex - initialState.monthIndex
+                val isChangedToNextMonth = monthIndexDiff == 1 || monthIndexDiff == -11
+                if (isChangedToNextMonth) slideFromRightToLeft() else slideFromLeftToRight()
             }
         },
         label = "month calendar animated content by month value"

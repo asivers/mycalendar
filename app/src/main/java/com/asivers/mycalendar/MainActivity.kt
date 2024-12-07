@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,8 +25,8 @@ import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
-import com.asivers.mycalendar.utils.fadeInFast
-import com.asivers.mycalendar.utils.fadeOutFast
+import com.asivers.mycalendar.utils.fadeFast
+import com.asivers.mycalendar.utils.fadeVeryFast
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -110,7 +109,9 @@ class MainActivity : ComponentActivity() {
                     } else {
                         AnimatedContent(
                             targetState = viewShownInfo.value,
-                            transitionSpec = { fadeInFast() togetherWith fadeOutFast() },
+                            transitionSpec = {
+                                if (targetState.yearViewWasShown) fadeFast() else fadeVeryFast()
+                            },
                             label = "year view animated content"
                         ) {
                             if (it.current == ViewShown.MONTH) {

@@ -1,7 +1,6 @@
 package com.asivers.mycalendar.composable.year
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,8 +38,7 @@ import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
-import com.asivers.mycalendar.utils.fadeInSlow
-import com.asivers.mycalendar.utils.fadeOutSlow
+import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getDayInMonthGridInfo
@@ -160,7 +158,7 @@ fun MonthInYearCalendarGrid(
         )
         AnimatedContent(
             targetState = selectedYearInfo.value,
-            transitionSpec = { fadeInSlow() togetherWith fadeOutSlow() },
+            transitionSpec = { fadeSlow() },
             label = "year calendar animated content"
         ) {
             val monthInfo = getMonthInfo(

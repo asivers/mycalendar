@@ -1,7 +1,6 @@
 package com.asivers.mycalendar.composable.dropdown
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,8 +23,8 @@ import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
-import com.asivers.mycalendar.utils.fadeInFast
-import com.asivers.mycalendar.utils.fadeOutFast
+import com.asivers.mycalendar.utils.fadeFast
+import com.asivers.mycalendar.utils.fadeVeryFast
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getSchemesForPreview
@@ -56,7 +55,9 @@ fun TopDropdownsRow(
     ) {
         AnimatedContent(
             targetState = viewShownInfo.value,
-            transitionSpec = { fadeInFast() togetherWith fadeOutFast() },
+            transitionSpec = {
+                if (targetState.yearViewWasShown) fadeFast() else fadeVeryFast()
+            },
             label = "symbol of the year icon animated content"
         ) {
             if (it.current == ViewShown.YEAR) {
