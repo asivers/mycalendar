@@ -223,7 +223,13 @@ fun DayInMonthCalendarGrid(
     Button(
         modifier = modifier
             .alpha(if (inThisMonth) 1f else 0.25f)
-            .drawBehind { if (isToday) drawCircle(color = Color.White, style = Stroke(width = 4f)) },
+            .drawBehind {
+                if (isToday) drawCircle(
+                    color = Color.White,
+                    radius = size.minDimension / 2.1f,
+                    style = Stroke(width = 4f)
+                )
+            },
         onClick = {},
         shape = RectangleShape,
         colors = TRANSPARENT_BUTTON_COLORS,
