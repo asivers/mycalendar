@@ -25,6 +25,8 @@ import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.utils.backToPreviousView
+import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.fadeFast
 import com.asivers.mycalendar.utils.fadeVeryFast
 import com.asivers.mycalendar.utils.getColorScheme
@@ -40,6 +42,8 @@ import com.asivers.mycalendar.utils.getSavedWeekendMode
 import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
+import com.asivers.mycalendar.utils.slideFromLeftToRight
+import com.asivers.mycalendar.utils.slideFromRightToLeft
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,44 +97,58 @@ class MainActivity : ComponentActivity() {
                         .padding(innerPadding)
                         .background(backgroundGradient)
                 ) {
-                    SettingsHeader(
-                        viewShownInfo = viewShownInfo,
-                        schemes = schemes
-                    )
-                    if (viewShownInfo.value.current == ViewShown.SETTINGS) {
-                        SettingsView(
-                            viewShownInfo = viewShownInfo,
-                            selectedCountry = selectedCountry,
-                            selectedLocale = selectedLocale,
-                            selectedTheme = selectedTheme,
-                            selectedWeekendMode = selectedWeekendMode,
+                    AnimatedContent(
+                        targetState = viewShownInfo.value,
+                        transitionSpec = { fadeFast() },
+                        label = "settings header animated content"
+                    ) {
+                        SettingsHeader(
+                            viewShown = it.current,
                             schemes = schemes
-                        )
-                    } else {
-                        AnimatedContent(
-                            targetState = viewShownInfo.value,
-                            transitionSpec = {
-                                if (targetState.yearViewWasShown) fadeFast() else fadeVeryFast()
-                            },
-                            label = "year view animated content"
                         ) {
-                            if (it.current == ViewShown.MONTH) {
-                                MonthView(
-                                    selectedYearInfo = selectedYearInfo,
-                                    selectedMonthInfo = selectedMonthInfo,
-                                    viewShownInfo = viewShownInfo,
-                                    weekendMode = selectedWeekendMode.value,
-                                    schemes = schemes
-                                )
-                            } else {
-                                YearView(
-                                    selectedYearInfo = selectedYearInfo,
-                                    selectedMonthInfo = selectedMonthInfo,
-                                    viewShownInfo = viewShownInfo,
-                                    weekendMode = selectedWeekendMode.value,
-                                    schemes = schemes
-                                )
-                            }
+                            if (it.current == ViewShown.SETTINGS)
+                                backToPreviousView(viewShownInfo)
+                            else
+                                changeView(viewShownInfo, ViewShown.SETTINGS)
+                        }
+                    }
+                    AnimatedContent(
+                        targetState = viewShownInfo.value,
+                        transitionSpec = {
+                            if (targetState.current == ViewShown.SETTINGS)
+                                slideFromLeftToRight()
+                            else if (initialState.current == ViewShown.SETTINGS)
+                                slideFromRightToLeft()
+                            else if (targetState.yearViewWasShown)
+                                fadeFast()
+                            else
+                                fadeVeryFast()
+                        },
+                        label = "changing views animated content"
+                    ) {
+                        when (it.current) {
+                            ViewShown.SETTINGS -> SettingsView(
+                                viewShownInfo = viewShownInfo,
+                                selectedCountry = selectedCountry,
+                                selectedLocale = selectedLocale,
+                                selectedTheme = selectedTheme,
+                                selectedWeekendMode = selectedWeekendMode,
+                                schemes = schemes
+                            )
+                            ViewShown.MONTH -> MonthView(
+                                selectedYearInfo = selectedYearInfo,
+                                selectedMonthInfo = selectedMonthInfo,
+                                viewShownInfo = viewShownInfo,
+                                weekendMode = selectedWeekendMode.value,
+                                schemes = schemes
+                            )
+                            ViewShown.YEAR -> YearView(
+                                selectedYearInfo = selectedYearInfo,
+                                selectedMonthInfo = selectedMonthInfo,
+                                viewShownInfo = viewShownInfo,
+                                weekendMode = selectedWeekendMode.value,
+                                schemes = schemes
+                            )
                         }
                     }
                 }

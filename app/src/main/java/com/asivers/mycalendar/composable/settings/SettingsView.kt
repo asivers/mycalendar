@@ -4,6 +4,7 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -65,6 +66,7 @@ fun SettingsView(
     val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
     Column(
         modifier = modifier
+            .fillMaxWidth()
             .padding(18.dp, indentFromHeaderDp.dp, 18.dp, 0.dp)
             .pointerInput(Unit) {
                 detectHorizontalDragGestures(

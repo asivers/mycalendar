@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -24,25 +23,27 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.backToPreviousView
-import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview
 @Composable
 fun SettingsHeaderPreview() {
+    val viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.SETTINGS, ViewShown.MONTH)) }
     SettingsHeader(
         modifier = Modifier.background(color = SUMMER.settingsViewTop),
-        viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.SETTINGS, ViewShown.MONTH)) },
-        schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
+        viewShown = viewShownInfo.value.current,
+        schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current),
+        onActiveElementClick = { backToPreviousView(viewShownInfo) }
     )
 }
 
 @Composable
 fun SettingsHeader(
     modifier: Modifier = Modifier,
-    viewShownInfo: MutableState<ViewShownInfo>,
-    schemes: SchemeContainer
+    viewShown: ViewShown,
+    schemes: SchemeContainer,
+    onActiveElementClick: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -50,7 +51,7 @@ fun SettingsHeader(
             .height(48.dp)
             .padding(18.dp, 20.dp, 18.dp, 0.dp)
     ) {
-        if (viewShownInfo.value.current == ViewShown.SETTINGS) {
+        if (viewShown == ViewShown.SETTINGS) {
             Image(
                 painter = painterResource(id = R.drawable.settings_gear),
                 colorFilter = ColorFilter.tint(schemes.color.viewsBottom),
@@ -58,8 +59,7 @@ fun SettingsHeader(
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
-                modifier = Modifier
-                    .noRippleClickable { backToPreviousView(viewShownInfo) },
+                modifier = Modifier.noRippleClickable { onActiveElementClick() },
                 painter = painterResource(id = R.drawable.arrow_back),
                 colorFilter = ColorFilter.tint(schemes.color.brightElement),
                 contentDescription = "Go back icon"
@@ -67,8 +67,7 @@ fun SettingsHeader(
         } else {
             Spacer(modifier = Modifier.weight(1f))
             Image(
-                modifier = Modifier
-                    .noRippleClickable { changeView(viewShownInfo, ViewShown.SETTINGS) },
+                modifier = Modifier.noRippleClickable { onActiveElementClick() },
                 painter = painterResource(id = R.drawable.settings_gear),
                 colorFilter = ColorFilter.tint(schemes.color.brightElement),
                 contentDescription = "Settings icon"
