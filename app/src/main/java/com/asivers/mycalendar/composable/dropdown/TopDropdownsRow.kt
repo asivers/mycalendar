@@ -23,8 +23,8 @@ import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.utils.fadeNormal
 import com.asivers.mycalendar.utils.fadeFast
-import com.asivers.mycalendar.utils.fadeVeryFast
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getSchemesForPreview
@@ -55,9 +55,7 @@ fun TopDropdownsRow(
     ) {
         AnimatedContent(
             targetState = viewShownInfo.value,
-            transitionSpec = {
-                if (targetState.yearViewWasShown) fadeFast() else fadeVeryFast()
-            },
+            transitionSpec = { if (targetState.yearViewWasShown) fadeNormal() else fadeFast() },
             label = "symbol of the year icon animated content"
         ) {
             if (it.current == ViewShown.YEAR) {

@@ -27,8 +27,8 @@ import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
+import com.asivers.mycalendar.utils.fadeNormal
 import com.asivers.mycalendar.utils.fadeFast
-import com.asivers.mycalendar.utils.fadeVeryFast
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
@@ -42,6 +42,7 @@ import com.asivers.mycalendar.utils.getSavedWeekendMode
 import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
+import com.asivers.mycalendar.utils.noTransform
 import com.asivers.mycalendar.utils.slideFromLeftToRight
 import com.asivers.mycalendar.utils.slideFromRightToLeft
 
@@ -99,7 +100,13 @@ class MainActivity : ComponentActivity() {
                 ) {
                     AnimatedContent(
                         targetState = viewShownInfo.value,
-                        transitionSpec = { fadeFast() },
+                        transitionSpec = {
+                            if (targetState.current == ViewShown.SETTINGS ||
+                                initialState.current == ViewShown.SETTINGS)
+                                fadeNormal()
+                            else
+                                noTransform()
+                        },
                         label = "settings header animated content"
                     ) {
                         SettingsHeader(
@@ -120,9 +127,9 @@ class MainActivity : ComponentActivity() {
                             else if (initialState.current == ViewShown.SETTINGS)
                                 slideFromRightToLeft()
                             else if (targetState.yearViewWasShown)
-                                fadeFast()
+                                fadeNormal()
                             else
-                                fadeVeryFast()
+                                fadeFast()
                         },
                         label = "changing views animated content"
                     ) {
