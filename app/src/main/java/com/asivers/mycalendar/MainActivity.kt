@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import com.asivers.mycalendar.composable.day.DayView
 import com.asivers.mycalendar.composable.month.MonthView
 import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.composable.settings.SettingsView
@@ -30,10 +32,12 @@ import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.fadeNormal
 import com.asivers.mycalendar.utils.fadeFast
 import com.asivers.mycalendar.utils.getColorScheme
+import com.asivers.mycalendar.utils.getCurrentDayOfMonth
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
 import com.asivers.mycalendar.utils.getMonthAndYearViewBackgroundGradient
+import com.asivers.mycalendar.utils.getOnDaySelectedCallback
 import com.asivers.mycalendar.utils.getSavedCountry
 import com.asivers.mycalendar.utils.getSavedLocale
 import com.asivers.mycalendar.utils.getSavedSettings
@@ -62,6 +66,7 @@ class MainActivity : ComponentActivity() {
 
             val currentYear = getCurrentYear()
             val currentMonthIndex = getCurrentMonthIndex()
+            val currentDayOfMonth = getCurrentDayOfMonth()
 
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                 val selectedCountry = remember { mutableStateOf(savedCountry) }
@@ -71,6 +76,7 @@ class MainActivity : ComponentActivity() {
 
                 val selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(currentYear)) }
                 val selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(currentYear, currentMonthIndex)) }
+                val selectedDay = remember { mutableIntStateOf(currentDayOfMonth) }
                 val viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) }
 
                 val countryHolidayScheme = getHolidaySchemeForCountry(
@@ -146,6 +152,7 @@ class MainActivity : ComponentActivity() {
                                 selectedYearInfo = selectedYearInfo,
                                 selectedMonthInfo = selectedMonthInfo,
                                 viewShownInfo = viewShownInfo,
+                                onDaySelected = getOnDaySelectedCallback(selectedDay, viewShownInfo),
                                 weekendMode = selectedWeekendMode.value,
                                 schemes = schemes
                             )
@@ -154,6 +161,13 @@ class MainActivity : ComponentActivity() {
                                 selectedMonthInfo = selectedMonthInfo,
                                 viewShownInfo = viewShownInfo,
                                 weekendMode = selectedWeekendMode.value,
+                                schemes = schemes
+                            )
+                            ViewShown.DAY -> DayView(
+                                selectedYearInfo = selectedYearInfo,
+                                selectedMonthInfo = selectedMonthInfo,
+                                selectedDay = selectedDay,
+                                viewShownInfo = viewShownInfo,
                                 schemes = schemes
                             )
                         }

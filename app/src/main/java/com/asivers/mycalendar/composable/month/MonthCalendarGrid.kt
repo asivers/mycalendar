@@ -61,6 +61,7 @@ fun MonthCalendarGridPreview() {
         MonthCalendarGrid(
             selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
             selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
+            onDaySelected = {},
             weekendMode = WeekendMode.SATURDAY_SUNDAY,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
@@ -72,6 +73,7 @@ fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
     selectedYearInfo: MutableState<SelectedYearInfo>,
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
+    onDaySelected: (Int) -> Unit,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -91,6 +93,7 @@ fun MonthCalendarGrid(
             ) {
                 AnimatedValuableWeeksInMonthCalendarGrid(
                     selectedMonthInfo = selectedMonthInfo,
+                    onDaySelected = onDaySelected,
                     thisYear = it.year,
                     weekendMode = weekendMode,
                     schemes = schemes
@@ -99,6 +102,7 @@ fun MonthCalendarGrid(
         } else {
             AnimatedValuableWeeksInMonthCalendarGrid(
                 selectedMonthInfo = selectedMonthInfo,
+                onDaySelected = onDaySelected,
                 thisYear = selectedYearInfo.value.year,
                 weekendMode = weekendMode,
                 schemes = schemes
@@ -134,6 +138,7 @@ fun HeaderWeekInMonthCalendarGrid(
 fun AnimatedValuableWeeksInMonthCalendarGrid(
     modifier: Modifier = Modifier,
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
+    onDaySelected: (Int) -> Unit,
     thisYear: Int,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
@@ -161,6 +166,7 @@ fun AnimatedValuableWeeksInMonthCalendarGrid(
         Column {
             repeat(6) { weekIndex ->
                 WeekInMonthCalendarGrid(
+                    onDaySelected = onDaySelected,
                     weekIndex = weekIndex,
                     monthInfo = monthInfo,
                     weekendMode = weekendMode,
@@ -174,6 +180,7 @@ fun AnimatedValuableWeeksInMonthCalendarGrid(
 @Composable
 fun WeekInMonthCalendarGrid(
     modifier: Modifier = Modifier,
+    onDaySelected: (Int) -> Unit,
     weekIndex: Int,
     monthInfo: MonthInfo,
     weekendMode: WeekendMode,
@@ -190,6 +197,7 @@ fun WeekInMonthCalendarGrid(
                 modifier = Modifier
                     .fillMaxHeight()
                     .weight(1f),
+                onDaySelected = onDaySelected,
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
                 monthInfo = monthInfo,
@@ -203,6 +211,7 @@ fun WeekInMonthCalendarGrid(
 @Composable
 fun DayInMonthCalendarGrid(
     modifier: Modifier = Modifier,
+    onDaySelected: (Int) -> Unit,
     weekIndex: Int,
     dayOfWeekIndex: Int,
     monthInfo: MonthInfo,
@@ -230,7 +239,7 @@ fun DayInMonthCalendarGrid(
                     style = Stroke(width = 4f)
                 )
             },
-        onClick = {},
+        onClick = { onDaySelected(dayValue) },
         shape = RectangleShape,
         colors = TRANSPARENT_BUTTON_COLORS,
         contentPadding = PaddingValues(0.dp),

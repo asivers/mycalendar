@@ -48,6 +48,7 @@ fun MonthViewPreview() {
             selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
             selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
             viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
+            onDaySelected = {},
             weekendMode = WeekendMode.SATURDAY_SUNDAY,
             schemes = schemes
         )
@@ -60,6 +61,7 @@ fun MonthView(
     selectedYearInfo: MutableState<SelectedYearInfo>,
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
     viewShownInfo: MutableState<ViewShownInfo>,
+    onDaySelected: (Int) -> Unit,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -96,6 +98,7 @@ fun MonthView(
             MonthCalendarGrid(
                 selectedYearInfo = selectedYearInfo,
                 selectedMonthInfo = selectedMonthInfo,
+                onDaySelected = onDaySelected,
                 weekendMode = weekendMode,
                 schemes = schemes
             )

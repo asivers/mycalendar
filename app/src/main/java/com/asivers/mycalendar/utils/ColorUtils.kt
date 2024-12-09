@@ -51,3 +51,10 @@ fun getSettingViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.ve
         1f to colorScheme.viewsBottom,
     )
 )
+
+fun getDayViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
+    colorStops = arrayOf(
+        0.0f to colorScheme.monthViewTop,
+        1f to colorScheme.viewsBottom,
+    )
+)
