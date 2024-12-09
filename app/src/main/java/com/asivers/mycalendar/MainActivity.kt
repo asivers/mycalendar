@@ -1,7 +1,9 @@
 package com.asivers.mycalendar
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
@@ -29,8 +31,8 @@ import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
-import com.asivers.mycalendar.utils.fadeNormal
 import com.asivers.mycalendar.utils.fadeFast
+import com.asivers.mycalendar.utils.fadeNormal
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentDayOfMonth
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
@@ -98,6 +100,14 @@ class MainActivity : ComponentActivity() {
                     getSettingViewBackgroundGradient(schemes.color)
                 else
                     getMonthAndYearViewBackgroundGradient(schemes.color)
+
+                BackHandler {
+                    when (viewShownInfo.value.current) {
+                        ViewShown.MONTH -> (ctx as? Activity)?.finish()
+                        ViewShown.YEAR, ViewShown.DAY -> changeView(viewShownInfo, ViewShown.MONTH)
+                        ViewShown.SETTINGS -> backToPreviousView(viewShownInfo)
+                    }
+                }
 
                 Column(
                     modifier = Modifier
