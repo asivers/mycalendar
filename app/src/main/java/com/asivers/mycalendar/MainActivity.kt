@@ -29,10 +29,10 @@ import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.utils.animateContentOnViewChange
+import com.asivers.mycalendar.utils.animateHeaderOnViewChange
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
-import com.asivers.mycalendar.utils.fadeFast
-import com.asivers.mycalendar.utils.fadeNormal
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentDayOfMonth
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
@@ -48,9 +48,6 @@ import com.asivers.mycalendar.utils.getSavedWeekendMode
 import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
-import com.asivers.mycalendar.utils.noTransform
-import com.asivers.mycalendar.utils.slideFromLeftToRight
-import com.asivers.mycalendar.utils.slideFromRightToLeft
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,13 +113,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     AnimatedContent(
                         targetState = viewShownInfo.value,
-                        transitionSpec = {
-                            if (targetState.current == ViewShown.SETTINGS ||
-                                initialState.current == ViewShown.SETTINGS)
-                                fadeNormal()
-                            else
-                                noTransform()
-                        },
+                        transitionSpec = { animateHeaderOnViewChange(targetState, initialState) },
                         label = "settings header animated content"
                     ) {
                         SettingsHeader(
@@ -137,16 +128,7 @@ class MainActivity : ComponentActivity() {
                     }
                     AnimatedContent(
                         targetState = viewShownInfo.value,
-                        transitionSpec = {
-                            if (targetState.current == ViewShown.SETTINGS)
-                                slideFromLeftToRight()
-                            else if (initialState.current == ViewShown.SETTINGS)
-                                slideFromRightToLeft()
-                            else if (targetState.yearViewWasShown)
-                                fadeNormal()
-                            else
-                                fadeFast()
-                        },
+                        transitionSpec = { animateContentOnViewChange(targetState, initialState) },
                         label = "changing views animated content"
                     ) {
                         when (it.current) {

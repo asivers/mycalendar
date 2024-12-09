@@ -10,6 +10,8 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import com.asivers.mycalendar.data.ViewShownInfo
+import com.asivers.mycalendar.enums.ViewShown
 
 fun noTransform(): ContentTransform {
     return ContentTransform(EnterTransition.None, ExitTransition.None)
@@ -33,6 +35,30 @@ fun slideFromLeftToRight(): ContentTransform {
 
 fun slideFromRightToLeft(): ContentTransform {
     return slideInFromRight() togetherWith slideOutToLeft()
+}
+
+fun animateHeaderOnViewChange(
+    targetState: ViewShownInfo,
+    initialState: ViewShownInfo,
+): ContentTransform {
+    return if (targetState.current == ViewShown.SETTINGS || initialState.current == ViewShown.SETTINGS)
+        fadeNormal()
+    else
+        noTransform()
+}
+
+fun animateContentOnViewChange(
+    targetState: ViewShownInfo,
+    initialState: ViewShownInfo,
+): ContentTransform {
+    return if (targetState.current == ViewShown.SETTINGS || initialState.current == ViewShown.DAY)
+        slideFromLeftToRight()
+    else if (initialState.current == ViewShown.SETTINGS || targetState.current == ViewShown.DAY)
+        slideFromRightToLeft()
+    else if (targetState.yearViewWasShown)
+        fadeNormal()
+    else
+        fadeFast()
 }
 
 private fun fadeByStiffness(stiffness: Float): ContentTransform {
