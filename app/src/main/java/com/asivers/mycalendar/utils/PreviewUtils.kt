@@ -1,13 +1,26 @@
 package com.asivers.mycalendar.utils
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.Density
+import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.DayInfo
-import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.data.scheme.ColorScheme
+import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.data.scheme.TranslationScheme
+import com.asivers.mycalendar.enums.ViewShown
 import java.util.Calendar
 
 fun getSchemesForPreview(config: Configuration, density: Density): SchemeContainer {
@@ -138,4 +151,29 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
             Pair("noDisplay", "Do not display")
         ),
     )
+}
+
+@Composable
+fun PreviewFrameWithSettingsHeader(
+    viewShown: ViewShown,
+    getBackground: (ColorScheme) -> Brush,
+    schemes: SchemeContainer,
+    content: @Composable BoxScope.() -> Unit
+) {
+    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .background(getBackground(schemes.color))
+        ) {
+            SettingsHeader(
+                viewShown = viewShown,
+                schemes = schemes,
+                onToggle = {}
+            )
+            Box(
+                content = content
+            )
+        }
+    }
 }

@@ -3,11 +3,9 @@ package com.asivers.mycalendar.composable.settings
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -29,23 +27,29 @@ import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
+import com.asivers.mycalendar.utils.PreviewFrameWithSettingsHeader
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getSchemesForPreview
+import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import kotlin.enums.enumEntries
 
 @Preview(showBackground = true)
 @Composable
 fun SettingsViewPreview() {
-    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+    val schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
+    PreviewFrameWithSettingsHeader(
+        viewShown = ViewShown.SETTINGS,
+        getBackground = { getSettingViewBackgroundGradient(it) },
+        schemes = schemes
+    ) {
         SettingsView(
-            modifier = Modifier.padding(innerPadding),
             viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.SETTINGS, ViewShown.MONTH)) },
             selectedCountry = remember { mutableStateOf(Country.RUSSIA) },
             selectedLocale = remember { mutableStateOf(ExistingLocale.RU) },
             selectedTheme = remember { mutableStateOf(UserTheme.THEME_SUMMER) },
             selectedWeekendMode = remember { mutableStateOf(WeekendMode.SATURDAY_SUNDAY) },
-            schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
+            schemes = schemes
         )
     }
 }

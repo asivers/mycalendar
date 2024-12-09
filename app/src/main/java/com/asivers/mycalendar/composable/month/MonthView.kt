@@ -27,22 +27,31 @@ import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
+import com.asivers.mycalendar.utils.PreviewFrameWithSettingsHeader
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
+import com.asivers.mycalendar.utils.getMonthAndYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Preview(showBackground = true)
 @Composable
 fun MonthViewPreview() {
-    MonthView(
-        selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-        selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
-        viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
-        weekendMode = WeekendMode.SATURDAY_SUNDAY,
-        schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
-    )
+    val schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
+    PreviewFrameWithSettingsHeader(
+        viewShown = ViewShown.MONTH,
+        getBackground = { getMonthAndYearViewBackgroundGradient(it) },
+        schemes = schemes
+    ) {
+        MonthView(
+            selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
+            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
+            viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
+            weekendMode = WeekendMode.SATURDAY_SUNDAY,
+            schemes = schemes
+        )
+    }
 }
 
 @Composable

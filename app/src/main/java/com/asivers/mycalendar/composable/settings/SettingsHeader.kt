@@ -34,7 +34,7 @@ fun SettingsHeaderPreview() {
         modifier = Modifier.background(color = SUMMER.settingsViewTop),
         viewShown = viewShownInfo.value.current,
         schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current),
-        onActiveElementClick = { backToPreviousView(viewShownInfo) }
+        onToggle = { backToPreviousView(viewShownInfo) }
     )
 }
 
@@ -43,7 +43,7 @@ fun SettingsHeader(
     modifier: Modifier = Modifier,
     viewShown: ViewShown,
     schemes: SchemeContainer,
-    onActiveElementClick: () -> Unit
+    onToggle: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -59,7 +59,7 @@ fun SettingsHeader(
             )
             Spacer(modifier = Modifier.weight(1f))
             Image(
-                modifier = Modifier.noRippleClickable { onActiveElementClick() },
+                modifier = Modifier.noRippleClickable { onToggle() },
                 painter = painterResource(id = R.drawable.arrow_back),
                 colorFilter = ColorFilter.tint(schemes.color.brightElement),
                 contentDescription = "Go back icon"
@@ -67,7 +67,7 @@ fun SettingsHeader(
         } else {
             Spacer(modifier = Modifier.weight(1f))
             Image(
-                modifier = Modifier.noRippleClickable { onActiveElementClick() },
+                modifier = Modifier.noRippleClickable { onToggle() },
                 painter = painterResource(id = R.drawable.settings_gear),
                 colorFilter = ColorFilter.tint(schemes.color.brightElement),
                 contentDescription = "Settings icon"
