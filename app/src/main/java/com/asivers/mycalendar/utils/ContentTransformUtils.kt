@@ -51,14 +51,14 @@ fun animateContentOnViewChange(
     targetState: ViewShownInfo,
     initialState: ViewShownInfo,
 ): ContentTransform {
-    return if (targetState.current == ViewShown.SETTINGS || initialState.current == ViewShown.DAY)
+    return if (targetState.current == ViewShown.SETTINGS)
         slideFromLeftToRight()
-    else if (initialState.current == ViewShown.SETTINGS || targetState.current == ViewShown.DAY)
+    else if (initialState.current == ViewShown.SETTINGS)
         slideFromRightToLeft()
-    else if (targetState.yearViewWasShown)
-        fadeNormal()
-    else
+    else if (targetState.current == ViewShown.YEAR && !targetState.yearViewWasShown)
         fadeFast()
+    else
+        fadeNormal()
 }
 
 private fun fadeByStiffness(stiffness: Float): ContentTransform {

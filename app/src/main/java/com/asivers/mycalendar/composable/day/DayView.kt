@@ -2,7 +2,6 @@ package com.asivers.mycalendar.composable.day
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -19,10 +18,12 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
+import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.PreviewFrameWithSettingsHeader
 import com.asivers.mycalendar.utils.getCurrentDayOfMonth
@@ -45,6 +46,7 @@ fun DayViewPreview() {
             selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
             selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
             selectedDay = remember { mutableIntStateOf(getCurrentDayOfMonth()) },
+            viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.DAY, ViewShown.MONTH)) },
             schemes = schemes
         )
     }
@@ -56,15 +58,27 @@ fun DayView(
     selectedYearInfo: MutableState<SelectedYearInfo>,
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
     selectedDay: MutableIntState,
+    viewShownInfo: MutableState<ViewShownInfo>,
     schemes: SchemeContainer
 ) {
     val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(18.dp, indentFromHeaderDp.dp, 18.dp, 0.dp)
+            .padding(0.dp, indentFromHeaderDp.dp, 0.dp, 0.dp)
     ) {
-        Box(modifier = Modifier.fillMaxSize()) {
+        TopDropdownsRow(
+            selectedYearInfo = selectedYearInfo,
+            selectedMonthInfo = selectedMonthInfo,
+            viewShownInfo = viewShownInfo,
+            schemes = schemes
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(18.dp, 100.dp)
+        ) {
             Text(
                 text = selectedDay.intValue.toString(),
                 fontFamily = MONTSERRAT_BOLD,

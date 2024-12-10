@@ -152,6 +152,7 @@ class MainActivity : ComponentActivity() {
                                 selectedYearInfo = selectedYearInfo,
                                 selectedMonthInfo = selectedMonthInfo,
                                 selectedDay = selectedDay,
+                                viewShownInfo = viewShownInfo,
                                 schemes = schemes
                             )
                         }
