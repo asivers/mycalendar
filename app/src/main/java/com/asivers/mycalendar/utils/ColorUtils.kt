@@ -7,6 +7,7 @@ import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.constants.schemes.WINTER
 import com.asivers.mycalendar.data.scheme.ColorScheme
 import com.asivers.mycalendar.enums.UserTheme
+import com.asivers.mycalendar.enums.ViewShown
 
 fun getColorScheme(selectedTheme: UserTheme, selectedMonthIndex: Int): ColorScheme {
     return when (selectedTheme) {
@@ -58,3 +59,11 @@ fun getDayViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.vertic
         1f to colorScheme.viewsBottom,
     )
 )
+
+fun getBackgroundGradient(viewShown: ViewShown, colorScheme: ColorScheme): Brush {
+    return when (viewShown) {
+        ViewShown.MONTH, ViewShown.YEAR -> getMonthAndYearViewBackgroundGradient(colorScheme)
+        ViewShown.DAY -> getDayViewBackgroundGradient(colorScheme)
+        ViewShown.SETTINGS -> getSettingViewBackgroundGradient(colorScheme)
+    }
+}

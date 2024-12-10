@@ -33,19 +33,18 @@ import com.asivers.mycalendar.utils.animateContentOnViewChange
 import com.asivers.mycalendar.utils.animateHeaderOnViewChange
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
+import com.asivers.mycalendar.utils.getBackgroundGradient
 import com.asivers.mycalendar.utils.getColorScheme
 import com.asivers.mycalendar.utils.getCurrentDayOfMonth
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
-import com.asivers.mycalendar.utils.getMonthAndYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.getOnDaySelectedCallback
 import com.asivers.mycalendar.utils.getSavedCountry
 import com.asivers.mycalendar.utils.getSavedLocale
 import com.asivers.mycalendar.utils.getSavedSettings
 import com.asivers.mycalendar.utils.getSavedTheme
 import com.asivers.mycalendar.utils.getSavedWeekendMode
-import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
 
@@ -93,11 +92,6 @@ class MainActivity : ComponentActivity() {
                     size = sizeScheme
                 )
 
-                val backgroundGradient = if (viewShownInfo.value.current == ViewShown.SETTINGS)
-                    getSettingViewBackgroundGradient(schemes.color)
-                else
-                    getMonthAndYearViewBackgroundGradient(schemes.color)
-
                 BackHandler {
                     when (viewShownInfo.value.current) {
                         ViewShown.MONTH -> (ctx as? Activity)?.finish()
@@ -109,7 +103,7 @@ class MainActivity : ComponentActivity() {
                 Column(
                     modifier = Modifier
                         .padding(innerPadding)
-                        .background(backgroundGradient)
+                        .background(getBackgroundGradient(viewShownInfo.value.current, schemes.color))
                 ) {
                     AnimatedContent(
                         targetState = viewShownInfo.value,
@@ -133,7 +127,6 @@ class MainActivity : ComponentActivity() {
                     ) {
                         when (it.current) {
                             ViewShown.SETTINGS -> SettingsView(
-                                viewShownInfo = viewShownInfo,
                                 selectedCountry = selectedCountry,
                                 selectedLocale = selectedLocale,
                                 selectedTheme = selectedTheme,
@@ -159,7 +152,6 @@ class MainActivity : ComponentActivity() {
                                 selectedYearInfo = selectedYearInfo,
                                 selectedMonthInfo = selectedMonthInfo,
                                 selectedDay = selectedDay,
-                                viewShownInfo = viewShownInfo,
                                 schemes = schemes
                             )
                         }
