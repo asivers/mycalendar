@@ -7,6 +7,8 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,6 +51,7 @@ import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalSharedTransitionApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -120,41 +123,47 @@ class MainActivity : ComponentActivity() {
                                 changeView(viewShownInfo, ViewShown.SETTINGS)
                         }
                     }
-                    AnimatedContent(
-                        targetState = viewShownInfo.value,
-                        transitionSpec = { animateContentOnViewChange(targetState, initialState) },
-                        label = "changing views animated content"
-                    ) {
-                        when (it.current) {
-                            ViewShown.SETTINGS -> SettingsView(
-                                selectedCountry = selectedCountry,
-                                selectedLocale = selectedLocale,
-                                selectedTheme = selectedTheme,
-                                selectedWeekendMode = selectedWeekendMode,
-                                schemes = schemes
-                            )
-                            ViewShown.MONTH -> MonthView(
-                                selectedYearInfo = selectedYearInfo,
-                                selectedMonthInfo = selectedMonthInfo,
-                                viewShownInfo = viewShownInfo,
-                                onDaySelected = getOnDaySelectedCallback(selectedDay, viewShownInfo),
-                                weekendMode = selectedWeekendMode.value,
-                                schemes = schemes
-                            )
-                            ViewShown.YEAR -> YearView(
-                                selectedYearInfo = selectedYearInfo,
-                                selectedMonthInfo = selectedMonthInfo,
-                                viewShownInfo = viewShownInfo,
-                                weekendMode = selectedWeekendMode.value,
-                                schemes = schemes
-                            )
-                            ViewShown.DAY -> DayView(
-                                selectedYearInfo = selectedYearInfo,
-                                selectedMonthInfo = selectedMonthInfo,
-                                selectedDay = selectedDay,
-                                viewShownInfo = viewShownInfo,
-                                schemes = schemes
-                            )
+                    SharedTransitionLayout {
+                        AnimatedContent(
+                            targetState = viewShownInfo.value,
+                            transitionSpec = { animateContentOnViewChange(targetState, initialState) },
+                            label = "changing views animated content"
+                        ) {
+                            when (it.current) {
+                                ViewShown.SETTINGS -> SettingsView(
+                                    selectedCountry = selectedCountry,
+                                    selectedLocale = selectedLocale,
+                                    selectedTheme = selectedTheme,
+                                    selectedWeekendMode = selectedWeekendMode,
+                                    schemes = schemes
+                                )
+                                ViewShown.MONTH -> MonthView(
+                                    selectedYearInfo = selectedYearInfo,
+                                    selectedMonthInfo = selectedMonthInfo,
+                                    viewShownInfo = viewShownInfo,
+                                    onDaySelected = getOnDaySelectedCallback(selectedDay, viewShownInfo),
+                                    animatedVisibilityScope = this@AnimatedContent,
+                                    sharedTransitionScope = this@SharedTransitionLayout,
+                                    weekendMode = selectedWeekendMode.value,
+                                    schemes = schemes
+                                )
+                                ViewShown.YEAR -> YearView(
+                                    selectedYearInfo = selectedYearInfo,
+                                    selectedMonthInfo = selectedMonthInfo,
+                                    viewShownInfo = viewShownInfo,
+                                    weekendMode = selectedWeekendMode.value,
+                                    schemes = schemes
+                                )
+                                ViewShown.DAY -> DayView(
+                                    selectedYearInfo = selectedYearInfo,
+                                    selectedMonthInfo = selectedMonthInfo,
+                                    selectedDay = selectedDay,
+                                    viewShownInfo = viewShownInfo,
+                                    animatedVisibilityScope = this@AnimatedContent,
+                                    sharedTransitionScope = this@SharedTransitionLayout,
+                                    schemes = schemes
+                                )
+                            }
                         }
                     }
                 }

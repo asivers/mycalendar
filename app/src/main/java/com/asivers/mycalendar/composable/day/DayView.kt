@@ -1,5 +1,10 @@
 package com.asivers.mycalendar.composable.day
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,25 +38,37 @@ import com.asivers.mycalendar.utils.getDayViewBackgroundGradient
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getSchemesForPreview
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
 @Composable
 fun DayViewPreview() {
     val schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
-    PreviewFrameWithSettingsHeader(
-        viewShown = ViewShown.DAY,
-        getBackground = { getDayViewBackgroundGradient(it) },
-        schemes = schemes
-    ) {
-        DayView(
-            selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
-            selectedDay = remember { mutableIntStateOf(getCurrentDayOfMonth()) },
-            viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.DAY, ViewShown.MONTH)) },
-            schemes = schemes
-        )
+    val viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.DAY, ViewShown.MONTH)) }
+    SharedTransitionLayout {
+        AnimatedContent(
+            targetState = viewShownInfo.value,
+            label = "preview day view animated content"
+        ) { viewShownInfoValue ->
+            PreviewFrameWithSettingsHeader(
+                viewShown = viewShownInfoValue.current,
+                getBackground = { getDayViewBackgroundGradient(it) },
+                schemes = schemes
+            ) {
+                DayView(
+                    selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
+                    selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
+                    selectedDay = remember { mutableIntStateOf(getCurrentDayOfMonth()) },
+                    viewShownInfo = viewShownInfo,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedVisibilityScope = this@AnimatedContent,
+                    schemes = schemes
+                )
+            }
+        }
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun DayView(
     modifier: Modifier = Modifier,
@@ -59,6 +76,8 @@ fun DayView(
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
     selectedDay: MutableIntState,
     viewShownInfo: MutableState<ViewShownInfo>,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     schemes: SchemeContainer
 ) {
     val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
@@ -67,12 +86,19 @@ fun DayView(
             .fillMaxWidth()
             .padding(0.dp, indentFromHeaderDp.dp, 0.dp, 0.dp)
     ) {
-        TopDropdownsRow(
-            selectedYearInfo = selectedYearInfo,
-            selectedMonthInfo = selectedMonthInfo,
-            viewShownInfo = viewShownInfo,
-            schemes = schemes
-        )
+        with(sharedTransitionScope) {
+            TopDropdownsRow(
+                modifier = Modifier
+                    .sharedElement(
+                        rememberSharedContentState(key = "topDropdownsRow"),
+                        animatedVisibilityScope = animatedVisibilityScope
+                    ),
+                selectedYearInfo = selectedYearInfo,
+                selectedMonthInfo = selectedMonthInfo,
+                viewShownInfo = viewShownInfo,
+                schemes = schemes
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
