@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
-import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.WeekendMode
@@ -29,7 +28,7 @@ import com.asivers.mycalendar.utils.getDayInfo
 @Composable
 fun DaysLine(
     modifier: Modifier = Modifier,
-    onDayChanged: (DayInfo) -> Unit,
+    onDayChanged: (Int, Boolean) -> Unit,
     selectedDay: Int,
     thisMonthInfo: MonthInfo,
     weekendMode: WeekendMode,
@@ -45,6 +44,7 @@ fun DaysLine(
             val dayValueRaw = selectedDay + it - 3
             val dayInfo = getDayInfo(dayValueRaw, thisMonthInfo, weekendMode)
             val dayValue = dayInfo.dayValue
+            val inThisMonth = dayInfo.inThisMonth
             val isToday = dayInfo.isToday
             val isWeekend = dayInfo.isWeekend
             val isHoliday = dayInfo.isHoliday
@@ -59,7 +59,7 @@ fun DaysLine(
                             style = Stroke(width = 4f)
                         )
                     },
-                onClick = { onDayChanged(dayInfo) },
+                onClick = { onDayChanged(dayValue, inThisMonth) },
                 shape = RectangleShape,
                 colors = TRANSPARENT_BUTTON_COLORS,
                 contentPadding = PaddingValues(0.dp),

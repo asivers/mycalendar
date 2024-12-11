@@ -7,7 +7,6 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -25,6 +24,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
+import com.asivers.mycalendar.composable.month.ClickableSpacers
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
@@ -135,7 +135,9 @@ fun DayView(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     DaysLine(
-                        onDayChanged = { changeDay(selectedYearInfo, selectedMonthInfo, selectedDay, it) },
+                        onDayChanged = { thisDayValue, inThisMonth ->
+                            changeDay(selectedYearInfo, selectedMonthInfo, selectedDay, thisDayValue, inThisMonth)
+                        },
                         selectedDay = selectedDayValue,
                         thisMonthInfo = thisMonthInfo,
                         weekendMode = weekendMode,
@@ -149,7 +151,19 @@ fun DayView(
                         fontSize = schemes.size.font.dropdownItem,
                         color = Color.White
                     )
-                    Spacer(modifier = Modifier.weight(1f))
+                    ClickableSpacers(
+                        modifier = Modifier.weight(1f),
+                        onClickLeft = {
+                            val previousDay = selectedDayValue - 1
+                            val inThisMonth = previousDay in 1..thisMonthInfo.numberOfDays
+                            changeDay(selectedYearInfo, selectedMonthInfo, selectedDay, previousDay, inThisMonth)
+                        },
+                        onClickRight = {
+                            val nextDay = selectedDayValue + 1
+                            val inThisMonth = nextDay in 1..thisMonthInfo.numberOfDays
+                            changeDay(selectedYearInfo, selectedMonthInfo, selectedDay, nextDay, inThisMonth)
+                        }
+                    )
                 }
             }
         }

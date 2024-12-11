@@ -2,7 +2,6 @@ package com.asivers.mycalendar.utils
 
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
-import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.SelectedMonthInfo
 import com.asivers.mycalendar.data.SelectedYearInfo
 
@@ -46,11 +45,12 @@ fun changeDay(
     selectedYearInfo: MutableState<SelectedYearInfo>,
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
     selectedDay: MutableIntState,
-    dayInfo: DayInfo
+    dayValue: Int,
+    inThisMonth: Boolean
 ) {
-    selectedDay.intValue = dayInfo.dayValue
-    if (!dayInfo.inThisMonth) {
-        if (dayInfo.dayValue < 15) {
+    selectedDay.intValue = dayValue
+    if (!inThisMonth) {
+        if (dayValue < 15) {
             nextMonth(selectedYearInfo, selectedMonthInfo)
         } else {
             previousMonth(selectedYearInfo, selectedMonthInfo)

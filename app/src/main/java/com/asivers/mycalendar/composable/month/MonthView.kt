@@ -7,9 +7,6 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -39,7 +36,6 @@ import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getMonthAndYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.nextMonth
-import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.previousMonth
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -136,31 +132,11 @@ fun MonthView(
                 weekendMode = weekendMode,
                 schemes = schemes
             )
-            Row(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(3f)
-                        .noRippleClickable {
-                            previousMonth(selectedYearInfo, selectedMonthInfo)
-                        }
-                )
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(1f)
-                )
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(3f)
-                        .noRippleClickable {
-                            nextMonth(selectedYearInfo, selectedMonthInfo)
-                        }
-                )
-            }
+            ClickableSpacers(
+                modifier = Modifier.fillMaxSize(),
+                onClickLeft = { previousMonth(selectedYearInfo, selectedMonthInfo) },
+                onClickRight = { nextMonth(selectedYearInfo, selectedMonthInfo) }
+            )
         }
         YearViewButton(
             viewShownInfo = viewShownInfo,
