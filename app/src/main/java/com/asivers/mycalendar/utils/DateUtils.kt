@@ -18,15 +18,15 @@ fun getMonthInfo(
     year: Int,
     monthIndex: Int,
     countryHolidayScheme: CountryHolidayScheme,
-    forMonthView: Boolean
+    forYearView: Boolean
 ): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
     val numberOfDays = firstOfThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
     val holidaysAndNotHolidays = getHolidaysAndNotHolidays(year, monthIndex, countryHolidayScheme)
     val today = getTodayValue(year, monthIndex)
-    val adjacentMonthsInfo = if (forMonthView)
-        getAdjacentMonthsInfo(firstOfThisMonth, countryHolidayScheme) else null
+    val adjacentMonthsInfo = if (forYearView)
+        null else getAdjacentMonthsInfo(firstOfThisMonth, countryHolidayScheme)
     return MonthInfo(
         numberOfDays,
         dayOfWeekOf1st,
@@ -100,12 +100,10 @@ private fun getAdjacentMonthsInfo(
 }
 
 fun getDayInMonthGridInfo(
-    weekIndex: Int,
-    dayOfWeekIndex: Int,
+    dayValueRaw: Int, // including values outside of this month: -1, 0, 1, 2, ..., 30, 31, 32, 33 and so on
     monthInfo: MonthInfo,
     weekendMode: WeekendMode
 ): DayInMonthGridInfo {
-    val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 1
     val inPrevMonth = dayValueRaw <= 0
     val inThisMonth = dayValueRaw in 1..monthInfo.numberOfDays
 
@@ -133,6 +131,7 @@ fun getDayInMonthGridInfo(
     }
 
     val isToday = dayValue == today
+    val dayOfWeekIndex = (dayValueRaw + monthInfo.dayOfWeekOf1st - 1) % 7
     val isWeekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, holidaysAndNotHolidays)
     val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
 

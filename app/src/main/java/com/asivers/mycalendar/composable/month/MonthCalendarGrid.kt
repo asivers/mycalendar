@@ -161,7 +161,7 @@ fun AnimatedValuableWeeksInMonthCalendarGrid(
             year = thisYear,
             monthIndex = it.monthIndex,
             countryHolidayScheme = schemes.countryHoliday,
-            forMonthView = true
+            forYearView = false
         )
         Column {
             repeat(6) { weekIndex ->
@@ -218,12 +218,8 @@ fun DayInMonthCalendarGrid(
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
-    val dayInMonthGridInfo = getDayInMonthGridInfo(
-        weekIndex,
-        dayOfWeekIndex,
-        monthInfo,
-        weekendMode
-    )
+    val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 1
+    val dayInMonthGridInfo = getDayInMonthGridInfo(dayValueRaw, monthInfo, weekendMode)
     val dayValue = dayInMonthGridInfo.dayValue
     val inThisMonth = dayInMonthGridInfo.inThisMonth
     val isToday = dayInMonthGridInfo.isToday
