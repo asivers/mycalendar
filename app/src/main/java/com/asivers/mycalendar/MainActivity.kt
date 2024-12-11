@@ -168,6 +168,7 @@ class MainActivity : ComponentActivity() {
                                         countryHolidayScheme = schemes.countryHoliday,
                                         forYearView = false
                                     ),
+                                    locale = selectedLocale.value,
                                     weekendMode = selectedWeekendMode.value,
                                     schemes = schemes
                                 )

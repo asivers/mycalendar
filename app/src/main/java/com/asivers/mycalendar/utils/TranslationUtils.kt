@@ -1,5 +1,6 @@
 package com.asivers.mycalendar.utils
 
+import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.scheme.TranslationScheme
 import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.enums.ExistingLocale
@@ -52,4 +53,15 @@ fun <T : SettingsItem> getTranslatedSettingsItemsNames(
         translationSchemeMap[it.translationKey]
             ?: it.translationKey.replaceFirstChar(Char::titlecase)
     }
+}
+
+fun translateHolidayInfo(holidayInfo: HolidayInfo?, locale: ExistingLocale): String {
+    if (holidayInfo == null) {
+        return ""
+    }
+    val translatedHolidayInfo = when (locale) {
+        ExistingLocale.EN -> holidayInfo.en
+        ExistingLocale.RU -> holidayInfo.ru
+    }
+    return translatedHolidayInfo ?: holidayInfo.en
 }

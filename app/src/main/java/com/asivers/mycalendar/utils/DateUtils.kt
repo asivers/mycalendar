@@ -157,3 +157,7 @@ private fun isHoliday(dayValue: Int, holidaysAndNotHolidays: HolidaysAndNotHolid
     return dayValue !in holidaysAndNotHolidays.notHolidays &&
             dayValue in holidaysAndNotHolidays.holidays
 }
+
+fun getHolidayInfo(dayValue: Int, holidaysAndNotHolidays: HolidaysAndNotHolidays): HolidayInfo? {
+    return holidaysAndNotHolidays.notHolidays[dayValue] ?: holidaysAndNotHolidays.holidays[dayValue]
+}
