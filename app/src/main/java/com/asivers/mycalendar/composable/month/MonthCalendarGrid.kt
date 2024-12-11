@@ -91,7 +91,7 @@ fun MonthCalendarGrid(
                     if (isChangedToNextMonth) slideFromRightToLeft() else slideFromLeftToRight()
                 }
             },
-            label = "month calendar animated content by month value"
+            label = "month calendar animated content"
         ) {
             val monthInfo = getMonthInfo(
                 year = it.year,

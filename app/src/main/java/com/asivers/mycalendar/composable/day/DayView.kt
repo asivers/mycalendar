@@ -1,5 +1,6 @@
 package com.asivers.mycalendar.composable.day
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -73,6 +74,7 @@ fun DayViewPreview() {
     }
 }
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun DayView(
@@ -107,24 +109,30 @@ fun DayView(
             )
         }
         AnimatedContent(
-            targetState = selectedDay.intValue,
+            targetState = selectedMonthInfo.value,
             transitionSpec = { fadeSlow() },
-            label = "day view animated content by day"
-        ) { selectedDayValue ->
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .padding(0.dp, 20.dp)
-            ) {
-                DaysLine(
-                    onDayChanged = { changeDay(selectedYearInfo, selectedMonthInfo, selectedDay, it) },
-                    selectedDay = selectedDayValue,
-                    thisMonthInfo = thisMonthInfo,
-                    weekendMode = weekendMode,
-                    schemes = schemes
-                )
-                Spacer(modifier = Modifier.weight(1f))
+            label = "day view animated content by dropdowns"
+        ) {
+            AnimatedContent(
+                targetState = selectedDay.intValue,
+                transitionSpec = { fadeSlow() },
+                label = "day view animated content by day selection"
+            ) { selectedDayValue ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .padding(0.dp, 20.dp)
+                ) {
+                    DaysLine(
+                        onDayChanged = { changeDay(selectedYearInfo, selectedMonthInfo, selectedDay, it) },
+                        selectedDay = selectedDayValue,
+                        thisMonthInfo = thisMonthInfo,
+                        weekendMode = weekendMode,
+                        schemes = schemes
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                }
             }
         }
     }
