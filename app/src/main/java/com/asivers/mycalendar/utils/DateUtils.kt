@@ -1,7 +1,7 @@
 package com.asivers.mycalendar.utils
 
 import com.asivers.mycalendar.data.AdjacentMonthsInfo
-import com.asivers.mycalendar.data.DayInMonthGridInfo
+import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.HolidaysAndNotHolidays
 import com.asivers.mycalendar.data.MonthInfo
@@ -99,11 +99,11 @@ private fun getAdjacentMonthsInfo(
     )
 }
 
-fun getDayInMonthGridInfo(
+fun getDayInfo(
     dayValueRaw: Int, // including values outside of this month: -1, 0, 1, 2, ..., 30, 31, 32, 33 and so on
     monthInfo: MonthInfo,
     weekendMode: WeekendMode
-): DayInMonthGridInfo {
+): DayInfo {
     val inPrevMonth = dayValueRaw <= 0
     val inThisMonth = dayValueRaw in 1..monthInfo.numberOfDays
 
@@ -117,7 +117,7 @@ fun getDayInMonthGridInfo(
         today = monthInfo.today
     } else {
         if (monthInfo.adjacentMonthsInfo == null) {
-            return DayInMonthGridInfo(dayValueRaw, false)
+            return DayInfo(dayValueRaw, false)
         }
         if (inPrevMonth) {
             dayValue = dayValueRaw + monthInfo.adjacentMonthsInfo.prevMonthNumberOfDays
@@ -135,7 +135,7 @@ fun getDayInMonthGridInfo(
     val isWeekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, holidaysAndNotHolidays)
     val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
 
-    return DayInMonthGridInfo(dayValue, inThisMonth, isToday, isWeekend, isHoliday)
+    return DayInfo(dayValue, inThisMonth, isToday, isWeekend, isHoliday)
 }
 
 private fun isWeekend(

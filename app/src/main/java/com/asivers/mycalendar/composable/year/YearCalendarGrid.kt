@@ -41,7 +41,7 @@ import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.utils.getDayInMonthGridInfo
+import com.asivers.mycalendar.utils.getDayInfo
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
@@ -238,12 +238,12 @@ fun DayInYearCalendarGrid(
     schemes: SchemeContainer
 ) {
     val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 1
-    val dayInMonthGridInfo = getDayInMonthGridInfo(dayValueRaw, monthInfo, weekendMode)
-    val dayValue = dayInMonthGridInfo.dayValue
-    val inThisMonth = dayInMonthGridInfo.inThisMonth
-    val isToday = dayInMonthGridInfo.isToday
-    val isWeekend = dayInMonthGridInfo.isWeekend
-    val isHoliday = dayInMonthGridInfo.isHoliday
+    val dayInfo = getDayInfo(dayValueRaw, monthInfo, weekendMode)
+    val dayValue = dayInfo.dayValue
+    val inThisMonth = dayInfo.inThisMonth
+    val isToday = dayInfo.isToday
+    val isWeekend = dayInfo.isWeekend
+    val isHoliday = dayInfo.isHoliday
     Text(
         modifier = modifier
             .fillMaxSize()

@@ -1,10 +1,9 @@
 package com.asivers.mycalendar.data
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class DayInfo(
-    val holiday: HolidayInfo? = null,
-    val notHoliday: HolidayInfo? = null,
-    val notes: List<NoteInfo> = listOf()
+    val dayValue: Int,
+    val inThisMonth: Boolean,
+    val isToday: Boolean = false,
+    val isWeekend: Boolean = false,
+    val isHoliday: Boolean = false
 )
