@@ -45,6 +45,8 @@ import com.asivers.mycalendar.utils.getHolidayInfo
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getSchemesForPreview
+import com.asivers.mycalendar.utils.nextDay
+import com.asivers.mycalendar.utils.previousDay
 import com.asivers.mycalendar.utils.translateHolidayInfo
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -153,16 +155,8 @@ fun DayView(
                     )
                     ClickableSpacers(
                         modifier = Modifier.weight(1f),
-                        onClickLeft = {
-                            val previousDay = selectedDayValue - 1
-                            val inThisMonth = previousDay in 1..thisMonthInfo.numberOfDays
-                            changeDay(selectedYearInfo, selectedMonthInfo, selectedDay, previousDay, inThisMonth)
-                        },
-                        onClickRight = {
-                            val nextDay = selectedDayValue + 1
-                            val inThisMonth = nextDay in 1..thisMonthInfo.numberOfDays
-                            changeDay(selectedYearInfo, selectedMonthInfo, selectedDay, nextDay, inThisMonth)
-                        }
+                        onClickLeft = { previousDay(selectedYearInfo, selectedMonthInfo, selectedDay) },
+                        onClickRight = { nextDay(selectedYearInfo, selectedMonthInfo, selectedDay) }
                     )
                 }
             }
