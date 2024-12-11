@@ -53,7 +53,7 @@ fun SelectYearDropdownPreview() {
     ) {
         SelectYearDropdown(
             selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-            selectedMonthInfo = SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex()),
+            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
             showYearView = false,
             schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
         )
@@ -64,7 +64,7 @@ fun SelectYearDropdownPreview() {
 fun SelectYearDropdown(
     modifier: Modifier = Modifier,
     selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: SelectedMonthInfo,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
     showYearView: Boolean,
     schemes: SchemeContainer
 ) {
@@ -108,7 +108,7 @@ fun SelectYearDropdownList(
     modifier: Modifier = Modifier,
     isExpanded: MutableState<Boolean>,
     selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: SelectedMonthInfo,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
     showYearView: Boolean,
     schemes: SchemeContainer
 ) {
@@ -144,13 +144,17 @@ fun SelectYearDropdownList(
                     },
                     onClick = {
                         isExpanded.value = false
-                        val selectedYearVal = getYear(yearIndex)
+                        val selectedYear = getYear(yearIndex)
                         selectedYearInfo.value = SelectedYearInfo(
-                            year = getYear(yearIndex),
+                            year = selectedYear,
                             byDropdown = true
                         )
                         if (!showYearView) {
-                            selectedMonthInfo.year = selectedYearVal
+                            selectedMonthInfo.value = SelectedMonthInfo(
+                                year = selectedYear,
+                                monthIndex = selectedMonthInfo.value.monthIndex,
+                                byDropdown = true
+                            )
                         }
                     },
                     modifier = Modifier.height(itemHeightDp.dp),

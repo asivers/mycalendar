@@ -76,7 +76,7 @@ fun TopDropdownsRow(
         SelectYearDropdown(
             modifier = Modifier.wrapContentWidth(),
             selectedYearInfo = selectedYearInfo,
-            selectedMonthInfo = selectedMonthInfo.value,
+            selectedMonthInfo = selectedMonthInfo,
             showYearView = viewShownInfo.value.current == ViewShown.YEAR,
             schemes = schemes
         )

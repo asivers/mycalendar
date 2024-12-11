@@ -131,7 +131,6 @@ fun MonthView(
         }
         Column(modifier = Modifier.weight(8f)) {
             MonthCalendarGrid(
-                selectedYearInfo = selectedYearInfo,
                 selectedMonthInfo = selectedMonthInfo,
                 onDaySelected = onDaySelected,
                 weekendMode = weekendMode,

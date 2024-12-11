@@ -36,7 +36,6 @@ import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedMonthInfo
-import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
@@ -53,13 +52,10 @@ import com.asivers.mycalendar.utils.slideFromRightToLeft
 fun MonthCalendarGridPreview() {
     Box(
         modifier = Modifier
-            .background(
-                brush = getMonthAndYearViewBackgroundGradient(SUMMER)
-            )
+            .background(brush = getMonthAndYearViewBackgroundGradient(SUMMER))
             .fillMaxWidth()
     ) {
         MonthCalendarGrid(
-            selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
             selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
             onDaySelected = {},
             weekendMode = WeekendMode.SATURDAY_SUNDAY,
@@ -71,7 +67,6 @@ fun MonthCalendarGridPreview() {
 @Composable
 fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
-    selectedYearInfo: MutableState<SelectedYearInfo>,
     selectedMonthInfo: MutableState<SelectedMonthInfo>,
     onDaySelected: (Int) -> Unit,
     weekendMode: WeekendMode,
@@ -85,28 +80,36 @@ fun MonthCalendarGrid(
         HeaderWeekInMonthCalendarGrid(
             schemes = schemes
         )
-        if (selectedYearInfo.value.byDropdown) {
-            AnimatedContent(
-                targetState = selectedYearInfo.value,
-                transitionSpec = { fadeSlow() },
-                label = "month calendar animated content by year value"
-            ) {
-                AnimatedValuableWeeksInMonthCalendarGrid(
-                    selectedMonthInfo = selectedMonthInfo,
-                    onDaySelected = onDaySelected,
-                    thisYear = it.year,
-                    weekendMode = weekendMode,
-                    schemes = schemes
-                )
-            }
-        } else {
-            AnimatedValuableWeeksInMonthCalendarGrid(
-                selectedMonthInfo = selectedMonthInfo,
-                onDaySelected = onDaySelected,
-                thisYear = selectedYearInfo.value.year,
-                weekendMode = weekendMode,
-                schemes = schemes
+        AnimatedContent(
+            targetState = selectedMonthInfo.value,
+            transitionSpec = {
+                if (targetState.byDropdown) {
+                    fadeSlow()
+                } else {
+                    val monthIndexDiff = targetState.monthIndex - initialState.monthIndex
+                    val isChangedToNextMonth = monthIndexDiff == 1 || monthIndexDiff == -11
+                    if (isChangedToNextMonth) slideFromRightToLeft() else slideFromLeftToRight()
+                }
+            },
+            label = "month calendar animated content by month value"
+        ) {
+            val monthInfo = getMonthInfo(
+                year = it.year,
+                monthIndex = it.monthIndex,
+                countryHolidayScheme = schemes.countryHoliday,
+                forYearView = false
             )
+            Column {
+                repeat(6) { weekIndex ->
+                    WeekInMonthCalendarGrid(
+                        onDaySelected = onDaySelected,
+                        weekIndex = weekIndex,
+                        monthInfo = monthInfo,
+                        weekendMode = weekendMode,
+                        schemes = schemes
+                    )
+                }
+            }
         }
     }
 }
@@ -130,49 +133,6 @@ fun HeaderWeekInMonthCalendarGrid(
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
-        }
-    }
-}
-
-@Composable
-fun AnimatedValuableWeeksInMonthCalendarGrid(
-    modifier: Modifier = Modifier,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-    onDaySelected: (Int) -> Unit,
-    thisYear: Int,
-    weekendMode: WeekendMode,
-    schemes: SchemeContainer
-) {
-    AnimatedContent(
-        modifier = modifier,
-        targetState = selectedMonthInfo.value,
-        transitionSpec = {
-            if (targetState.byDropdown) {
-                fadeSlow()
-            } else {
-                val monthIndexDiff = targetState.monthIndex - initialState.monthIndex
-                val isChangedToNextMonth = monthIndexDiff == 1 || monthIndexDiff == -11
-                if (isChangedToNextMonth) slideFromRightToLeft() else slideFromLeftToRight()
-            }
-        },
-        label = "month calendar animated content by month value"
-    ) {
-        val monthInfo = getMonthInfo(
-            year = thisYear,
-            monthIndex = it.monthIndex,
-            countryHolidayScheme = schemes.countryHoliday,
-            forYearView = false
-        )
-        Column {
-            repeat(6) { weekIndex ->
-                WeekInMonthCalendarGrid(
-                    onDaySelected = onDaySelected,
-                    weekIndex = weekIndex,
-                    monthInfo = monthInfo,
-                    weekendMode = weekendMode,
-                    schemes = schemes
-                )
-            }
         }
     }
 }
