@@ -1,10 +1,13 @@
 package com.asivers.mycalendar.utils
 
+import androidx.compose.runtime.MutableState
 import com.asivers.mycalendar.data.AdjacentMonthsInfo
 import com.asivers.mycalendar.data.DayInMonthGridInfo
 import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.HolidaysAndNotHolidays
 import com.asivers.mycalendar.data.MonthInfo
+import com.asivers.mycalendar.data.SelectedMonthInfo
+import com.asivers.mycalendar.data.SelectedYearInfo
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.enums.WeekendMode
 import java.util.Calendar
@@ -156,4 +159,40 @@ private fun isWeekend(
 private fun isHoliday(dayValue: Int, holidaysAndNotHolidays: HolidaysAndNotHolidays): Boolean {
     return dayValue !in holidaysAndNotHolidays.notHolidays &&
             dayValue in holidaysAndNotHolidays.holidays
+}
+
+fun previousMonth(
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
+) {
+    val monthIndexBeforeUpdate = selectedMonthInfo.value.monthIndex
+    val yearBeforeUpdate = selectedYearInfo.value.year
+
+    if (monthIndexBeforeUpdate == 0) {
+        if (yearBeforeUpdate == 1900) return
+        val yearAfterUpdate = yearBeforeUpdate - 1
+        selectedMonthInfo.value = SelectedMonthInfo(yearAfterUpdate, 11)
+        selectedYearInfo.value = SelectedYearInfo(yearAfterUpdate)
+    } else {
+        val monthIndexAfterUpdate = monthIndexBeforeUpdate - 1
+        selectedMonthInfo.value = SelectedMonthInfo(yearBeforeUpdate, monthIndexAfterUpdate)
+    }
+}
+
+fun nextMonth(
+    selectedYearInfo: MutableState<SelectedYearInfo>,
+    selectedMonthInfo: MutableState<SelectedMonthInfo>,
+) {
+    val monthIndexBeforeUpdate = selectedMonthInfo.value.monthIndex
+    val yearBeforeUpdate = selectedYearInfo.value.year
+
+    if (monthIndexBeforeUpdate == 11) {
+        if (yearBeforeUpdate == 2100) return
+        val yearAfterUpdate = yearBeforeUpdate + 1
+        selectedMonthInfo.value = SelectedMonthInfo(yearAfterUpdate, 0)
+        selectedYearInfo.value = SelectedYearInfo(yearAfterUpdate)
+    } else {
+        val monthIndexAfterUpdate = monthIndexBeforeUpdate + 1
+        selectedMonthInfo.value = SelectedMonthInfo(yearBeforeUpdate, monthIndexAfterUpdate)
+    }
 }

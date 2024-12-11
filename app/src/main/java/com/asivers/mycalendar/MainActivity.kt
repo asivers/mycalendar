@@ -41,6 +41,7 @@ import com.asivers.mycalendar.utils.getCurrentDayOfMonth
 import com.asivers.mycalendar.utils.getCurrentMonthIndex
 import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
+import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getOnDaySelectedCallback
 import com.asivers.mycalendar.utils.getSavedCountry
 import com.asivers.mycalendar.utils.getSavedLocale
@@ -161,6 +162,13 @@ class MainActivity : ComponentActivity() {
                                     viewShownInfo = viewShownInfo,
                                     animatedVisibilityScope = this@AnimatedContent,
                                     sharedTransitionScope = this@SharedTransitionLayout,
+                                    thisMonthInfo = getMonthInfo(
+                                        year = selectedMonthInfo.value.year,
+                                        monthIndex = selectedMonthInfo.value.monthIndex,
+                                        countryHolidayScheme = schemes.countryHoliday,
+                                        forYearView = false
+                                    ),
+                                    weekendMode = selectedWeekendMode.value,
                                     schemes = schemes
                                 )
                             }

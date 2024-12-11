@@ -38,7 +38,9 @@ import com.asivers.mycalendar.utils.getCurrentYear
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getMonthAndYearViewBackgroundGradient
 import com.asivers.mycalendar.utils.getSchemesForPreview
+import com.asivers.mycalendar.utils.nextMonth
 import com.asivers.mycalendar.utils.noRippleClickable
+import com.asivers.mycalendar.utils.previousMonth
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
@@ -165,41 +167,5 @@ fun MonthView(
             viewShownInfo = viewShownInfo,
             schemes = schemes
         )
-    }
-}
-
-private fun previousMonth(
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-) {
-    val monthIndexBeforeUpdate = selectedMonthInfo.value.monthIndex
-    val yearBeforeUpdate = selectedYearInfo.value.year
-
-    if (monthIndexBeforeUpdate == 0) {
-        if (yearBeforeUpdate == 1900) return
-        val yearAfterUpdate = yearBeforeUpdate - 1
-        selectedMonthInfo.value = SelectedMonthInfo(yearAfterUpdate, 11)
-        selectedYearInfo.value = SelectedYearInfo(yearAfterUpdate)
-    } else {
-        val monthIndexAfterUpdate = monthIndexBeforeUpdate - 1
-        selectedMonthInfo.value = SelectedMonthInfo(yearBeforeUpdate, monthIndexAfterUpdate)
-    }
-}
-
-private fun nextMonth(
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-) {
-    val monthIndexBeforeUpdate = selectedMonthInfo.value.monthIndex
-    val yearBeforeUpdate = selectedYearInfo.value.year
-
-    if (monthIndexBeforeUpdate == 11) {
-        if (yearBeforeUpdate == 2100) return
-        val yearAfterUpdate = yearBeforeUpdate + 1
-        selectedMonthInfo.value = SelectedMonthInfo(yearAfterUpdate, 0)
-        selectedYearInfo.value = SelectedYearInfo(yearAfterUpdate)
-    } else {
-        val monthIndexAfterUpdate = monthIndexBeforeUpdate + 1
-        selectedMonthInfo.value = SelectedMonthInfo(yearBeforeUpdate, monthIndexAfterUpdate)
     }
 }
