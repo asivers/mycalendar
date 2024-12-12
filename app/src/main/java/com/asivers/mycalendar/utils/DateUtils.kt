@@ -5,6 +5,7 @@ import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.HolidaysAndNotHolidays
 import com.asivers.mycalendar.data.MonthInfo
+import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekendMode
@@ -165,4 +166,14 @@ private fun isHoliday(dayValue: Int, holidaysAndNotHolidays: HolidaysAndNotHolid
 
 fun getHolidayInfo(dayValue: Int, holidaysAndNotHolidays: HolidaysAndNotHolidays): HolidayInfo? {
     return holidaysAndNotHolidays.notHolidays[dayValue] ?: holidaysAndNotHolidays.holidays[dayValue]
+}
+
+fun getDifferenceInDays(
+    selectedDateInfo1: SelectedDateInfo,
+    selectedDateInfo2: SelectedDateInfo
+): Int {
+    // todo get rid of legacy date classes
+    val date1 = selectedDateInfo1.getDate()
+    val date2 = selectedDateInfo2.getDate()
+    return ((date1.timeInMillis - date2.timeInMillis) / 86_400_000).toInt()
 }

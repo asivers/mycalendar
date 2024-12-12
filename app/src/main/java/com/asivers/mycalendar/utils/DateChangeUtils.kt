@@ -4,14 +4,9 @@ import androidx.compose.runtime.MutableState
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
 import java.util.Calendar
-import java.util.GregorianCalendar
 
 fun previousMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
-    val date = GregorianCalendar(
-        selectedDateInfo.year,
-        selectedDateInfo.monthIndex,
-        selectedDateInfo.dayOfMonth
-    )
+    val date = selectedDateInfo.getDate()
     date.add(Calendar.MONTH, -1) // now it is previous month
 
     val updatedYear = date.get(Calendar.YEAR)
@@ -25,11 +20,7 @@ fun previousMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
 }
 
 fun nextMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
-    val date = GregorianCalendar(
-        selectedDateInfo.year,
-        selectedDateInfo.monthIndex,
-        selectedDateInfo.dayOfMonth
-    )
+    val date = selectedDateInfo.getDate()
     date.add(Calendar.MONTH, 1) // now it is next month
 
     val updatedYear = date.get(Calendar.YEAR)
@@ -43,11 +34,7 @@ fun nextMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
 }
 
 fun previousDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
-    val date = GregorianCalendar(
-        selectedDateInfo.year,
-        selectedDateInfo.monthIndex,
-        selectedDateInfo.dayOfMonth
-    )
+    val date = selectedDateInfo.getDate()
     date.add(Calendar.DAY_OF_MONTH, -1) // now it is previous day
 
     val updatedYear = date.get(Calendar.YEAR)
@@ -61,11 +48,7 @@ fun previousDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
 }
 
 fun nextDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
-    val date = GregorianCalendar(
-        selectedDateInfo.year,
-        selectedDateInfo.monthIndex,
-        selectedDateInfo.dayOfMonth
-    )
+    val date = selectedDateInfo.getDate()
     date.add(Calendar.DAY_OF_MONTH, 1) // now it is next day
 
     val updatedYear = date.get(Calendar.YEAR)

@@ -37,6 +37,10 @@ fun slideFromRightToLeft(): ContentTransform {
     return slideInFromRight() togetherWith slideOutToLeft()
 }
 
+fun slideWeek(days: Int): ContentTransform {
+    return slideInHorizontally { days * it / 7 } togetherWith slideOutHorizontally { -days * it / 7 }
+}
+
 fun animateHeaderOnViewChange(
     targetState: ViewShownInfo,
     initialState: ViewShownInfo,

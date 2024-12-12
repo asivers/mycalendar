@@ -1,5 +1,6 @@
 package com.asivers.mycalendar.composable.day
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
@@ -21,14 +22,19 @@ import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.ExistingLocale
+import com.asivers.mycalendar.enums.SwipeType
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeDay
+import com.asivers.mycalendar.utils.fadeNormal
+import com.asivers.mycalendar.utils.getDifferenceInDays
 import com.asivers.mycalendar.utils.getHolidayInfo
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getOnMonthSelected
 import com.asivers.mycalendar.utils.getOnYearSelected
 import com.asivers.mycalendar.utils.nextDay
+import com.asivers.mycalendar.utils.noTransform
 import com.asivers.mycalendar.utils.previousDay
+import com.asivers.mycalendar.utils.slideWeek
 import com.asivers.mycalendar.utils.translateHolidayInfo
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -70,15 +76,31 @@ fun DayView(
                 .padding(0.dp, 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            DaysLine(
-                onDayChanged = { thisDayValue, inMonth ->
-                    selectedDateState.value = changeDay(selectedDateState.value, thisDayValue, inMonth)
+            AnimatedContent(
+                targetState = selectedDateState.value,
+                transitionSpec = {
+                    when (val differenceInDays = getDifferenceInDays(targetState, initialState)) {
+                        0 -> noTransform()
+                        in -3..3 -> slideWeek(differenceInDays)
+                        else -> fadeNormal()
+                    }
                 },
-                selectedDay = selectedDateState.value.dayOfMonth,
-                thisMonthInfo = thisMonthInfo,
-                weekendMode = weekendMode,
-                schemes = schemes
-            )
+                label = "animated content days line"
+            ) { selectedDateInfo ->
+                DaysLine(
+                    onDayChanged = { thisDayValue, inMonth ->
+                        selectedDateState.value = changeDay(selectedDateInfo, thisDayValue, inMonth)
+                    },
+                    onSwipe = {
+                        selectedDateState.value = if (it == SwipeType.RIGHT)
+                            nextDay(selectedDateInfo) else previousDay(selectedDateInfo)
+                    },
+                    selectedDay = selectedDateInfo.dayOfMonth,
+                    thisMonthInfo = thisMonthInfo,
+                    weekendMode = weekendMode,
+                    schemes = schemes
+                )
+            }
             val holidayInfo = getHolidayInfo(
                 selectedDateState.value.dayOfMonth,
                 thisMonthInfo.holidaysAndNotHolidays
