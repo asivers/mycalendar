@@ -1,34 +1,35 @@
 package com.asivers.mycalendar.utils
 
-import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
+import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.ViewShownInfo
+import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.ViewShown
 
-fun changeView(viewShownInfo: MutableState<ViewShownInfo>, changeTo: ViewShown) {
-    viewShownInfo.value = ViewShownInfo(
+fun changeView(viewShownState: MutableState<ViewShownInfo>, changeTo: ViewShown) {
+    viewShownState.value = ViewShownInfo(
         current = changeTo,
-        previous = viewShownInfo.value.current,
-        yearViewWasShown = changeTo == ViewShown.YEAR || viewShownInfo.value.yearViewWasShown
+        previous = viewShownState.value.current,
+        yearViewWasShown = changeTo == ViewShown.YEAR || viewShownState.value.yearViewWasShown
     )
 }
 
-fun backToPreviousView(viewShownInfo: MutableState<ViewShownInfo>) {
-    if (viewShownInfo.value.previous != null) {
-        changeView(viewShownInfo, viewShownInfo.value.previous!!)
+fun backToPreviousView(viewShownState: MutableState<ViewShownInfo>) {
+    if (viewShownState.value.previous != null) {
+        changeView(viewShownState, viewShownState.value.previous!!)
     }
 }
 
 fun getOnDaySelectedCallback(
-    selectedDay: MutableIntState,
-    viewShownInfo: MutableState<ViewShownInfo>
-): (Int) -> Unit {
-    return { dayValue: Int ->
-        selectedDay.intValue = dayValue
-        viewShownInfo.value = ViewShownInfo(
+    viewShownState: MutableState<ViewShownInfo>,
+    selectedDateState: MutableState<SelectedDateInfo>
+): (Int, DisplayedMonth) -> Unit {
+    return { dayValue: Int, inMonth: DisplayedMonth ->
+        selectedDateState.value = changeDay(selectedDateState.value, dayValue, inMonth)
+        viewShownState.value = ViewShownInfo(
             current = ViewShown.DAY,
-            previous = viewShownInfo.value.current,
-            yearViewWasShown = viewShownInfo.value.yearViewWasShown
+            previous = viewShownState.value.current,
+            yearViewWasShown = viewShownState.value.yearViewWasShown
         )
     }
 }

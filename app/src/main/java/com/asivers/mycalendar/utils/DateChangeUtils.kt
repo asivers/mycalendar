@@ -1,93 +1,125 @@
 package com.asivers.mycalendar.utils
 
-import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
-import com.asivers.mycalendar.data.SelectedMonthInfo
-import com.asivers.mycalendar.data.SelectedYearInfo
+import com.asivers.mycalendar.data.SelectedDateInfo
+import com.asivers.mycalendar.enums.DisplayedMonth
 import java.util.Calendar
 import java.util.GregorianCalendar
 
-fun previousMonth(
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-) {
-    val monthIndexBeforeUpdate = selectedMonthInfo.value.monthIndex
-    val yearBeforeUpdate = selectedYearInfo.value.year
-
-    if (monthIndexBeforeUpdate == 0) {
-        if (yearBeforeUpdate == 1900) return
-        val yearAfterUpdate = yearBeforeUpdate - 1
-        selectedMonthInfo.value = SelectedMonthInfo(yearAfterUpdate, 11)
-        selectedYearInfo.value = SelectedYearInfo(yearAfterUpdate)
-    } else {
-        val monthIndexAfterUpdate = monthIndexBeforeUpdate - 1
-        selectedMonthInfo.value = SelectedMonthInfo(yearBeforeUpdate, monthIndexAfterUpdate)
-    }
-}
-
-fun nextMonth(
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-) {
-    val monthIndexBeforeUpdate = selectedMonthInfo.value.monthIndex
-    val yearBeforeUpdate = selectedYearInfo.value.year
-
-    if (monthIndexBeforeUpdate == 11) {
-        if (yearBeforeUpdate == 2100) return
-        val yearAfterUpdate = yearBeforeUpdate + 1
-        selectedMonthInfo.value = SelectedMonthInfo(yearAfterUpdate, 0)
-        selectedYearInfo.value = SelectedYearInfo(yearAfterUpdate)
-    } else {
-        val monthIndexAfterUpdate = monthIndexBeforeUpdate + 1
-        selectedMonthInfo.value = SelectedMonthInfo(yearBeforeUpdate, monthIndexAfterUpdate)
-    }
-}
-
-fun previousDay(
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-    selectedDay: MutableIntState
-) {
+fun previousMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
     val date = GregorianCalendar(
-        selectedMonthInfo.value.year,
-        selectedMonthInfo.value.monthIndex,
-        selectedDay.intValue)
+        selectedDateInfo.year,
+        selectedDateInfo.monthIndex,
+        selectedDateInfo.dayOfMonth
+    )
+    date.add(Calendar.MONTH, -1) // now it is previous month
+
+    val updatedYear = date.get(Calendar.YEAR)
+    val updatedMonthIndex = date.get(Calendar.MONTH)
+    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
+
+    if (updatedYear < 1900) {
+        return selectedDateInfo
+    }
+    return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
+}
+
+fun nextMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
+    val date = GregorianCalendar(
+        selectedDateInfo.year,
+        selectedDateInfo.monthIndex,
+        selectedDateInfo.dayOfMonth
+    )
+    date.add(Calendar.MONTH, 1) // now it is next month
+
+    val updatedYear = date.get(Calendar.YEAR)
+    val updatedMonthIndex = date.get(Calendar.MONTH)
+    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
+
+    if (updatedYear > 2100) {
+        return selectedDateInfo
+    }
+    return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
+}
+
+fun previousDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
+    val date = GregorianCalendar(
+        selectedDateInfo.year,
+        selectedDateInfo.monthIndex,
+        selectedDateInfo.dayOfMonth
+    )
     date.add(Calendar.DAY_OF_MONTH, -1) // now it is previous day
-    selectedDay.intValue = date.get(Calendar.DAY_OF_MONTH)
-    if (date.get(Calendar.MONTH) != selectedMonthInfo.value.monthIndex) {
-        previousMonth(selectedYearInfo, selectedMonthInfo)
+
+    val updatedYear = date.get(Calendar.YEAR)
+    val updatedMonthIndex = date.get(Calendar.MONTH)
+    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
+
+    if (updatedYear < 1900) {
+        return selectedDateInfo
     }
+    return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
 }
 
-fun nextDay(
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-    selectedDay: MutableIntState
-) {
+fun nextDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
     val date = GregorianCalendar(
-        selectedMonthInfo.value.year,
-        selectedMonthInfo.value.monthIndex,
-        selectedDay.intValue)
+        selectedDateInfo.year,
+        selectedDateInfo.monthIndex,
+        selectedDateInfo.dayOfMonth
+    )
     date.add(Calendar.DAY_OF_MONTH, 1) // now it is next day
-    selectedDay.intValue = date.get(Calendar.DAY_OF_MONTH)
-    if (date.get(Calendar.MONTH) != selectedMonthInfo.value.monthIndex) {
-        nextMonth(selectedYearInfo, selectedMonthInfo)
+
+    val updatedYear = date.get(Calendar.YEAR)
+    val updatedMonthIndex = date.get(Calendar.MONTH)
+    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
+
+    if (updatedYear > 2100) {
+        return selectedDateInfo
     }
+    return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
 }
 
 fun changeDay(
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-    selectedDay: MutableIntState,
-    dayValue: Int,
-    inThisMonth: Boolean
-) {
-    selectedDay.intValue = dayValue
-    if (!inThisMonth) {
-        if (dayValue < 15) {
-            nextMonth(selectedYearInfo, selectedMonthInfo)
-        } else {
-            previousMonth(selectedYearInfo, selectedMonthInfo)
-        }
+    selectedDateInfo: SelectedDateInfo,
+    newDayOfMonth: Int,
+    inMonth: DisplayedMonth
+): SelectedDateInfo {
+    val updatedSelectedDateInfo = when (inMonth) {
+        DisplayedMonth.PREVIOUS -> previousMonth(selectedDateInfo)
+        DisplayedMonth.THIS -> selectedDateInfo
+        DisplayedMonth.NEXT -> nextMonth(selectedDateInfo)
     }
+    return updateOnlyDayOfMonth(updatedSelectedDateInfo, newDayOfMonth)
+}
+
+private fun updateOnlyDayOfMonth(
+    selectedDateInfo: SelectedDateInfo,
+    newDayOfMonth: Int
+): SelectedDateInfo {
+    return SelectedDateInfo(selectedDateInfo.year, selectedDateInfo.monthIndex, newDayOfMonth)
+}
+
+fun getOnMonthSelected(
+    selectedDateState: MutableState<SelectedDateInfo>,
+    selectedMonthIndex: Int
+) {
+    selectedDateState.value = SelectedDateInfo(
+        year = selectedDateState.value.year,
+        monthIndex = selectedMonthIndex,
+        dayOfMonth = selectedDateState.value.dayOfMonth,
+        byDropdown = true
+    )
+}
+
+fun getOnYearSelected(
+    selectedDateState: MutableState<SelectedDateInfo>,
+    selectedYear: Int,
+    onYearView: Boolean
+) {
+    selectedDateState.value = SelectedDateInfo(
+        year = selectedYear,
+        monthIndex = selectedDateState.value.monthIndex,
+        dayOfMonth = selectedDateState.value.dayOfMonth,
+        yearOnMonthView = if (onYearView) selectedDateState.value.yearOnMonthView else selectedYear,
+        byDropdown = true
+    )
 }

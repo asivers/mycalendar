@@ -22,13 +22,14 @@ import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getDayInfo
 
 @Composable
 fun DaysLine(
     modifier: Modifier = Modifier,
-    onDayChanged: (Int, Boolean) -> Unit,
+    onDayChanged: (Int, DisplayedMonth) -> Unit,
     selectedDay: Int,
     thisMonthInfo: MonthInfo,
     weekendMode: WeekendMode,
@@ -44,7 +45,7 @@ fun DaysLine(
             val dayValueRaw = selectedDay + it - 3
             val dayInfo = getDayInfo(dayValueRaw, thisMonthInfo, weekendMode)
             val dayValue = dayInfo.dayValue
-            val inThisMonth = dayInfo.inThisMonth
+            val inMonth = dayInfo.inMonth
             val isToday = dayInfo.isToday
             val isWeekend = dayInfo.isWeekend
             val isHoliday = dayInfo.isHoliday
@@ -59,7 +60,7 @@ fun DaysLine(
                             style = Stroke(width = 4f)
                         )
                     },
-                onClick = { onDayChanged(dayValue, inThisMonth) },
+                onClick = { onDayChanged(dayValue, inMonth) },
                 shape = RectangleShape,
                 colors = TRANSPARENT_BUTTON_COLORS,
                 contentPadding = PaddingValues(0.dp),

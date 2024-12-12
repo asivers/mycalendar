@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -19,10 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
@@ -31,26 +27,16 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.changeView
-import com.asivers.mycalendar.utils.getSchemesForPreview
-
-@Preview
-@Composable
-fun YearViewButtonPreview() {
-    YearViewButton(
-        viewShownInfo = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) },
-        schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
-    )
-}
 
 @Composable
 fun YearViewButton(
     modifier: Modifier = Modifier,
-    viewShownInfo: MutableState<ViewShownInfo>,
+    viewShownState: MutableState<ViewShownInfo>,
     schemes: SchemeContainer
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
     Button(
-        onClick = { changeView(viewShownInfo, ViewShown.YEAR) },
+        onClick = { changeView(viewShownState, ViewShown.YEAR) },
         modifier = modifier
             .fillMaxWidth()
             .height(64.dp) // todo add to size scheme
@@ -68,7 +54,7 @@ fun YearViewButton(
                     onDragStart = { offset = 0f },
                     onDragEnd = {
                         if (offset < -20f) {
-                            changeView(viewShownInfo, ViewShown.YEAR)
+                            changeView(viewShownState, ViewShown.YEAR)
                         }
                     }
                 ) { _, dragAmount ->

@@ -11,40 +11,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.enums.ExistingLocale
 import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
-import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
-import com.asivers.mycalendar.utils.PreviewFrameWithSettingsHeader
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
-import com.asivers.mycalendar.utils.getSchemesForPreview
-import com.asivers.mycalendar.utils.getSettingViewBackgroundGradient
 import kotlin.enums.enumEntries
-
-@Preview(showBackground = true)
-@Composable
-fun SettingsViewPreview() {
-    val schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
-    PreviewFrameWithSettingsHeader(
-        viewShown = ViewShown.SETTINGS,
-        getBackground = { getSettingViewBackgroundGradient(it) },
-        schemes = schemes
-    ) {
-        SettingsView(
-            selectedCountry = remember { mutableStateOf(Country.RUSSIA) },
-            selectedLocale = remember { mutableStateOf(ExistingLocale.RU) },
-            selectedTheme = remember { mutableStateOf(UserTheme.THEME_SUMMER) },
-            selectedWeekendMode = remember { mutableStateOf(WeekendMode.SATURDAY_SUNDAY) },
-            schemes = schemes
-        )
-    }
-}
 
 @Composable
 fun SettingsView(

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,47 +24,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
-import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.SchemeContainer
-import com.asivers.mycalendar.data.SelectedMonthInfo
-import com.asivers.mycalendar.data.SelectedYearInfo
-import com.asivers.mycalendar.utils.getCurrentMonthIndex
-import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
-
-@Preview(showBackground = true)
-@Composable
-fun SelectYearDropdownPreview() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = SUMMER.monthViewTop)
-    ) {
-        SelectYearDropdown(
-            selectedYearInfo = remember { mutableStateOf(SelectedYearInfo(getCurrentYear())) },
-            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
-            showYearView = false,
-            schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
-        )
-    }
-}
 
 @Composable
 fun SelectYearDropdown(
     modifier: Modifier = Modifier,
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-    showYearView: Boolean,
+    onYearSelected: (Int) -> Unit,
+    thisYear: Int,
     schemes: SchemeContainer
 ) {
     val isExpanded = remember {
@@ -87,16 +60,15 @@ fun SelectYearDropdown(
         Box(modifier = Modifier.width(schemes.size.horizontal.yearDropdown)) {
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
-                text = selectedYearInfo.value.year.toString(),
+                text = thisYear.toString(),
                 color = Color.White,
                 fontFamily = MONTSERRAT_MEDIUM,
                 fontSize = schemes.size.font.dropdownHeader
             )
             SelectYearDropdownList(
                 isExpanded = isExpanded,
-                selectedYearInfo = selectedYearInfo,
-                selectedMonthInfo = selectedMonthInfo,
-                showYearView = showYearView,
+                onYearSelected = onYearSelected,
+                thisYear = thisYear,
                 schemes = schemes
             )
         }
@@ -107,9 +79,8 @@ fun SelectYearDropdown(
 fun SelectYearDropdownList(
     modifier: Modifier = Modifier,
     isExpanded: MutableState<Boolean>,
-    selectedYearInfo: MutableState<SelectedYearInfo>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
-    showYearView: Boolean,
+    onYearSelected: (Int) -> Unit,
+    thisYear: Int,
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
@@ -126,7 +97,7 @@ fun SelectYearDropdownList(
             modifier = Modifier
                 .height((itemHeightDp * 14).dp)
                 .width(schemes.size.horizontal.yearDropdown.plus(5.dp)),
-            state = LazyListState(getYearIndex(selectedYearInfo.value.year))
+            state = LazyListState(getYearIndex(thisYear))
         ) {
             items(201) { yearIndex ->
                 DropdownMenuItem(
@@ -134,9 +105,9 @@ fun SelectYearDropdownList(
                         Text(
                             text = getYear(yearIndex).toString(),
                             modifier = Modifier.fillMaxWidth(),
-                            color = if (selectedYearInfo.value.year == getYear(yearIndex))
+                            color = if (thisYear == getYear(yearIndex))
                                 schemes.color.viewsBottom else schemes.color.yearViewBtnTop,
-                            fontFamily = if (selectedYearInfo.value.year == getYear(yearIndex))
+                            fontFamily = if (thisYear == getYear(yearIndex))
                                 MONTSERRAT_MEDIUM else MONTSERRAT,
                             fontSize = schemes.size.font.main,
                             textAlign = TextAlign.Center
@@ -144,18 +115,7 @@ fun SelectYearDropdownList(
                     },
                     onClick = {
                         isExpanded.value = false
-                        val selectedYear = getYear(yearIndex)
-                        selectedYearInfo.value = SelectedYearInfo(
-                            year = selectedYear,
-                            byDropdown = true
-                        )
-                        if (!showYearView) {
-                            selectedMonthInfo.value = SelectedMonthInfo(
-                                year = selectedYear,
-                                monthIndex = selectedMonthInfo.value.monthIndex,
-                                byDropdown = true
-                            )
-                        }
+                        onYearSelected(getYear(yearIndex))
                     },
                     modifier = Modifier.height(itemHeightDp.dp),
                     contentPadding = PaddingValues(0.dp)

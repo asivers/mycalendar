@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -21,39 +20,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
-import com.asivers.mycalendar.constants.schemes.SUMMER
 import com.asivers.mycalendar.data.SchemeContainer
-import com.asivers.mycalendar.data.SelectedMonthInfo
-import com.asivers.mycalendar.utils.getCurrentMonthIndex
-import com.asivers.mycalendar.utils.getCurrentYear
-import com.asivers.mycalendar.utils.getSchemesForPreview
 import com.asivers.mycalendar.utils.noRippleClickable
-
-@Preview(showBackground = true)
-@Composable
-fun SelectMonthDropdownPreview() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = SUMMER.monthViewTop)
-    ) {
-        SelectMonthDropdown(
-            selectedMonthInfo = remember { mutableStateOf(SelectedMonthInfo(getCurrentYear(), getCurrentMonthIndex())) },
-            schemes = getSchemesForPreview(LocalConfiguration.current, LocalDensity.current)
-        )
-    }
-}
 
 @Composable
 fun SelectMonthDropdown(
     modifier: Modifier = Modifier,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
+    onMonthSelected: (Int) -> Unit,
+    thisMonthIndex: Int,
     schemes: SchemeContainer
 ) {
     val isExpanded = remember {
@@ -75,14 +53,14 @@ fun SelectMonthDropdown(
         Box {
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
-                text = schemes.translation.months[selectedMonthInfo.value.monthIndex],
+                text = schemes.translation.months[thisMonthIndex],
                 color = Color.White,
                 fontFamily = MONTSERRAT_BOLD,
                 fontSize = schemes.size.font.dropdownHeader
             )
             SelectMonthDropdownList(
                 isExpanded = isExpanded,
-                selectedMonthInfo = selectedMonthInfo,
+                onMonthSelected = onMonthSelected,
                 schemes = schemes
             )
         }
@@ -93,7 +71,7 @@ fun SelectMonthDropdown(
 fun SelectMonthDropdownList(
     modifier: Modifier = Modifier,
     isExpanded: MutableState<Boolean>,
-    selectedMonthInfo: MutableState<SelectedMonthInfo>,
+    onMonthSelected: (Int) -> Unit,
     schemes: SchemeContainer
 ) {
     DropdownMenu(
@@ -117,11 +95,7 @@ fun SelectMonthDropdownList(
                 },
                 onClick = {
                     isExpanded.value = false
-                    selectedMonthInfo.value = SelectedMonthInfo(
-                        year = selectedMonthInfo.value.year,
-                        monthIndex = index,
-                        byDropdown = true
-                    )
+                    onMonthSelected(index)
                 },
                 modifier = Modifier.height(itemHeightDp.dp)
             )

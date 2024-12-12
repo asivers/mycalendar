@@ -6,6 +6,7 @@ import com.asivers.mycalendar.data.HolidayInfo
 import com.asivers.mycalendar.data.HolidaysAndNotHolidays
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
+import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekendMode
 import java.util.Calendar
 import java.util.GregorianCalendar
@@ -18,7 +19,7 @@ fun getMonthInfo(
     year: Int,
     monthIndex: Int,
     countryHolidayScheme: CountryHolidayScheme,
-    forYearView: Boolean
+    forYearView: Boolean = false
 ): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
     val numberOfDays = firstOfThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
@@ -104,22 +105,26 @@ fun getDayInfo(
     monthInfo: MonthInfo,
     weekendMode: WeekendMode
 ): DayInfo {
-    val inPrevMonth = dayValueRaw <= 0
-    val inThisMonth = dayValueRaw in 1..monthInfo.numberOfDays
+    val inMonth = if (dayValueRaw <= 0)
+        DisplayedMonth.PREVIOUS
+    else if (dayValueRaw > monthInfo.numberOfDays)
+        DisplayedMonth.NEXT
+    else
+        DisplayedMonth.THIS
 
     val dayValue: Int
     val holidaysAndNotHolidays: HolidaysAndNotHolidays
     val today: Int?
 
-    if (inThisMonth) {
+    if (inMonth == DisplayedMonth.THIS) {
         dayValue = dayValueRaw
         holidaysAndNotHolidays = monthInfo.holidaysAndNotHolidays
         today = monthInfo.today
     } else {
         if (monthInfo.adjacentMonthsInfo == null) {
-            return DayInfo(dayValueRaw, false)
+            return DayInfo(dayValueRaw, inMonth)
         }
-        if (inPrevMonth) {
+        if (inMonth == DisplayedMonth.PREVIOUS) {
             dayValue = dayValueRaw + monthInfo.adjacentMonthsInfo.prevMonthNumberOfDays
             holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.prevMonthHolidaysAndNotHolidays
             today = monthInfo.adjacentMonthsInfo.prevMonthToday
@@ -135,7 +140,7 @@ fun getDayInfo(
     val isWeekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, holidaysAndNotHolidays)
     val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
 
-    return DayInfo(dayValue, inThisMonth, isToday, isWeekend, isHoliday)
+    return DayInfo(dayValue, inMonth, isToday, isWeekend, isHoliday)
 }
 
 private fun isWeekend(
