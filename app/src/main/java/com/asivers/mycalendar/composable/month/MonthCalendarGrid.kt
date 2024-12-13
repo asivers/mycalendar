@@ -33,6 +33,7 @@ import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getDayInfo
 import com.asivers.mycalendar.utils.getMonthInfo
+import com.asivers.mycalendar.utils.noTransform
 import com.asivers.mycalendar.utils.slideFromLeftToRight
 import com.asivers.mycalendar.utils.slideFromRightToLeft
 
@@ -59,8 +60,11 @@ fun MonthCalendarGrid(
                     fadeSlow()
                 } else {
                     val monthIndexDiff = targetState.monthIndex - initialState.monthIndex
-                    val isChangedToNextMonth = monthIndexDiff == 1 || monthIndexDiff == -11
-                    if (isChangedToNextMonth) slideFromRightToLeft() else slideFromLeftToRight()
+                    when (monthIndexDiff) {
+                        0 -> noTransform() // workaround to prevent slide before day view
+                        1, -11 -> slideFromRightToLeft() // next month
+                        else -> slideFromLeftToRight() // prev month
+                    }
                 }
             },
             label = "month calendar animated content"
