@@ -22,8 +22,8 @@ import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.ExistingLocale
-import com.asivers.mycalendar.enums.SwipeType
 import com.asivers.mycalendar.enums.WeekendMode
+import com.asivers.mycalendar.utils.addDays
 import com.asivers.mycalendar.utils.changeDay
 import com.asivers.mycalendar.utils.fadeNormal
 import com.asivers.mycalendar.utils.getDifferenceInDays
@@ -81,7 +81,7 @@ fun DayView(
                 transitionSpec = {
                     when (val differenceInDays = getDifferenceInDays(targetState, initialState)) {
                         0 -> noTransform()
-                        in -3..3 -> slideWeek(differenceInDays)
+                        in -7..7 -> slideWeek(differenceInDays)
                         else -> fadeNormal()
                     }
                 },
@@ -91,10 +91,7 @@ fun DayView(
                     onDayChanged = { thisDayValue, inMonth ->
                         selectedDateState.value = changeDay(selectedDateInfo, thisDayValue, inMonth)
                     },
-                    onSwipe = {
-                        selectedDateState.value = if (it == SwipeType.RIGHT)
-                            nextDay(selectedDateInfo) else previousDay(selectedDateInfo)
-                    },
+                    onSwipe = { selectedDateState.value = addDays(selectedDateInfo, it) },
                     selectedDay = selectedDateInfo.dayOfMonth,
                     thisMonthInfo = thisMonthInfo,
                     weekendMode = weekendMode,

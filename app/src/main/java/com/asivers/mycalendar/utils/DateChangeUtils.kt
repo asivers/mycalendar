@@ -10,12 +10,12 @@ fun previousMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
     date.add(Calendar.MONTH, -1) // now it is previous month
 
     val updatedYear = date.get(Calendar.YEAR)
-    val updatedMonthIndex = date.get(Calendar.MONTH)
-    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
-
     if (updatedYear < 1900) {
         return selectedDateInfo
     }
+    val updatedMonthIndex = date.get(Calendar.MONTH)
+    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
+
     return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
 }
 
@@ -24,40 +24,34 @@ fun nextMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
     date.add(Calendar.MONTH, 1) // now it is next month
 
     val updatedYear = date.get(Calendar.YEAR)
-    val updatedMonthIndex = date.get(Calendar.MONTH)
-    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
-
     if (updatedYear > 2100) {
         return selectedDateInfo
     }
+    val updatedMonthIndex = date.get(Calendar.MONTH)
+    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
+
     return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
 }
 
 fun previousDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
-    val date = selectedDateInfo.getDate()
-    date.add(Calendar.DAY_OF_MONTH, -1) // now it is previous day
-
-    val updatedYear = date.get(Calendar.YEAR)
-    val updatedMonthIndex = date.get(Calendar.MONTH)
-    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
-
-    if (updatedYear < 1900) {
-        return selectedDateInfo
-    }
-    return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
+    return addDays(selectedDateInfo, -1)
 }
 
 fun nextDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
+    return addDays(selectedDateInfo, 1)
+}
+
+fun addDays(selectedDateInfo: SelectedDateInfo, days: Int): SelectedDateInfo {
     val date = selectedDateInfo.getDate()
-    date.add(Calendar.DAY_OF_MONTH, 1) // now it is next day
+    date.add(Calendar.DAY_OF_MONTH, days) // now it is changed
 
     val updatedYear = date.get(Calendar.YEAR)
+    if (updatedYear < 1900 || updatedYear > 2100) {
+        return selectedDateInfo
+    }
     val updatedMonthIndex = date.get(Calendar.MONTH)
     val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
 
-    if (updatedYear > 2100) {
-        return selectedDateInfo
-    }
     return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
 }
 

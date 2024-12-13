@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
@@ -29,20 +31,22 @@ import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.DisplayedMonth
-import com.asivers.mycalendar.enums.SwipeType
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getDayInfo
+import kotlin.math.roundToInt
 
 @Composable
 fun DaysLine(
     modifier: Modifier = Modifier,
     onDayChanged: (Int, DisplayedMonth) -> Unit,
-    onSwipe: (SwipeType) -> Unit,
+    onSwipe: (Int) -> Unit,
     selectedDay: Int,
     thisMonthInfo: MonthInfo,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
+    val screenWidthPx = with(LocalDensity.current) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
+    val minimumSwipe = screenWidthPx / 7
     var horizontalOffset by remember { mutableFloatStateOf(0f) }
     Row(
         modifier = modifier
@@ -55,10 +59,8 @@ fun DaysLine(
                         horizontalOffset = 0f
                     },
                     onDragEnd = {
-                        if (horizontalOffset > 50f) {
-                            onSwipe(SwipeType.LEFT)
-                        } else if (horizontalOffset < -50f) {
-                            onSwipe(SwipeType.RIGHT)
+                        if (horizontalOffset > minimumSwipe || horizontalOffset < -minimumSwipe) {
+                            onSwipe(-(horizontalOffset / minimumSwipe).roundToInt())
                         }
                     }
                 ) { _, dragAmount ->
