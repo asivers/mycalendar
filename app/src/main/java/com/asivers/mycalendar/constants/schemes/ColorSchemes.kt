@@ -49,7 +49,8 @@ val LIGHT = ColorScheme(
     settingsViewTop = Color(0xFFE5EAF2),
     monthOrSelectedItemInDropdown = Color(0xFF6A5858),
     notSelectedYearInDropdown = Color(0xFFA5BEE9),
-    notSelectedSettingInDropdown = Color(0xFFA5BEE9)
+    notSelectedSettingInDropdown = Color(0xFFA5BEE9),
+    inactiveSettingsGear = Color(0xFFA5BEE9)
 )
 
 val EXPERIMENTAL = ColorScheme(

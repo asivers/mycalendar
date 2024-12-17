@@ -32,7 +32,7 @@ fun SettingsHeader(
         if (viewShown == ViewShown.SETTINGS) {
             Image(
                 painter = painterResource(id = R.drawable.settings_gear),
-                colorFilter = ColorFilter.tint(schemes.color.viewsBottom),
+                colorFilter = ColorFilter.tint(schemes.color.inactiveSettingsGear),
                 contentDescription = "Inactive settings icon"
             )
             Spacer(modifier = Modifier.weight(1f))

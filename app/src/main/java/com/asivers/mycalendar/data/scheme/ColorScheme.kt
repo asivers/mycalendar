@@ -13,5 +13,6 @@ data class ColorScheme(
     val monthOrSelectedItemInDropdown: Color = viewsBottom,
     val notSelectedYearInDropdown: Color = yearViewBtnTop,
     val notSelectedSettingInDropdown: Color = settingsViewTop,
+    val inactiveSettingsGear: Color = viewsBottom,
     val dropdownBackground: Color = Color.White
 )
