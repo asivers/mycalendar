@@ -92,7 +92,7 @@ fun SelectYearDropdownList(
         onDismissRequest = {
             isExpanded.value = false
         },
-        modifier = modifier,
+        modifier = modifier.background(schemes.color.dropdownBackground),
         offset = DpOffset(x = (-5).dp, y = (-itemHeightDp - 5).dp)
     ) {
         LazyColumn(

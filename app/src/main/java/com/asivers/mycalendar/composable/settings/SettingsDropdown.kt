@@ -129,7 +129,7 @@ fun <T : SettingsItem> SettingsDropdownList(
     DropdownMenu(
         expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
-        modifier = modifier
+        modifier = modifier.background(schemes.color.dropdownBackground)
     ) {
         translatedItemsNames.forEachIndexed { index, translatedItemName ->
             val color = if (selectedItemIndex == index)
@@ -176,7 +176,7 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
     DropdownMenu(
         expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
-        modifier = modifier
+        modifier = modifier.background(schemes.color.dropdownBackground)
     ) {
         LazyColumn(
             modifier = Modifier

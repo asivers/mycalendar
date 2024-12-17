@@ -81,7 +81,7 @@ fun SelectMonthDropdownList(
         onDismissRequest = {
             isExpanded.value = false
         },
-        modifier = modifier
+        modifier = modifier.background(schemes.color.dropdownBackground)
     ) {
         val screenHeightDp = LocalConfiguration.current.screenHeightDp
         val itemHeightDp = (screenHeightDp - 32) / 17
