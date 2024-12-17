@@ -50,7 +50,8 @@
     "autumn": "Autumn",
     "winter": "Winter",
     "spring": "Spring",
-    "light": "Light"
+    "light": "Light",
+    "experimental": "Experimental"
   },
   "weekendModesParam": "Display weekends",
   "weekendModes": {

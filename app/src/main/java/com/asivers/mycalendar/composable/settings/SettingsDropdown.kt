@@ -132,12 +132,15 @@ fun <T : SettingsItem> SettingsDropdownList(
         modifier = modifier
     ) {
         translatedItemsNames.forEachIndexed { index, translatedItemName ->
+            val color = if (selectedItemIndex == index)
+                schemes.color.monthOrSelectedItemInDropdown
+            else
+                schemes.color.notSelectedSettingInDropdown
             DropdownMenuItem(
                 text = {
                     Text(
                         text = translatedItemName,
-                        color = if (selectedItemIndex == index)
-                            schemes.color.viewsBottom else schemes.color.settingsViewTop,
+                        color = color,
                         fontFamily = if (selectedItemIndex == index)
                             MONTSERRAT_BOLD else MONTSERRAT_MEDIUM,
                         fontSize = schemes.size.font.dropdownItem
@@ -182,12 +185,15 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
             state = LazyListState(selectedItemIndex)
         ) {
             items(translatedItemsNames.size) { index ->
+                val color = if (selectedItemIndex == index)
+                    schemes.color.monthOrSelectedItemInDropdown
+                else
+                    schemes.color.notSelectedSettingInDropdown
                 DropdownMenuItem(
                     text = {
                         Text(
                             text = translatedItemsNames[index],
-                            color = if (selectedItemIndex == index)
-                                schemes.color.viewsBottom else schemes.color.settingsViewTop,
+                            color = color,
                             fontFamily = if (selectedItemIndex == index)
                                 MONTSERRAT_BOLD else MONTSERRAT_MEDIUM,
                             fontSize = schemes.size.font.dropdownItem

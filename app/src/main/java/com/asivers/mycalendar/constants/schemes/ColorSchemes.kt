@@ -47,7 +47,18 @@ val LIGHT = ColorScheme(
     yearViewBtnBottom = Color(0xFFCFDDF4),
     brightElement = Color(0xFFFF7700),
     settingsViewTop = Color(0xFFE5EAF2),
-    monthInDropdown = Color(0xFF6A5858),
-    selectedYearInDropdown = Color(0xFF6A5858),
-    notSelectedYearInDropdown = Color(0xFFA5BEE9)
+    monthOrSelectedItemInDropdown = Color(0xFF6A5858),
+    notSelectedYearInDropdown = Color(0xFFA5BEE9),
+    notSelectedSettingInDropdown = Color(0xFFA5BEE9)
+)
+
+val EXPERIMENTAL = ColorScheme(
+    text = Color(0xFF4B3C3C),
+    monthViewTop = Color(0xFFCED28C),
+    viewsBottom = Color(0xFFDCDCDC),
+    yearViewBtnTop = Color(0xFF2DBD88),
+    yearViewBtnBottom = Color(0xFFB6CDC4),
+    brightElement = Color(0xFF21966C),
+    settingsViewTop = Color(0xFFCED28C),
+    dropdownBackground = Color(0xFF4B3C3C)
 )

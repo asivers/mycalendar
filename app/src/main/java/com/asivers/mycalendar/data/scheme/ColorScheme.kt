@@ -10,7 +10,8 @@ data class ColorScheme(
     val yearViewBtnBottom: Color, // year view medium gradient and YearViewButton bottom gradient
     val brightElement: Color, // holidays, active settings elements
     val settingsViewTop: Color, // settings view top gradient
-    val monthInDropdown: Color = viewsBottom,
-    val selectedYearInDropdown: Color = viewsBottom,
-    val notSelectedYearInDropdown: Color = yearViewBtnTop
+    val monthOrSelectedItemInDropdown: Color = viewsBottom,
+    val notSelectedYearInDropdown: Color = yearViewBtnTop,
+    val notSelectedSettingInDropdown: Color = settingsViewTop,
+    val dropdownBackground: Color? = null
 )

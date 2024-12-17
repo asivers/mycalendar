@@ -1,6 +1,7 @@
 package com.asivers.mycalendar.enums
 
 import com.asivers.mycalendar.constants.schemes.AUTUMN
+import com.asivers.mycalendar.constants.schemes.EXPERIMENTAL
 import com.asivers.mycalendar.constants.schemes.LIGHT
 import com.asivers.mycalendar.constants.schemes.SPRING
 import com.asivers.mycalendar.constants.schemes.SUMMER
@@ -34,6 +35,9 @@ enum class UserTheme(
     THEME_LIGHT(
         colorScheme = LIGHT,
         translationKey = "light"
+    ),
+    THEME_EXPERIMENTAL(
+        colorScheme = EXPERIMENTAL,
+        translationKey = "experimental"
     )
-    // todo add experimental theme
 }
