@@ -16,7 +16,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
@@ -106,7 +105,7 @@ fun HeaderWeekInMonthCalendarGrid(
                 text = schemes.translation.daysOfWeek3[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
                 fontSize = schemes.size.font.mvHeaderWeek,
-                color = Color.White,
+                color = schemes.color.text,
                 textAlign = TextAlign.Center
             )
         }
@@ -167,7 +166,7 @@ fun DayInMonthCalendarGrid(
             .alpha(if (inThisMonth) 1f else 0.25f)
             .drawBehind {
                 if (isToday) drawCircle(
-                    color = Color.White,
+                    color = schemes.color.text,
                     radius = size.minDimension / 2.1f,
                     style = Stroke(width = 4f)
                 )
@@ -182,7 +181,7 @@ fun DayInMonthCalendarGrid(
             text = dayValue.toString(),
             fontFamily = MONTSERRAT_BOLD,
             fontSize = if (inThisMonth) schemes.size.font.main else schemes.size.font.dropdownItem,
-            color = if (isWeekend || isHoliday) schemes.color.brightElement else Color.White,
+            color = if (isWeekend || isHoliday) schemes.color.brightElement else schemes.color.text,
             textAlign = TextAlign.Center
         )
     }

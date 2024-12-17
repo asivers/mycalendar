@@ -38,3 +38,16 @@ val SPRING = ColorScheme(
     brightElement = Color(0xFF4AFF46),
     settingsViewTop = Color(0xFF597471)
 )
+
+val LIGHT = ColorScheme(
+    text = Color(0xFF6A5858),
+    monthViewTop = Color(0xFFE5EAF2),
+    viewsBottom = Color(0xFFE5EAF2),
+    yearViewBtnTop = Color(0xFFBCCFEF),
+    yearViewBtnBottom = Color(0xFFCFDDF4),
+    brightElement = Color(0xFFFF7700),
+    settingsViewTop = Color(0xFFE5EAF2),
+    monthInDropdown = Color(0xFF6A5858),
+    selectedYearInDropdown = Color(0xFF6A5858),
+    notSelectedYearInDropdown = Color(0xFFA5BEE9)
+)

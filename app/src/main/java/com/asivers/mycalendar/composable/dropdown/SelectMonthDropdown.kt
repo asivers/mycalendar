@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -47,6 +48,7 @@ fun SelectMonthDropdown(
         val iconId = if (isExpanded.value) R.drawable.white_arrow_up else R.drawable.white_arrow_down
         Image(
             painter = painterResource(id = iconId),
+            colorFilter = ColorFilter.tint(schemes.color.text),
             contentDescription = "DropDown Icon"
         )
         Spacer(modifier = Modifier.width(10.dp))
@@ -54,7 +56,7 @@ fun SelectMonthDropdown(
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
                 text = schemes.translation.months[thisMonthIndex],
-                color = Color.White,
+                color = schemes.color.text,
                 fontFamily = MONTSERRAT_BOLD,
                 fontSize = schemes.size.font.dropdownHeader
             )
@@ -88,7 +90,7 @@ fun SelectMonthDropdownList(
                 text = {
                     Text(
                         text = monthName,
-                        color = schemes.color.viewsBottom,
+                        color = schemes.color.monthInDropdown,
                         fontFamily = MONTSERRAT_BOLD,
                         fontSize = schemes.size.font.dropdownItem
                     )

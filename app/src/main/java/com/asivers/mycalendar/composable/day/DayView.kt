@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
@@ -107,7 +106,7 @@ fun DayView(
                 modifier = Modifier.padding(16.dp, 20.dp),
                 fontFamily = MONTSERRAT_MEDIUM,
                 fontSize = schemes.size.font.dropdownItem,
-                color = Color.White
+                color = schemes.color.text
             )
             ClickableSpacers(
                 modifier = Modifier.weight(1f),

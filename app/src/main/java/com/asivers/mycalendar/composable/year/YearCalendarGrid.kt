@@ -114,7 +114,7 @@ fun MonthInYearCalendarGrid(
             modifier = Modifier.padding(3.dp, 0.dp),
             fontFamily = MONTSERRAT_BOLD,
             fontSize = schemes.size.font.yvMonthName,
-            color = Color.White
+            color = schemes.color.text
         )
         HeaderWeekInYearCalendarGrid(
             modifier = Modifier
@@ -162,7 +162,7 @@ fun HeaderWeekInYearCalendarGrid(
                 text = schemes.translation.daysOfWeek1[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
                 fontSize = schemes.size.font.yvHeaderWeek,
-                color = Color.White,
+                color = schemes.color.text,
                 textAlign = TextAlign.Center,
                 style = NO_PADDING_TEXT_STYLE
             )
@@ -214,7 +214,7 @@ fun DayInYearCalendarGrid(
         modifier = modifier
             .fillMaxSize()
             .drawBehind { if (isToday) drawCircle(
-                color = Color.White,
+                color = schemes.color.text,
                 style = Stroke(width = 2f),
                 center = this.center.plus(Offset(x = -1f, y = 0f))
             )}
@@ -222,7 +222,7 @@ fun DayInYearCalendarGrid(
         text = (if (inThisMonth) dayValue else "").toString(),
         fontFamily = MONTSERRAT_BOLD,
         fontSize = schemes.size.font.yvDay,
-        color = if (isWeekend || isHoliday) schemes.color.brightElement else Color.White,
+        color = if (isWeekend || isHoliday) schemes.color.brightElement else schemes.color.text,
         textAlign = TextAlign.Center,
         style = NO_PADDING_TEXT_STYLE
     )

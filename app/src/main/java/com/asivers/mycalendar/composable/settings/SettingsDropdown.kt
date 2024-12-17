@@ -64,7 +64,9 @@ fun <T : SettingsItem> SettingsDropdown(
                 R.drawable.white_arrow_up else R.drawable.white_arrow_down
             Image(
                 painter = painterResource(id = iconId),
-                colorFilter = ColorFilter.tint(if (enabled) Color.White else Color.Transparent),
+                colorFilter = ColorFilter.tint(
+                    if (enabled) schemes.color.text else Color.Transparent
+                ),
                 contentDescription = "DropDown Icon"
             )
             Spacer(modifier = Modifier.width(10.dp))
@@ -74,7 +76,7 @@ fun <T : SettingsItem> SettingsDropdown(
                     modifier = Modifier
                         .padding(0.dp, 0.dp, 0.dp, 3.dp)
                         .alpha(if (enabled) 1f else 0.5f),
-                    color = Color.White,
+                    color = schemes.color.text,
                     fontFamily = MONTSERRAT_BOLD,
                     fontSize = schemes.size.font.main
                 )

@@ -46,10 +46,11 @@
   "themesParam": "Тема",
   "themes": {
     "changeBySeason": "Менять по сезонам",
-    "summer": "Лето",
-    "autumn": "Осень",
-    "winter": "Зима",
-    "spring": "Весна"
+    "summer": "Летняя",
+    "autumn": "Осенняя",
+    "winter": "Зимняя",
+    "spring": "Весенняя",
+    "light": "Лёгкая"
   },
   "weekendModesParam": "Режим выходных",
   "weekendModes": {

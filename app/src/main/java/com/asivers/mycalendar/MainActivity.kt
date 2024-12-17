@@ -34,7 +34,7 @@ import com.asivers.mycalendar.utils.animateHeaderOnViewChange
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getBackgroundGradient
-import com.asivers.mycalendar.utils.getColorScheme
+import com.asivers.mycalendar.utils.getColorSchemeByMonthIndex
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getOnDaySelectedCallback
@@ -74,7 +74,8 @@ class MainActivity : ComponentActivity() {
                     selectedCountry.value, applicationContext)
                 val translationScheme = getTranslationSchemeForExistingLocale(
                     selectedLocale.value, applicationContext)
-                val colorScheme = getColorScheme(selectedTheme.value, selectedDateState.value.monthIndex)
+                val colorScheme = selectedTheme.value.colorScheme
+                    ?: getColorSchemeByMonthIndex(selectedDateState.value.monthIndex)
 
                 val sizeScheme = getSizeScheme(LocalConfiguration.current, LocalDensity.current)
 

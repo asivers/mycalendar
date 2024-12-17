@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -54,6 +55,7 @@ fun SelectYearDropdown(
         val iconId = if (isExpanded.value) R.drawable.white_arrow_up else R.drawable.white_arrow_down
         Image(
             painter = painterResource(id = iconId),
+            colorFilter = ColorFilter.tint(schemes.color.text),
             contentDescription = "DropDown Icon"
         )
         Spacer(modifier = Modifier.width(10.dp))
@@ -61,7 +63,7 @@ fun SelectYearDropdown(
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
                 text = thisYear.toString(),
-                color = Color.White,
+                color = schemes.color.text,
                 fontFamily = MONTSERRAT_MEDIUM,
                 fontSize = schemes.size.font.dropdownHeader
             )
@@ -100,13 +102,16 @@ fun SelectYearDropdownList(
             state = LazyListState(getYearIndex(thisYear))
         ) {
             items(201) { yearIndex ->
+                val color = if (thisYear == getYear(yearIndex))
+                    schemes.color.selectedYearInDropdown
+                else
+                    schemes.color.notSelectedYearInDropdown
                 DropdownMenuItem(
                     text = {
                         Text(
                             text = getYear(yearIndex).toString(),
                             modifier = Modifier.fillMaxWidth(),
-                            color = if (thisYear == getYear(yearIndex))
-                                schemes.color.viewsBottom else schemes.color.yearViewBtnTop,
+                            color = color,
                             fontFamily = if (thisYear == getYear(yearIndex))
                                 MONTSERRAT_MEDIUM else MONTSERRAT,
                             fontSize = schemes.size.font.main,
