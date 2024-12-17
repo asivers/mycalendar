@@ -97,7 +97,8 @@ fun MonthInYearCalendarGrid(
     val thisYear = selectedDateState.value.year
     val isLastSelectedMonth = thisYear == selectedDateState.value.yearOnMonthView
             && thisMonthIndex == selectedDateState.value.monthIndex
-    val background = if (isLastSelectedMonth) schemes.color.monthViewTop else Color.Transparent
+    val background = if (isLastSelectedMonth)
+        schemes.color.selectedMonthOnYearView else Color.Transparent
     Column(
         modifier = modifier
             .padding(schemes.size.horizontal.yvMonthPadding, schemes.size.vertical.yvMonthPadding)
