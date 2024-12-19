@@ -5,7 +5,7 @@ import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
-import com.asivers.mycalendar.data.SavedSettingsOuterClass
+import com.asivers.mycalendar.data.proto.SavedSettingsOuterClass
 import com.google.protobuf.InvalidProtocolBufferException
 import java.io.InputStream
 import java.io.OutputStream

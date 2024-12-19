@@ -1,7 +1,7 @@
 package com.asivers.mycalendar.utils
 
 import android.content.Context
-import com.asivers.mycalendar.data.SavedSettingsOuterClass
+import com.asivers.mycalendar.data.proto.SavedSettingsOuterClass
 import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.enums.ExistingLocale
 import com.asivers.mycalendar.enums.SettingsItem

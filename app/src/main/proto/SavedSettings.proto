@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_package = "com.asivers.mycalendar.data";
+option java_package = "com.asivers.mycalendar.data.proto";
 
 message SavedSettings {
   string country = 1;
