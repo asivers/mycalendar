@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_package = "com.asivers.mycalendar.data.proto";
+
+message SavedNotes {
+
+  repeated ForMonth forMonth = 1;
+
+  message ForMonth {
+    int32 monthIndex = 1;
+    repeated ForDay forDay = 2;
+  }
+
+  message ForDay {
+    int32 dayOfMonth = 1;
+    repeated Note notes = 2;
+  }
+
+  message Note {
+    int32 id = 1;
+    string msg = 2;
+    int32 forYear = 3;
+    bool isHoliday = 4;
+    NotificationTime notificationTime = 5;
+  }
+
+  message NotificationTime {
+    int32 hour = 1;
+    int32 minute = 2;
+  }
+
+}
