@@ -38,11 +38,11 @@ import com.asivers.mycalendar.utils.getColorSchemeByMonthIndex
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
 import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getOnDaySelectedCallback
-import com.asivers.mycalendar.utils.getSavedCountry
-import com.asivers.mycalendar.utils.getSavedLocale
-import com.asivers.mycalendar.utils.getSavedSettings
-import com.asivers.mycalendar.utils.getSavedTheme
-import com.asivers.mycalendar.utils.getSavedWeekendMode
+import com.asivers.mycalendar.utils.proto.getSavedCountry
+import com.asivers.mycalendar.utils.proto.getSavedLocale
+import com.asivers.mycalendar.utils.proto.getSavedSettings
+import com.asivers.mycalendar.utils.proto.getSavedTheme
+import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
 

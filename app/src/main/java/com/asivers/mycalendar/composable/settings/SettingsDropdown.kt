@@ -37,7 +37,7 @@ import com.asivers.mycalendar.utils.getTranslatedSettingsItemName
 import com.asivers.mycalendar.utils.getTranslatedSettingsItemsNames
 import com.asivers.mycalendar.utils.getTranslatedSettingsParamName
 import com.asivers.mycalendar.utils.noRippleClickable
-import com.asivers.mycalendar.utils.updateOneSetting
+import com.asivers.mycalendar.utils.proto.updateOneSetting
 
 @Composable
 fun <T : SettingsItem> SettingsDropdown(

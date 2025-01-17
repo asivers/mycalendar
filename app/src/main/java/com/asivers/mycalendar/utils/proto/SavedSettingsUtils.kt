@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.utils
+package com.asivers.mycalendar.utils.proto
 
 import android.content.Context
 import com.asivers.mycalendar.data.proto.SavedSettingsOuterClass
