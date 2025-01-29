@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
-import com.asivers.mycalendar.composable.month.ClickableSpacers
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
@@ -30,9 +29,7 @@ import com.asivers.mycalendar.utils.getHolidayInfo
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getOnMonthSelected
 import com.asivers.mycalendar.utils.getOnYearSelected
-import com.asivers.mycalendar.utils.nextDay
 import com.asivers.mycalendar.utils.noTransform
-import com.asivers.mycalendar.utils.previousDay
 import com.asivers.mycalendar.utils.slideWeek
 import com.asivers.mycalendar.utils.translateHolidayInfo
 
@@ -72,7 +69,7 @@ fun DayView(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .padding(0.dp, 20.dp),
+                .padding(0.dp, 20.dp, 0.dp, 0.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AnimatedContent(
@@ -101,17 +98,19 @@ fun DayView(
                 selectedDateState.value.dayOfMonth,
                 thisMonthInfo.holidaysAndNotHolidays
             )
-            Text(
-                text = translateHolidayInfo(holidayInfo, locale),
-                modifier = Modifier.padding(16.dp, 20.dp),
-                fontFamily = MONTSERRAT_MEDIUM,
-                fontSize = schemes.size.font.dropdownItem,
-                color = schemes.color.text
-            )
-            ClickableSpacers(
-                modifier = Modifier.weight(1f),
-                onClickLeft = { selectedDateState.value = previousDay(selectedDateState.value) },
-                onClickRight = { selectedDateState.value = nextDay(selectedDateState.value) }
+            if (holidayInfo != null) {
+                Text(
+                    text = translateHolidayInfo(holidayInfo, locale),
+                    modifier = Modifier.padding(16.dp, 20.dp),
+                    fontFamily = MONTSERRAT_MEDIUM,
+                    fontSize = schemes.size.font.dropdownItem,
+                    color = schemes.color.text
+                )
+            }
+            NotesSection(
+                modifier = Modifier.weight(1f).fillMaxWidth(),
+                selectedDateInfo = selectedDateState.value,
+                schemes = schemes
             )
         }
     }

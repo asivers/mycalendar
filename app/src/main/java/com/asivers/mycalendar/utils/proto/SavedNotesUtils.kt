@@ -31,8 +31,8 @@ fun addNote(
     msg: String,
     isEveryYear: Boolean,
     isHoliday: Boolean
-) {
-    val note = Note.newBuilder()
+): NoteInfo {
+    var note = Note.newBuilder()
         .setMsg(msg)
         .setForYear(if (isEveryYear) 0 else selectedDateInfo.year)
         .setIsHoliday(isHoliday)
@@ -45,10 +45,12 @@ fun addNote(
         operation = { forDayBuilder ->
             val notesList = forDayBuilder.notesList
             val id = if (notesList.isEmpty()) 1 else notesList.maxOf { it.id } + 1
-            val noteWithId = note.toBuilder().setId(id).build()
-            forDayBuilder.addNotes(noteWithId)
+            note = note.toBuilder().setId(id).build()
+            forDayBuilder.addNotes(note)
         }
     )
+
+    return NoteInfo(note)
 }
 
 fun editNote(
