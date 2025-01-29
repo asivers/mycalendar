@@ -2,6 +2,7 @@ package com.asivers.mycalendar.composable.day
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
@@ -9,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
@@ -42,7 +42,7 @@ fun SaveNoteButton(
         },
         modifier = modifier.fillMaxWidth(),
         colors = getSaveButtonColors(schemes),
-        shape = RectangleShape,
+        shape = RoundedCornerShape(8.dp),
         contentPadding = PaddingValues(0.dp)
     ) {
         Text(

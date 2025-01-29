@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -68,16 +69,25 @@ fun ExistingNotes(
                 modifier = Modifier,
                 backgroundContent = {
                     if (dismissState.dismissDirection.name == SwipeToDismissBoxValue.StartToEnd.name) {
-                        Row(modifier = Modifier.fillMaxSize().background(Color.Red),
+                        Row(
+                            modifier = Modifier.fillMaxSize(),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Icon(Icons.Default.Delete, contentDescription = "delete")
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                modifier = Modifier.size(32.dp),
+                                contentDescription = "Delete",
+                                tint = schemes.color.text
+                            )
                         }
                     }
                 },
                 enableDismissFromEndToStart = false
             ) {
+                // todo adapt for different size schemes
+                val maxNoteHeight = maxOf(48, maxExistingNotesHeightDp / mutableNotes.size)
                 OneSavedNote(
+                    modifier = Modifier.heightIn(0.dp, maxNoteHeight.dp),
                     msg = msg,
                     schemes = schemes
                 )
@@ -94,7 +104,6 @@ fun OneSavedNote(
 ) {
     Box(
         modifier = modifier
-            .heightIn(0.dp, 48.dp) // todo adapt for different size schemes
             .clip(shape = RoundedCornerShape(8.dp))
             .background(color = Color(0x33FFFFFF)) // todo adapt for different color schemes
             .padding(8.dp)
