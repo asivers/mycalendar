@@ -4,7 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -75,8 +74,6 @@ fun NotesSectionViewMode(
         )
         Box(
             modifier = modifier
-                .weight(1f)
-                .fillMaxSize()
                 .alpha(0.3f)
                 .noRippleClickable { editModeEnabled.value = true },
             contentAlignment = Alignment.Center

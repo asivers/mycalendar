@@ -6,14 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -23,7 +22,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
@@ -39,13 +40,13 @@ fun ExistingNotes(
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
+    // todo check that it fits for different screen sizes
+    val maxExistingNotesHeightDp = LocalConfiguration.current.screenHeightDp - 300
     val ctx = LocalContext.current
-    val maxItemsDisplayed = 6
-    val maxItemHeightDp = 48 // todo adapt for different size schemes
     LazyColumn(
         modifier = modifier
-            .fillMaxWidth()
-            .height((maxItemsDisplayed * maxItemHeightDp).dp),
+            .heightIn(0.dp, maxExistingNotesHeightDp.dp)
+            .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(mutableNotes, key = { it.id }) { note ->
@@ -77,12 +78,10 @@ fun ExistingNotes(
                 enableDismissFromEndToStart = false
             ) {
                 OneSavedNote(
-                    modifier = Modifier.heightIn(0.dp, maxItemHeightDp.dp),
-                    msg = "$id $msg",
+                    msg = msg,
                     schemes = schemes
                 )
             }
-            HorizontalDivider()
         }
     }
 }
@@ -95,8 +94,11 @@ fun OneSavedNote(
 ) {
     Box(
         modifier = modifier
-            .fillMaxWidth()
+            .heightIn(0.dp, 48.dp) // todo adapt for different size schemes
+            .clip(shape = RoundedCornerShape(8.dp))
+            .background(color = Color(0x33FFFFFF)) // todo adapt for different color schemes
             .padding(8.dp)
+            .fillMaxWidth()
     ) {
         Text(
             text = msg,
