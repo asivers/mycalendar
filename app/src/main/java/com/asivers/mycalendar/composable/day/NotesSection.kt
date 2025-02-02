@@ -1,11 +1,8 @@
 package com.asivers.mycalendar.composable.day
 
-import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,10 +24,7 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
 import com.asivers.mycalendar.utils.noRippleClickable
-import com.asivers.mycalendar.utils.proto.addNote
-import com.asivers.mycalendar.utils.proto.editNote
 import com.asivers.mycalendar.utils.proto.getNotes
-import com.asivers.mycalendar.utils.proto.removeNote
 
 @Composable
 fun NotesSection(
@@ -127,13 +121,21 @@ fun NotesSectionOneNoteMode(
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
-    val ctx = LocalContext.current
     BackHandler {
         inputMsg.value = ""
         noteId.intValue = -1
         noteMode.value = if (noteMode.value == NoteMode.EDIT) NoteMode.VIEW else NoteMode.OVERVIEW
     }
-    Column(modifier = modifier.padding(8.dp)) {
+    Column(modifier = modifier) {
+        NoteOptions(
+            modifier = Modifier.padding(8.dp),
+            mutableNotes = mutableNotes,
+            inputMsg = inputMsg,
+            noteId = noteId,
+            noteMode = noteMode,
+            selectedDateInfo = selectedDateInfo,
+            schemes = schemes
+        )
         InputNote(
             modifier = Modifier.weight(1f),
             onValueChange = { inputMsg.value = it },
@@ -142,76 +144,5 @@ fun NotesSectionOneNoteMode(
             noteMode = noteMode.value,
             schemes = schemes
         )
-        if (noteMode.value != NoteMode.VIEW) {
-            NoteOptions(
-                schemes = schemes
-            )
-        }
-        Spacer(modifier = Modifier.height(12.dp))
-        BottomNoteButton(
-            onClick = {
-                getOnClickBottomBtn(
-                    ctx = ctx,
-                    mutableNotes = mutableNotes,
-                    inputMsg = inputMsg,
-                    noteId = noteId,
-                    noteMode = noteMode,
-                    selectedDateInfo = selectedDateInfo
-                )
-            },
-            noteMode = noteMode.value,
-            schemes = schemes
-        )
     }
-}
-
-private fun getOnClickBottomBtn(
-    ctx: Context,
-    mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
-    noteMode: MutableState<NoteMode>,
-    selectedDateInfo: SelectedDateInfo,
-) {
-    when (noteMode.value) {
-        NoteMode.OVERVIEW -> throw IllegalStateException()
-        NoteMode.VIEW -> {
-            removeNote(
-                ctx = ctx,
-                selectedDateInfo = selectedDateInfo,
-                id = noteId.intValue
-            )
-            mutableNotes.removeIf { it.id == noteId.intValue }
-        }
-        NoteMode.ADD -> {
-            val newNoteInfo = addNote(
-                ctx = ctx,
-                selectedDateInfo = selectedDateInfo,
-                msg = inputMsg.value,
-                isEveryYear = false,
-                isHoliday = false
-            )
-            mutableNotes.add(0, newNoteInfo)
-        }
-        NoteMode.EDIT -> {
-            val editedNoteInfo = editNote(
-                ctx = ctx,
-                selectedDateInfo = selectedDateInfo,
-                id = noteId.intValue,
-                msg = inputMsg.value,
-                isEveryYear = false,
-                isHoliday = false
-            )
-            for ((index, noteInfo) in mutableNotes.withIndex()) {
-                if (noteInfo.id == noteId.intValue) {
-                    mutableNotes.removeAt(index)
-                    mutableNotes.add(index, editedNoteInfo)
-                    break
-                }
-            }
-        }
-    }
-    inputMsg.value = ""
-    noteId.intValue = -1
-    noteMode.value = NoteMode.OVERVIEW
 }

@@ -11,7 +11,9 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.mutableStateOf
@@ -97,6 +99,8 @@ class MainActivity : ComponentActivity() {
                 Column(
                     modifier = Modifier
                         .padding(innerPadding)
+                        .consumeWindowInsets(innerPadding)
+                        .imePadding()
                         .background(getBackgroundGradient(viewShownState.value.current, schemes.color))
                 ) {
                     AnimatedContent(

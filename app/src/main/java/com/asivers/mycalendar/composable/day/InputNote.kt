@@ -1,7 +1,6 @@
 package com.asivers.mycalendar.composable.day
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
@@ -14,7 +13,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.NoteMode
@@ -34,9 +32,10 @@ fun InputNote(
         onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
-            .padding(0.dp, 16.dp, 0.dp, 12.dp)
             .focusRequester(focusRequester)
-            .onFocusChanged { if (it.isFocused) onClick() },
+            .onFocusChanged {
+                if (it.isFocused && noteMode == NoteMode.VIEW) onClick()
+            },
         colors = defaultInputNoteColors(schemes),
         textStyle = TextStyle(
             fontSize = schemes.size.font.dropdownItem,
