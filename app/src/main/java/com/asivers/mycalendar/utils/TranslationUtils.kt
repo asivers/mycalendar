@@ -55,13 +55,10 @@ fun <T : SettingsItem> getTranslatedSettingsItemsNames(
     }
 }
 
-fun translateHolidayInfo(holidayInfo: HolidayInfo?, locale: ExistingLocale): String {
-    if (holidayInfo == null) {
-        return ""
-    }
+fun HolidayInfo.translateHolidayInfo(locale: ExistingLocale): String {
     val translatedHolidayInfo = when (locale) {
-        ExistingLocale.EN -> holidayInfo.en
-        ExistingLocale.RU -> holidayInfo.ru
+        ExistingLocale.EN -> this.en
+        ExistingLocale.RU -> this.ru
     }
-    return translatedHolidayInfo ?: holidayInfo.en
+    return translatedHolidayInfo ?: this.en
 }

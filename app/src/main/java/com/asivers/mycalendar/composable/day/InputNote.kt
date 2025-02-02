@@ -7,31 +7,36 @@ import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.enums.NoteMode
 
 @Composable
 fun InputNote(
     modifier: Modifier = Modifier,
-    msg: MutableState<String>,
+    onValueChange: (String) -> Unit,
+    onClick: () -> Unit,
+    inputMsg: String,
+    noteMode: NoteMode,
     schemes: SchemeContainer
 ) {
     val focusRequester = remember { FocusRequester() }
     TextField(
-        value = msg.value,
-        onValueChange = { msg.value = it },
+        value = inputMsg,
+        onValueChange = { onValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
             .padding(0.dp, 16.dp, 0.dp, 12.dp)
-            .focusRequester(focusRequester),
+            .focusRequester(focusRequester)
+            .onFocusChanged { if (it.isFocused) onClick() },
         colors = defaultInputNoteColors(schemes),
         textStyle = TextStyle(
             fontSize = schemes.size.font.dropdownItem,
@@ -39,7 +44,9 @@ fun InputNote(
         )
     )
     LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
+        if (noteMode == NoteMode.ADD) {
+            focusRequester.requestFocus()
+        }
     }
 }
 

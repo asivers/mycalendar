@@ -32,12 +32,14 @@ import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
+import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.removeNote
 
 @Composable
 fun ExistingNotes(
     modifier: Modifier = Modifier,
     mutableNotes: SnapshotStateList<NoteInfo>,
+    onClickToNote: (NoteInfo) -> Unit,
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
@@ -50,14 +52,12 @@ fun ExistingNotes(
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(mutableNotes, key = { it.id }) { note ->
-            val id = note.id
-            val msg = note.msg
+        items(mutableNotes, key = { it.id }) { noteInfo ->
             val dismissState = rememberSwipeToDismissBoxState(
                 confirmValueChange = { newValue ->
                     if (newValue == SwipeToDismissBoxValue.StartToEnd) {
-                        removeNote(ctx, selectedDateInfo, id)
-                        mutableNotes.remove(note)
+                        removeNote(ctx, selectedDateInfo, noteInfo.id)
+                        mutableNotes.remove(noteInfo)
                         true
                     } else {
                         false
@@ -87,8 +87,10 @@ fun ExistingNotes(
                 // todo adapt for different size schemes
                 val maxNoteHeight = maxOf(48, maxExistingNotesHeightDp / mutableNotes.size)
                 OneSavedNote(
-                    modifier = Modifier.heightIn(0.dp, maxNoteHeight.dp),
-                    msg = msg,
+                    modifier = Modifier
+                        .heightIn(0.dp, maxNoteHeight.dp)
+                        .noRippleClickable { onClickToNote(noteInfo) },
+                    msg = noteInfo.msg,
                     schemes = schemes
                 )
             }

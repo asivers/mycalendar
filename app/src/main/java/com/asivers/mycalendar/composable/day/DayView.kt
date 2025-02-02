@@ -7,7 +7,6 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
@@ -15,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
-import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
@@ -94,22 +92,14 @@ fun DayView(
                     schemes = schemes
                 )
             }
-            val holidayInfo = getHolidayInfo(
-                selectedDateState.value.dayOfMonth,
-                thisMonthInfo.holidaysAndNotHolidays
-            )
-            if (holidayInfo != null) {
-                Text(
-                    text = translateHolidayInfo(holidayInfo, locale),
-                    modifier = Modifier.padding(16.dp, 20.dp),
-                    fontFamily = MONTSERRAT_MEDIUM,
-                    fontSize = schemes.size.font.dropdownItem,
-                    color = schemes.color.text
-                )
-            }
+            val selectedDateInfo = selectedDateState.value
+            val holidaysAndNotHolidays = thisMonthInfo.holidaysAndNotHolidays
+            val holidayInfo = getHolidayInfo(selectedDateInfo.dayOfMonth, holidaysAndNotHolidays)
+                ?.translateHolidayInfo(locale)
             NotesSection(
                 modifier = Modifier.weight(1f).fillMaxWidth(),
-                selectedDateInfo = selectedDateState.value,
+                selectedDateInfo = selectedDateInfo,
+                holidayInfo = holidayInfo,
                 schemes = schemes
             )
         }

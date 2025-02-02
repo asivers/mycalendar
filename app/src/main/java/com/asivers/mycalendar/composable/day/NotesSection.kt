@@ -1,5 +1,6 @@
 package com.asivers.mycalendar.composable.day
 
+import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,7 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -22,36 +25,45 @@ import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
+import com.asivers.mycalendar.enums.NoteMode
 import com.asivers.mycalendar.utils.noRippleClickable
+import com.asivers.mycalendar.utils.proto.addNote
+import com.asivers.mycalendar.utils.proto.editNote
 import com.asivers.mycalendar.utils.proto.getNotes
+import com.asivers.mycalendar.utils.proto.removeNote
 
 @Composable
 fun NotesSection(
     modifier: Modifier = Modifier,
     selectedDateInfo: SelectedDateInfo,
+    holidayInfo: String?,
     schemes: SchemeContainer
 ) {
     val ctx = LocalContext.current
     val mutableNotes = remember(selectedDateInfo) {
-        getNotes(ctx, selectedDateInfo).toMutableStateList()
+        getNotes(ctx, selectedDateInfo).reversed().toMutableStateList()
     }
-    val msg = remember { mutableStateOf("") }
-    val editModeEnabled = remember { mutableStateOf(false) }
+    val inputMsg = remember(selectedDateInfo) { mutableStateOf("") }
+    val noteId = remember(selectedDateInfo) { mutableIntStateOf(-1) }
+    val noteMode = remember(selectedDateInfo) { mutableStateOf(NoteMode.OVERVIEW) }
 
-    if (editModeEnabled.value) {
-        NotesSectionEditMode(
+    when (noteMode.value) {
+        NoteMode.OVERVIEW -> NotesSectionOverviewMode(
             modifier = modifier,
             mutableNotes = mutableNotes,
-            msg = msg,
-            editModeEnabled = editModeEnabled,
+            inputMsg = inputMsg,
+            noteId = noteId,
+            noteMode = noteMode,
             selectedDateInfo = selectedDateInfo,
+            holidayInfo = holidayInfo,
             schemes = schemes
         )
-    } else {
-        NotesSectionViewMode(
+        NoteMode.VIEW, NoteMode.ADD, NoteMode.EDIT -> NotesSectionOneNoteMode(
             modifier = modifier,
             mutableNotes = mutableNotes,
-            editModeEnabled = editModeEnabled,
+            inputMsg = inputMsg,
+            noteId = noteId,
+            noteMode = noteMode,
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
         )
@@ -59,23 +71,40 @@ fun NotesSection(
 }
 
 @Composable
-fun NotesSectionViewMode(
+fun NotesSectionOverviewMode(
     modifier: Modifier = Modifier,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    editModeEnabled: MutableState<Boolean>,
+    inputMsg: MutableState<String>,
+    noteId: MutableIntState,
+    noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo,
+    holidayInfo: String?,
     schemes: SchemeContainer
 ) {
     Column(modifier = modifier.padding(8.dp)) {
+        if (holidayInfo != null) {
+            Text(
+                text = holidayInfo,
+                modifier = Modifier.padding(16.dp, 20.dp),
+                fontFamily = MONTSERRAT_MEDIUM,
+                fontSize = schemes.size.font.dropdownItem,
+                color = schemes.color.text
+            )
+        }
         ExistingNotes(
             mutableNotes = mutableNotes,
+            onClickToNote = {
+                inputMsg.value = it.msg
+                noteId.intValue = it.id
+                noteMode.value = NoteMode.VIEW
+            },
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
         )
         Box(
             modifier = modifier
                 .alpha(0.3f)
-                .noRippleClickable { editModeEnabled.value = true },
+                .noRippleClickable { noteMode.value = NoteMode.ADD },
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -89,36 +118,100 @@ fun NotesSectionViewMode(
 }
 
 @Composable
-fun NotesSectionEditMode(
+fun NotesSectionOneNoteMode(
     modifier: Modifier = Modifier,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    msg: MutableState<String>,
-    editModeEnabled: MutableState<Boolean>,
+    inputMsg: MutableState<String>,
+    noteId: MutableIntState,
+    noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
+    val ctx = LocalContext.current
     BackHandler {
-        editModeEnabled.value = false
+        inputMsg.value = ""
+        noteId.intValue = -1
+        noteMode.value = if (noteMode.value == NoteMode.EDIT) NoteMode.VIEW else NoteMode.OVERVIEW
     }
     Column(modifier = modifier.padding(8.dp)) {
         InputNote(
             modifier = Modifier.weight(1f),
-            msg = msg,
+            onValueChange = { inputMsg.value = it },
+            onClick = { noteMode.value = NoteMode.EDIT },
+            inputMsg = inputMsg.value,
+            noteMode = noteMode.value,
             schemes = schemes
         )
-        NoteOptions(
-            schemes = schemes
-        )
+        if (noteMode.value != NoteMode.VIEW) {
+            NoteOptions(
+                schemes = schemes
+            )
+        }
         Spacer(modifier = Modifier.height(12.dp))
-        SaveNoteButton(
-            mutableNotes = mutableNotes,
-            msg = msg,
-            onExitEditMode = {
-                msg.value = ""
-                editModeEnabled.value = false
+        BottomNoteButton(
+            onClick = {
+                getOnClickBottomBtn(
+                    ctx = ctx,
+                    mutableNotes = mutableNotes,
+                    inputMsg = inputMsg,
+                    noteId = noteId,
+                    noteMode = noteMode,
+                    selectedDateInfo = selectedDateInfo
+                )
             },
-            selectedDateInfo = selectedDateInfo,
+            noteMode = noteMode.value,
             schemes = schemes
         )
     }
+}
+
+private fun getOnClickBottomBtn(
+    ctx: Context,
+    mutableNotes: SnapshotStateList<NoteInfo>,
+    inputMsg: MutableState<String>,
+    noteId: MutableIntState,
+    noteMode: MutableState<NoteMode>,
+    selectedDateInfo: SelectedDateInfo,
+) {
+    when (noteMode.value) {
+        NoteMode.OVERVIEW -> throw IllegalStateException()
+        NoteMode.VIEW -> {
+            removeNote(
+                ctx = ctx,
+                selectedDateInfo = selectedDateInfo,
+                id = noteId.intValue
+            )
+            mutableNotes.removeIf { it.id == noteId.intValue }
+        }
+        NoteMode.ADD -> {
+            val newNoteInfo = addNote(
+                ctx = ctx,
+                selectedDateInfo = selectedDateInfo,
+                msg = inputMsg.value,
+                isEveryYear = false,
+                isHoliday = false
+            )
+            mutableNotes.add(0, newNoteInfo)
+        }
+        NoteMode.EDIT -> {
+            val editedNoteInfo = editNote(
+                ctx = ctx,
+                selectedDateInfo = selectedDateInfo,
+                id = noteId.intValue,
+                msg = inputMsg.value,
+                isEveryYear = false,
+                isHoliday = false
+            )
+            for ((index, noteInfo) in mutableNotes.withIndex()) {
+                if (noteInfo.id == noteId.intValue) {
+                    mutableNotes.removeAt(index)
+                    mutableNotes.add(index, editedNoteInfo)
+                    break
+                }
+            }
+        }
+    }
+    inputMsg.value = ""
+    noteId.intValue = -1
+    noteMode.value = NoteMode.OVERVIEW
 }

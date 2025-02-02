@@ -60,7 +60,7 @@ fun editNote(
     msg: String,
     isEveryYear: Boolean,
     isHoliday: Boolean
-) {
+): NoteInfo {
     val note = Note.newBuilder()
         .setId(id)
         .setMsg(msg)
@@ -77,6 +77,8 @@ fun editNote(
             forDayBuilder.addNotes(note)
         }
     )
+
+    return NoteInfo(note)
 }
 
 fun removeNote(

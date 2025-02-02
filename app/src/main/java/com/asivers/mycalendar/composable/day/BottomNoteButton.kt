@@ -7,46 +7,28 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
-import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
-import com.asivers.mycalendar.data.SelectedDateInfo
-import com.asivers.mycalendar.utils.proto.addNote
+import com.asivers.mycalendar.enums.NoteMode
 
 @Composable
-fun SaveNoteButton(
+fun BottomNoteButton(
     modifier: Modifier = Modifier,
-    mutableNotes: SnapshotStateList<NoteInfo>,
-    msg: MutableState<String>,
-    onExitEditMode: () -> Unit,
-    selectedDateInfo: SelectedDateInfo,
+    onClick: () -> Unit,
+    noteMode: NoteMode,
     schemes: SchemeContainer
 ) {
-    val ctx = LocalContext.current
     Button(
-        onClick = {
-            val newNote = addNote(
-                ctx = ctx,
-                selectedDateInfo = selectedDateInfo,
-                msg = msg.value,
-                isEveryYear = false,
-                isHoliday = false
-            )
-            mutableNotes.add(newNote)
-            onExitEditMode()
-        },
+        onClick = { onClick() },
         modifier = modifier.fillMaxWidth(),
-        colors = getSaveButtonColors(schemes),
+        colors = getBottomNoteButtonColors(schemes),
         shape = RoundedCornerShape(8.dp),
         contentPadding = PaddingValues(0.dp)
     ) {
         Text(
-            text = "Save Note",
+            text = if (noteMode == NoteMode.VIEW) "Delete Note" else "Save Note",
             fontFamily = MONTSERRAT_MEDIUM,
             fontSize = schemes.size.font.dropdownItem,
             color = schemes.color.text
@@ -54,7 +36,7 @@ fun SaveNoteButton(
     }
 }
 
-fun getSaveButtonColors(schemes: SchemeContainer): ButtonColors {
+fun getBottomNoteButtonColors(schemes: SchemeContainer): ButtonColors {
     return ButtonColors(
         schemes.color.monthViewTop,
         schemes.color.monthViewTop,
