@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.NoteInfo
@@ -25,6 +26,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
 import com.asivers.mycalendar.utils.getOnBackFromOneNoteMode
 import com.asivers.mycalendar.utils.noRippleClickable
+import com.asivers.mycalendar.utils.onHideKeyboard
 import com.asivers.mycalendar.utils.proto.getNotes
 
 @Composable
@@ -123,7 +125,8 @@ fun NotesSectionOneNoteMode(
     schemes: SchemeContainer
 ) {
     val ctx = LocalContext.current
-    BackHandler {
+    val localFocusManager = LocalFocusManager.current
+    val onBackFromOneNoteMode = {
         getOnBackFromOneNoteMode(
             ctx = ctx,
             mutableNotes = mutableNotes,
@@ -132,8 +135,14 @@ fun NotesSectionOneNoteMode(
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo
         )
+        localFocusManager.clearFocus()
     }
-    Column(modifier = modifier) {
+    BackHandler {
+        onBackFromOneNoteMode()
+    }
+    Column(
+        modifier = modifier.onHideKeyboard { onBackFromOneNoteMode() }
+    ) {
         NoteOptions(
             modifier = Modifier.padding(8.dp),
             mutableNotes = mutableNotes,
