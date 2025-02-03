@@ -1,6 +1,5 @@
 package com.asivers.mycalendar.composable.day
 
-import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +15,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
@@ -23,9 +23,7 @@ import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
-import com.asivers.mycalendar.utils.proto.addNote
-import com.asivers.mycalendar.utils.proto.editNote
-import com.asivers.mycalendar.utils.proto.removeNote
+import com.asivers.mycalendar.utils.getOnCompleteOneNoteMode
 
 @Composable
 fun NoteOptions(
@@ -38,6 +36,7 @@ fun NoteOptions(
     schemes: SchemeContainer
 ) {
     val ctx = LocalContext.current
+    val localFocusManager = LocalFocusManager.current
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(32.dp)
@@ -69,7 +68,7 @@ fun NoteOptions(
         ActionNoteButton(
             modifier = Modifier.weight(1f),
             onClick = {
-                getOnClickActionBtn(
+                getOnCompleteOneNoteMode(
                     ctx = ctx,
                     mutableNotes = mutableNotes,
                     inputMsg = inputMsg,
@@ -77,6 +76,7 @@ fun NoteOptions(
                     noteMode = noteMode,
                     selectedDateInfo = selectedDateInfo
                 )
+                localFocusManager.clearFocus()
             },
             noteMode = noteMode.value,
             schemes = schemes
@@ -111,55 +111,4 @@ fun SwitchWithLabel(
             textAlign = TextAlign.Center
         )
     }
-}
-
-private fun getOnClickActionBtn(
-    ctx: Context,
-    mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
-    noteMode: MutableState<NoteMode>,
-    selectedDateInfo: SelectedDateInfo
-) {
-    when (noteMode.value) {
-        NoteMode.OVERVIEW -> throw IllegalStateException()
-        NoteMode.VIEW -> {
-            removeNote(
-                ctx = ctx,
-                selectedDateInfo = selectedDateInfo,
-                id = noteId.intValue
-            )
-            mutableNotes.removeIf { it.id == noteId.intValue }
-        }
-        NoteMode.ADD -> {
-            val newNoteInfo = addNote(
-                ctx = ctx,
-                selectedDateInfo = selectedDateInfo,
-                msg = inputMsg.value,
-                isEveryYear = false,
-                isHoliday = false
-            )
-            mutableNotes.add(0, newNoteInfo)
-        }
-        NoteMode.EDIT -> {
-            val editedNoteInfo = editNote(
-                ctx = ctx,
-                selectedDateInfo = selectedDateInfo,
-                id = noteId.intValue,
-                msg = inputMsg.value,
-                isEveryYear = false,
-                isHoliday = false
-            )
-            for ((index, noteInfo) in mutableNotes.withIndex()) {
-                if (noteInfo.id == noteId.intValue) {
-                    mutableNotes.removeAt(index)
-                    mutableNotes.add(index, editedNoteInfo)
-                    break
-                }
-            }
-        }
-    }
-    inputMsg.value = ""
-    noteId.intValue = -1
-    noteMode.value = NoteMode.OVERVIEW
 }

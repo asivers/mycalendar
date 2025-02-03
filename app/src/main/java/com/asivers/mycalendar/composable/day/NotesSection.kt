@@ -23,6 +23,7 @@ import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
+import com.asivers.mycalendar.utils.getOnBackFromOneNoteMode
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.getNotes
 
@@ -121,10 +122,16 @@ fun NotesSectionOneNoteMode(
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
+    val ctx = LocalContext.current
     BackHandler {
-        inputMsg.value = ""
-        noteId.intValue = -1
-        noteMode.value = if (noteMode.value == NoteMode.EDIT) NoteMode.VIEW else NoteMode.OVERVIEW
+        getOnBackFromOneNoteMode(
+            ctx = ctx,
+            mutableNotes = mutableNotes,
+            inputMsg = inputMsg,
+            noteId = noteId,
+            noteMode = noteMode,
+            selectedDateInfo = selectedDateInfo
+        )
     }
     Column(modifier = modifier) {
         NoteOptions(
