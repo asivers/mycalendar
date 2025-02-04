@@ -100,7 +100,7 @@ fun NotesSectionOverviewMode(
         )
         Box(
             modifier = modifier
-                .alpha(0.3f)
+                .alpha(0.5f)
                 .noRippleClickable { noteMode.value = NoteMode.ADD },
             contentAlignment = Alignment.Center
         ) {
