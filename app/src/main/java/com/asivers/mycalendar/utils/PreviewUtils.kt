@@ -150,6 +150,12 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
             Pair("onlySunday", "Only Sunday"),
             Pair("noDisplay", "Do not display")
         ),
+        newNote = "New Note",
+        saveNote = "Save",
+        deleteNote = "Delete",
+        switchEveryYear = "Every year",
+        switchHoliday = "Holiday",
+        switchNotify = "Notify"
     )
 }
 

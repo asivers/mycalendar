@@ -46,7 +46,7 @@ fun NoteOptions(
             modifier = Modifier.weight(1f),
             checked = everyYearSwitchState.value,
             onCheckedChange = { everyYearSwitchState.value = it },
-            label = "Every year", // todo translations
+            label = schemes.translation.switchEveryYear,
             schemes = schemes
         )
         val holidaySwitchState = remember { mutableStateOf(false) }
@@ -54,7 +54,7 @@ fun NoteOptions(
             modifier = Modifier.weight(1f),
             checked = holidaySwitchState.value,
             onCheckedChange = { holidaySwitchState.value = it },
-            label = "Holiday",
+            label = schemes.translation.switchHoliday,
             schemes = schemes
         )
         val notificationSwitchState = remember { mutableStateOf(false) }
@@ -62,7 +62,7 @@ fun NoteOptions(
             modifier = Modifier.weight(1f),
             checked = notificationSwitchState.value,
             onCheckedChange = { notificationSwitchState.value = it },
-            label = "Notify",
+            label = schemes.translation.switchNotify,
             schemes = schemes
         )
         ActionNoteButton(

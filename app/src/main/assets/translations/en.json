@@ -58,5 +58,11 @@
     "saturdaySunday": "Saturday & Sunday",
     "onlySunday": "Only Sunday",
     "noDisplay": "Do not display"
-  }
+  },
+  "newNote": "New note",
+  "saveNote": "Save",
+  "deleteNote": "Delete",
+  "switchEveryYear": "Every year",
+  "switchHoliday": "Holiday",
+  "switchNotify": "Notify"
 }

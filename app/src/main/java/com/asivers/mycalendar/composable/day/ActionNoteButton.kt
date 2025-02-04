@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -28,8 +29,12 @@ fun ActionNoteButton(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val imageVector = if (noteMode == NoteMode.VIEW)
+            Icons.Filled.Delete
+        else
+            Icons.Filled.Done
         Icon(
-            imageVector = Icons.Filled.Done,
+            imageVector = imageVector,
             modifier = Modifier
                 .padding(8.dp)
                 .size(32.dp)
@@ -37,12 +42,10 @@ fun ActionNoteButton(
             contentDescription = "Action note button",
             tint = schemes.color.text
         )
-        val text = when (noteMode) {
-            NoteMode.OVERVIEW -> throw IllegalStateException()
-            NoteMode.VIEW -> "Delete Note"
-            NoteMode.ADD -> "Add Note"
-            NoteMode.EDIT -> "Edit Note"
-        }
+        val text = if (noteMode == NoteMode.VIEW)
+            schemes.translation.deleteNote
+        else
+            schemes.translation.saveNote
         Text(
             text = text,
             fontFamily = MONTSERRAT_MEDIUM,

@@ -105,7 +105,7 @@ fun NotesSectionOverviewMode(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Enter new note",
+                text = schemes.translation.newNote,
                 fontFamily = MONTSERRAT_MEDIUM,
                 fontSize = schemes.size.font.dropdownItem,
                 color = schemes.color.text

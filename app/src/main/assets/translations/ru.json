@@ -58,5 +58,11 @@
     "saturdaySunday": "СБ и ВС",
     "onlySunday": "Только ВС",
     "noDisplay": "Не показывать"
-  }
+  },
+  "newNote": "Новая заметка",
+  "saveNote": "Сохранить",
+  "deleteNote": "Удалить",
+  "switchEveryYear": "Ежегодно",
+  "switchHoliday": "Нерабочий",
+  "switchNotify": "Уведомление"
 }
