@@ -123,8 +123,7 @@ private fun getOnCompleteAddMode(
             ctx = ctx,
             selectedDateInfo = selectedDateInfo,
             msg = inputMsg.value,
-            isEveryYear = false,
-            isHoliday = false
+            isEveryYear = false
         )
         mutableNotes.add(0, newNoteInfo)
         noteMode.value = NoteMode.VIEW
@@ -153,8 +152,7 @@ private fun getOnCompleteEditMode(
             selectedDateInfo = selectedDateInfo,
             id = noteId.intValue,
             msg = inputMsg.value,
-            isEveryYear = false,
-            isHoliday = false
+            isEveryYear = false
         )
         for ((index, noteInfo) in mutableNotes.withIndex()) {
             if (noteInfo.id == noteId.intValue) {

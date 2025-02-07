@@ -30,7 +30,7 @@ fun addNote(
     selectedDateInfo: SelectedDateInfo,
     msg: String,
     isEveryYear: Boolean,
-    isHoliday: Boolean
+    isHoliday: Boolean = false
 ): NoteInfo {
     var note = Note.newBuilder()
         .setMsg(msg)
@@ -59,7 +59,7 @@ fun editNote(
     id: Int,
     msg: String,
     isEveryYear: Boolean,
-    isHoliday: Boolean
+    isHoliday: Boolean = false
 ): NoteInfo {
     val note = Note.newBuilder()
         .setId(id)
