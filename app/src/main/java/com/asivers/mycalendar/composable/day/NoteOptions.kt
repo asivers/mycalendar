@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
@@ -41,34 +42,43 @@ fun NoteOptions(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(32.dp)
     ) {
+        val enabled = inputMsg.value.isNotBlank()
         val everyYearSwitchState = remember { mutableStateOf(false) }
         SwitchWithLabel(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .alpha(if (enabled) 1f else 0.4f),
             checked = everyYearSwitchState.value,
-            onCheckedChange = { everyYearSwitchState.value = it },
+            onCheckedChange = { if (enabled) everyYearSwitchState.value = it },
             label = schemes.translation.switchEveryYear,
             schemes = schemes
         )
         val notificationSwitchState = remember { mutableStateOf(false) }
         SwitchWithLabel(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .alpha(if (enabled) 1f else 0.4f),
             checked = notificationSwitchState.value,
-            onCheckedChange = { notificationSwitchState.value = it },
+            onCheckedChange = { if (enabled) notificationSwitchState.value = it },
             label = schemes.translation.switchNotification,
             schemes = schemes
         )
         ActionNoteButton(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .alpha(if (enabled) 1f else 0.4f),
             onClick = {
-                getOnCompleteOneNoteMode(
-                    ctx = ctx,
-                    mutableNotes = mutableNotes,
-                    inputMsg = inputMsg,
-                    noteId = noteId,
-                    noteMode = noteMode,
-                    selectedDateInfo = selectedDateInfo
-                )
-                localFocusManager.clearFocus()
+                if (enabled) {
+                    getOnCompleteOneNoteMode(
+                        ctx = ctx,
+                        mutableNotes = mutableNotes,
+                        inputMsg = inputMsg,
+                        noteId = noteId,
+                        noteMode = noteMode,
+                        selectedDateInfo = selectedDateInfo
+                    )
+                    localFocusManager.clearFocus()
+                }
             },
             noteMode = noteMode.value,
             schemes = schemes

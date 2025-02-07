@@ -116,7 +116,9 @@ private fun getOnCompleteAddMode(
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo
 ) {
-    if (inputMsg.value.isNotBlank()) {
+    if (inputMsg.value.isBlank()) {
+        noteMode.value = NoteMode.OVERVIEW
+    } else {
         val newNoteInfo = addNote(
             ctx = ctx,
             selectedDateInfo = selectedDateInfo,
@@ -125,8 +127,8 @@ private fun getOnCompleteAddMode(
             isHoliday = false
         )
         mutableNotes.add(0, newNoteInfo)
+        noteMode.value = NoteMode.VIEW
     }
-    noteMode.value = NoteMode.VIEW
 }
 
 private fun getOnCompleteEditMode(
@@ -144,6 +146,7 @@ private fun getOnCompleteEditMode(
             id = noteId.intValue
         )
         mutableNotes.removeIf { it.id == noteId.intValue }
+        noteMode.value = NoteMode.OVERVIEW
     } else {
         val editedNoteInfo = editNote(
             ctx = ctx,
@@ -160,6 +163,6 @@ private fun getOnCompleteEditMode(
                 break
             }
         }
+        noteMode.value = NoteMode.VIEW
     }
-    noteMode.value = NoteMode.VIEW
 }
