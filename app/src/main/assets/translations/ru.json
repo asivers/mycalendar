@@ -63,6 +63,5 @@
   "saveNote": "Сохранить",
   "deleteNote": "Удалить",
   "switchEveryYear": "Ежегодно",
-  "switchHoliday": "Нерабочий",
-  "switchNotify": "Уведомление"
+  "switchNotification": "Уведомление"
 }

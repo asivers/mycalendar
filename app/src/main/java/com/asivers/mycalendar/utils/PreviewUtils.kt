@@ -154,8 +154,7 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
         saveNote = "Save",
         deleteNote = "Delete",
         switchEveryYear = "Every year",
-        switchHoliday = "Holiday",
-        switchNotify = "Notify"
+        switchNotification = "Notification"
     )
 }
 

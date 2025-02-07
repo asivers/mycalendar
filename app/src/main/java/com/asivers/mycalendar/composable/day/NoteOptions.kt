@@ -49,20 +49,12 @@ fun NoteOptions(
             label = schemes.translation.switchEveryYear,
             schemes = schemes
         )
-        val holidaySwitchState = remember { mutableStateOf(false) }
-        SwitchWithLabel(
-            modifier = Modifier.weight(1f),
-            checked = holidaySwitchState.value,
-            onCheckedChange = { holidaySwitchState.value = it },
-            label = schemes.translation.switchHoliday,
-            schemes = schemes
-        )
         val notificationSwitchState = remember { mutableStateOf(false) }
         SwitchWithLabel(
             modifier = Modifier.weight(1f),
             checked = notificationSwitchState.value,
             onCheckedChange = { notificationSwitchState.value = it },
-            label = schemes.translation.switchNotify,
+            label = schemes.translation.switchNotification,
             schemes = schemes
         )
         ActionNoteButton(
@@ -106,7 +98,7 @@ fun SwitchWithLabel(
         Text(
             text = label,
             fontFamily = MONTSERRAT_MEDIUM,
-            fontSize = schemes.size.font.yvMonthName,
+            fontSize = schemes.size.font.mvHeaderWeek,
             color = schemes.color.text,
             textAlign = TextAlign.Center
         )

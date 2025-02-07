@@ -49,7 +49,7 @@ fun ActionNoteButton(
         Text(
             text = text,
             fontFamily = MONTSERRAT_MEDIUM,
-            fontSize = schemes.size.font.yvMonthName,
+            fontSize = schemes.size.font.mvHeaderWeek,
             color = schemes.color.text,
             textAlign = TextAlign.Center
         )
