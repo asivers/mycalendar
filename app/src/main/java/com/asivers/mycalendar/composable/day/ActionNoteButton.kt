@@ -1,6 +1,5 @@
 package com.asivers.mycalendar.composable.day
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.NoteMode
+import com.asivers.mycalendar.utils.noRippleClickable
 
 @Composable
 fun ActionNoteButton(
@@ -38,7 +38,7 @@ fun ActionNoteButton(
             modifier = Modifier
                 .padding(8.dp)
                 .size(32.dp)
-                .clickable { onClick() },
+                .noRippleClickable { onClick() },
             contentDescription = "Action note button",
             tint = schemes.color.text
         )

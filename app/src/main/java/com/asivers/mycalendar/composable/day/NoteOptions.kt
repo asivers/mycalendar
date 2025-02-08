@@ -49,7 +49,8 @@ fun NoteOptions(
                 .weight(1f)
                 .alpha(if (enabled) 1f else 0.4f),
             checked = everyYearSwitchState.value,
-            onCheckedChange = { if (enabled) everyYearSwitchState.value = it },
+            onCheckedChange = { everyYearSwitchState.value = it },
+            enabled = enabled,
             label = schemes.translation.switchEveryYear,
             schemes = schemes
         )
@@ -59,7 +60,8 @@ fun NoteOptions(
                 .weight(1f)
                 .alpha(if (enabled) 1f else 0.4f),
             checked = notificationSwitchState.value,
-            onCheckedChange = { if (enabled) notificationSwitchState.value = it },
+            onCheckedChange = { notificationSwitchState.value = it },
+            enabled = enabled,
             label = schemes.translation.switchNotification,
             schemes = schemes
         )
@@ -91,6 +93,7 @@ fun SwitchWithLabel(
     modifier: Modifier = Modifier,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
+    enabled: Boolean,
     label: String,
     schemes: SchemeContainer
 ) {
@@ -101,6 +104,7 @@ fun SwitchWithLabel(
         Switch(
             checked = checked,
             onCheckedChange = onCheckedChange,
+            enabled = enabled,
             colors = SwitchDefaults.colors(
                 checkedTrackColor = schemes.color.monthViewTop
             )
