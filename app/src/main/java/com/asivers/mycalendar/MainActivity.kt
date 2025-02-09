@@ -155,7 +155,8 @@ class MainActivity : ComponentActivity() {
                                         year = selectedDateState.value.year,
                                         monthIndex = selectedDateState.value.monthIndex,
                                         countryHolidayScheme = schemes.countryHoliday,
-                                        forYearView = false
+                                        forYearView = false,
+                                        ctx = ctx
                                     ),
                                     locale = selectedLocale.value,
                                     weekendMode = selectedWeekendMode.value,
