@@ -1,5 +1,6 @@
 package com.asivers.mycalendar.utils
 
+import android.content.Context
 import com.asivers.mycalendar.data.AdjacentMonthsInfo
 import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.HolidayInfo
@@ -9,6 +10,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekendMode
+import com.asivers.mycalendar.utils.proto.getDaysWithNotesForMonth
 import java.util.Calendar
 import java.util.GregorianCalendar
 
@@ -20,20 +22,25 @@ fun getMonthInfo(
     year: Int,
     monthIndex: Int,
     countryHolidayScheme: CountryHolidayScheme,
-    forYearView: Boolean = false
+    forYearView: Boolean = false,
+    ctx: Context? = null
 ): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
     val numberOfDays = firstOfThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
     val holidaysAndNotHolidays = getHolidaysAndNotHolidays(year, monthIndex, countryHolidayScheme)
     val today = getTodayValue(year, monthIndex)
-    val adjacentMonthsInfo = if (forYearView)
-        null else getAdjacentMonthsInfo(firstOfThisMonth, countryHolidayScheme)
+    if (forYearView) {
+        return MonthInfo(numberOfDays, dayOfWeekOf1st, holidaysAndNotHolidays, today)
+    }
+    val daysWithNotes = getDaysWithNotesForMonth(ctx!!, year, monthIndex)
+    val adjacentMonthsInfo = getAdjacentMonthsInfo(firstOfThisMonth, countryHolidayScheme, ctx)
     return MonthInfo(
         numberOfDays,
         dayOfWeekOf1st,
         holidaysAndNotHolidays,
         today,
+        daysWithNotes,
         adjacentMonthsInfo
     )
 }
@@ -69,6 +76,7 @@ private fun getHolidaysAndNotHolidays(
 private fun getAdjacentMonthsInfo(
     firstOfMonth: GregorianCalendar, // now it is current month
     countryHolidayScheme: CountryHolidayScheme,
+    ctx: Context
 ): AdjacentMonthsInfo {
 
     firstOfMonth.add(Calendar.MONTH, -1) // now it is previous month
@@ -81,6 +89,7 @@ private fun getAdjacentMonthsInfo(
         countryHolidayScheme = countryHolidayScheme
     )
     val prevMonthToday = getTodayValue(prevMonthYear, prevMonthMonthIndex)
+    val prevMonthDaysWithNotes = getDaysWithNotesForMonth(ctx, prevMonthYear, prevMonthMonthIndex)
 
     firstOfMonth.add(Calendar.MONTH, 2) // now it is next month
     val nextMonthYear = firstOfMonth.get(Calendar.YEAR)
@@ -91,13 +100,16 @@ private fun getAdjacentMonthsInfo(
         countryHolidayScheme = countryHolidayScheme
     )
     val nextMonthToday = getTodayValue(nextMonthYear, nextMonthMonthIndex)
+    val nextMonthDaysWithNotes = getDaysWithNotesForMonth(ctx, nextMonthYear, nextMonthMonthIndex)
 
     return AdjacentMonthsInfo(
         prevMonthNumberOfDays,
         prevMonthHolidaysAndNotHolidays,
         prevMonthToday,
+        prevMonthDaysWithNotes,
         nextMonthHolidaysAndNotHolidays,
-        nextMonthToday
+        nextMonthToday,
+        nextMonthDaysWithNotes
     )
 }
 
@@ -116,11 +128,13 @@ fun getDayInfo(
     val dayValue: Int
     val holidaysAndNotHolidays: HolidaysAndNotHolidays
     val today: Int?
+    val daysWithNotes: List<Int>
 
     if (inMonth == DisplayedMonth.THIS) {
         dayValue = dayValueRaw
         holidaysAndNotHolidays = monthInfo.holidaysAndNotHolidays
         today = monthInfo.today
+        daysWithNotes = monthInfo.daysWithNotes
     } else {
         if (monthInfo.adjacentMonthsInfo == null) {
             return DayInfo(dayValueRaw, inMonth)
@@ -129,10 +143,12 @@ fun getDayInfo(
             dayValue = dayValueRaw + monthInfo.adjacentMonthsInfo.prevMonthNumberOfDays
             holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.prevMonthHolidaysAndNotHolidays
             today = monthInfo.adjacentMonthsInfo.prevMonthToday
+            daysWithNotes = monthInfo.adjacentMonthsInfo.prevMonthDaysWithNotes
         } else {
             dayValue = dayValueRaw - monthInfo.numberOfDays
             holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.nextMonthHolidaysAndNotHolidays
             today = monthInfo.adjacentMonthsInfo.nextMonthToday
+            daysWithNotes = monthInfo.adjacentMonthsInfo.nextMonthDaysWithNotes
         }
     }
 
@@ -140,8 +156,9 @@ fun getDayInfo(
     val dayOfWeekIndex = (dayValueRaw + monthInfo.dayOfWeekOf1st - 1) % 7
     val isWeekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, holidaysAndNotHolidays)
     val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
+    val isWithNote = dayValue in daysWithNotes
 
-    return DayInfo(dayValue, inMonth, isToday, isWeekend, isHoliday)
+    return DayInfo(dayValue, inMonth, isToday, isWeekend, isHoliday, isWithNote)
 }
 
 private fun isWeekend(

@@ -5,5 +5,6 @@ data class MonthInfo(
     val dayOfWeekOf1st : Int,
     val holidaysAndNotHolidays: HolidaysAndNotHolidays,
     val today: Int?,
+    val daysWithNotes: List<Int> = listOf(),
     val adjacentMonthsInfo: AdjacentMonthsInfo? = null
 )

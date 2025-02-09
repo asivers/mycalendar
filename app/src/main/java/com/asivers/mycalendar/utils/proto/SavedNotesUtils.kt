@@ -8,6 +8,25 @@ import com.asivers.mycalendar.serializers.savedNotesDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
+fun getDaysWithNotesForMonth(
+    ctx: Context,
+    year: Int,
+    monthIndex: Int
+): List<Int> {
+    return runBlocking { ctx.savedNotesDataStore.data.first() }
+        .forMonthList
+        .find { it.monthIndex == monthIndex }
+        ?.forDayList
+        ?.filter { it.notesList != null && containsNotesForYear(it.notesList, year) }
+        ?.map { it.dayOfMonth }
+        ?.sorted()
+        ?: emptyList()
+}
+
+private fun containsNotesForYear(notesList: List<Note>, year: Int): Boolean {
+    return notesList.map { it.forYear }.any { it <= 0 || it == year }
+}
+
 fun getNotes(
     ctx: Context,
     selectedDateInfo: SelectedDateInfo
