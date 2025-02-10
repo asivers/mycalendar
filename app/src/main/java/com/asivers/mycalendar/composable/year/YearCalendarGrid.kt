@@ -132,7 +132,7 @@ fun MonthInYearCalendarGrid(
                 year = it.year,
                 monthIndex = thisMonthIndex,
                 countryHolidayScheme = schemes.countryHoliday,
-                forYearView = true
+                forView = ViewShown.YEAR
             )
             Column {
                 repeat(6) { weekIndex ->

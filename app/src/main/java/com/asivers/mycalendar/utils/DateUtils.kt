@@ -9,6 +9,7 @@ import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.enums.DisplayedMonth
+import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.proto.getDaysWithNotesForMonth
 import java.util.Calendar
@@ -22,7 +23,7 @@ fun getMonthInfo(
     year: Int,
     monthIndex: Int,
     countryHolidayScheme: CountryHolidayScheme,
-    forYearView: Boolean = false,
+    forView: ViewShown,
     ctx: Context? = null
 ): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
@@ -30,11 +31,11 @@ fun getMonthInfo(
     val dayOfWeekOf1st = (firstOfThisMonth.get(Calendar.DAY_OF_WEEK) + 5) % 7
     val holidaysAndNotHolidays = getHolidaysAndNotHolidays(year, monthIndex, countryHolidayScheme)
     val today = getTodayValue(year, monthIndex)
-    if (forYearView) {
+    if (forView == ViewShown.YEAR) {
         return MonthInfo(numberOfDays, dayOfWeekOf1st, holidaysAndNotHolidays, today)
     }
     val daysWithNotes = getDaysWithNotesForMonth(ctx!!, year, monthIndex)
-    val adjacentMonthsInfo = getAdjacentMonthsInfo(firstOfThisMonth, countryHolidayScheme, ctx)
+    val adjacentMonthsInfo = getAdjacentMonthsInfo(firstOfThisMonth, countryHolidayScheme, forView, ctx)
     return MonthInfo(
         numberOfDays,
         dayOfWeekOf1st,
@@ -76,6 +77,7 @@ private fun getHolidaysAndNotHolidays(
 private fun getAdjacentMonthsInfo(
     firstOfMonth: GregorianCalendar, // now it is current month
     countryHolidayScheme: CountryHolidayScheme,
+    forView: ViewShown,
     ctx: Context
 ): AdjacentMonthsInfo {
 
@@ -89,7 +91,10 @@ private fun getAdjacentMonthsInfo(
         countryHolidayScheme = countryHolidayScheme
     )
     val prevMonthToday = getTodayValue(prevMonthYear, prevMonthMonthIndex)
-    val prevMonthDaysWithNotes = getDaysWithNotesForMonth(ctx, prevMonthYear, prevMonthMonthIndex)
+    val prevMonthDaysWithNotes = if (forView == ViewShown.MONTH)
+        getDaysWithNotesForMonth(ctx, prevMonthYear, prevMonthMonthIndex)
+    else
+        listOf() // todo fix after adding notes marks to day view
 
     firstOfMonth.add(Calendar.MONTH, 2) // now it is next month
     val nextMonthYear = firstOfMonth.get(Calendar.YEAR)
@@ -100,7 +105,10 @@ private fun getAdjacentMonthsInfo(
         countryHolidayScheme = countryHolidayScheme
     )
     val nextMonthToday = getTodayValue(nextMonthYear, nextMonthMonthIndex)
-    val nextMonthDaysWithNotes = getDaysWithNotesForMonth(ctx, nextMonthYear, nextMonthMonthIndex)
+    val nextMonthDaysWithNotes = if (forView == ViewShown.MONTH)
+        getDaysWithNotesForMonth(ctx, nextMonthYear, nextMonthMonthIndex)
+    else
+        listOf()
 
     return AdjacentMonthsInfo(
         prevMonthNumberOfDays,

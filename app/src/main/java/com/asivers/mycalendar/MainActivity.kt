@@ -118,50 +118,64 @@ class MainActivity : ComponentActivity() {
                                 changeView(viewShownState, ViewShown.SETTINGS)
                         }
                     }
-                    SharedTransitionLayout {
-                        AnimatedContent(
-                            targetState = viewShownState.value,
-                            transitionSpec = { animateContentOnViewChange(targetState, initialState) },
-                            label = "changing views animated content"
-                        ) {
-                            when (it.current) {
-                                ViewShown.SETTINGS -> SettingsView(
-                                    selectedCountry = selectedCountry,
-                                    selectedLocale = selectedLocale,
-                                    selectedTheme = selectedTheme,
-                                    selectedWeekendMode = selectedWeekendMode,
-                                    schemes = schemes
-                                )
-                                ViewShown.MONTH -> MonthView(
-                                    viewShownState = viewShownState,
-                                    selectedDateState = selectedDateState,
-                                    onDaySelected = getOnDaySelectedCallback(viewShownState, selectedDateState),
-                                    animatedVisibilityScope = this@AnimatedContent,
-                                    sharedTransitionScope = this@SharedTransitionLayout,
-                                    weekendMode = selectedWeekendMode.value,
-                                    schemes = schemes
-                                )
-                                ViewShown.YEAR -> YearView(
-                                    viewShownState = viewShownState,
-                                    selectedDateState = selectedDateState,
-                                    weekendMode = selectedWeekendMode.value,
-                                    schemes = schemes
-                                )
-                                ViewShown.DAY -> DayView(
-                                    selectedDateState = selectedDateState,
-                                    animatedVisibilityScope = this@AnimatedContent,
-                                    sharedTransitionScope = this@SharedTransitionLayout,
-                                    thisMonthInfo = getMonthInfo(
-                                        year = selectedDateState.value.year,
-                                        monthIndex = selectedDateState.value.monthIndex,
-                                        countryHolidayScheme = schemes.countryHoliday,
-                                        forYearView = false,
-                                        ctx = ctx
-                                    ),
-                                    locale = selectedLocale.value,
-                                    weekendMode = selectedWeekendMode.value,
-                                    schemes = schemes
-                                )
+                    when (viewShownState.value.current) {
+                        ViewShown.SETTINGS -> SettingsView(
+                            selectedCountry = selectedCountry,
+                            selectedLocale = selectedLocale,
+                            selectedTheme = selectedTheme,
+                            selectedWeekendMode = selectedWeekendMode,
+                            schemes = schemes
+                        )
+
+                        ViewShown.YEAR -> YearView(
+                            viewShownState = viewShownState,
+                            selectedDateState = selectedDateState,
+                            weekendMode = selectedWeekendMode.value,
+                            schemes = schemes
+                        )
+                        ViewShown.MONTH, ViewShown.DAY -> {
+                            val thisMonthInfo = getMonthInfo(
+                                year = selectedDateState.value.year,
+                                monthIndex = selectedDateState.value.monthIndex,
+                                countryHolidayScheme = schemes.countryHoliday,
+                                forView = viewShownState.value.current,
+                                ctx = ctx
+                            )
+                            SharedTransitionLayout {
+                                AnimatedContent(
+                                    targetState = viewShownState.value,
+                                    transitionSpec = {
+                                        animateContentOnViewChange(targetState, initialState)
+                                    },
+                                    label = "changing views animated content"
+                                ) {
+                                    if (it.current == ViewShown.MONTH)
+                                        MonthView(
+                                            selectedDateState = selectedDateState,
+                                            onYearViewButtonClick = {
+                                                changeView(viewShownState, ViewShown.YEAR)
+                                            },
+                                            onDaySelected = getOnDaySelectedCallback(
+                                                viewShownState,
+                                                selectedDateState
+                                            ),
+                                            animatedVisibilityScope = this@AnimatedContent,
+                                            sharedTransitionScope = this@SharedTransitionLayout,
+                                            monthInfo = thisMonthInfo,
+                                            weekendMode = selectedWeekendMode.value,
+                                            schemes = schemes
+                                        )
+                                    else
+                                        DayView(
+                                            selectedDateState = selectedDateState,
+                                            animatedVisibilityScope = this@AnimatedContent,
+                                            sharedTransitionScope = this@SharedTransitionLayout,
+                                            thisMonthInfo = thisMonthInfo,
+                                            locale = selectedLocale.value,
+                                            weekendMode = selectedWeekendMode.value,
+                                            schemes = schemes
+                                        )
+                                }
                             }
                         }
                     }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -23,19 +22,16 @@ import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.SchemeContainer
-import com.asivers.mycalendar.data.ViewShownInfo
-import com.asivers.mycalendar.enums.ViewShown
-import com.asivers.mycalendar.utils.changeView
 
 @Composable
 fun YearViewButton(
     modifier: Modifier = Modifier,
-    viewShownState: MutableState<ViewShownInfo>,
+    onClick: () -> Unit,
     schemes: SchemeContainer
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
     Button(
-        onClick = { changeView(viewShownState, ViewShown.YEAR) },
+        onClick = { onClick() },
         modifier = modifier
             .fillMaxWidth()
             .height(64.dp) // todo add to size scheme
@@ -52,9 +48,7 @@ fun YearViewButton(
                 detectVerticalDragGestures(
                     onDragStart = { offset = 0f },
                     onDragEnd = {
-                        if (offset < -20f) {
-                            changeView(viewShownState, ViewShown.YEAR)
-                        }
+                        if (offset < -20f) { onClick() }
                     }
                 ) { _, dragAmount ->
                     offset += dragAmount

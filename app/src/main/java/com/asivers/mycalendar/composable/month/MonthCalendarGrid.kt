@@ -1,5 +1,6 @@
 package com.asivers.mycalendar.composable.month
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -24,7 +25,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT
@@ -38,20 +38,20 @@ import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getDayInfo
-import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.noTransform
 import com.asivers.mycalendar.utils.slideFromLeftToRight
 import com.asivers.mycalendar.utils.slideFromRightToLeft
 
+@SuppressLint("UnusedContentLambdaTargetStateParameter")
 @Composable
 fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
     selectedDateState: MutableState<SelectedDateInfo>,
     onDaySelected: (Int, DisplayedMonth) -> Unit,
+    monthInfo: MonthInfo,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
-    val ctx = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -76,13 +76,6 @@ fun MonthCalendarGrid(
             },
             label = "month calendar animated content"
         ) {
-            val monthInfo = getMonthInfo(
-                year = it.year,
-                monthIndex = it.monthIndex,
-                countryHolidayScheme = schemes.countryHoliday,
-                forYearView = false,
-                ctx = ctx
-            )
             Column {
                 repeat(6) { weekIndex ->
                     WeekInMonthCalendarGrid(

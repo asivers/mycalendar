@@ -18,9 +18,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
+import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
-import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
@@ -33,11 +33,12 @@ import com.asivers.mycalendar.utils.previousMonth
 @Composable
 fun MonthView(
     modifier: Modifier = Modifier,
-    viewShownState: MutableState<ViewShownInfo>,
     selectedDateState: MutableState<SelectedDateInfo>,
+    onYearViewButtonClick: () -> Unit,
     onDaySelected: (Int, DisplayedMonth) -> Unit,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
+    monthInfo: MonthInfo,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -82,6 +83,7 @@ fun MonthView(
             MonthCalendarGrid(
                 selectedDateState = selectedDateState,
                 onDaySelected = onDaySelected,
+                monthInfo = monthInfo,
                 weekendMode = weekendMode,
                 schemes = schemes
             )
@@ -92,7 +94,7 @@ fun MonthView(
             )
         }
         YearViewButton(
-            viewShownState = viewShownState,
+            onClick = { onYearViewButtonClick() },
             schemes = schemes
         )
     }
