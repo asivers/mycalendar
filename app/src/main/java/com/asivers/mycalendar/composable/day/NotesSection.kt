@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -26,11 +27,14 @@ import com.asivers.mycalendar.enums.NoteMode
 import com.asivers.mycalendar.utils.getOnBackFromOneNoteMode
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.onHideKeyboard
+import com.asivers.mycalendar.utils.onHorizontalSwipe
 import com.asivers.mycalendar.utils.proto.getNotes
 
 @Composable
 fun NotesSection(
     modifier: Modifier = Modifier,
+    onSwipeToLeft: () -> Unit,
+    onSwipeToRight: () -> Unit,
     selectedDateInfo: SelectedDateInfo,
     holidayInfo: String?,
     schemes: SchemeContainer
@@ -48,6 +52,8 @@ fun NotesSection(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            onSwipeToLeft = onSwipeToLeft,
+            onSwipeToRight = onSwipeToRight,
             selectedDateInfo = selectedDateInfo,
             holidayInfo = holidayInfo,
             schemes = schemes
@@ -69,6 +75,8 @@ fun NotesSectionOverviewMode(
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
+    onSwipeToLeft: () -> Unit,
+    onSwipeToRight: () -> Unit,
     selectedDateInfo: SelectedDateInfo,
     holidayInfo: String?,
     schemes: SchemeContainer
@@ -92,10 +100,12 @@ fun NotesSectionOverviewMode(
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
         )
+        val horizontalOffset = remember { mutableFloatStateOf(0f) }
         Box(
             modifier = modifier
                 .alpha(0.5f)
-                .noRippleClickable { noteMode.value = NoteMode.ADD },
+                .noRippleClickable { noteMode.value = NoteMode.ADD }
+                .onHorizontalSwipe(horizontalOffset, onSwipeToLeft, onSwipeToRight),
             contentAlignment = Alignment.Center
         ) {
             Text(

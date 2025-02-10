@@ -27,7 +27,9 @@ import com.asivers.mycalendar.utils.getHolidayInfo
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getOnMonthSelected
 import com.asivers.mycalendar.utils.getOnYearSelected
+import com.asivers.mycalendar.utils.nextDay
 import com.asivers.mycalendar.utils.noTransform
+import com.asivers.mycalendar.utils.previousDay
 import com.asivers.mycalendar.utils.slideWeek
 import com.asivers.mycalendar.utils.translateHolidayInfo
 
@@ -98,6 +100,8 @@ fun DayView(
                 ?.translateHolidayInfo(locale)
             NotesSection(
                 modifier = Modifier.weight(1f).fillMaxWidth(),
+                onSwipeToLeft = { selectedDateState.value = nextDay(selectedDateState.value) },
+                onSwipeToRight = { selectedDateState.value = previousDay(selectedDateState.value) },
                 selectedDateInfo = selectedDateInfo,
                 holidayInfo = holidayInfo,
                 schemes = schemes

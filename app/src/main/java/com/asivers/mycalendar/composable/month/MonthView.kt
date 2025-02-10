@@ -3,18 +3,14 @@ package com.asivers.mycalendar.composable.month
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
@@ -27,6 +23,7 @@ import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getOnMonthSelected
 import com.asivers.mycalendar.utils.getOnYearSelected
 import com.asivers.mycalendar.utils.nextMonth
+import com.asivers.mycalendar.utils.onHorizontalSwipe
 import com.asivers.mycalendar.utils.previousMonth
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -43,26 +40,8 @@ fun MonthView(
     schemes: SchemeContainer
 ) {
     val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
-    var horizontalOffset by remember { mutableFloatStateOf(0f) }
     Column(
-        modifier = modifier
-            .padding(0.dp, indentFromHeaderDp.dp, 0.dp, 0.dp)
-            .pointerInput(Unit) {
-                detectHorizontalDragGestures(
-                    onDragStart = {
-                        horizontalOffset = 0f
-                    },
-                    onDragEnd = {
-                        if (horizontalOffset > 50f) {
-                            selectedDateState.value = previousMonth(selectedDateState.value)
-                        } else if (horizontalOffset < -50f) {
-                            selectedDateState.value = nextMonth(selectedDateState.value)
-                        }
-                    }
-                ) { _, dragAmount ->
-                    horizontalOffset += dragAmount
-                }
-            }
+        modifier = modifier.padding(0.dp, indentFromHeaderDp.dp, 0.dp, 0.dp)
     ) {
         with(sharedTransitionScope) {
             TopDropdownsRow(
@@ -88,7 +67,13 @@ fun MonthView(
                 schemes = schemes
             )
             ClickableSpacers(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .onHorizontalSwipe(
+                        horizontalOffset = remember { mutableFloatStateOf(0f) },
+                        onSwipeToLeft = { selectedDateState.value = nextMonth(selectedDateState.value) },
+                        onSwipeToRight = { selectedDateState.value = previousMonth(selectedDateState.value) }
+                    ),
                 onClickLeft = { selectedDateState.value = previousMonth(selectedDateState.value) },
                 onClickRight = { selectedDateState.value = nextMonth(selectedDateState.value) }
             )

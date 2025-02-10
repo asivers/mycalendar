@@ -1,6 +1,5 @@
 package com.asivers.mycalendar.composable.month
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -19,6 +18,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -38,11 +39,13 @@ import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getDayInfo
+import com.asivers.mycalendar.utils.nextMonth
 import com.asivers.mycalendar.utils.noTransform
+import com.asivers.mycalendar.utils.onHorizontalSwipe
+import com.asivers.mycalendar.utils.previousMonth
 import com.asivers.mycalendar.utils.slideFromLeftToRight
 import com.asivers.mycalendar.utils.slideFromRightToLeft
 
-@SuppressLint("UnusedContentLambdaTargetStateParameter")
 @Composable
 fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
@@ -76,7 +79,13 @@ fun MonthCalendarGrid(
             },
             label = "month calendar animated content"
         ) {
-            Column {
+            Column(
+                modifier = Modifier.onHorizontalSwipe(
+                    horizontalOffset = remember { mutableFloatStateOf(0f) },
+                    onSwipeToLeft = { selectedDateState.value = nextMonth(it) },
+                    onSwipeToRight = { selectedDateState.value = previousMonth(it) }
+                )
+            ) {
                 repeat(6) { weekIndex ->
                     WeekInMonthCalendarGrid(
                         onDaySelected = onDaySelected,
