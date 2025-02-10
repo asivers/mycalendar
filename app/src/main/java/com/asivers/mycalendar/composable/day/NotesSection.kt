@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -20,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
+import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
@@ -40,16 +39,14 @@ fun NotesSection(
     val mutableNotes = remember(selectedDateInfo) {
         getNotes(ctx, selectedDateInfo).reversed().toMutableStateList()
     }
-    val inputMsg = remember(selectedDateInfo) { mutableStateOf("") }
-    val noteId = remember(selectedDateInfo) { mutableIntStateOf(-1) }
+    val mutableNoteInfo = remember(selectedDateInfo) { mutableStateOf(MutableNoteInfo()) }
     val noteMode = remember(selectedDateInfo) { mutableStateOf(NoteMode.OVERVIEW) }
 
     when (noteMode.value) {
         NoteMode.OVERVIEW -> NotesSectionOverviewMode(
             modifier = modifier,
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
-            noteId = noteId,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo,
             holidayInfo = holidayInfo,
@@ -58,8 +55,7 @@ fun NotesSection(
         NoteMode.VIEW, NoteMode.ADD, NoteMode.EDIT -> NotesSectionOneNoteMode(
             modifier = modifier,
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
-            noteId = noteId,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
@@ -71,8 +67,7 @@ fun NotesSection(
 fun NotesSectionOverviewMode(
     modifier: Modifier = Modifier,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo,
     holidayInfo: String?,
@@ -91,8 +86,7 @@ fun NotesSectionOverviewMode(
         ExistingNotes(
             mutableNotes = mutableNotes,
             onClickToNote = {
-                inputMsg.value = it.msg
-                noteId.intValue = it.id
+                mutableNoteInfo.value = MutableNoteInfo(it)
                 noteMode.value = NoteMode.VIEW
             },
             selectedDateInfo = selectedDateInfo,
@@ -118,8 +112,7 @@ fun NotesSectionOverviewMode(
 fun NotesSectionOneNoteMode(
     modifier: Modifier = Modifier,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
@@ -130,8 +123,7 @@ fun NotesSectionOneNoteMode(
         getOnBackFromOneNoteMode(
             ctx = ctx,
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
-            noteId = noteId,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo
         )
@@ -146,19 +138,30 @@ fun NotesSectionOneNoteMode(
         NoteOptions(
             modifier = Modifier.padding(8.dp),
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
-            noteId = noteId,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
         )
         InputNote(
             modifier = Modifier.weight(1f),
-            onValueChange = { inputMsg.value = it },
+            onValueChange = { updateCreateNoteInfoMsg(mutableNoteInfo, it) },
             onClick = { noteMode.value = NoteMode.EDIT },
-            inputMsg = inputMsg.value,
+            initialMsg = mutableNoteInfo.value.msg,
             noteMode = noteMode.value,
             schemes = schemes
         )
+    }
+}
+
+private fun updateCreateNoteInfoMsg(
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
+    newMsg: String
+) {
+    if (newMsg.isBlank() || mutableNoteInfo.value.msg.isBlank()) {
+        mutableNoteInfo.value = mutableNoteInfo.value.refreshMsg(newMsg)
+    } else {
+        mutableNoteInfo.value.msg = newMsg
+        mutableNoteInfo.value.changed = true
     }
 }

@@ -1,9 +1,9 @@
 package com.asivers.mycalendar.utils
 
 import android.content.Context
-import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
@@ -14,30 +14,30 @@ import com.asivers.mycalendar.utils.proto.removeNote
 fun getOnBackFromOneNoteMode(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo
 ) {
     when (noteMode.value) {
         NoteMode.OVERVIEW -> throw IllegalStateException()
         NoteMode.VIEW -> getOnBackFromViewMode(
-            inputMsg = inputMsg,
-            noteId = noteId,
-            noteMode = noteMode
+            ctx = ctx,
+            mutableNotes = mutableNotes,
+            mutableNoteInfo = mutableNoteInfo,
+            noteMode = noteMode,
+            selectedDateInfo = selectedDateInfo
         )
         NoteMode.ADD -> getOnCompleteAddMode(
             ctx = ctx,
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo
         )
         NoteMode.EDIT -> getOnCompleteEditMode(
             ctx = ctx,
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
-            noteId = noteId,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo
         )
@@ -47,8 +47,7 @@ fun getOnBackFromOneNoteMode(
 fun getOnCompleteOneNoteMode(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo
 ) {
@@ -57,23 +56,21 @@ fun getOnCompleteOneNoteMode(
         NoteMode.VIEW -> getOnDeleteNoteInViewMode(
             ctx = ctx,
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
-            noteId = noteId,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo
         )
         NoteMode.ADD -> getOnCompleteAddMode(
             ctx = ctx,
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo
         )
         NoteMode.EDIT -> getOnCompleteEditMode(
             ctx = ctx,
             mutableNotes = mutableNotes,
-            inputMsg = inputMsg,
-            noteId = noteId,
+            mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
             selectedDateInfo = selectedDateInfo
         )
@@ -81,51 +78,57 @@ fun getOnCompleteOneNoteMode(
 }
 
 private fun getOnBackFromViewMode(
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
-    noteMode: MutableState<NoteMode>
+    ctx: Context,
+    mutableNotes: SnapshotStateList<NoteInfo>,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
+    noteMode: MutableState<NoteMode>,
+    selectedDateInfo: SelectedDateInfo
 ) {
-    inputMsg.value = ""
-    noteId.intValue = -1
+    if (mutableNoteInfo.value.changed) {
+        editNoteAndUpdateStates(
+            ctx = ctx,
+            mutableNotes = mutableNotes,
+            mutableNoteInfo = mutableNoteInfo,
+            selectedDateInfo = selectedDateInfo
+        )
+    }
+    mutableNoteInfo.value = MutableNoteInfo()
     noteMode.value = NoteMode.OVERVIEW
 }
 
 private fun getOnDeleteNoteInViewMode(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo
 ) {
-    removeNote(
+    removeNoteAndUpdateStates(
         ctx = ctx,
-        selectedDateInfo = selectedDateInfo,
-        id = noteId.intValue
+        mutableNotes = mutableNotes,
+        mutableNoteInfo = mutableNoteInfo,
+        selectedDateInfo = selectedDateInfo
     )
-    mutableNotes.removeIf { it.id == noteId.intValue }
-    inputMsg.value = ""
-    noteId.intValue = -1
     noteMode.value = NoteMode.OVERVIEW
 }
 
 private fun getOnCompleteAddMode(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo
 ) {
-    if (inputMsg.value.isBlank()) {
+    if (mutableNoteInfo.value.msg.isBlank()) {
+        mutableNoteInfo.value = MutableNoteInfo()
         noteMode.value = NoteMode.OVERVIEW
     } else {
-        val newNoteInfo = addNote(
+        addNoteAndUpdateStates(
             ctx = ctx,
-            selectedDateInfo = selectedDateInfo,
-            msg = inputMsg.value,
-            isEveryYear = false
+            mutableNotes = mutableNotes,
+            mutableNoteInfo = mutableNoteInfo,
+            selectedDateInfo = selectedDateInfo
         )
-        mutableNotes.add(0, newNoteInfo)
         noteMode.value = NoteMode.VIEW
     }
 }
@@ -133,34 +136,86 @@ private fun getOnCompleteAddMode(
 private fun getOnCompleteEditMode(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo
 ) {
-    if (inputMsg.value.isBlank()) {
-        removeNote(
+    if (mutableNoteInfo.value.msg.isBlank()) {
+        removeNoteAndUpdateStates(
             ctx = ctx,
-            selectedDateInfo = selectedDateInfo,
-            id = noteId.intValue
+            mutableNotes = mutableNotes,
+            mutableNoteInfo = mutableNoteInfo,
+            selectedDateInfo = selectedDateInfo
         )
-        mutableNotes.removeIf { it.id == noteId.intValue }
         noteMode.value = NoteMode.OVERVIEW
     } else {
-        val editedNoteInfo = editNote(
+        editNoteAndUpdateStates(
             ctx = ctx,
-            selectedDateInfo = selectedDateInfo,
-            id = noteId.intValue,
-            msg = inputMsg.value,
-            isEveryYear = false
+            mutableNotes = mutableNotes,
+            mutableNoteInfo = mutableNoteInfo,
+            selectedDateInfo = selectedDateInfo
         )
-        for ((index, noteInfo) in mutableNotes.withIndex()) {
-            if (noteInfo.id == noteId.intValue) {
-                mutableNotes.removeAt(index)
-                mutableNotes.add(index, editedNoteInfo)
-                break
-            }
-        }
         noteMode.value = NoteMode.VIEW
     }
+}
+
+private fun addNoteAndUpdateStates(
+    ctx: Context,
+    mutableNotes: SnapshotStateList<NoteInfo>,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
+    selectedDateInfo: SelectedDateInfo
+) {
+    val noteMsg = mutableNoteInfo.value.msg
+    val isEveryYear = mutableNoteInfo.value.isEveryYear
+    val newNoteInfo = addNote(
+        ctx = ctx,
+        selectedDateInfo = selectedDateInfo,
+        msg = noteMsg,
+        isEveryYear = isEveryYear
+    )
+    mutableNotes.add(0, newNoteInfo)
+    mutableNoteInfo.value.id = newNoteInfo.id
+    mutableNoteInfo.value.changed = false
+}
+
+private fun removeNoteAndUpdateStates(
+    ctx: Context,
+    mutableNotes: SnapshotStateList<NoteInfo>,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
+    selectedDateInfo: SelectedDateInfo
+) {
+    val noteId = mutableNoteInfo.value.id!!
+    removeNote(
+        ctx = ctx,
+        selectedDateInfo = selectedDateInfo,
+        id = noteId
+    )
+    mutableNotes.removeIf { it.id == noteId }
+    mutableNoteInfo.value = MutableNoteInfo()
+}
+
+private fun editNoteAndUpdateStates(
+    ctx: Context,
+    mutableNotes: SnapshotStateList<NoteInfo>,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
+    selectedDateInfo: SelectedDateInfo
+) {
+    val noteId = mutableNoteInfo.value.id!!
+    val noteMsg = mutableNoteInfo.value.msg
+    val isEveryYear = mutableNoteInfo.value.isEveryYear
+    val editedNoteInfo = editNote(
+        ctx = ctx,
+        selectedDateInfo = selectedDateInfo,
+        id = noteId,
+        msg = noteMsg,
+        isEveryYear = isEveryYear
+    )
+    for ((index, noteInfo) in mutableNotes.withIndex()) {
+        if (noteInfo.id == noteId) {
+            mutableNotes.removeAt(index)
+            mutableNotes.add(index, editedNoteInfo)
+            break
+        }
+    }
+    mutableNoteInfo.value.changed = false
 }

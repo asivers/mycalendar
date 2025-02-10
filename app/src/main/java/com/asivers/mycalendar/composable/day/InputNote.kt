@@ -6,6 +6,7 @@ import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -22,14 +23,18 @@ fun InputNote(
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit,
     onClick: () -> Unit,
-    inputMsg: String,
+    initialMsg: String,
     noteMode: NoteMode,
     schemes: SchemeContainer
 ) {
+    val inputMsg = remember { mutableStateOf(initialMsg) }
     val focusRequester = remember { FocusRequester() }
     TextField(
-        value = inputMsg,
-        onValueChange = { onValueChange(it) },
+        value = inputMsg.value,
+        onValueChange = {
+            onValueChange(it)
+            inputMsg.value = it
+        },
         modifier = modifier
             .fillMaxWidth()
             .focusRequester(focusRequester)

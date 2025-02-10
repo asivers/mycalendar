@@ -8,8 +8,8 @@ data class NoteInfo(
     val id: Int,
     val msg: String,
     val forYear: Int?,
-    val isHoliday: Boolean,
-    val notificationTime: NotificationTime?
+    val notificationTime: NotificationTime?,
+    val isHoliday: Boolean = false
 ): Comparable<NoteInfo> {
 
     constructor(
@@ -18,8 +18,8 @@ data class NoteInfo(
         id = protoNote.id,
         msg = protoNote.msg,
         forYear = if (protoNote.forYear > 0) protoNote.forYear else null,
-        isHoliday = protoNote.isHoliday,
-        notificationTime = NotificationTime(protoNote.notificationTime)
+        notificationTime = NotificationTime(protoNote.notificationTime),
+        isHoliday = protoNote.isHoliday
     )
 
     override fun compareTo(other: NoteInfo) = compareValuesBy(this, other,

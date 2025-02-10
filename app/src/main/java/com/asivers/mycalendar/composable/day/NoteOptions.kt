@@ -7,7 +7,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,6 +19,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
+import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
@@ -30,8 +30,7 @@ import com.asivers.mycalendar.utils.getOnCompleteOneNoteMode
 fun NoteOptions(
     modifier: Modifier = Modifier,
     mutableNotes: SnapshotStateList<NoteInfo>,
-    inputMsg: MutableState<String>,
-    noteId: MutableIntState,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
@@ -42,14 +41,14 @@ fun NoteOptions(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(32.dp)
     ) {
-        val enabled = inputMsg.value.isNotBlank()
-        val everyYearSwitchState = remember { mutableStateOf(false) }
+        val createNoteInfoValue = mutableNoteInfo.value
+        val enabled = createNoteInfoValue.msg.isNotBlank()
         SwitchWithLabel(
             modifier = Modifier
                 .weight(1f)
                 .alpha(if (enabled) 1f else 0.4f),
-            checked = everyYearSwitchState.value,
-            onCheckedChange = { everyYearSwitchState.value = it },
+            checked = createNoteInfoValue.isEveryYear,
+            onCheckedChange = { mutableNoteInfo.value = createNoteInfoValue.refreshIsEveryYear(it) },
             enabled = enabled,
             label = schemes.translation.switchEveryYear,
             schemes = schemes
@@ -74,8 +73,7 @@ fun NoteOptions(
                     getOnCompleteOneNoteMode(
                         ctx = ctx,
                         mutableNotes = mutableNotes,
-                        inputMsg = inputMsg,
-                        noteId = noteId,
+                        mutableNoteInfo = mutableNoteInfo,
                         noteMode = noteMode,
                         selectedDateInfo = selectedDateInfo
                     )
