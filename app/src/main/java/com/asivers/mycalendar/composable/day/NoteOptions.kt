@@ -104,7 +104,7 @@ fun SwitchWithLabel(
             onCheckedChange = onCheckedChange,
             enabled = enabled,
             colors = SwitchDefaults.colors(
-                checkedTrackColor = schemes.color.monthViewTop
+                checkedTrackColor = schemes.color.viewsTop
             )
         )
         Text(

@@ -18,41 +18,33 @@ fun getColorSchemeByMonthIndex(selectedMonthIndex: Int): ColorScheme {
     }
 }
 
+fun getBackgroundGradient(viewShown: ViewShown, colorScheme: ColorScheme): Brush {
+    return when (viewShown) {
+        ViewShown.MONTH, ViewShown.YEAR -> getMonthAndYearViewBackgroundGradient(colorScheme)
+        ViewShown.DAY, ViewShown.SETTINGS -> getDefaultBackgroundGradient(colorScheme)
+    }
+}
+
+fun getDefaultBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
+    colorStops = arrayOf(
+        0.0f to colorScheme.viewsTop,
+        1f to colorScheme.viewsBottom,
+    )
+)
+
 fun getMonthAndYearViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colorStops = arrayOf(
-        0.0f to colorScheme.monthViewTop,
-        0.12f to colorScheme.monthViewTop,
+        0.0f to colorScheme.viewsTop,
+        0.12f to colorScheme.viewsTop,
         0.27f to colorScheme.viewsBottom,
         1f to colorScheme.viewsBottom,
     )
 )
 
-fun getYearViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
+fun getYearViewInnerBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colorStops = arrayOf(
         0.0f to colorScheme.yearViewBtnTop,
         0.2f to colorScheme.yearViewBtnBottom,
         1f to colorScheme.viewsBottom,
     )
 )
-
-fun getSettingViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
-    colorStops = arrayOf(
-        0.0f to colorScheme.settingsViewTop,
-        1f to colorScheme.viewsBottom,
-    )
-)
-
-fun getDayViewBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
-    colorStops = arrayOf(
-        0.0f to colorScheme.monthViewTop,
-        1f to colorScheme.viewsBottom,
-    )
-)
-
-fun getBackgroundGradient(viewShown: ViewShown, colorScheme: ColorScheme): Brush {
-    return when (viewShown) {
-        ViewShown.MONTH, ViewShown.YEAR -> getMonthAndYearViewBackgroundGradient(colorScheme)
-        ViewShown.DAY -> getDayViewBackgroundGradient(colorScheme)
-        ViewShown.SETTINGS -> getSettingViewBackgroundGradient(colorScheme)
-    }
-}

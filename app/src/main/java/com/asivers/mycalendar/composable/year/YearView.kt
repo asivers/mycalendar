@@ -29,7 +29,7 @@ import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getOnMonthSelected
 import com.asivers.mycalendar.utils.getOnYearSelected
-import com.asivers.mycalendar.utils.getYearViewBackgroundGradient
+import com.asivers.mycalendar.utils.getYearViewInnerBackgroundGradient
 
 @Composable
 fun YearView(
@@ -48,7 +48,7 @@ fun YearView(
         modifier = modifier
             .padding(0.dp, indentFromHeaderToFrameDp.dp, 0.dp, 0.dp)
             .clip(RoundedCornerShape(36.dp, 36.dp))
-            .background(getYearViewBackgroundGradient(schemes.color))
+            .background(getYearViewInnerBackgroundGradient(schemes.color))
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDragStart = {
