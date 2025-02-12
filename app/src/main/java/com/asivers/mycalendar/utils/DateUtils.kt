@@ -171,7 +171,7 @@ fun getDayInfo(
     val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
     val isWithNote = dayValue in daysWithNotes
 
-    return DayInfo(dayValue, inMonth, isToday, isWeekend, isHoliday, isWithNote)
+    return DayInfo(dayValue, inMonth, isToday, dayOfWeekIndex, isWeekend, isHoliday, isWithNote)
 }
 
 private fun isWeekend(
@@ -192,10 +192,6 @@ private fun isWeekend(
 private fun isHoliday(dayValue: Int, holidaysAndNotHolidays: HolidaysAndNotHolidays): Boolean {
     return dayValue !in holidaysAndNotHolidays.notHolidays &&
             dayValue in holidaysAndNotHolidays.holidays
-}
-
-fun getHolidayInfo(dayValue: Int, holidaysAndNotHolidays: HolidaysAndNotHolidays): HolidayInfo? {
-    return holidaysAndNotHolidays.notHolidays[dayValue] ?: holidaysAndNotHolidays.holidays[dayValue]
 }
 
 fun getDifferenceInDays(
