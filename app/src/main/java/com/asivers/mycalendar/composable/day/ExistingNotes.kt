@@ -40,6 +40,7 @@ fun ExistingNotes(
     modifier: Modifier = Modifier,
     mutableNotes: SnapshotStateList<NoteInfo>,
     onClickToNote: (NoteInfo) -> Unit,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
@@ -58,6 +59,7 @@ fun ExistingNotes(
                     if (newValue == SwipeToDismissBoxValue.StartToEnd) {
                         removeNote(ctx, selectedDateInfo, noteInfo.id)
                         mutableNotes.remove(noteInfo)
+                        refreshDaysLine()
                         true
                     } else {
                         false

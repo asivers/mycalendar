@@ -37,6 +37,7 @@ fun NotesSection(
     modifier: Modifier = Modifier,
     onSwipeToLeft: () -> Unit,
     onSwipeToRight: () -> Unit,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo,
     holidayInfo: String?,
     schemes: SchemeContainer
@@ -56,6 +57,7 @@ fun NotesSection(
             noteMode = noteMode,
             onSwipeToLeft = onSwipeToLeft,
             onSwipeToRight = onSwipeToRight,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo,
             holidayInfo = holidayInfo,
             schemes = schemes
@@ -65,6 +67,7 @@ fun NotesSection(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
         )
@@ -79,6 +82,7 @@ fun NotesSectionOverviewMode(
     noteMode: MutableState<NoteMode>,
     onSwipeToLeft: () -> Unit,
     onSwipeToRight: () -> Unit,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo,
     holidayInfo: String?,
     schemes: SchemeContainer
@@ -102,6 +106,7 @@ fun NotesSectionOverviewMode(
                 mutableNoteInfo.value = MutableNoteInfo(it)
                 noteMode.value = NoteMode.VIEW
             },
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
         )
@@ -129,6 +134,7 @@ fun NotesSectionOneNoteMode(
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
@@ -140,6 +146,7 @@ fun NotesSectionOneNoteMode(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo
         )
         localFocusManager.clearFocus()
@@ -155,6 +162,7 @@ fun NotesSectionOneNoteMode(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
         )

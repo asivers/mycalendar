@@ -102,6 +102,7 @@ fun DayView(
                 modifier = Modifier.weight(1f).fillMaxWidth(),
                 onSwipeToLeft = { selectedDateState.value = nextDay(selectedDateState.value) },
                 onSwipeToRight = { selectedDateState.value = previousDay(selectedDateState.value) },
+                refreshDaysLine = { selectedDateState.value = selectedDateState.value.cloneWithRefresh() },
                 selectedDateInfo = selectedDateInfo,
                 holidayInfo = holidayInfo,
                 schemes = schemes

@@ -32,6 +32,7 @@ fun NoteOptions(
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
@@ -75,6 +76,7 @@ fun NoteOptions(
                         mutableNotes = mutableNotes,
                         mutableNoteInfo = mutableNoteInfo,
                         noteMode = noteMode,
+                        refreshDaysLine = refreshDaysLine,
                         selectedDateInfo = selectedDateInfo
                     )
                     localFocusManager.clearFocus()

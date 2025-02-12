@@ -16,6 +16,7 @@ fun getOnBackFromOneNoteMode(
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo
 ) {
     when (noteMode.value) {
@@ -32,6 +33,7 @@ fun getOnBackFromOneNoteMode(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo
         )
         NoteMode.EDIT -> getOnCompleteEditMode(
@@ -39,6 +41,7 @@ fun getOnBackFromOneNoteMode(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo
         )
     }
@@ -49,6 +52,7 @@ fun getOnCompleteOneNoteMode(
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo
 ) {
     when (noteMode.value) {
@@ -58,6 +62,7 @@ fun getOnCompleteOneNoteMode(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo
         )
         NoteMode.ADD -> getOnCompleteAddMode(
@@ -65,6 +70,7 @@ fun getOnCompleteOneNoteMode(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo
         )
         NoteMode.EDIT -> getOnCompleteEditMode(
@@ -72,6 +78,7 @@ fun getOnCompleteOneNoteMode(
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
             selectedDateInfo = selectedDateInfo
         )
     }
@@ -101,6 +108,7 @@ private fun getOnDeleteNoteInViewMode(
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo
 ) {
     removeNoteAndUpdateStates(
@@ -110,6 +118,7 @@ private fun getOnDeleteNoteInViewMode(
         selectedDateInfo = selectedDateInfo
     )
     noteMode.value = NoteMode.OVERVIEW
+    refreshDaysLine()
 }
 
 private fun getOnCompleteAddMode(
@@ -117,6 +126,7 @@ private fun getOnCompleteAddMode(
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo
 ) {
     if (mutableNoteInfo.value.msg.isBlank()) {
@@ -130,6 +140,7 @@ private fun getOnCompleteAddMode(
             selectedDateInfo = selectedDateInfo
         )
         noteMode.value = NoteMode.VIEW
+        refreshDaysLine()
     }
 }
 
@@ -138,6 +149,7 @@ private fun getOnCompleteEditMode(
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     noteMode: MutableState<NoteMode>,
+    refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo
 ) {
     if (mutableNoteInfo.value.msg.isBlank()) {
@@ -148,6 +160,7 @@ private fun getOnCompleteEditMode(
             selectedDateInfo = selectedDateInfo
         )
         noteMode.value = NoteMode.OVERVIEW
+        refreshDaysLine()
     } else {
         editNoteAndUpdateStates(
             ctx = ctx,
