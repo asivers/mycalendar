@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
 import java.util.Calendar
+import java.util.GregorianCalendar
 
 fun previousMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
     val date = selectedDateInfo.getDate()
@@ -79,10 +80,15 @@ fun getOnMonthSelected(
     selectedDateState: MutableState<SelectedDateInfo>,
     selectedMonthIndex: Int
 ) {
+    val year = selectedDateState.value.year
+    val maxNumberOfDaysInSelectedMonth = GregorianCalendar(year, selectedMonthIndex, 1)
+        .getActualMaximum(Calendar.DAY_OF_MONTH)
+    val oldDayOfMonth = selectedDateState.value.dayOfMonth
+    val newDayOfMonth = minOf(oldDayOfMonth, maxNumberOfDaysInSelectedMonth)
     selectedDateState.value = SelectedDateInfo(
-        year = selectedDateState.value.year,
+        year = year,
         monthIndex = selectedMonthIndex,
-        dayOfMonth = selectedDateState.value.dayOfMonth,
+        dayOfMonth = newDayOfMonth,
         byDropdown = true
     )
 }
@@ -92,10 +98,15 @@ fun getOnYearSelected(
     selectedYear: Int,
     onYearView: Boolean
 ) {
+    val monthIndex = selectedDateState.value.monthIndex
+    val maxNumberOfDaysInSelectedMonth = GregorianCalendar(selectedYear, monthIndex, 1)
+        .getActualMaximum(Calendar.DAY_OF_MONTH)
+    val oldDayOfMonth = selectedDateState.value.dayOfMonth
+    val newDayOfMonth = minOf(oldDayOfMonth, maxNumberOfDaysInSelectedMonth)
     selectedDateState.value = SelectedDateInfo(
         year = selectedYear,
-        monthIndex = selectedDateState.value.monthIndex,
-        dayOfMonth = selectedDateState.value.dayOfMonth,
+        monthIndex = monthIndex,
+        dayOfMonth = newDayOfMonth,
         yearOnMonthView = if (onYearView) selectedDateState.value.yearOnMonthView else selectedYear,
         byDropdown = true
     )
