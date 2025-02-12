@@ -6,7 +6,10 @@ import com.asivers.mycalendar.enums.DisplayedMonth
 import java.util.Calendar
 import java.util.GregorianCalendar
 
-fun previousMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
+fun previousMonth(
+    selectedDateInfo: SelectedDateInfo,
+    byMonthSwipe: Boolean = false
+): SelectedDateInfo {
     val date = selectedDateInfo.getDate()
     date.add(Calendar.MONTH, -1) // now it is previous month
 
@@ -17,10 +20,18 @@ fun previousMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
     val updatedMonthIndex = date.get(Calendar.MONTH)
     val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
 
-    return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
+    return SelectedDateInfo(
+        year = updatedYear,
+        monthIndex = updatedMonthIndex,
+        dayOfMonth = updatedDayOfMonth,
+        byMonthSwipe = byMonthSwipe
+    )
 }
 
-fun nextMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
+fun nextMonth(
+    selectedDateInfo: SelectedDateInfo,
+    byMonthSwipe: Boolean = false
+): SelectedDateInfo {
     val date = selectedDateInfo.getDate()
     date.add(Calendar.MONTH, 1) // now it is next month
 
@@ -31,7 +42,12 @@ fun nextMonth(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
     val updatedMonthIndex = date.get(Calendar.MONTH)
     val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
 
-    return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
+    return SelectedDateInfo(
+        year = updatedYear,
+        monthIndex = updatedMonthIndex,
+        dayOfMonth = updatedDayOfMonth,
+        byMonthSwipe = byMonthSwipe
+    )
 }
 
 fun previousDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
@@ -88,8 +104,7 @@ fun getOnMonthSelected(
     selectedDateState.value = SelectedDateInfo(
         year = year,
         monthIndex = selectedMonthIndex,
-        dayOfMonth = newDayOfMonth,
-        byDropdown = true
+        dayOfMonth = newDayOfMonth
     )
 }
 
@@ -107,7 +122,6 @@ fun getOnYearSelected(
         year = selectedYear,
         monthIndex = monthIndex,
         dayOfMonth = newDayOfMonth,
-        yearOnMonthView = if (onYearView) selectedDateState.value.yearOnMonthView else selectedYear,
-        byDropdown = true
+        yearOnMonthView = if (onYearView) selectedDateState.value.yearOnMonthView else selectedYear
     )
 }

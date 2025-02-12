@@ -57,15 +57,15 @@ fun MonthCalendarGrid(
         AnimatedContent(
             targetState = selectedDateState.value,
             transitionSpec = {
-                if (targetState.byDropdown) {
-                    fadeSlow()
-                } else {
+                if (targetState.byMonthSwipe) {
                     val monthIndexDiff = targetState.monthIndex - initialState.monthIndex
                     when (monthIndexDiff) {
-                        0 -> noTransform() // workaround to prevent slide before day view
                         1, -11 -> slideFromRightToLeft() // next month
-                        else -> slideFromLeftToRight() // prev month
+                        -1, 11 -> slideFromLeftToRight() // prev month
+                        else -> noTransform() // will never happen
                     }
+                } else {
+                    fadeSlow()
                 }
             },
             label = "month calendar animated content"
@@ -83,8 +83,12 @@ fun MonthCalendarGrid(
             }
             SixWeeksInMonthCalendarGrid(
                 onDaySelected = onDaySelected,
-                onSwipeToLeft = { updateSelectedDateState(nextMonth(selectedDateInfo)) },
-                onSwipeToRight = { updateSelectedDateState(previousMonth(selectedDateInfo)) },
+                onSwipeToLeft = {
+                    updateSelectedDateState(nextMonth(selectedDateInfo, true))
+                },
+                onSwipeToRight = {
+                    updateSelectedDateState(previousMonth(selectedDateInfo, true))
+                },
                 monthInfo = monthInfo,
                 weekendMode = weekendMode,
                 schemes = schemes

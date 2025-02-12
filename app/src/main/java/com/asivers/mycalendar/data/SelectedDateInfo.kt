@@ -10,7 +10,7 @@ data class SelectedDateInfo(
     val monthIndex: Int = getCurrentMonthIndex(),
     val dayOfMonth: Int = getCurrentDayOfMonth(),
     val yearOnMonthView: Int = year,
-    val byDropdown: Boolean = false,
+    val byMonthSwipe: Boolean = false,
     val refreshFlag: Boolean = false // workaround to refresh state without changing the date
 ) {
 
@@ -21,7 +21,7 @@ data class SelectedDateInfo(
         monthIndex = monthIndex,
         dayOfMonth = dayOfMonth,
         yearOnMonthView = yearOnMonthView,
-        byDropdown = byDropdown,
+        byMonthSwipe = byMonthSwipe,
         refreshFlag = !refreshFlag
     )
 

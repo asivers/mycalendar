@@ -65,16 +65,28 @@ fun MonthView(
                     weekendMode = weekendMode,
                     schemes = schemes
                 )
+                val toNextMonth = {
+                    selectedDateState.value = nextMonth(
+                        selectedDateInfo = selectedDateState.value,
+                        byMonthSwipe = true
+                    )
+                }
+                val toPreviousMonth = {
+                    selectedDateState.value = previousMonth(
+                        selectedDateInfo = selectedDateState.value,
+                        byMonthSwipe = true
+                    )
+                }
                 ClickableSpacers(
                     modifier = Modifier
                         .fillMaxSize()
                         .onHorizontalSwipe(
                             horizontalOffset = remember { mutableFloatStateOf(0f) },
-                            onSwipeToLeft = { selectedDateState.value = nextMonth(selectedDateState.value) },
-                            onSwipeToRight = { selectedDateState.value = previousMonth(selectedDateState.value) }
+                            onSwipeToLeft = toNextMonth,
+                            onSwipeToRight = toPreviousMonth
                         ),
-                    onClickLeft = { selectedDateState.value = previousMonth(selectedDateState.value) },
-                    onClickRight = { selectedDateState.value = nextMonth(selectedDateState.value) }
+                    onClickLeft = toPreviousMonth,
+                    onClickRight = toNextMonth
                 )
             }
             YearViewButton(
