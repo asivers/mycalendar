@@ -166,7 +166,7 @@ fun getDayInfo(
     }
 
     val isToday = dayValue == today
-    val dayOfWeekIndex = (dayValueRaw + monthInfo.dayOfWeekOf1st - 1) % 7
+    val dayOfWeekIndex = (dayValueRaw + monthInfo.dayOfWeekOf1st + 6) % 7
     val isWeekend = isWeekend(dayValue, dayOfWeekIndex, weekendMode, holidaysAndNotHolidays)
     val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
     val isWithNote = dayValue in daysWithNotes
