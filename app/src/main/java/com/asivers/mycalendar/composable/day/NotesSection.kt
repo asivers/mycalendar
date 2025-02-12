@@ -3,6 +3,8 @@ package com.asivers.mycalendar.composable.day
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -81,15 +83,18 @@ fun NotesSectionOverviewMode(
     holidayInfo: String?,
     schemes: SchemeContainer
 ) {
-    Column(modifier = modifier.padding(8.dp)) {
+    Column(
+        modifier = modifier.padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         if (holidayInfo != null) {
             Text(
                 text = holidayInfo,
-                modifier = Modifier.padding(16.dp, 20.dp),
                 fontFamily = MONTSERRAT_MEDIUM,
                 fontSize = schemes.size.font.dropdownItem,
                 color = schemes.color.text
             )
+            Spacer(modifier = Modifier.height(16.dp))
         }
         ExistingNotes(
             mutableNotes = mutableNotes,
