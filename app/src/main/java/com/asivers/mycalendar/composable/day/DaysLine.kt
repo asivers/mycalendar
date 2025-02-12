@@ -1,7 +1,6 @@
 package com.asivers.mycalendar.composable.day
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,8 +43,7 @@ fun DaysLine(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(IntrinsicSize.Min)
-            .padding(0.dp, 3.dp)
+            .padding(3.dp, 0.dp)
             .onHorizontalSwipe(
                 horizontalOffset = horizontalOffset,
                 onSwipeToLeft = { onSwipe(-(horizontalOffset.floatValue / minimumSwipe).roundToInt()) },
@@ -67,7 +65,7 @@ fun DaysLine(
                     color = schemes.color.text,
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.height(3.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 DayWithNoteMark(
                     onDaySelected = onDayChanged,
                     dayInfo = dayInfo,

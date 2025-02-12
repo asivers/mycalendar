@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -52,6 +53,7 @@ fun MonthCalendarGrid(
         HeaderWeekInMonthCalendarGrid(
             schemes = schemes
         )
+        Spacer(modifier = Modifier.height(5.dp))
         AnimatedContent(
             targetState = selectedDateState.value,
             transitionSpec = {
@@ -101,9 +103,7 @@ fun HeaderWeekInMonthCalendarGrid(
     ) {
         repeat(7) { dayOfWeekIndex ->
             Text(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(0.dp, 5.dp),
+                modifier = Modifier.weight(1f),
                 text = schemes.translation.daysOfWeek3[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
                 fontSize = schemes.size.font.mvHeaderWeek,

@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -44,7 +45,6 @@ fun MonthView(
         with(sharedTransitionScope) {
             TopDropdownsRow(
                 modifier = Modifier
-                    .weight(1f)
                     .sharedElement(
                         rememberSharedContentState(key = "topDropdownsRow"),
                         animatedVisibilityScope = animatedVisibilityScope
@@ -56,28 +56,31 @@ fun MonthView(
                 schemes = schemes
             )
         }
-        Column(modifier = Modifier.weight(8f)) {
-            MonthCalendarGrid(
-                selectedDateState = selectedDateState,
-                onDaySelected = onDaySelected,
-                weekendMode = weekendMode,
+        Spacer(modifier = Modifier.weight(1f))
+        Column(modifier = Modifier.weight(17f)) {
+            Column(modifier = Modifier.weight(1f)) {
+                MonthCalendarGrid(
+                    selectedDateState = selectedDateState,
+                    onDaySelected = onDaySelected,
+                    weekendMode = weekendMode,
+                    schemes = schemes
+                )
+                ClickableSpacers(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .onHorizontalSwipe(
+                            horizontalOffset = remember { mutableFloatStateOf(0f) },
+                            onSwipeToLeft = { selectedDateState.value = nextMonth(selectedDateState.value) },
+                            onSwipeToRight = { selectedDateState.value = previousMonth(selectedDateState.value) }
+                        ),
+                    onClickLeft = { selectedDateState.value = previousMonth(selectedDateState.value) },
+                    onClickRight = { selectedDateState.value = nextMonth(selectedDateState.value) }
+                )
+            }
+            YearViewButton(
+                onClick = { onYearViewButtonClick() },
                 schemes = schemes
             )
-            ClickableSpacers(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .onHorizontalSwipe(
-                        horizontalOffset = remember { mutableFloatStateOf(0f) },
-                        onSwipeToLeft = { selectedDateState.value = nextMonth(selectedDateState.value) },
-                        onSwipeToRight = { selectedDateState.value = previousMonth(selectedDateState.value) }
-                    ),
-                onClickLeft = { selectedDateState.value = previousMonth(selectedDateState.value) },
-                onClickRight = { selectedDateState.value = nextMonth(selectedDateState.value) }
-            )
         }
-        YearViewButton(
-            onClick = { onYearViewButtonClick() },
-            schemes = schemes
-        )
     }
 }

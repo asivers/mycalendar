@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -68,11 +69,9 @@ fun DayView(
                 schemes = schemes
             )
         }
+        Spacer(modifier = Modifier.weight(1f))
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .padding(0.dp, 20.dp, 0.dp, 0.dp),
+            modifier = Modifier.weight(17f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AnimatedContent(
