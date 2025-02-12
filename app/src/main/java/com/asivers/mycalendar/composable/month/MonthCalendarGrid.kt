@@ -55,6 +55,7 @@ fun MonthCalendarGrid(
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
+    val updateSelectedDateState: (SelectedDateInfo) -> Unit = { selectedDateState.value = it }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -79,23 +80,14 @@ fun MonthCalendarGrid(
             },
             label = "month calendar animated content"
         ) {
-            Column(
-                modifier = Modifier.onHorizontalSwipe(
-                    horizontalOffset = remember { mutableFloatStateOf(0f) },
-                    onSwipeToLeft = { selectedDateState.value = nextMonth(it) },
-                    onSwipeToRight = { selectedDateState.value = previousMonth(it) }
-                )
-            ) {
-                repeat(6) { weekIndex ->
-                    WeekInMonthCalendarGrid(
-                        onDaySelected = onDaySelected,
-                        weekIndex = weekIndex,
-                        monthInfo = monthInfo,
-                        weekendMode = weekendMode,
-                        schemes = schemes
-                    )
-                }
-            }
+            SixWeeksInMonthCalendarGrid(
+                onDaySelected = onDaySelected,
+                onSwipeToLeft = { updateSelectedDateState(nextMonth(it)) },
+                onSwipeToRight = { updateSelectedDateState(previousMonth(it)) },
+                monthInfo = monthInfo,
+                weekendMode = weekendMode,
+                schemes = schemes
+            )
         }
     }
 }
@@ -118,6 +110,35 @@ fun HeaderWeekInMonthCalendarGrid(
                 fontSize = schemes.size.font.mvHeaderWeek,
                 color = schemes.color.text,
                 textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+@Composable
+fun SixWeeksInMonthCalendarGrid(
+    modifier: Modifier = Modifier,
+    onDaySelected: (Int, DisplayedMonth) -> Unit,
+    onSwipeToLeft: () -> Unit,
+    onSwipeToRight: () -> Unit,
+    monthInfo: MonthInfo,
+    weekendMode: WeekendMode,
+    schemes: SchemeContainer
+) {
+    Column(
+        modifier = modifier.onHorizontalSwipe(
+            horizontalOffset = remember { mutableFloatStateOf(0f) },
+            onSwipeToLeft = onSwipeToLeft,
+            onSwipeToRight = onSwipeToRight
+        )
+    ) {
+        repeat(6) { weekIndex ->
+            WeekInMonthCalendarGrid(
+                onDaySelected = onDaySelected,
+                weekIndex = weekIndex,
+                monthInfo = monthInfo,
+                weekendMode = weekendMode,
+                schemes = schemes
             )
         }
     }
