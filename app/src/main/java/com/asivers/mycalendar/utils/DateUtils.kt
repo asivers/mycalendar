@@ -24,7 +24,8 @@ fun getMonthInfo(
     monthIndex: Int,
     countryHolidayScheme: CountryHolidayScheme,
     forView: ViewShown,
-    ctx: Context? = null
+    ctx: Context? = null,
+    thisDayOfMonth: Int? = null
 ): MonthInfo {
     val firstOfThisMonth = GregorianCalendar(year, monthIndex, 1)
     val numberOfDays = firstOfThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH)
@@ -35,7 +36,8 @@ fun getMonthInfo(
         return MonthInfo(numberOfDays, dayOfWeekOf1st, holidaysAndNotHolidays, today)
     }
     val daysWithNotes = getDaysWithNotesForMonth(ctx!!, year, monthIndex)
-    val adjacentMonthsInfo = getAdjacentMonthsInfo(firstOfThisMonth, countryHolidayScheme, forView, ctx)
+    val adjacentMonthsInfo = getAdjacentMonthsInfo(
+        firstOfThisMonth, countryHolidayScheme, forView, ctx, numberOfDays, thisDayOfMonth)
     return MonthInfo(
         numberOfDays,
         dayOfWeekOf1st,
@@ -78,7 +80,9 @@ private fun getAdjacentMonthsInfo(
     firstOfMonth: GregorianCalendar, // now it is current month
     countryHolidayScheme: CountryHolidayScheme,
     forView: ViewShown,
-    ctx: Context
+    ctx: Context,
+    thisMonthNumberOfDays: Int,
+    thisDayOfMonth: Int? = null
 ): AdjacentMonthsInfo {
 
     firstOfMonth.add(Calendar.MONTH, -1) // now it is previous month
@@ -91,10 +95,10 @@ private fun getAdjacentMonthsInfo(
         countryHolidayScheme = countryHolidayScheme
     )
     val prevMonthToday = getTodayValue(prevMonthYear, prevMonthMonthIndex)
-    val prevMonthDaysWithNotes = if (forView == ViewShown.MONTH)
+    val prevMonthDaysWithNotes = if (forView == ViewShown.MONTH || thisDayOfMonth!! < 4)
         getDaysWithNotesForMonth(ctx, prevMonthYear, prevMonthMonthIndex)
     else
-        listOf() // todo fix after adding notes marks to day view
+        listOf()
 
     firstOfMonth.add(Calendar.MONTH, 2) // now it is next month
     val nextMonthYear = firstOfMonth.get(Calendar.YEAR)
@@ -105,7 +109,7 @@ private fun getAdjacentMonthsInfo(
         countryHolidayScheme = countryHolidayScheme
     )
     val nextMonthToday = getTodayValue(nextMonthYear, nextMonthMonthIndex)
-    val nextMonthDaysWithNotes = if (forView == ViewShown.MONTH)
+    val nextMonthDaysWithNotes = if (forView == ViewShown.MONTH || thisMonthNumberOfDays - thisDayOfMonth!! < 3)
         getDaysWithNotesForMonth(ctx, nextMonthYear, nextMonthMonthIndex)
     else
         listOf()

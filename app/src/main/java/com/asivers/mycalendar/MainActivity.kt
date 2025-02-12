@@ -139,7 +139,8 @@ class MainActivity : ComponentActivity() {
                                 monthIndex = selectedDateState.value.monthIndex,
                                 countryHolidayScheme = schemes.countryHoliday,
                                 forView = viewShownState.value.current,
-                                ctx = ctx
+                                ctx = ctx,
+                                thisDayOfMonth = selectedDateState.value.dayOfMonth
                             )
                             SharedTransitionLayout {
                                 AnimatedContent(
