@@ -14,6 +14,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT
@@ -21,9 +22,11 @@ import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
+import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getDayInfo
+import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.nextMonth
 import com.asivers.mycalendar.utils.noTransform
 import com.asivers.mycalendar.utils.onHorizontalSwipe
@@ -36,10 +39,10 @@ fun MonthCalendarGrid(
     modifier: Modifier = Modifier,
     selectedDateState: MutableState<SelectedDateInfo>,
     onDaySelected: (Int, DisplayedMonth) -> Unit,
-    monthInfo: MonthInfo,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
+    val ctx = LocalContext.current
     val updateSelectedDateState: (SelectedDateInfo) -> Unit = { selectedDateState.value = it }
     Column(
         modifier = modifier
@@ -64,11 +67,22 @@ fun MonthCalendarGrid(
                 }
             },
             label = "month calendar animated content"
-        ) {
+        ) { selectedDateInfo ->
+            val countryHolidayScheme = schemes.countryHoliday
+            val monthInfo = remember(selectedDateInfo, countryHolidayScheme) {
+                getMonthInfo(
+                    year = selectedDateInfo.year,
+                    monthIndex = selectedDateInfo.monthIndex,
+                    countryHolidayScheme = countryHolidayScheme,
+                    forView = ViewShown.MONTH,
+                    ctx = ctx,
+                    thisDayOfMonth = null
+                )
+            }
             SixWeeksInMonthCalendarGrid(
                 onDaySelected = onDaySelected,
-                onSwipeToLeft = { updateSelectedDateState(nextMonth(it)) },
-                onSwipeToRight = { updateSelectedDateState(previousMonth(it)) },
+                onSwipeToLeft = { updateSelectedDateState(nextMonth(selectedDateInfo)) },
+                onSwipeToRight = { updateSelectedDateState(previousMonth(selectedDateInfo)) },
                 monthInfo = monthInfo,
                 weekendMode = weekendMode,
                 schemes = schemes

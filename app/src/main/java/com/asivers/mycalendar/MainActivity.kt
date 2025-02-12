@@ -38,7 +38,6 @@ import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getBackgroundGradient
 import com.asivers.mycalendar.utils.getColorSchemeByMonthIndex
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
-import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.getOnDaySelectedCallback
 import com.asivers.mycalendar.utils.proto.getSavedCountry
 import com.asivers.mycalendar.utils.proto.getSavedLocale
@@ -134,14 +133,6 @@ class MainActivity : ComponentActivity() {
                             schemes = schemes
                         )
                         ViewShown.MONTH, ViewShown.DAY -> {
-                            val thisMonthInfo = getMonthInfo(
-                                year = selectedDateState.value.year,
-                                monthIndex = selectedDateState.value.monthIndex,
-                                countryHolidayScheme = schemes.countryHoliday,
-                                forView = viewShownState.value.current,
-                                ctx = ctx,
-                                thisDayOfMonth = selectedDateState.value.dayOfMonth
-                            )
                             SharedTransitionLayout {
                                 AnimatedContent(
                                     targetState = viewShownState.value,
@@ -162,7 +153,6 @@ class MainActivity : ComponentActivity() {
                                             ),
                                             animatedVisibilityScope = this@AnimatedContent,
                                             sharedTransitionScope = this@SharedTransitionLayout,
-                                            monthInfo = thisMonthInfo,
                                             weekendMode = selectedWeekendMode.value,
                                             schemes = schemes
                                         )
@@ -171,7 +161,6 @@ class MainActivity : ComponentActivity() {
                                             selectedDateState = selectedDateState,
                                             animatedVisibilityScope = this@AnimatedContent,
                                             sharedTransitionScope = this@SharedTransitionLayout,
-                                            thisMonthInfo = thisMonthInfo,
                                             locale = selectedLocale.value,
                                             weekendMode = selectedWeekendMode.value,
                                             schemes = schemes

@@ -53,6 +53,7 @@ private fun getTodayValue(year: Int, monthIndex: Int): Int? {
     return if (isCurrentMonth) getCurrentDayOfMonth() else null
 }
 
+// todo rewrite in kotlin style
 private fun getHolidaysAndNotHolidays(
     year: Int,
     monthIndex: Int,
@@ -205,4 +206,15 @@ fun getDifferenceInDays(
     val date1 = selectedDateInfo1.getDate()
     val date2 = selectedDateInfo2.getDate()
     return ((date1.timeInMillis - date2.timeInMillis) / 86_400_000).toInt()
+}
+
+fun getHolidayInfoForDay(
+    selectedDateInfo: SelectedDateInfo,
+    countryHolidayScheme: CountryHolidayScheme
+): HolidayInfo? {
+    val year = selectedDateInfo.year
+    val monthIndexFrom1To12 = selectedDateInfo.monthIndex + 1
+    val dayOfMonth = selectedDateInfo.dayOfMonth
+    return countryHolidayScheme.everyYear[monthIndexFrom1To12]?.get(dayOfMonth)?.holiday
+        ?: countryHolidayScheme.oneTime[year]?.get(monthIndexFrom1To12)?.get(dayOfMonth)?.holiday
 }
