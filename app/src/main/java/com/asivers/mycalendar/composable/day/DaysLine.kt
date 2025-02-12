@@ -45,14 +45,15 @@ fun DaysLine(
                 minimumSwipe = minimumSwipe
             )
     ) {
-        repeat(7) {
-            val dayValueRaw = selectedDay + it - 3
+        repeat(7) { orderInDayLine ->
+            val dayValueRaw = selectedDay + orderInDayLine - 3
             val dayInfo = getDayInfo(dayValueRaw, thisMonthInfo, weekendMode)
             DayWithNoteMark(
                 modifier = Modifier.weight(1f),
                 onDaySelected = onDayChanged,
                 dayInfo = dayInfo,
-                schemes = schemes
+                schemes = schemes,
+                orderInDayLine = orderInDayLine
             )
         }
     }
