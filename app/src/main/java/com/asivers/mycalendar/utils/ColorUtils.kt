@@ -8,13 +8,13 @@ import com.asivers.mycalendar.constants.schemes.WINTER
 import com.asivers.mycalendar.data.scheme.ColorScheme
 import com.asivers.mycalendar.enums.ViewShown
 
-fun getColorSchemeByMonthIndex(selectedMonthIndex: Int): ColorScheme {
-    return when (selectedMonthIndex) {
-        11, 0, 1 -> WINTER
-        2, 3, 4 -> SPRING
-        5, 6, 7 -> SUMMER
-        8, 9, 10 -> AUTUMN
-        else -> throw IllegalArgumentException("incorrect selectedMonthIndex: $selectedMonthIndex")
+fun getColorSchemeByMonthValue(selectedMonthValue: Int): ColorScheme {
+    return when (selectedMonthValue) {
+        12, 1, 2 -> WINTER
+        3, 4, 5 -> SPRING
+        6, 7, 8 -> SUMMER
+        9, 10, 11 -> AUTUMN
+        else -> throw IllegalArgumentException("incorrect selectedMonthValue: $selectedMonthValue")
     }
 }
 

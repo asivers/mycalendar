@@ -21,7 +21,7 @@ import com.asivers.mycalendar.data.scheme.ColorScheme
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.data.scheme.TranslationScheme
 import com.asivers.mycalendar.enums.ViewShown
-import java.util.Calendar
+import java.time.Month
 
 fun getSchemesForPreview(config: Configuration, density: Density): SchemeContainer {
     return SchemeContainer(
@@ -35,30 +35,30 @@ fun getSchemesForPreview(config: Configuration, density: Density): SchemeContain
 fun getCountryHolidaySchemeForPreview(): CountryHolidayScheme {
     return CountryHolidayScheme(
         everyYear = mapOf(
-            Calendar.JANUARY to mapOf(
+            Month.JANUARY.value to mapOf(
                 Pair(1, DayTextInfo(holiday = HolidayInfo(en = "Spain - New Year's Day", es = "España - Año Nuevo"))),
                 Pair(6, DayTextInfo(holiday = HolidayInfo(en = "Spain - Epiphany", es = "España - Epifanía del Señor")))
             ),
-            Calendar.MAY to mapOf(
+            Month.MAY.value to mapOf(
                 Pair(1, DayTextInfo(holiday = HolidayInfo(en = "Spain - Labour Day", es = "España - Día del Trabajador")))
             ),
-            Calendar.JUNE to mapOf(
+            Month.JUNE.value to mapOf(
                 Pair(24, DayTextInfo(holiday = HolidayInfo(en = "Catalonia - John the Baptist", es = "Cataluña - Sant Joan")))
             ),
-            Calendar.AUGUST to mapOf(
+            Month.AUGUST.value to mapOf(
                 Pair(15, DayTextInfo(holiday = HolidayInfo(en = "Spain - Assumption", es = "España - Asunción")))
             ),
-            Calendar.SEPTEMBER to mapOf(
+            Month.SEPTEMBER.value to mapOf(
                 Pair(11, DayTextInfo(holiday = HolidayInfo(en = "Catalonia - National Day of Catalonia", es = "Cataluña - Diada Nacional de Catalunya"))),
                 Pair(25, DayTextInfo(holiday = HolidayInfo(en = "Reus - Misericordia", es = "Reus - Misericòrdia")))
             ),
-            Calendar.OCTOBER to mapOf(
+            Month.OCTOBER.value to mapOf(
                 Pair(12, DayTextInfo(holiday = HolidayInfo(en = "Spain - National Day of Spain", es = "España - Fiesta Nacional de España")))
             ),
-            Calendar.NOVEMBER to mapOf(
+            Month.NOVEMBER.value to mapOf(
                 Pair(1, DayTextInfo(holiday = HolidayInfo(en = "Spain - All Saints' Day", es = "España - Día de todos los Santos")))
             ),
-            Calendar.DECEMBER to mapOf(
+            Month.DECEMBER.value to mapOf(
                 Pair(6, DayTextInfo(holiday = HolidayInfo(en = "Spain - Constitution Day", es = "España - Dia de la Constitucion Espanola"))),
                 Pair(8, DayTextInfo(holiday = HolidayInfo(en = "Spain - Immaculate Conception", es = "España - Inmaculada Concepción"))),
                 Pair(25, DayTextInfo(holiday = HolidayInfo(en = "Spain - Christmas Day", es = "España - Navidad"))),
@@ -67,22 +67,22 @@ fun getCountryHolidaySchemeForPreview(): CountryHolidayScheme {
         ),
         oneTime = mapOf(
             2024 to mapOf(
-                Calendar.MARCH to mapOf(
+                Month.MARCH.value to mapOf(
                     Pair(29, DayTextInfo(holiday = HolidayInfo(en = "Spain - Good Friday", es = "España - Viernes Santo")))
                 ),
-                Calendar.APRIL to mapOf(
+                Month.APRIL.value to mapOf(
                     Pair(1, DayTextInfo(holiday = HolidayInfo(en = "Catalonia - Easter Monday", es = "Cataluña - Lunes de Pascua")))
                 ),
-                Calendar.JUNE to mapOf(
+                Month.JUNE.value to mapOf(
                     Pair(29, DayTextInfo(holiday = HolidayInfo(en = "Reus - Saint Peter", es = "Reus - Sant Pere")))
                 )
             ),
             2025 to mapOf(
-                Calendar.APRIL to mapOf(
+                Month.APRIL.value to mapOf(
                     Pair(18, DayTextInfo(holiday = HolidayInfo(en = "Spain - Good Friday", es = "España - Viernes Santo"))),
                     Pair(21, DayTextInfo(holiday = HolidayInfo(en = "Catalonia - Easter Monday", es = "Cataluña - Lunes de Pascua")))
                 ),
-                Calendar.JUNE to mapOf(
+                Month.JUNE.value to mapOf(
                     Pair(30, DayTextInfo(holiday = HolidayInfo(en = "Reus - Saint Peter", es = "Reus - Sant Pere")))
                 )
             )

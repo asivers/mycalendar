@@ -58,8 +58,8 @@ fun MonthCalendarGrid(
             targetState = selectedDateState.value,
             transitionSpec = {
                 if (targetState.byMonthSwipe) {
-                    val monthIndexDiff = targetState.monthIndex - initialState.monthIndex
-                    when (monthIndexDiff) {
+                    val monthValueDiff = targetState.monthValue - initialState.monthValue
+                    when (monthValueDiff) {
                         1, -11 -> slideFromRightToLeft() // next month
                         -1, 11 -> slideFromLeftToRight() // prev month
                         else -> noTransform() // will never happen
@@ -74,7 +74,7 @@ fun MonthCalendarGrid(
             val monthInfo = remember(selectedDateInfo, countryHolidayScheme) {
                 getMonthInfo(
                     year = selectedDateInfo.year,
-                    monthIndex = selectedDateInfo.monthIndex,
+                    monthValue = selectedDateInfo.monthValue,
                     countryHolidayScheme = countryHolidayScheme,
                     forView = ViewShown.MONTH,
                     ctx = ctx,

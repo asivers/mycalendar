@@ -59,7 +59,7 @@ fun DaysLine(
             ) {
                 Text(
                     modifier = Modifier.alpha(if (orderInDayLine == 3) 1f else 0.5f),
-                    text = schemes.translation.daysOfWeek3[dayInfo.dayOfWeekIndex!!],
+                    text = schemes.translation.daysOfWeek3[dayInfo.dayOfWeekValue!! - 1],
                     fontFamily = MONTSERRAT,
                     fontSize = schemes.size.font.mvHeaderWeek,
                     color = schemes.color.text,

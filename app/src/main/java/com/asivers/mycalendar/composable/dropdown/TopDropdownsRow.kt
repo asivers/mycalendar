@@ -38,7 +38,7 @@ fun TopDropdownsRow(
             SelectMonthDropdown(
                 modifier = Modifier.wrapContentWidth(),
                 onMonthSelected = onMonthSelected,
-                thisMonthIndex = selectedDateInfo.monthIndex,
+                thisMonthValue = selectedDateInfo.monthValue,
                 schemes = schemes
             )
         }

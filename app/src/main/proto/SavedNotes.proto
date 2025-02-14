@@ -7,7 +7,7 @@ message SavedNotes {
   repeated ForMonth forMonth = 1;
 
   message ForMonth {
-    int32 monthIndex = 1;
+    int32 monthValue = 1;
     repeated ForDay forDay = 2;
   }
 

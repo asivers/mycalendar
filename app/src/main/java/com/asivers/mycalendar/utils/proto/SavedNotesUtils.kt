@@ -11,11 +11,11 @@ import kotlinx.coroutines.runBlocking
 fun getDaysWithNotesForMonth(
     ctx: Context,
     year: Int,
-    monthIndex: Int
+    monthValue: Int
 ): List<Int> {
     return runBlocking { ctx.savedNotesDataStore.data.first() }
         .forMonthList
-        .find { it.monthIndex == monthIndex }
+        .find { it.monthValue == monthValue }
         ?.forDayList
         ?.filter { it.notesList != null && containsNotesForYear(it.notesList, year) }
         ?.map { it.dayOfMonth }
@@ -33,7 +33,7 @@ fun getNotes(
 ): List<NoteInfo> {
     val allNotesForMonthAndDay = runBlocking { ctx.savedNotesDataStore.data.first() }
         .forMonthList
-        .find { it.monthIndex == selectedDateInfo.monthIndex }
+        .find { it.monthValue == selectedDateInfo.monthValue }
         ?.forDayList
         ?.find { it.dayOfMonth == selectedDateInfo.dayOfMonth }
         ?.notesList
@@ -59,7 +59,7 @@ fun addNote(
 
     changeNotesList(
         ctx = ctx,
-        monthIndex = selectedDateInfo.monthIndex,
+        monthValue = selectedDateInfo.monthValue,
         dayOfMonth = selectedDateInfo.dayOfMonth,
         operation = { forDayBuilder ->
             val notesList = forDayBuilder.notesList
@@ -89,7 +89,7 @@ fun editNote(
 
     changeNotesList(
         ctx = ctx,
-        monthIndex = selectedDateInfo.monthIndex,
+        monthValue = selectedDateInfo.monthValue,
         dayOfMonth = selectedDateInfo.dayOfMonth,
         operation = { forDayBuilder ->
             removeNoteFromBuilder(forDayBuilder, id)
@@ -107,7 +107,7 @@ fun removeNote(
 ) {
     changeNotesList(
         ctx = ctx,
-        monthIndex = selectedDateInfo.monthIndex,
+        monthValue = selectedDateInfo.monthValue,
         dayOfMonth = selectedDateInfo.dayOfMonth,
         operation = { forDayBuilder ->
             removeNoteFromBuilder(forDayBuilder, id)
@@ -117,16 +117,16 @@ fun removeNote(
 
 private fun changeNotesList(
     ctx: Context,
-    monthIndex: Int,
+    monthValue: Int,
     dayOfMonth: Int,
     operation: (ForDay.Builder) -> Unit
 ) {
     runBlocking {
         ctx.savedNotesDataStore.updateData { currentSavedNotes ->
             val savedNotesBuilder = currentSavedNotes.toBuilder()
-            val forMonthBuilder = getAndRemoveForMonth(savedNotesBuilder, monthIndex)
+            val forMonthBuilder = getAndRemoveForMonth(savedNotesBuilder, monthValue)
                 ?.toBuilder()
-                ?: ForMonth.newBuilder().setMonthIndex(monthIndex)
+                ?: ForMonth.newBuilder().setMonthValue(monthValue)
             val forDayBuilder = getAndRemoveForDay(forMonthBuilder, dayOfMonth)
                 ?.toBuilder()
                 ?: ForDay.newBuilder().setDayOfMonth(dayOfMonth)
@@ -141,10 +141,10 @@ private fun changeNotesList(
 
 private fun getAndRemoveForMonth(
     savedNotesBuilder: Builder,
-    monthIndex: Int
+    monthValue: Int
 ): ForMonth? {
     savedNotesBuilder.forMonthList.forEachIndexed { indexInList, forMonth ->
-        if (forMonth.monthIndex == monthIndex) {
+        if (forMonth.monthValue == monthValue) {
             savedNotesBuilder.removeForMonth(indexInList)
             return forMonth
         }

@@ -89,7 +89,7 @@ fun DayView(
                 val thisMonthInfo = remember(selectedDateInfo, countryHolidayScheme) {
                     getMonthInfo(
                         year = selectedDateInfo.year,
-                        monthIndex = selectedDateInfo.monthIndex,
+                        monthValue = selectedDateInfo.monthValue,
                         countryHolidayScheme = countryHolidayScheme,
                         forView = ViewShown.DAY,
                         ctx = ctx,

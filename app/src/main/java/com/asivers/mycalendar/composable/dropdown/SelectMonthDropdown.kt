@@ -32,7 +32,7 @@ import com.asivers.mycalendar.utils.noRippleClickable
 fun SelectMonthDropdown(
     modifier: Modifier = Modifier,
     onMonthSelected: (Int) -> Unit,
-    thisMonthIndex: Int,
+    thisMonthValue: Int,
     schemes: SchemeContainer
 ) {
     val isExpanded = remember {
@@ -55,7 +55,7 @@ fun SelectMonthDropdown(
         Box {
             Text(
                 modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 3.dp),
-                text = schemes.translation.months[thisMonthIndex],
+                text = schemes.translation.months[thisMonthValue - 1],
                 color = schemes.color.text,
                 fontFamily = MONTSERRAT_BOLD,
                 fontSize = schemes.size.font.dropdownHeader

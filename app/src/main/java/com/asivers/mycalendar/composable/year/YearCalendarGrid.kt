@@ -77,7 +77,7 @@ fun ThreeMonthsRowInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 viewShownState = viewShownState,
                 selectedDateState = selectedDateState,
-                thisMonthIndex = threeMonthRowIndex * 3 + monthInRowIndex,
+                thisMonthValue = threeMonthRowIndex * 3 + monthInRowIndex + 1,
                 weekendMode = weekendMode,
                 schemes = schemes
             )
@@ -90,13 +90,13 @@ fun MonthInYearCalendarGrid(
     modifier: Modifier = Modifier,
     viewShownState: MutableState<ViewShownInfo>,
     selectedDateState: MutableState<SelectedDateInfo>,
-    thisMonthIndex: Int,
+    thisMonthValue: Int,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
     val thisYear = selectedDateState.value.year
     val isLastSelectedMonth = thisYear == selectedDateState.value.yearOnMonthView
-            && thisMonthIndex == selectedDateState.value.monthIndex
+            && thisMonthValue == selectedDateState.value.monthValue
     val background = if (isLastSelectedMonth)
         schemes.color.selectedMonthOnYearView else Color.Transparent
     Column(
@@ -106,12 +106,12 @@ fun MonthInYearCalendarGrid(
             .background(background)
             .padding(4.dp, 2.dp)
             .noRippleClickable {
-                selectedDateState.value = SelectedDateInfo(thisYear, thisMonthIndex)
+                selectedDateState.value = SelectedDateInfo(thisYear, thisMonthValue)
                 changeView(viewShownState, ViewShown.MONTH)
             }
     ) {
         Text(
-            text = schemes.translation.months[thisMonthIndex],
+            text = schemes.translation.months[thisMonthValue - 1],
             modifier = Modifier.padding(3.dp, 0.dp),
             fontFamily = MONTSERRAT_BOLD,
             fontSize = schemes.size.font.yvMonthName,
@@ -130,7 +130,7 @@ fun MonthInYearCalendarGrid(
         ) {
             val monthInfo = getMonthInfo(
                 year = it.year,
-                monthIndex = thisMonthIndex,
+                monthValue = thisMonthValue,
                 countryHolidayScheme = schemes.countryHoliday,
                 forView = ViewShown.YEAR
             )

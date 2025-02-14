@@ -3,27 +3,20 @@ package com.asivers.mycalendar.utils
 import androidx.compose.runtime.MutableState
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
-import java.util.Calendar
-import java.util.GregorianCalendar
 
 fun previousMonth(
     selectedDateInfo: SelectedDateInfo,
     byMonthSwipe: Boolean = false
 ): SelectedDateInfo {
-    val date = selectedDateInfo.getDate()
-    date.add(Calendar.MONTH, -1) // now it is previous month
-
-    val updatedYear = date.get(Calendar.YEAR)
-    if (updatedYear < 1900) {
+    val oldDate = selectedDateInfo.getDate()
+    val newDate = oldDate.minusMonths(1)
+    if (newDate.year < 1900) {
         return selectedDateInfo
     }
-    val updatedMonthIndex = date.get(Calendar.MONTH)
-    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
-
     return SelectedDateInfo(
-        year = updatedYear,
-        monthIndex = updatedMonthIndex,
-        dayOfMonth = updatedDayOfMonth,
+        year = newDate.year,
+        monthValue = newDate.monthValue,
+        dayOfMonth = newDate.dayOfMonth,
         byMonthSwipe = byMonthSwipe
     )
 }
@@ -32,20 +25,15 @@ fun nextMonth(
     selectedDateInfo: SelectedDateInfo,
     byMonthSwipe: Boolean = false
 ): SelectedDateInfo {
-    val date = selectedDateInfo.getDate()
-    date.add(Calendar.MONTH, 1) // now it is next month
-
-    val updatedYear = date.get(Calendar.YEAR)
-    if (updatedYear > 2100) {
+    val oldDate = selectedDateInfo.getDate()
+    val newDate = oldDate.plusMonths(1)
+    if (newDate.year > 2100) {
         return selectedDateInfo
     }
-    val updatedMonthIndex = date.get(Calendar.MONTH)
-    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
-
     return SelectedDateInfo(
-        year = updatedYear,
-        monthIndex = updatedMonthIndex,
-        dayOfMonth = updatedDayOfMonth,
+        year = newDate.year,
+        monthValue = newDate.monthValue,
+        dayOfMonth = newDate.dayOfMonth,
         byMonthSwipe = byMonthSwipe
     )
 }
@@ -59,17 +47,16 @@ fun nextDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
 }
 
 fun addDays(selectedDateInfo: SelectedDateInfo, days: Int): SelectedDateInfo {
-    val date = selectedDateInfo.getDate()
-    date.add(Calendar.DAY_OF_MONTH, days) // now it is changed
-
-    val updatedYear = date.get(Calendar.YEAR)
-    if (updatedYear < 1900 || updatedYear > 2100) {
+    val oldDate = selectedDateInfo.getDate()
+    val newDate = oldDate.plusDays(days.toLong())
+    if (newDate.year < 1900 || newDate.year > 2100) {
         return selectedDateInfo
     }
-    val updatedMonthIndex = date.get(Calendar.MONTH)
-    val updatedDayOfMonth = date.get(Calendar.DAY_OF_MONTH)
-
-    return SelectedDateInfo(updatedYear, updatedMonthIndex, updatedDayOfMonth)
+    return SelectedDateInfo(
+        year = newDate.year,
+        monthValue = newDate.monthValue,
+        dayOfMonth = newDate.dayOfMonth
+    )
 }
 
 fun changeDay(
@@ -89,22 +76,20 @@ private fun updateOnlyDayOfMonth(
     selectedDateInfo: SelectedDateInfo,
     newDayOfMonth: Int
 ): SelectedDateInfo {
-    return SelectedDateInfo(selectedDateInfo.year, selectedDateInfo.monthIndex, newDayOfMonth)
+    return SelectedDateInfo(selectedDateInfo.year, selectedDateInfo.monthValue, newDayOfMonth)
 }
 
 fun getOnMonthSelected(
     selectedDateState: MutableState<SelectedDateInfo>,
-    selectedMonthIndex: Int
+    selectedMonthValue: Int
 ) {
-    val year = selectedDateState.value.year
-    val maxNumberOfDaysInSelectedMonth = GregorianCalendar(year, selectedMonthIndex, 1)
-        .getActualMaximum(Calendar.DAY_OF_MONTH)
-    val oldDayOfMonth = selectedDateState.value.dayOfMonth
-    val newDayOfMonth = minOf(oldDayOfMonth, maxNumberOfDaysInSelectedMonth)
+    val selectedDateInfo = selectedDateState.value
+    val year = selectedDateInfo.year
+    val lengthOfSelectedMonth = getMonthLength(year, selectedMonthValue)
     selectedDateState.value = SelectedDateInfo(
         year = year,
-        monthIndex = selectedMonthIndex,
-        dayOfMonth = newDayOfMonth
+        monthValue = selectedMonthValue,
+        dayOfMonth = minOf(selectedDateInfo.dayOfMonth, lengthOfSelectedMonth)
     )
 }
 
@@ -113,15 +98,13 @@ fun getOnYearSelected(
     selectedYear: Int,
     onYearView: Boolean
 ) {
-    val monthIndex = selectedDateState.value.monthIndex
-    val maxNumberOfDaysInSelectedMonth = GregorianCalendar(selectedYear, monthIndex, 1)
-        .getActualMaximum(Calendar.DAY_OF_MONTH)
-    val oldDayOfMonth = selectedDateState.value.dayOfMonth
-    val newDayOfMonth = minOf(oldDayOfMonth, maxNumberOfDaysInSelectedMonth)
+    val selectedDateInfo = selectedDateState.value
+    val monthValue = selectedDateInfo.monthValue
+    val lengthOfSelectedMonth = getMonthLength(selectedYear, monthValue)
     selectedDateState.value = SelectedDateInfo(
         year = selectedYear,
-        monthIndex = monthIndex,
-        dayOfMonth = newDayOfMonth,
+        monthValue = monthValue,
+        dayOfMonth = minOf(selectedDateInfo.dayOfMonth, lengthOfSelectedMonth),
         yearOnMonthView = if (onYearView) selectedDateState.value.yearOnMonthView else selectedYear
     )
 }

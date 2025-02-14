@@ -6,7 +6,7 @@ data class DayInfo(
     val dayValue: Int,
     val inMonth: DisplayedMonth,
     val isToday: Boolean = false,
-    val dayOfWeekIndex: Int? = null,
+    val dayOfWeekValue: Int? = null,
     val isWeekend: Boolean = false,
     val isHoliday: Boolean = false,
     val isWithNote: Boolean = false
