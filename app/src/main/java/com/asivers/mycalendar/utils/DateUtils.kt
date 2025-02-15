@@ -31,7 +31,7 @@ fun getMonthInfo(
 ): MonthInfo {
     val firstOfThisMonth = LocalDate.of(year, monthValue, 1)
     val numberOfDays = firstOfThisMonth.lengthOfMonth()
-    val dayOfWeekOf1st = (firstOfThisMonth.dayOfWeek.value + 6) % 7
+    val dayOfWeekOf1st = firstOfThisMonth.dayOfWeek.value
     val holidaysAndNotHolidays = getHolidaysAndNotHolidays(year, monthValue, countryHolidayScheme)
     val today = getTodayValue(year, monthValue)
     if (forView == ViewShown.YEAR) {
@@ -171,7 +171,7 @@ fun getDayInfo(
     }
 
     val isToday = dayValue == today
-    val dayOfWeekValue = ((dayValueRaw + monthInfo.dayOfWeekOf1st + 6) % 7) + 1
+    val dayOfWeekValue = ((dayValueRaw + monthInfo.dayOfWeekOf1st + 5) % 7) + 1
     val isWeekend = isWeekend(dayValue, dayOfWeekValue, weekendMode, holidaysAndNotHolidays)
     val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
     val isWithNote = dayValue in daysWithNotes

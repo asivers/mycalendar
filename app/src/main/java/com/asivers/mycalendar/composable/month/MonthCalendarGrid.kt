@@ -17,7 +17,6 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -185,7 +184,6 @@ fun WeekInMonthCalendarGrid(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    modifier = Modifier.alpha(0.75f),
                     text = monthInfo.weekNumbers[weekIndex].toString(),
                     fontFamily = MONTSERRAT,
                     fontSize = schemes.size.font.mvHeaderWeek,
@@ -195,7 +193,7 @@ fun WeekInMonthCalendarGrid(
             Spacer(modifier = Modifier.weight(1f))
         }
         repeat(7) { dayOfWeekIndex ->
-            val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 1
+            val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 2
             val dayInfo = getDayInfo(dayValueRaw, monthInfo, weekendMode)
             DayWithNoteMark(
                 modifier = Modifier

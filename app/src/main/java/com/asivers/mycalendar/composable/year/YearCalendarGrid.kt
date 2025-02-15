@@ -204,7 +204,7 @@ fun DayInYearCalendarGrid(
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
-    val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 1
+    val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 2
     val dayInfo = getDayInfo(dayValueRaw, monthInfo, weekendMode)
     val dayValue = dayInfo.dayValue
     val inThisMonth = dayInfo.inMonth == DisplayedMonth.THIS
