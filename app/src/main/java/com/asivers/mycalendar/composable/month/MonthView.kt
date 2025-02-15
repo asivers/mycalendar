@@ -18,6 +18,7 @@ import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
+import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.getOnMonthSelected
@@ -36,6 +37,7 @@ fun MonthView(
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     weekendMode: WeekendMode,
+    weekNumbersMode: WeekNumbersMode,
     schemes: SchemeContainer
 ) {
     val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
@@ -63,6 +65,7 @@ fun MonthView(
                     selectedDateState = selectedDateState,
                     onDaySelected = onDaySelected,
                     weekendMode = weekendMode,
+                    weekNumbersMode = weekNumbersMode,
                     schemes = schemes
                 )
                 val toNextMonth = {

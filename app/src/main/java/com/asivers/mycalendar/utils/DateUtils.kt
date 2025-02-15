@@ -10,6 +10,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.proto.getDaysWithNotesForMonth
 import java.time.LocalDate
@@ -25,7 +26,8 @@ fun getMonthInfo(
     countryHolidayScheme: CountryHolidayScheme,
     forView: ViewShown,
     ctx: Context? = null,
-    thisDayOfMonth: Int? = null
+    thisDayOfMonth: Int? = null,
+    weekNumbersMode: WeekNumbersMode = WeekNumbersMode.OFF
 ): MonthInfo {
     val firstOfThisMonth = LocalDate.of(year, monthValue, 1)
     val numberOfDays = firstOfThisMonth.lengthOfMonth()
@@ -38,13 +40,16 @@ fun getMonthInfo(
     val daysWithNotes = getDaysWithNotesForMonth(ctx!!, year, monthValue)
     val adjacentMonthsInfo = getAdjacentMonthsInfo(
         firstOfThisMonth, countryHolidayScheme, forView, ctx, numberOfDays, thisDayOfMonth)
+    val weekNumbers = if (weekNumbersMode == WeekNumbersMode.ON)
+        getWeekNumbers(firstOfThisMonth) else listOf()
     return MonthInfo(
         numberOfDays,
         dayOfWeekOf1st,
         holidaysAndNotHolidays,
         today,
         daysWithNotes,
-        adjacentMonthsInfo
+        adjacentMonthsInfo,
+        weekNumbers
     )
 }
 

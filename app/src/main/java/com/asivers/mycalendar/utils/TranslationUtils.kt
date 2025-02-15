@@ -7,6 +7,7 @@ import com.asivers.mycalendar.enums.ExistingLocale
 import com.asivers.mycalendar.enums.SettingsItem
 import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
+import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
 
 fun getTranslatedSettingsParamName(
@@ -18,6 +19,7 @@ fun getTranslatedSettingsParamName(
         SettingsParam.EXISTING_LOCALE -> translationScheme.localesParam
         SettingsParam.USER_THEME -> translationScheme.themesParam
         SettingsParam.WEEKEND_MODE -> translationScheme.weekendModesParam
+        SettingsParam.WEEK_NUMBERS_MODE -> translationScheme.weekNumbersModesParam
     }
 }
 
@@ -30,6 +32,7 @@ fun getTranslatedSettingsItemName(
         is ExistingLocale -> translationScheme.locales
         is UserTheme -> translationScheme.themes
         is WeekendMode -> translationScheme.weekendModes
+        is WeekNumbersMode -> translationScheme.weekNumbersModes
     }
     return translationSchemeMap[item.translationKey]
         ?: item.translationKey.replaceFirstChar(Char::titlecase)
@@ -47,6 +50,7 @@ fun <T : SettingsItem> getTranslatedSettingsItemsNames(
         is ExistingLocale -> translationScheme.locales
         is UserTheme -> translationScheme.themes
         is WeekendMode -> translationScheme.weekendModes
+        is WeekNumbersMode -> translationScheme.weekNumbersModes
         else -> throw IllegalArgumentException() // will never happen
     }
     return items.map {

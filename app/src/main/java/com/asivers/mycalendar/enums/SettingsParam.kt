@@ -4,5 +4,6 @@ enum class SettingsParam {
     COUNTRY,
     EXISTING_LOCALE,
     USER_THEME,
-    WEEKEND_MODE
+    WEEKEND_MODE,
+    WEEK_NUMBERS_MODE
 }

@@ -7,4 +7,5 @@ message SavedSettings {
   string locale = 2;
   string theme = 3;
   string weekendMode = 4;
+  string weekNumbersMode = 5;
 }

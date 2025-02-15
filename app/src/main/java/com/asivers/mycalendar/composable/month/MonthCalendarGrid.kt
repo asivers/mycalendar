@@ -1,6 +1,7 @@
 package com.asivers.mycalendar.composable.month
 
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -14,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -24,6 +27,7 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.fadeSlow
 import com.asivers.mycalendar.utils.getDayInfo
@@ -41,6 +45,7 @@ fun MonthCalendarGrid(
     selectedDateState: MutableState<SelectedDateInfo>,
     onDaySelected: (Int, DisplayedMonth) -> Unit,
     weekendMode: WeekendMode,
+    weekNumbersMode: WeekNumbersMode,
     schemes: SchemeContainer
 ) {
     val ctx = LocalContext.current
@@ -51,6 +56,7 @@ fun MonthCalendarGrid(
             .padding(3.dp, 0.dp)
     ) {
         HeaderWeekInMonthCalendarGrid(
+            weekNumbersMode = weekNumbersMode,
             schemes = schemes
         )
         Spacer(modifier = Modifier.height(5.dp))
@@ -78,7 +84,8 @@ fun MonthCalendarGrid(
                     countryHolidayScheme = countryHolidayScheme,
                     forView = ViewShown.MONTH,
                     ctx = ctx,
-                    thisDayOfMonth = null
+                    thisDayOfMonth = null,
+                    weekNumbersMode = weekNumbersMode
                 )
             }
             SixWeeksInMonthCalendarGrid(
@@ -91,6 +98,7 @@ fun MonthCalendarGrid(
                 },
                 monthInfo = monthInfo,
                 weekendMode = weekendMode,
+                weekNumbersMode = weekNumbersMode,
                 schemes = schemes
             )
         }
@@ -100,14 +108,18 @@ fun MonthCalendarGrid(
 @Composable
 fun HeaderWeekInMonthCalendarGrid(
     modifier: Modifier = Modifier,
+    weekNumbersMode: WeekNumbersMode,
     schemes: SchemeContainer
 ) {
     Row(
         modifier = modifier.fillMaxWidth()
     ) {
+        if (weekNumbersMode == WeekNumbersMode.ON) {
+            Spacer(modifier.weight(4f))
+        }
         repeat(7) { dayOfWeekIndex ->
             Text(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(6f),
                 text = schemes.translation.daysOfWeek3[dayOfWeekIndex],
                 fontFamily = MONTSERRAT,
                 fontSize = schemes.size.font.mvHeaderWeek,
@@ -126,6 +138,7 @@ fun SixWeeksInMonthCalendarGrid(
     onSwipeToRight: () -> Unit,
     monthInfo: MonthInfo,
     weekendMode: WeekendMode,
+    weekNumbersMode: WeekNumbersMode,
     schemes: SchemeContainer
 ) {
     Column(
@@ -141,6 +154,7 @@ fun SixWeeksInMonthCalendarGrid(
                 weekIndex = weekIndex,
                 monthInfo = monthInfo,
                 weekendMode = weekendMode,
+                weekNumbersMode = weekNumbersMode,
                 schemes = schemes
             )
         }
@@ -154,6 +168,7 @@ fun WeekInMonthCalendarGrid(
     weekIndex: Int,
     monthInfo: MonthInfo,
     weekendMode: WeekendMode,
+    weekNumbersMode: WeekNumbersMode,
     schemes: SchemeContainer
 ) {
     Row(
@@ -162,13 +177,30 @@ fun WeekInMonthCalendarGrid(
             .height(IntrinsicSize.Min)
             .padding(0.dp, 3.dp)
     ) {
+        if (weekNumbersMode == WeekNumbersMode.ON) {
+            Box(
+                modifier = Modifier
+                    .weight(3f)
+                    .fillMaxHeight(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    modifier = Modifier.alpha(0.75f),
+                    text = monthInfo.weekNumbers[weekIndex].toString(),
+                    fontFamily = MONTSERRAT,
+                    fontSize = schemes.size.font.mvHeaderWeek,
+                    color = schemes.color.text
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
+        }
         repeat(7) { dayOfWeekIndex ->
             val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 1
             val dayInfo = getDayInfo(dayValueRaw, monthInfo, weekendMode)
             DayWithNoteMark(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .weight(1f),
+                    .weight(6f),
                 onDaySelected = onDaySelected,
                 dayInfo = dayInfo,
                 schemes = schemes

@@ -144,11 +144,16 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
             Pair("winter", "Winter"),
             Pair("spring", "Spring")
         ),
-        weekendModesParam = "Weekend mode",
+        weekendModesParam = "Display weekends",
         weekendModes = mapOf(
             Pair("saturdaySunday", "Saturday & Sunday"),
             Pair("onlySunday", "Only Sunday"),
             Pair("noDisplay", "Do not display")
+        ),
+        weekNumbersModesParam = "Show week numbers",
+        weekNumbersModes = mapOf(
+            Pair("off", "Off"),
+            Pair("on", "On")
         ),
         newNote = "New Note",
         saveNote = "Save",

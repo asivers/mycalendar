@@ -17,6 +17,7 @@ import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.enums.ExistingLocale
 import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
+import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import kotlin.enums.enumEntries
@@ -28,6 +29,7 @@ fun SettingsView(
     selectedLocale: MutableState<ExistingLocale>,
     selectedTheme: MutableState<UserTheme>,
     selectedWeekendMode: MutableState<WeekendMode>,
+    selectedWeekNumbersMode: MutableState<WeekNumbersMode>,
     schemes: SchemeContainer
 ) {
     // todo adapt for different fonts
@@ -71,6 +73,15 @@ fun SettingsView(
             settingsParam = SettingsParam.WEEKEND_MODE,
             allItems = enumEntries<WeekendMode>(),
             maxItemsDisplayed = 3,
+            schemes = schemes
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        SettingsDropdown(
+            expanded = expanded,
+            selectedItem = selectedWeekNumbersMode,
+            settingsParam = SettingsParam.WEEK_NUMBERS_MODE,
+            allItems = enumEntries<WeekNumbersMode>(),
+            maxItemsDisplayed = 2,
             schemes = schemes
         )
         Spacer(modifier = Modifier.weight(1f))

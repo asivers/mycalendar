@@ -46,6 +46,7 @@ import com.asivers.mycalendar.utils.proto.getSavedTheme
 import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
+import com.asivers.mycalendar.utils.proto.getSavedWeekNumbersMode
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalSharedTransitionApi::class)
@@ -61,12 +62,14 @@ class MainActivity : ComponentActivity() {
             val savedLocale = getSavedLocale(savedSettings, systemLocale, ctx)
             val savedTheme = getSavedTheme(savedSettings)
             val savedWeekendMode = getSavedWeekendMode(savedSettings)
+            val savedWeekNumbersMode = getSavedWeekNumbersMode(savedSettings)
 
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                 val selectedCountry = remember { mutableStateOf(savedCountry) }
                 val selectedLocale = remember { mutableStateOf(savedLocale) }
                 val selectedTheme = remember { mutableStateOf(savedTheme) }
                 val selectedWeekendMode = remember { mutableStateOf(savedWeekendMode) }
+                val selectedWeekNumbersMode = remember { mutableStateOf(savedWeekNumbersMode) }
 
                 val selectedDateState = remember { mutableStateOf(SelectedDateInfo()) }
                 val viewShownState = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) }
@@ -123,6 +126,7 @@ class MainActivity : ComponentActivity() {
                             selectedLocale = selectedLocale,
                             selectedTheme = selectedTheme,
                             selectedWeekendMode = selectedWeekendMode,
+                            selectedWeekNumbersMode = selectedWeekNumbersMode,
                             schemes = schemes
                         )
 
@@ -154,6 +158,7 @@ class MainActivity : ComponentActivity() {
                                             animatedVisibilityScope = this@AnimatedContent,
                                             sharedTransitionScope = this@SharedTransitionLayout,
                                             weekendMode = selectedWeekendMode.value,
+                                            weekNumbersMode = selectedWeekNumbersMode.value,
                                             schemes = schemes
                                         )
                                     else

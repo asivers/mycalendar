@@ -59,6 +59,11 @@
     "onlySunday": "Только ВС",
     "noDisplay": "Не показывать"
   },
+  "weekNumbersModesParam": "Номера недель",
+  "weekNumbersModes": {
+    "off": "Не показывать",
+    "on": "Показывать"
+  },
   "newNote": "Новая заметка",
   "saveNote": "Сохранить",
   "deleteNote": "Удалить",

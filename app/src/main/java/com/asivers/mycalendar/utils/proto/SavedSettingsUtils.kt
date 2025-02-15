@@ -7,6 +7,7 @@ import com.asivers.mycalendar.enums.ExistingLocale
 import com.asivers.mycalendar.enums.SettingsItem
 import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
+import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.serializers.savedSettingsDataStore
 import kotlinx.coroutines.flow.first
@@ -38,6 +39,13 @@ fun getSavedWeekendMode(savedSettings: SavedSettingsOuterClass.SavedSettings): W
         WeekendMode.valueOf(savedSettings.weekendMode)
 }
 
+fun getSavedWeekNumbersMode(savedSettings: SavedSettingsOuterClass.SavedSettings): WeekNumbersMode {
+    return if (savedSettings.weekNumbersMode.isEmpty())
+        WeekNumbersMode.OFF
+    else
+        WeekNumbersMode.valueOf(savedSettings.weekNumbersMode)
+}
+
 fun getSavedLocale(
     savedSettings: SavedSettingsOuterClass.SavedSettings,
     systemLocale: Locale,
@@ -67,6 +75,7 @@ fun updateOneSetting(
                 SettingsParam.EXISTING_LOCALE -> builder.setLocale(value)
                 SettingsParam.USER_THEME -> builder.setTheme(value)
                 SettingsParam.WEEKEND_MODE -> builder.setWeekendMode(value)
+                SettingsParam.WEEK_NUMBERS_MODE -> builder.setWeekNumbersMode(value)
             }
             builder.build()
         }

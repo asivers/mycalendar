@@ -59,6 +59,11 @@
     "onlySunday": "Only Sunday",
     "noDisplay": "Do not display"
   },
+  "weekNumbersModesParam": "Show week numbers",
+  "weekNumbersModes": {
+    "off": "Off",
+    "on": "On"
+  },
   "newNote": "New note",
   "saveNote": "Save",
   "deleteNote": "Delete",
