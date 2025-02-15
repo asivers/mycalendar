@@ -97,7 +97,7 @@ fun SelectMonthDropdownList(
                 },
                 onClick = {
                     isExpanded.value = false
-                    onMonthSelected(index)
+                    onMonthSelected(index + 1)
                 },
                 modifier = Modifier.height(itemHeightDp.dp)
             )
