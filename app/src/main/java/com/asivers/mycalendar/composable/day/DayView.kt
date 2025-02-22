@@ -20,20 +20,19 @@ import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.ExistingLocale
-import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
-import com.asivers.mycalendar.utils.addDays
-import com.asivers.mycalendar.utils.changeDay
+import com.asivers.mycalendar.utils.date.addDays
+import com.asivers.mycalendar.utils.date.changeDay
+import com.asivers.mycalendar.utils.date.changeMonth
+import com.asivers.mycalendar.utils.date.changeYear
+import com.asivers.mycalendar.utils.date.getDifferenceInDays
+import com.asivers.mycalendar.utils.date.getHolidayInfoForDay
+import com.asivers.mycalendar.utils.date.getMonthInfoForDayView
+import com.asivers.mycalendar.utils.date.nextDay
+import com.asivers.mycalendar.utils.date.previousDay
 import com.asivers.mycalendar.utils.fadeNormal
-import com.asivers.mycalendar.utils.getDifferenceInDays
-import com.asivers.mycalendar.utils.getHolidayInfoForDay
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
-import com.asivers.mycalendar.utils.getMonthInfo
-import com.asivers.mycalendar.utils.getOnMonthSelected
-import com.asivers.mycalendar.utils.getOnYearSelected
-import com.asivers.mycalendar.utils.nextDay
 import com.asivers.mycalendar.utils.noTransform
-import com.asivers.mycalendar.utils.previousDay
 import com.asivers.mycalendar.utils.slideWeek
 import com.asivers.mycalendar.utils.translateHolidayInfo
 
@@ -62,8 +61,8 @@ fun DayView(
                         rememberSharedContentState(key = "topDropdownsRow"),
                         animatedVisibilityScope = animatedVisibilityScope
                     ),
-                onYearSelected = { getOnYearSelected(selectedDateState, it, false) },
-                onMonthSelected = { getOnMonthSelected(selectedDateState, it) },
+                onYearSelected = { selectedDateState.value = changeYear(selectedDateState.value, it) },
+                onMonthSelected = { selectedDateState.value = changeMonth(selectedDateState.value, it) },
                 selectedDateInfo = selectedDateState.value,
                 forYearView = false,
                 schemes = schemes
@@ -87,12 +86,11 @@ fun DayView(
             ) { selectedDateInfo ->
                 val countryHolidayScheme = schemes.countryHoliday
                 val thisMonthInfo = remember(selectedDateInfo, countryHolidayScheme) {
-                    getMonthInfo(
+                    getMonthInfoForDayView(
+                        ctx = ctx,
                         year = selectedDateInfo.year,
                         monthValue = selectedDateInfo.monthValue,
                         countryHolidayScheme = countryHolidayScheme,
-                        forView = ViewShown.DAY,
-                        ctx = ctx,
                         thisDayOfMonth = selectedDateInfo.dayOfMonth
                     )
                 }

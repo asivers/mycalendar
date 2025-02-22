@@ -20,12 +20,12 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
+import com.asivers.mycalendar.utils.date.changeMonth
+import com.asivers.mycalendar.utils.date.changeYear
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
-import com.asivers.mycalendar.utils.getOnMonthSelected
-import com.asivers.mycalendar.utils.getOnYearSelected
-import com.asivers.mycalendar.utils.nextMonth
+import com.asivers.mycalendar.utils.date.nextMonth
 import com.asivers.mycalendar.utils.onHorizontalSwipe
-import com.asivers.mycalendar.utils.previousMonth
+import com.asivers.mycalendar.utils.date.previousMonth
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -51,8 +51,8 @@ fun MonthView(
                         rememberSharedContentState(key = "topDropdownsRow"),
                         animatedVisibilityScope = animatedVisibilityScope
                     ),
-                onYearSelected = { getOnYearSelected(selectedDateState, it, false) },
-                onMonthSelected = { getOnMonthSelected(selectedDateState, it) },
+                onYearSelected = { selectedDateState.value = changeYear(selectedDateState.value, it) },
+                onMonthSelected = { selectedDateState.value = changeMonth(selectedDateState.value, it) },
                 selectedDateInfo = selectedDateState.value,
                 forYearView = false,
                 schemes = schemes

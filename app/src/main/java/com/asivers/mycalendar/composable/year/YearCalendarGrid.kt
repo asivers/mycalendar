@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_PADDING_TEXT_STYLE
-import com.asivers.mycalendar.data.MonthInfo
+import com.asivers.mycalendar.data.BaseMonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.ViewShownInfo
@@ -31,9 +31,9 @@ import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
+import com.asivers.mycalendar.utils.date.getBaseMonthInfo
+import com.asivers.mycalendar.utils.date.getDayInfoForYearView
 import com.asivers.mycalendar.utils.fadeSlow
-import com.asivers.mycalendar.utils.getDayInfo
-import com.asivers.mycalendar.utils.getMonthInfo
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Composable
@@ -128,18 +128,17 @@ fun MonthInYearCalendarGrid(
             transitionSpec = { fadeSlow() },
             label = "year calendar animated content"
         ) {
-            val monthInfo = getMonthInfo(
+            val baseMonthInfo = getBaseMonthInfo(
                 year = it.year,
                 monthValue = thisMonthValue,
-                countryHolidayScheme = schemes.countryHoliday,
-                forView = ViewShown.YEAR
+                countryHolidayScheme = schemes.countryHoliday
             )
             Column {
                 repeat(6) { weekIndex ->
                     WeekInYearCalendarGrid(
                         modifier = Modifier.weight(1f),
                         weekIndex = weekIndex,
-                        monthInfo = monthInfo,
+                        baseMonthInfo = baseMonthInfo,
                         weekendMode = weekendMode,
                         schemes = schemes
                     )
@@ -175,7 +174,7 @@ fun HeaderWeekInYearCalendarGrid(
 fun WeekInYearCalendarGrid(
     modifier: Modifier = Modifier,
     weekIndex: Int,
-    monthInfo: MonthInfo,
+    baseMonthInfo: BaseMonthInfo,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
@@ -187,7 +186,7 @@ fun WeekInYearCalendarGrid(
                 modifier = Modifier.weight(1f),
                 weekIndex = weekIndex,
                 dayOfWeekIndex = dayOfWeekIndex,
-                monthInfo = monthInfo,
+                baseMonthInfo = baseMonthInfo,
                 weekendMode = weekendMode,
                 schemes = schemes
             )
@@ -200,12 +199,12 @@ fun DayInYearCalendarGrid(
     modifier: Modifier = Modifier,
     weekIndex: Int,
     dayOfWeekIndex: Int,
-    monthInfo: MonthInfo,
+    baseMonthInfo: BaseMonthInfo,
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
-    val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - monthInfo.dayOfWeekOf1st + 2
-    val dayInfo = getDayInfo(dayValueRaw, monthInfo, weekendMode)
+    val dayValueRaw = weekIndex * 7 + dayOfWeekIndex - baseMonthInfo.dayOfWeekOf1st + 2
+    val dayInfo = getDayInfoForYearView(dayValueRaw, baseMonthInfo, weekendMode)
     val dayValue = dayInfo.dayValue
     val inThisMonth = dayInfo.inMonth == DisplayedMonth.THIS
     val isToday = dayInfo.isToday

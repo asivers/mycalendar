@@ -1,5 +1,6 @@
 package com.asivers.mycalendar.utils
 
+import com.asivers.mycalendar.utils.date.testGetWeekNumbers
 import org.junit.Test
 
 import org.junit.Assert.*

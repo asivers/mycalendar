@@ -25,16 +25,15 @@ import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
-import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
+import com.asivers.mycalendar.utils.date.getDayInfo
+import com.asivers.mycalendar.utils.date.getMonthInfoForMonthView
+import com.asivers.mycalendar.utils.date.nextMonth
+import com.asivers.mycalendar.utils.date.previousMonth
 import com.asivers.mycalendar.utils.fadeSlow
-import com.asivers.mycalendar.utils.getDayInfo
-import com.asivers.mycalendar.utils.getMonthInfo
-import com.asivers.mycalendar.utils.nextMonth
 import com.asivers.mycalendar.utils.noTransform
 import com.asivers.mycalendar.utils.onHorizontalSwipe
-import com.asivers.mycalendar.utils.previousMonth
 import com.asivers.mycalendar.utils.slideFromLeftToRight
 import com.asivers.mycalendar.utils.slideFromRightToLeft
 
@@ -77,13 +76,11 @@ fun MonthCalendarGrid(
         ) { selectedDateInfo ->
             val countryHolidayScheme = schemes.countryHoliday
             val monthInfo = remember(selectedDateInfo, countryHolidayScheme) {
-                getMonthInfo(
+                getMonthInfoForMonthView(
+                    ctx = ctx,
                     year = selectedDateInfo.year,
                     monthValue = selectedDateInfo.monthValue,
                     countryHolidayScheme = countryHolidayScheme,
-                    forView = ViewShown.MONTH,
-                    ctx = ctx,
-                    thisDayOfMonth = null,
                     weekNumbersMode = weekNumbersMode
                 )
             }

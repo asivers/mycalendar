@@ -23,7 +23,7 @@ import com.asivers.mycalendar.data.MonthInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.WeekendMode
-import com.asivers.mycalendar.utils.getDayInfo
+import com.asivers.mycalendar.utils.date.getDayInfo
 import com.asivers.mycalendar.utils.onHorizontalSwipe
 import kotlin.math.roundToInt
 
@@ -59,7 +59,7 @@ fun DaysLine(
             ) {
                 Text(
                     modifier = Modifier.alpha(if (orderInDayLine == 3) 1f else 0.5f),
-                    text = schemes.translation.daysOfWeek3[dayInfo.dayOfWeekValue!! - 1],
+                    text = schemes.translation.daysOfWeek3[dayInfo.dayOfWeekValue - 1],
                     fontFamily = MONTSERRAT,
                     fontSize = schemes.size.font.mvHeaderWeek,
                     color = schemes.color.text,

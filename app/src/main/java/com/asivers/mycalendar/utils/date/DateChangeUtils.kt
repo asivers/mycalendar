@@ -1,6 +1,5 @@
-package com.asivers.mycalendar.utils
+package com.asivers.mycalendar.utils.date
 
-import androidx.compose.runtime.MutableState
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
 
@@ -69,42 +68,37 @@ fun changeDay(
         DisplayedMonth.THIS -> selectedDateInfo
         DisplayedMonth.NEXT -> nextMonth(selectedDateInfo)
     }
-    return updateOnlyDayOfMonth(updatedSelectedDateInfo, newDayOfMonth)
+    return SelectedDateInfo(
+        year = updatedSelectedDateInfo.year,
+        monthValue = updatedSelectedDateInfo.monthValue,
+        dayOfMonth = newDayOfMonth
+    )
 }
 
-private fun updateOnlyDayOfMonth(
+fun changeMonth(
     selectedDateInfo: SelectedDateInfo,
-    newDayOfMonth: Int
+    newMonthValue: Int
 ): SelectedDateInfo {
-    return SelectedDateInfo(selectedDateInfo.year, selectedDateInfo.monthValue, newDayOfMonth)
-}
-
-fun getOnMonthSelected(
-    selectedDateState: MutableState<SelectedDateInfo>,
-    selectedMonthValue: Int
-) {
-    val selectedDateInfo = selectedDateState.value
     val year = selectedDateInfo.year
-    val lengthOfSelectedMonth = getMonthLength(year, selectedMonthValue)
-    selectedDateState.value = SelectedDateInfo(
+    val lengthOfSelectedMonth = getLengthOfMonth(year, newMonthValue)
+    return SelectedDateInfo(
         year = year,
-        monthValue = selectedMonthValue,
+        monthValue = newMonthValue,
         dayOfMonth = minOf(selectedDateInfo.dayOfMonth, lengthOfSelectedMonth)
     )
 }
 
-fun getOnYearSelected(
-    selectedDateState: MutableState<SelectedDateInfo>,
-    selectedYear: Int,
-    onYearView: Boolean
-) {
-    val selectedDateInfo = selectedDateState.value
+fun changeYear(
+    selectedDateInfo: SelectedDateInfo,
+    newYear: Int,
+    onYearView: Boolean = false
+): SelectedDateInfo {
     val monthValue = selectedDateInfo.monthValue
-    val lengthOfSelectedMonth = getMonthLength(selectedYear, monthValue)
-    selectedDateState.value = SelectedDateInfo(
-        year = selectedYear,
+    val lengthOfSelectedMonth = getLengthOfMonth(newYear, monthValue)
+    return SelectedDateInfo(
+        year = newYear,
         monthValue = monthValue,
         dayOfMonth = minOf(selectedDateInfo.dayOfMonth, lengthOfSelectedMonth),
-        yearOnMonthView = if (onYearView) selectedDateState.value.yearOnMonthView else selectedYear
+        yearOnMonthView = if (onYearView) selectedDateInfo.yearOnMonthView else newYear
     )
 }

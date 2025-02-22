@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.utils
+package com.asivers.mycalendar.utils.date
 
 import java.time.LocalDate
 import java.time.Month

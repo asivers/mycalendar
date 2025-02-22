@@ -5,6 +5,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.DisplayedMonth
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.utils.date.changeDay
 
 fun changeView(viewShownState: MutableState<ViewShownInfo>, changeTo: ViewShown) {
     viewShownState.value = ViewShownInfo(

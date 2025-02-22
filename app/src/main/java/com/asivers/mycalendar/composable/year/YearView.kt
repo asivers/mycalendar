@@ -26,9 +26,9 @@ import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.changeView
+import com.asivers.mycalendar.utils.date.changeMonth
+import com.asivers.mycalendar.utils.date.changeYear
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
-import com.asivers.mycalendar.utils.getOnMonthSelected
-import com.asivers.mycalendar.utils.getOnYearSelected
 import com.asivers.mycalendar.utils.getYearViewInnerBackgroundGradient
 
 @Composable
@@ -87,8 +87,8 @@ fun YearView(
     ) {
         Spacer(modifier = Modifier.height(indentFromFrameToDropdowns.dp))
         TopDropdownsRow(
-            onYearSelected = { getOnYearSelected(selectedDateState, it, true) },
-            onMonthSelected = { getOnMonthSelected(selectedDateState, it) },
+            onYearSelected = { selectedDateState.value = changeYear(selectedDateState.value, it, true) },
+            onMonthSelected = { selectedDateState.value = changeMonth(selectedDateState.value, it) },
             selectedDateInfo = selectedDateState.value,
             forYearView = true,
             schemes = schemes
