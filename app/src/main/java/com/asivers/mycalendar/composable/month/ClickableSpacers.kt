@@ -4,16 +4,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.asivers.mycalendar.utils.noRippleClickable
+import com.asivers.mycalendar.utils.onHorizontalSwipe
 
 @Composable
 fun ClickableSpacers(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onClickLeft: () -> Unit,
     onClickRight: () -> Unit
 ) {
-    Row(modifier = modifier) {
+    val horizontalOffset = remember { mutableFloatStateOf(0f) }
+    Row(
+        modifier = modifier.onHorizontalSwipe(horizontalOffset, onClickRight, onClickLeft)
+    ) {
         Spacer(
             modifier = Modifier
                 .fillMaxHeight()

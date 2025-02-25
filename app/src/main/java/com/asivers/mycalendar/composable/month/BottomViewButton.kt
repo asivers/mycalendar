@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -24,10 +25,13 @@ import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.SchemeContainer
 
 @Composable
-fun YearViewButton(
+fun BottomViewButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    schemes: SchemeContainer
+    text: String,
+    background: Brush,
+    schemes: SchemeContainer,
+    textColor: Color = schemes.color.text
 ) {
     var offset by remember { mutableFloatStateOf(0f) }
     Button(
@@ -36,14 +40,7 @@ fun YearViewButton(
             .fillMaxWidth()
             .height(64.dp) // todo add to size scheme
             .clip(RoundedCornerShape(36.dp, 36.dp))
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        schemes.color.yearViewBtnTop,
-                        schemes.color.yearViewBtnBottom
-                    )
-                )
-            )
+            .background(background)
             .pointerInput(Unit) {
                 detectVerticalDragGestures(
                     onDragStart = { offset = 0f },
@@ -58,10 +55,10 @@ fun YearViewButton(
         interactionSource = NO_RIPPLE_INTERACTION_SOURCE
     ) {
         Text(
-            text = schemes.translation.yearView,
+            text = text,
             fontFamily = MONTSERRAT_BOLD,
             fontSize = schemes.size.font.main,
-            color = schemes.color.text,
+            color = textColor,
             textAlign = TextAlign.Center
         )
     }

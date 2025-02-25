@@ -24,7 +24,6 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -34,6 +33,7 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.removeNote
+import com.asivers.mycalendar.utils.withAlpha
 
 @Composable
 fun ExistingNotes(
@@ -45,7 +45,7 @@ fun ExistingNotes(
     schemes: SchemeContainer
 ) {
     // todo check that it fits for different screen sizes
-    val maxExistingNotesHeightDp = LocalConfiguration.current.screenHeightDp - 300
+    val maxExistingNotesHeightDp = LocalConfiguration.current.screenHeightDp - 380
     val ctx = LocalContext.current
     LazyColumn(
         modifier = modifier
@@ -68,7 +68,6 @@ fun ExistingNotes(
             )
             SwipeToDismissBox(
                 state = dismissState,
-                modifier = Modifier,
                 backgroundContent = {
                     if (dismissState.dismissDirection.name == SwipeToDismissBoxValue.StartToEnd.name) {
                         Row(
@@ -109,7 +108,7 @@ fun OneSavedNote(
     Box(
         modifier = modifier
             .clip(shape = RoundedCornerShape(8.dp))
-            .background(color = Color(0x33FFFFFF)) // todo adapt for different color schemes
+            .background(color = schemes.color.text.withAlpha(0.2f)) // todo adapt for different color schemes
             .padding(8.dp)
             .fillMaxWidth()
     ) {

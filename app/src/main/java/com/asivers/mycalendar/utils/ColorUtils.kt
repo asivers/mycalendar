@@ -1,6 +1,7 @@
 package com.asivers.mycalendar.utils
 
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import com.asivers.mycalendar.constants.schemes.AUTUMN
 import com.asivers.mycalendar.constants.schemes.SPRING
 import com.asivers.mycalendar.constants.schemes.SUMMER
@@ -26,9 +27,9 @@ fun getBackgroundGradient(viewShown: ViewShown, colorScheme: ColorScheme): Brush
 }
 
 fun getDefaultBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
-    colorStops = arrayOf(
-        0.0f to colorScheme.viewsTop,
-        1f to colorScheme.viewsBottom,
+    colors = listOf(
+        colorScheme.viewsTop,
+        colorScheme.viewsBottom
     )
 )
 
@@ -37,7 +38,7 @@ fun getMonthAndYearViewBackgroundGradient(colorScheme: ColorScheme): Brush = Bru
         0.0f to colorScheme.viewsTop,
         0.12f to colorScheme.viewsTop,
         0.27f to colorScheme.viewsBottom,
-        1f to colorScheme.viewsBottom,
+        1f to colorScheme.viewsBottom
     )
 )
 
@@ -45,6 +46,41 @@ fun getYearViewInnerBackgroundGradient(colorScheme: ColorScheme): Brush = Brush.
     colorStops = arrayOf(
         0.0f to colorScheme.yearViewBtnTop,
         0.2f to colorScheme.yearViewBtnBottom,
-        1f to colorScheme.viewsBottom,
+        1f to colorScheme.viewsBottom
     )
+)
+
+fun getYearViewButtonGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
+    colors = listOf(
+        colorScheme.yearViewBtnTop,
+        colorScheme.yearViewBtnBottom
+    )
+)
+
+fun getNoteButtonGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
+    colors = listOf(
+        colorScheme.text,
+        colorScheme.text.withAlpha(0.67f)
+    )
+)
+
+fun getNoteEditGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
+    colors = listOf(
+        colorScheme.text,
+        colorScheme.text.withAlpha(0.8f)
+    )
+)
+
+fun getNoteViewGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
+    colors = listOf(
+        colorScheme.text.withAlpha(0.85f),
+        colorScheme.text.withAlpha(0.5f)
+    )
+)
+
+fun Color.withAlpha(alpha: Float) = Color(
+    red = this.red,
+    green = this.green,
+    blue = this.blue,
+    alpha = alpha
 )

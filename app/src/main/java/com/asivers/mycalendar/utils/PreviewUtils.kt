@@ -155,7 +155,7 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
             Pair("off", "Off"),
             Pair("on", "On")
         ),
-        newNote = "New Note",
+        makeNote = "Make a note",
         saveNote = "Save",
         deleteNote = "Delete",
         switchEveryYear = "Every year",

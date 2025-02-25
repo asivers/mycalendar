@@ -5,12 +5,9 @@ import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
@@ -22,10 +19,10 @@ import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.date.changeMonth
 import com.asivers.mycalendar.utils.date.changeYear
-import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.date.nextMonth
-import com.asivers.mycalendar.utils.onHorizontalSwipe
 import com.asivers.mycalendar.utils.date.previousMonth
+import com.asivers.mycalendar.utils.getIndentFromHeaderDp
+import com.asivers.mycalendar.utils.getYearViewButtonGradient
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -81,19 +78,14 @@ fun MonthView(
                     )
                 }
                 ClickableSpacers(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .onHorizontalSwipe(
-                            horizontalOffset = remember { mutableFloatStateOf(0f) },
-                            onSwipeToLeft = toNextMonth,
-                            onSwipeToRight = toPreviousMonth
-                        ),
                     onClickLeft = toPreviousMonth,
                     onClickRight = toNextMonth
                 )
             }
-            YearViewButton(
+            BottomViewButton(
                 onClick = { onYearViewButtonClick() },
+                text = schemes.translation.yearView,
+                background = getYearViewButtonGradient(schemes.color),
                 schemes = schemes
             )
         }

@@ -3,6 +3,7 @@ package com.asivers.mycalendar.composable.day
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -14,6 +15,8 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +49,7 @@ fun NoteOptions(
         val enabled = createNoteInfoValue.msg.isNotBlank()
         SwitchWithLabel(
             modifier = Modifier
-                .weight(1f)
+                .weight(3f)
                 .alpha(if (enabled) 1f else 0.4f),
             checked = createNoteInfoValue.isEveryYear,
             onCheckedChange = { mutableNoteInfo.value = createNoteInfoValue.refreshIsEveryYear(it) },
@@ -57,7 +60,7 @@ fun NoteOptions(
         val notificationSwitchState = remember { mutableStateOf(false) }
         SwitchWithLabel(
             modifier = Modifier
-                .weight(1f)
+                .weight(3f)
                 .alpha(if (enabled) 1f else 0.4f),
             checked = notificationSwitchState.value,
             onCheckedChange = { notificationSwitchState.value = it },
@@ -65,9 +68,10 @@ fun NoteOptions(
             label = schemes.translation.switchNotification,
             schemes = schemes
         )
+        Spacer(modifier = Modifier.weight(1f))
         ActionNoteButton(
             modifier = Modifier
-                .weight(1f)
+                .weight(3f)
                 .alpha(if (enabled) 1f else 0.4f),
             onClick = {
                 if (enabled) {
@@ -102,11 +106,23 @@ fun SwitchWithLabel(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Switch(
+            modifier = Modifier.scale(0.8f),
             checked = checked,
             onCheckedChange = onCheckedChange,
             enabled = enabled,
             colors = SwitchDefaults.colors(
-                checkedTrackColor = schemes.color.viewsTop
+                uncheckedTrackColor = Color.Transparent,
+                uncheckedThumbColor = schemes.color.text,
+                uncheckedBorderColor = schemes.color.text,
+                disabledUncheckedTrackColor = Color.Transparent,
+                disabledUncheckedThumbColor = schemes.color.text,
+                disabledUncheckedBorderColor = schemes.color.text,
+                checkedTrackColor = schemes.color.text,
+                checkedThumbColor = schemes.color.viewsTop,
+                checkedBorderColor = schemes.color.text,
+                disabledCheckedTrackColor = schemes.color.text,
+                disabledCheckedThumbColor = schemes.color.viewsTop,
+                disabledCheckedBorderColor = schemes.color.text
             )
         )
         Text(

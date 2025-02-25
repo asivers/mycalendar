@@ -3,33 +3,32 @@ package com.asivers.mycalendar.composable.day
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.composable.month.BottomViewButton
+import com.asivers.mycalendar.composable.month.ClickableSpacers
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
+import com.asivers.mycalendar.utils.getNoteButtonGradient
 import com.asivers.mycalendar.utils.getOnBackFromOneNoteMode
-import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.onHideKeyboard
-import com.asivers.mycalendar.utils.onHorizontalSwipe
 import com.asivers.mycalendar.utils.proto.getNotes
 
 @Composable
@@ -87,44 +86,49 @@ fun NotesSectionOverviewMode(
     holidayInfo: String?,
     schemes: SchemeContainer
 ) {
-    Column(
-        modifier = modifier.padding(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        if (holidayInfo != null) {
-            Text(
-                text = holidayInfo,
-                fontFamily = MONTSERRAT_MEDIUM,
-                fontSize = schemes.size.font.dropdownItem,
-                color = schemes.color.text
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        ExistingNotes(
-            mutableNotes = mutableNotes,
-            onClickToNote = {
-                mutableNoteInfo.value = MutableNoteInfo(it)
-                noteMode.value = NoteMode.VIEW
-            },
-            refreshDaysLine = refreshDaysLine,
-            selectedDateInfo = selectedDateInfo,
-            schemes = schemes
-        )
-        val horizontalOffset = remember { mutableFloatStateOf(0f) }
+    Column(modifier = modifier) {
         Box(
-            modifier = modifier
-                .alpha(0.5f)
-                .noRippleClickable { noteMode.value = NoteMode.ADD }
-                .onHorizontalSwipe(horizontalOffset, onSwipeToLeft, onSwipeToRight),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(36.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = schemes.translation.newNote,
-                fontFamily = MONTSERRAT_MEDIUM,
-                fontSize = schemes.size.font.dropdownItem,
-                color = schemes.color.text
+            if (holidayInfo != null) {
+                Text(
+                    text = holidayInfo,
+                    fontFamily = MONTSERRAT_MEDIUM,
+                    fontSize = schemes.size.font.yvMonthName,
+                    color = schemes.color.text
+                )
+            }
+        }
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+            ExistingNotes(
+                modifier = Modifier.padding(8.dp, 0.dp),
+                mutableNotes = mutableNotes,
+                onClickToNote = {
+                    mutableNoteInfo.value = MutableNoteInfo(it)
+                    noteMode.value = NoteMode.VIEW
+                },
+                refreshDaysLine = refreshDaysLine,
+                selectedDateInfo = selectedDateInfo,
+                schemes = schemes
+            )
+            // todo reconsider swipes because it is possible to accidentally delete note
+            ClickableSpacers(
+                onClickLeft = onSwipeToRight,
+                onClickRight = onSwipeToLeft
             )
         }
+        BottomViewButton(
+            onClick = { noteMode.value = NoteMode.ADD },
+            text = schemes.translation.makeNote,
+            background = getNoteButtonGradient(schemes.color),
+            schemes = schemes,
+            textColor = schemes.color.viewsBottom
+        )
     }
 }
 
@@ -158,7 +162,7 @@ fun NotesSectionOneNoteMode(
         modifier = modifier.onHideKeyboard { onBackFromOneNoteMode() }
     ) {
         NoteOptions(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(8.dp, 4.dp, 8.dp, 16.dp),
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
             noteMode = noteMode,

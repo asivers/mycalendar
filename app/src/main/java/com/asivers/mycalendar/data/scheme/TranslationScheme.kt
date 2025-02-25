@@ -18,7 +18,7 @@ data class TranslationScheme(
     val weekendModes: Map<String, String>,
     val weekNumbersModesParam: String,
     val weekNumbersModes: Map<String, String>,
-    val newNote: String,
+    val makeNote: String,
     val saveNote: String,
     val deleteNote: String,
     val switchEveryYear: String,

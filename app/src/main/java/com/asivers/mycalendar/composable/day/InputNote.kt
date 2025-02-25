@@ -1,6 +1,8 @@
 package com.asivers.mycalendar.composable.day
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
@@ -9,14 +11,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.NoteMode
+import com.asivers.mycalendar.utils.getNoteEditGradient
+import com.asivers.mycalendar.utils.getNoteViewGradient
 
 @Composable
 fun InputNote(
@@ -37,6 +43,9 @@ fun InputNote(
         },
         modifier = modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(20.dp, 20.dp))
+            .background(if (noteMode == NoteMode.VIEW)
+                getNoteViewGradient(schemes.color) else getNoteEditGradient(schemes.color))
             .focusRequester(focusRequester)
             .onFocusChanged {
                 if (it.isFocused && noteMode == NoteMode.VIEW) onClick()
@@ -44,7 +53,8 @@ fun InputNote(
         colors = defaultInputNoteColors(schemes),
         textStyle = TextStyle(
             fontSize = schemes.size.font.dropdownItem,
-            fontFamily = MONTSERRAT_MEDIUM
+            fontFamily = MONTSERRAT_MEDIUM,
+            color = schemes.color.viewsBottom
         )
     )
     LaunchedEffect(Unit) {
