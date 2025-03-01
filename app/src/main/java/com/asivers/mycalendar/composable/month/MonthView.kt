@@ -79,8 +79,7 @@ fun MonthView(
                 }
                 ClickableSpacers(
                     onClickLeft = toPreviousMonth,
-                    onClickRight = toNextMonth,
-                    swipeEnabled = true
+                    onClickRight = toNextMonth
                 )
             }
             BottomViewButton(
