@@ -219,7 +219,7 @@ fun DayInYearCalendarGrid(
                 center = this.center.plus(Offset(x = -1f, y = 0f))
             )}
             .wrapContentHeight(),
-        text = (if (inThisMonth) dayValue else "").toString(),
+        text = if (inThisMonth) dayValue.toString() else "",
         fontFamily = MONTSERRAT_BOLD,
         fontSize = schemes.size.font.yvDay,
         color = if (isWeekend || isHoliday) schemes.color.brightElement else schemes.color.text,
