@@ -14,11 +14,18 @@ import com.asivers.mycalendar.utils.onHorizontalSwipe
 fun ClickableSpacers(
     modifier: Modifier = Modifier,
     onClickLeft: () -> Unit,
-    onClickRight: () -> Unit
+    onClickRight: () -> Unit,
+    swipeEnabled: Boolean = false
 ) {
-    val horizontalOffset = remember { mutableFloatStateOf(0f) }
+    val rowModifier = if (swipeEnabled) {
+        val horizontalOffset = remember { mutableFloatStateOf(0f) }
+        modifier.onHorizontalSwipe(horizontalOffset, onClickRight, onClickLeft)
+    } else {
+        modifier
+    }
+
     Row(
-        modifier = modifier.onHorizontalSwipe(horizontalOffset, onClickRight, onClickLeft)
+        modifier = rowModifier
     ) {
         Spacer(
             modifier = Modifier

@@ -116,7 +116,6 @@ fun NotesSectionOverviewMode(
                 selectedDateInfo = selectedDateInfo,
                 schemes = schemes
             )
-            // todo reconsider swipes because it is possible to accidentally delete note
             ClickableSpacers(
                 onClickLeft = onSwipeToRight,
                 onClickRight = onSwipeToLeft
