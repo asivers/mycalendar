@@ -3,6 +3,7 @@ package com.asivers.mycalendar.utils
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -11,7 +12,9 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreInterceptKeyBeforeSoftKeyboard
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import kotlin.math.roundToInt
 
 fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = this.clickable(
     interactionSource = null,
@@ -53,4 +56,28 @@ fun Modifier.onHorizontalSwipe(
     ) { _, dragAmount ->
         horizontalOffset.value += dragAmount
     }
+}
+
+fun Modifier.withHorizontalDrag(
+    horizontalOffset: MutableFloatState,
+    maxDragToLeft: Float,
+    maxDragToRight: Float
+): Modifier = this
+    .offset { IntOffset(horizontalOffset.floatValue.roundToInt(), 0) }
+    .pointerInput(Unit) {
+        detectHorizontalDragGestures(
+            onDragEnd = {
+                if (horizontalOffset.floatValue > maxDragToRight) {
+                    horizontalOffset.floatValue = maxDragToRight
+                } else if (horizontalOffset.floatValue < -maxDragToLeft) {
+                    horizontalOffset.floatValue = -maxDragToLeft
+                }
+            }
+        ) { _, dragAmount ->
+            val possibleNewOffset = horizontalOffset.floatValue + dragAmount
+            horizontalOffset.floatValue = maxOf(
+                -maxDragToLeft,
+                minOf(maxDragToRight, possibleNewOffset)
+            )
+        }
 }

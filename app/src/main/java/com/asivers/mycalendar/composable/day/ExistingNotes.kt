@@ -3,8 +3,6 @@ package com.asivers.mycalendar.composable.day
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -15,11 +13,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +31,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.removeNote
 import com.asivers.mycalendar.utils.withAlpha
+import com.asivers.mycalendar.utils.withHorizontalDrag
 
 @Composable
 fun ExistingNotes(
@@ -54,46 +52,34 @@ fun ExistingNotes(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(mutableNotes, key = { it.id }) { noteInfo ->
-            val dismissState = rememberSwipeToDismissBoxState(
-                confirmValueChange = { newValue ->
-                    if (newValue == SwipeToDismissBoxValue.StartToEnd) {
-                        removeNote(ctx, selectedDateInfo, noteInfo.id)
-                        mutableNotes.remove(noteInfo)
-                        refreshDaysLine()
-                        true
-                    } else {
-                        false
-                    }
-                }
-            )
-            SwipeToDismissBox(
-                state = dismissState,
-                backgroundContent = {
-                    if (dismissState.dismissDirection.name == SwipeToDismissBoxValue.StartToEnd.name) {
-                        Row(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                modifier = Modifier.size(32.dp),
-                                contentDescription = "Delete",
-                                tint = schemes.color.text
-                            )
-                        }
-                    }
-                },
-                enableDismissFromEndToStart = false
+            Box(
+                contentAlignment = Alignment.CenterStart
             ) {
                 // todo adapt for different size schemes
                 val maxNoteHeight = maxOf(48, maxExistingNotesHeightDp / mutableNotes.size)
+                val horizontalOffset = remember { mutableFloatStateOf(0f) }
                 OneSavedNote(
                     modifier = Modifier
                         .heightIn(0.dp, maxNoteHeight.dp)
-                        .noRippleClickable { onClickToNote(noteInfo) },
+                        .noRippleClickable { onClickToNote(noteInfo) }
+                        .withHorizontalDrag(horizontalOffset, 0f, 125f),
                     msg = noteInfo.msg,
                     schemes = schemes
                 )
+                if (horizontalOffset.floatValue == 125f) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        modifier = Modifier
+                            .size(32.dp)
+                            .noRippleClickable {
+                                removeNote(ctx, selectedDateInfo, noteInfo.id)
+                                mutableNotes.remove(noteInfo)
+                                refreshDaysLine()
+                            },
+                        contentDescription = "Delete",
+                        tint = schemes.color.text
+                    )
+                }
             }
         }
     }
