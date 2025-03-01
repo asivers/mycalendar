@@ -31,7 +31,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.removeNote
 import com.asivers.mycalendar.utils.withAlpha
-import com.asivers.mycalendar.utils.withHorizontalDrag
+import com.asivers.mycalendar.utils.withDragToRight
 
 @Composable
 fun ExistingNotes(
@@ -62,7 +62,7 @@ fun ExistingNotes(
                     modifier = Modifier
                         .heightIn(0.dp, maxNoteHeight.dp)
                         .noRippleClickable { onClickToNote(noteInfo) }
-                        .withHorizontalDrag(horizontalOffset, 0f, 125f),
+                        .withDragToRight(horizontalOffset, 125f),
                     msg = noteInfo.msg,
                     schemes = schemes
                 )

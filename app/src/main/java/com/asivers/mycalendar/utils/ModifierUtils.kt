@@ -58,26 +58,20 @@ fun Modifier.onHorizontalSwipe(
     }
 }
 
-fun Modifier.withHorizontalDrag(
+fun Modifier.withDragToRight(
     horizontalOffset: MutableFloatState,
-    maxDragToLeft: Float,
-    maxDragToRight: Float
+    maxDrag: Float
 ): Modifier = this
     .offset { IntOffset(horizontalOffset.floatValue.roundToInt(), 0) }
     .pointerInput(Unit) {
         detectHorizontalDragGestures(
             onDragEnd = {
-                if (horizontalOffset.floatValue > maxDragToRight) {
-                    horizontalOffset.floatValue = maxDragToRight
-                } else if (horizontalOffset.floatValue < -maxDragToLeft) {
-                    horizontalOffset.floatValue = -maxDragToLeft
+                if (horizontalOffset.floatValue < maxDrag) {
+                    horizontalOffset.floatValue = 0f
                 }
             }
         ) { _, dragAmount ->
             val possibleNewOffset = horizontalOffset.floatValue + dragAmount
-            horizontalOffset.floatValue = maxOf(
-                -maxDragToLeft,
-                minOf(maxDragToRight, possibleNewOffset)
-            )
+            horizontalOffset.floatValue = maxOf(0f, minOf(maxDrag, possibleNewOffset))
         }
 }
