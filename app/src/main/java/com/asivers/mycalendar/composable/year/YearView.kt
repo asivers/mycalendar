@@ -59,13 +59,7 @@ fun YearView(
                         val yearBeforeUpdate = selectedDateState.value.year
                         val lastSelectedYearFromMonthView = selectedDateState.value.yearOnMonthView
                         val monthValue = selectedDateState.value.monthValue
-                        if (verticalOffset > 100f) {
-                            selectedDateState.value = SelectedDateInfo(
-                                year = lastSelectedYearFromMonthView,
-                                monthValue = monthValue
-                            )
-                            changeView(viewShownState, ViewShown.MONTH)
-                        } else if (horizontalOffset > 50f && yearBeforeUpdate > 1900) {
+                        if (horizontalOffset > 50f && yearBeforeUpdate > 1900) {
                             selectedDateState.value = SelectedDateInfo(
                                 year = yearBeforeUpdate - 1,
                                 monthValue = monthValue,
@@ -77,6 +71,12 @@ fun YearView(
                                 monthValue = monthValue,
                                 yearOnMonthView = lastSelectedYearFromMonthView
                             )
+                        } else if (verticalOffset > 100f) {
+                            selectedDateState.value = SelectedDateInfo(
+                                year = lastSelectedYearFromMonthView,
+                                monthValue = monthValue
+                            )
+                            changeView(viewShownState, ViewShown.MONTH)
                         }
                     }
                 ) { _, dragAmount ->
