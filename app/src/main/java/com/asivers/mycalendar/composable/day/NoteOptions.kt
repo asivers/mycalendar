@@ -3,7 +3,6 @@ package com.asivers.mycalendar.composable.day
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -68,7 +67,8 @@ fun NoteOptions(
             label = schemes.translation.switchNotification,
             schemes = schemes
         )
-        Spacer(modifier = Modifier.weight(1f))
+        // todo find the way to separate switchers from the save button, with one-line labels
+        // Spacer(modifier = Modifier.weight(1f))
         ActionNoteButton(
             modifier = Modifier
                 .weight(3f)
