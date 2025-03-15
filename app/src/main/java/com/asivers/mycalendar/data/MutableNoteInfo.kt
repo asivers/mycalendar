@@ -33,4 +33,14 @@ data class MutableNoteInfo(
             changed = true
         )
     }
+
+    fun refreshNotificationTime(newNotificationTime: NotificationTime?): MutableNoteInfo {
+        return MutableNoteInfo(
+            id = id,
+            msg = msg,
+            isEveryYear = isEveryYear,
+            notificationTime = newNotificationTime,
+            changed = true
+        )
+    }
 }

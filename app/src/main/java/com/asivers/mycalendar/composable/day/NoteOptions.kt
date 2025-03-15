@@ -3,6 +3,10 @@ package com.asivers.mycalendar.composable.day
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
@@ -20,7 +24,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
+import com.asivers.mycalendar.data.CacheNotificationTime
 import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
@@ -44,27 +50,35 @@ fun NoteOptions(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(32.dp)
     ) {
-        val createNoteInfoValue = mutableNoteInfo.value
-        val enabled = createNoteInfoValue.msg.isNotBlank()
+        val mutableNoteInfoValue = mutableNoteInfo.value
+        val enabled = mutableNoteInfoValue.msg.isNotBlank()
         SwitchWithLabel(
             modifier = Modifier
                 .weight(3f)
                 .alpha(if (enabled) 1f else 0.4f),
-            checked = createNoteInfoValue.isEveryYear,
-            onCheckedChange = { mutableNoteInfo.value = createNoteInfoValue.refreshIsEveryYear(it) },
+            checked = mutableNoteInfoValue.isEveryYear,
+            onCheckedChange = {
+                mutableNoteInfo.value = mutableNoteInfoValue.refreshIsEveryYear(it)
+            },
             enabled = enabled,
             label = schemes.translation.switchEveryYear,
             schemes = schemes
         )
-        val notificationSwitchState = remember { mutableStateOf(false) }
+        val dialogOpenedState = remember { mutableStateOf(false) }
         SwitchWithLabel(
             modifier = Modifier
                 .weight(3f)
                 .alpha(if (enabled) 1f else 0.4f),
-            checked = notificationSwitchState.value,
-            onCheckedChange = { notificationSwitchState.value = it },
+            checked = mutableNoteInfoValue.notificationTime != null,
+            onCheckedChange = { switchedOn ->
+                if (switchedOn)
+                    dialogOpenedState.value = true
+                else
+                    mutableNoteInfo.value = mutableNoteInfoValue.refreshNotificationTime(null)
+            },
             enabled = enabled,
-            label = schemes.translation.switchNotification,
+            label = mutableNoteInfoValue.notificationTime?.toString()
+                ?: schemes.translation.switchNotification,
             schemes = schemes
         )
         // todo find the way to separate switchers from the save button, with one-line labels
@@ -89,6 +103,30 @@ fun NoteOptions(
             noteMode = noteMode.value,
             schemes = schemes
         )
+        val cacheNotificationTime = remember(selectedDateInfo) {
+            CacheNotificationTime(mutableNoteInfoValue.notificationTime)
+        }
+        if (dialogOpenedState.value) {
+            Dialog(
+                onDismissRequest = { dialogOpenedState.value = false }
+            ) {
+                Card(
+                    modifier = Modifier
+                        .height(200.dp) // item height * 3 + 50
+                        .width(160.dp),
+                    shape = RoundedCornerShape(16.dp)
+                ) {
+                    TimeSelector(
+                        onSelection = {
+                            mutableNoteInfo.value = mutableNoteInfoValue.refreshNotificationTime(it)
+                            dialogOpenedState.value = false
+                        },
+                        cacheNotificationTime = cacheNotificationTime,
+                        schemes = schemes
+                    )
+                }
+            }
+        }
     }
 }
 

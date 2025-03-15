@@ -49,12 +49,12 @@ fun addNote(
     selectedDateInfo: SelectedDateInfo,
     msg: String,
     isEveryYear: Boolean,
-    isHoliday: Boolean = false
+    notificationTime: com.asivers.mycalendar.data.NotificationTime?
 ): NoteInfo {
     var note = Note.newBuilder()
         .setMsg(msg)
         .setForYear(if (isEveryYear) 0 else selectedDateInfo.year)
-        .setIsHoliday(isHoliday)
+        .setNotificationTime(notificationTime)
         .build()
 
     changeNotesList(
@@ -78,13 +78,13 @@ fun editNote(
     id: Int,
     msg: String,
     isEveryYear: Boolean,
-    isHoliday: Boolean = false
+    notificationTime: com.asivers.mycalendar.data.NotificationTime?
 ): NoteInfo {
     val note = Note.newBuilder()
         .setId(id)
         .setMsg(msg)
         .setForYear(if (isEveryYear) 0 else selectedDateInfo.year)
-        .setIsHoliday(isHoliday)
+        .setNotificationTime(notificationTime)
         .build()
 
     changeNotesList(
@@ -174,4 +174,20 @@ private fun removeNoteFromBuilder(
             forDayBuilder.removeNotes(indexInList)
         }
     }
+}
+
+private fun Note.Builder.setNotificationTime(
+    notificationTime: com.asivers.mycalendar.data.NotificationTime?
+): Note.Builder {
+    if (notificationTime == null) {
+        this.setNotificationTimeNull(true)
+    } else {
+        this.setNotificationTimeValue(
+            NotificationTime.newBuilder()
+                .setHour(notificationTime.hour)
+                .setMinute(notificationTime.minute)
+                .build()
+        )
+    }
+    return this
 }

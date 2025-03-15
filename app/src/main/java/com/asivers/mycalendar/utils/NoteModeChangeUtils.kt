@@ -180,11 +180,13 @@ private fun addNoteAndUpdateStates(
 ) {
     val noteMsg = mutableNoteInfo.value.msg
     val isEveryYear = mutableNoteInfo.value.isEveryYear
+    val notificationTime = mutableNoteInfo.value.notificationTime
     val newNoteInfo = addNote(
         ctx = ctx,
         selectedDateInfo = selectedDateInfo,
         msg = noteMsg,
-        isEveryYear = isEveryYear
+        isEveryYear = isEveryYear,
+        notificationTime = notificationTime
     )
     mutableNotes.add(0, newNoteInfo)
     mutableNoteInfo.value.id = newNoteInfo.id
@@ -216,12 +218,14 @@ private fun editNoteAndUpdateStates(
     val noteId = mutableNoteInfo.value.id!!
     val noteMsg = mutableNoteInfo.value.msg
     val isEveryYear = mutableNoteInfo.value.isEveryYear
+    val notificationTime = mutableNoteInfo.value.notificationTime
     val editedNoteInfo = editNote(
         ctx = ctx,
         selectedDateInfo = selectedDateInfo,
         id = noteId,
         msg = noteMsg,
-        isEveryYear = isEveryYear
+        isEveryYear = isEveryYear,
+        notificationTime = notificationTime
     )
     for ((index, noteInfo) in mutableNotes.withIndex()) {
         if (noteInfo.id == noteId) {

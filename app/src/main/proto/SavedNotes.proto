@@ -20,8 +20,10 @@ message SavedNotes {
     int32 id = 1;
     string msg = 2;
     int32 forYear = 3;
-    bool isHoliday = 4;
-    NotificationTime notificationTime = 5;
+    oneof notificationTime {
+      bool notificationTimeNull = 6;
+      NotificationTime notificationTimeValue = 7;
+    }
   }
 
   message NotificationTime {
