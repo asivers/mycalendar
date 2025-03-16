@@ -16,8 +16,9 @@ fun changeView(viewShownState: MutableState<ViewShownInfo>, changeTo: ViewShown)
 }
 
 fun backToPreviousView(viewShownState: MutableState<ViewShownInfo>) {
-    if (viewShownState.value.previous != null) {
-        changeView(viewShownState, viewShownState.value.previous!!)
+    val previousView = viewShownState.value.previous
+    if (previousView != null) {
+        changeView(viewShownState, previousView)
     }
 }
 

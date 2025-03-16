@@ -70,13 +70,13 @@ private fun getHolidaysAndNotHolidays(
 ): HolidaysAndNotHolidays {
     val holidays = mutableMapOf<Int, HolidayInfo>()
     val notHolidays = mutableMapOf<Int, HolidayInfo>()
-    countryHolidayScheme.everyYear[monthValue]?.forEach {
-        if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
-        else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
+    countryHolidayScheme.everyYear[monthValue]?.forEach { (dayValue, dayTextInfo) ->
+        if (dayTextInfo.holiday != null) holidays[dayValue] = dayTextInfo.holiday
+        else if (dayTextInfo.notHoliday != null) notHolidays[dayValue] = dayTextInfo.notHoliday
     }
-    countryHolidayScheme.oneTime[year]?.get(monthValue)?.forEach {
-        if (it.value.holiday != null) holidays[it.key] = it.value.holiday!!
-        else if (it.value.notHoliday != null) notHolidays[it.key] = it.value.notHoliday!!
+    countryHolidayScheme.oneTime[year]?.get(monthValue)?.forEach { (dayValue, dayTextInfo) ->
+        if (dayTextInfo.holiday != null) holidays[dayValue] = dayTextInfo.holiday
+        else if (dayTextInfo.notHoliday != null) notHolidays[dayValue] = dayTextInfo.notHoliday
     }
     return HolidaysAndNotHolidays(holidays, notHolidays)
 }
