@@ -3,15 +3,20 @@ package com.asivers.mycalendar.composable.day
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -63,7 +68,7 @@ fun ExistingNotes(
                         .heightIn(0.dp, maxNoteHeight.dp)
                         .noRippleClickable { onClickToNote(noteInfo) }
                         .withDragToRight(horizontalOffset, 125f),
-                    msg = noteInfo.msg,
+                    noteInfo = noteInfo,
                     schemes = schemes
                 )
                 if (horizontalOffset.floatValue == 125f) {
@@ -88,21 +93,46 @@ fun ExistingNotes(
 @Composable
 fun OneSavedNote(
     modifier: Modifier = Modifier,
-    msg: String,
+    noteInfo: NoteInfo,
     schemes: SchemeContainer
 ) {
-    Box(
+    Row(
         modifier = modifier
             .clip(shape = RoundedCornerShape(8.dp))
             .background(color = schemes.color.text.withAlpha(0.2f)) // todo adapt for different color schemes
             .padding(8.dp)
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = msg,
+            modifier = Modifier.weight(1f),
+            text = noteInfo.msg,
             fontFamily = MONTSERRAT_MEDIUM,
             fontSize = schemes.size.font.dropdownItem,
             color = schemes.color.text,
         )
+        if (noteInfo.forYear == null || noteInfo.notificationTime != null) {
+            Spacer(modifier = Modifier.width(12.dp))
+        }
+        if (noteInfo.forYear == null) {
+            Icon(
+                imageVector = Icons.Filled.Refresh, // todo use custom icon
+                modifier = Modifier
+                    .padding(4.dp, 0.dp, 0.dp, 0.dp)
+                    .size(24.dp),
+                contentDescription = "Every year note icon",
+                tint = schemes.color.text
+            )
+        }
+        if (noteInfo.notificationTime != null) {
+            Icon(
+                imageVector = Icons.Filled.Notifications,
+                modifier = Modifier
+                    .padding(4.dp, 0.dp, 0.dp, 0.dp)
+                    .size(24.dp),
+                contentDescription = "Note with notification icon",
+                tint = schemes.color.text
+            )
+        }
     }
 }
