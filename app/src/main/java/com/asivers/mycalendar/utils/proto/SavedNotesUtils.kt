@@ -24,7 +24,7 @@ fun getDaysWithNotesForMonth(
 }
 
 private fun containsNotesForYear(notesList: List<Note>, year: Int): Boolean {
-    return notesList.map { it.forYear }.any { it <= 0 || it == year }
+    return notesList.map { it.forYear }.any { it == 0 || it == year }
 }
 
 fun getNotes(

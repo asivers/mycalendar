@@ -111,10 +111,10 @@ fun OneSavedNote(
             fontSize = schemes.size.font.dropdownItem,
             color = schemes.color.text,
         )
-        if (noteInfo.forYear == null || noteInfo.notificationTime != null) {
+        if (noteInfo.isEveryYear || noteInfo.notificationTime != null) {
             Spacer(modifier = Modifier.width(12.dp))
         }
-        if (noteInfo.forYear == null) {
+        if (noteInfo.isEveryYear) {
             Icon(
                 imageVector = Icons.Filled.Refresh, // todo use custom icon
                 modifier = Modifier

@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class NoteInfo(
     val id: Int,
     val msg: String,
-    val forYear: Int?,
+    val isEveryYear: Boolean,
     val notificationTime: NotificationTime?
 ): Comparable<NoteInfo> {
 
@@ -16,7 +16,7 @@ data class NoteInfo(
     ): this(
         id = protoNote.id,
         msg = protoNote.msg,
-        forYear = if (protoNote.forYear > 0) protoNote.forYear else null,
+        isEveryYear = protoNote.forYear == 0,
         notificationTime = if (protoNote.notificationTimeNull)
             null else NotificationTime(protoNote.notificationTimeValue)
     )

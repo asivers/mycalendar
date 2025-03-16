@@ -10,7 +10,7 @@ data class MutableNoteInfo(
     constructor(noteInfo: NoteInfo): this(
         id = noteInfo.id,
         msg = noteInfo.msg,
-        isEveryYear = noteInfo.forYear == null,
+        isEveryYear = noteInfo.isEveryYear,
         notificationTime = noteInfo.notificationTime
     )
 
