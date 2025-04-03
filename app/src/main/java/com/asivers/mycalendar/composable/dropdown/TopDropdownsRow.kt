@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.SchemeContainer
@@ -33,11 +34,12 @@ fun TopDropdownsRow(
     ) {
         if (forYearView) {
             Box(
-                modifier = Modifier.width(93.dp),
+                modifier = Modifier.width(92.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
                     painter = painterResource(id = getYearIconId(selectedDateInfo.year)),
+                    colorFilter = ColorFilter.tint(color = schemes.color.text),
                     contentDescription = "Symbol of the year icon"
                 )
             }
