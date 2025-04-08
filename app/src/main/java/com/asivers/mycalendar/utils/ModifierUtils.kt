@@ -23,11 +23,6 @@ fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = this.clickable(
     onClick()
 }
 
-fun Modifier.whiteBorder(): Modifier = this.border(
-    width = 1.dp,
-    color = Color.White
-)
-
 @OptIn(ExperimentalComposeUiApi::class)
 fun Modifier.onHideKeyboard(onHide: () -> Unit): Modifier = this.onPreInterceptKeyBeforeSoftKeyboard {
     if (it.key == Key.Back) {
@@ -54,7 +49,7 @@ fun Modifier.onHorizontalSwipe(
             }
         }
     ) { _, dragAmount ->
-        horizontalOffset.value += dragAmount
+        horizontalOffset.floatValue += dragAmount
     }
 }
 
@@ -75,3 +70,7 @@ fun Modifier.withDragToRight(
             horizontalOffset.floatValue = maxOf(0f, minOf(maxDrag, possibleNewOffset))
         }
 }
+
+// utils for development
+fun Modifier.whiteBorder(): Modifier = this.border(width = 1.dp, color = Color.White)
+fun Modifier.redBorder(): Modifier = this.border(width = 1.dp, color = Color.Red)
