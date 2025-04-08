@@ -159,7 +159,10 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
         saveNote = "Save",
         deleteNote = "Delete",
         switchEveryYear = "Every year",
-        switchNotification = "Notification"
+        switchNotification = "Notification",
+        dismiss = "Dismiss",
+        confirm = "Confirm",
+        requestAlarmPermission = "The app requests a permission to schedule alarms"
     )
 }
 

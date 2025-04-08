@@ -1,5 +1,8 @@
 package com.asivers.mycalendar.composable.day
 
+import android.app.AlarmManager
+import android.content.Context
+import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +14,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +29,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.core.content.ContextCompat
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.CacheNotificationTime
 import com.asivers.mycalendar.data.MutableNoteInfo
@@ -33,6 +38,8 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
 import com.asivers.mycalendar.utils.getOnCompleteOneNoteMode
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun NoteOptions(
@@ -103,10 +110,29 @@ fun NoteOptions(
             noteMode = noteMode.value,
             schemes = schemes
         )
+
+        val waitAlarmPermissionState = remember(selectedDateInfo) { mutableStateOf(false) }
+        if (waitAlarmPermissionState.value) {
+            AlarmPermissionWaiter(
+                onPermissionGranted = {
+                    waitAlarmPermissionState.value = false
+                    dialogOpenedState.value = true
+                },
+                ctx = ctx
+            )
+        }
         val cacheNotificationTime = remember(selectedDateInfo) {
             CacheNotificationTime(mutableNoteInfoValue.notificationTime)
         }
         if (dialogOpenedState.value) {
+            if (isNeededToRequestScheduleExactAlarmPermission(ctx)) {
+                AlarmPermissionDialog(
+                    onStartPermissionIntent = { waitAlarmPermissionState.value = true },
+                    onCloseDialog = { dialogOpenedState.value = false },
+                    schemes = schemes
+                )
+                return
+            }
             Dialog(
                 onDismissRequest = { dialogOpenedState.value = false }
             ) {
@@ -171,4 +197,25 @@ fun SwitchWithLabel(
             textAlign = TextAlign.Center
         )
     }
+}
+
+@Composable
+fun AlarmPermissionWaiter(
+    onPermissionGranted: () -> Unit,
+    ctx: Context
+) {
+    LaunchedEffect(Unit) {
+        launch {
+            while (isNeededToRequestScheduleExactAlarmPermission(ctx)) {
+                delay(100)
+            }
+            onPermissionGranted()
+        }
+    }
+}
+
+private fun isNeededToRequestScheduleExactAlarmPermission(ctx: Context): Boolean {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return false
+    val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java)
+    return alarmManager?.canScheduleExactAlarms() != true
 }

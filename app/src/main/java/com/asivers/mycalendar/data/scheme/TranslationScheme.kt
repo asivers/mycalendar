@@ -22,5 +22,8 @@ data class TranslationScheme(
     val saveNote: String,
     val deleteNote: String,
     val switchEveryYear: String,
-    val switchNotification: String
+    val switchNotification: String,
+    val dismiss: String,
+    val confirm: String,
+    val requestAlarmPermission: String
 )

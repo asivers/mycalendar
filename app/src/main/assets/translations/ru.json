@@ -68,5 +68,8 @@
   "saveNote": "Сохранить",
   "deleteNote": "Удалить",
   "switchEveryYear": "Ежегодно",
-  "switchNotification": "Уведомление"
+  "switchNotification": "Уведомление",
+  "dismiss": "Отказаться",
+  "confirm": "Подтвердить",
+  "requestAlarmPermission": "Приложение запрашивает разрешение на планирование будильников"
 }
