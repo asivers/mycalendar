@@ -178,12 +178,14 @@ private fun addNoteAndUpdateStates(
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     selectedDateInfo: SelectedDateInfo
 ) {
+    val noteId = mutableNoteInfo.value.id
     val noteMsg = mutableNoteInfo.value.msg
     val isEveryYear = mutableNoteInfo.value.isEveryYear
     val notificationTime = mutableNoteInfo.value.notificationTime
     val newNoteInfo = addNote(
         ctx = ctx,
         selectedDateInfo = selectedDateInfo,
+        id = noteId,
         msg = noteMsg,
         isEveryYear = isEveryYear,
         notificationTime = notificationTime
@@ -199,7 +201,7 @@ private fun removeNoteAndUpdateStates(
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     selectedDateInfo: SelectedDateInfo
 ) {
-    val noteId = mutableNoteInfo.value.id!!
+    val noteId = mutableNoteInfo.value.id
     removeNote(
         ctx = ctx,
         selectedDateInfo = selectedDateInfo,
@@ -215,7 +217,7 @@ private fun editNoteAndUpdateStates(
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     selectedDateInfo: SelectedDateInfo
 ) {
-    val noteId = mutableNoteInfo.value.id!!
+    val noteId = mutableNoteInfo.value.id
     val noteMsg = mutableNoteInfo.value.msg
     val isEveryYear = mutableNoteInfo.value.isEveryYear
     val notificationTime = mutableNoteInfo.value.notificationTime

@@ -47,11 +47,13 @@ fun getNotes(
 fun addNote(
     ctx: Context,
     selectedDateInfo: SelectedDateInfo,
+    id: Int,
     msg: String,
     isEveryYear: Boolean,
     notificationTime: com.asivers.mycalendar.data.NotificationTime?
 ): NoteInfo {
-    var note = Note.newBuilder()
+    val note = Note.newBuilder()
+        .setId(id)
         .setMsg(msg)
         .setForYear(if (isEveryYear) 0 else selectedDateInfo.year)
         .setNotificationTime(notificationTime)
@@ -62,9 +64,6 @@ fun addNote(
         monthValue = selectedDateInfo.monthValue,
         dayOfMonth = selectedDateInfo.dayOfMonth,
         operation = { forDayBuilder ->
-            val notesList = forDayBuilder.notesList
-            val id = if (notesList.isEmpty()) 1 else notesList.maxOf { it.id } + 1
-            note = note.toBuilder().setId(id).build()
             forDayBuilder.addNotes(note)
         }
     )

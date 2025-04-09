@@ -122,7 +122,11 @@ fun NotesSectionOverviewMode(
             )
         }
         BottomViewButton(
-            onClick = { noteMode.value = NoteMode.ADD },
+            onClick = {
+                val nextId = if (mutableNotes.isEmpty()) 1 else mutableNotes.maxOf { it.id } + 1
+                mutableNoteInfo.value.id = nextId
+                noteMode.value = NoteMode.ADD
+            },
             text = schemes.translation.makeNote,
             background = getNoteButtonGradient(schemes.color),
             schemes = schemes,
