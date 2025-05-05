@@ -1,45 +1,24 @@
 package com.asivers.mycalendar.composable.day
 
-import android.app.AlarmManager
-import android.content.Context
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.core.content.ContextCompat
-import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
-import com.asivers.mycalendar.data.CacheNotificationTime
 import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
 import com.asivers.mycalendar.utils.getOnCompleteOneNoteMode
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 @Composable
 fun NoteOptions(
@@ -57,34 +36,35 @@ fun NoteOptions(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(32.dp)
     ) {
-        val mutableNoteInfoValue = mutableNoteInfo.value
-        val enabled = mutableNoteInfoValue.msg.isNotBlank()
+        val messageIsNotBlank = mutableNoteInfo.value.msg.isNotBlank()
+        val dateIsNotInPast = !selectedDateInfo.getDate().isBefore(LocalDate.now())
         SwitchWithLabel(
             modifier = Modifier
                 .weight(3f)
-                .alpha(if (enabled) 1f else 0.4f),
-            checked = mutableNoteInfoValue.isEveryYear,
+                .alpha(if (messageIsNotBlank) 1f else 0.4f),
+            checked = mutableNoteInfo.value.isEveryYear,
             onCheckedChange = {
-                mutableNoteInfo.value = mutableNoteInfoValue.refreshIsEveryYear(it)
+                mutableNoteInfo.value = mutableNoteInfo.value.refreshIsEveryYear(it)
             },
-            enabled = enabled,
+            enabled = messageIsNotBlank,
             label = schemes.translation.switchEveryYear,
             schemes = schemes
         )
-        val dialogOpenedState = remember { mutableStateOf(false) }
+        val dialogOpened = remember { mutableStateOf(false) }
         SwitchWithLabel(
             modifier = Modifier
                 .weight(3f)
-                .alpha(if (enabled) 1f else 0.4f),
-            checked = mutableNoteInfoValue.notificationTime != null,
+                .alpha(if (messageIsNotBlank && dateIsNotInPast) 1f else 0.4f),
+            checked = mutableNoteInfo.value.notificationTime != null,
             onCheckedChange = { switchedOn ->
-                if (switchedOn)
-                    dialogOpenedState.value = true
-                else
-                    mutableNoteInfo.value = mutableNoteInfoValue.refreshNotificationTime(null)
+                if (switchedOn) {
+                    dialogOpened.value = true
+                } else {
+                    mutableNoteInfo.value = mutableNoteInfo.value.refreshNotificationTime(null)
+                }
             },
-            enabled = enabled,
-            label = mutableNoteInfoValue.notificationTime?.toString()
+            enabled = messageIsNotBlank && dateIsNotInPast,
+            label = mutableNoteInfo.value.notificationTime?.toString()
                 ?: schemes.translation.switchNotification,
             schemes = schemes
         )
@@ -93,9 +73,9 @@ fun NoteOptions(
         ActionNoteButton(
             modifier = Modifier
                 .weight(3f)
-                .alpha(if (enabled) 1f else 0.4f),
+                .alpha(if (messageIsNotBlank) 1f else 0.4f),
             onClick = {
-                if (enabled) {
+                if (messageIsNotBlank) {
                     getOnCompleteOneNoteMode(
                         ctx = ctx,
                         mutableNotes = mutableNotes,
@@ -110,112 +90,11 @@ fun NoteOptions(
             noteMode = noteMode.value,
             schemes = schemes
         )
-
-        val waitAlarmPermissionState = remember(selectedDateInfo) { mutableStateOf(false) }
-        if (waitAlarmPermissionState.value) {
-            AlarmPermissionWaiter(
-                onPermissionGranted = {
-                    waitAlarmPermissionState.value = false
-                    dialogOpenedState.value = true
-                },
-                ctx = ctx
-            )
-        }
-        val cacheNotificationTime = remember(selectedDateInfo) {
-            CacheNotificationTime(mutableNoteInfoValue.notificationTime)
-        }
-        if (dialogOpenedState.value) {
-            if (isNeededToRequestScheduleExactAlarmPermission(ctx)) {
-                AlarmPermissionDialog(
-                    onStartPermissionIntent = { waitAlarmPermissionState.value = true },
-                    onCloseDialog = { dialogOpenedState.value = false },
-                    schemes = schemes
-                )
-                return
-            }
-            Dialog(
-                onDismissRequest = { dialogOpenedState.value = false }
-            ) {
-                Card(
-                    modifier = Modifier
-                        .height(200.dp) // item height * 3 + 50
-                        .width(160.dp),
-                    shape = RoundedCornerShape(16.dp)
-                ) {
-                    TimeSelector(
-                        onSelection = {
-                            mutableNoteInfo.value = mutableNoteInfoValue.refreshNotificationTime(it)
-                            dialogOpenedState.value = false
-                        },
-                        cacheNotificationTime = cacheNotificationTime,
-                        schemes = schemes
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun SwitchWithLabel(
-    modifier: Modifier = Modifier,
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    enabled: Boolean,
-    label: String,
-    schemes: SchemeContainer
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Switch(
-            modifier = Modifier.scale(0.8f),
-            checked = checked,
-            onCheckedChange = onCheckedChange,
-            enabled = enabled,
-            colors = SwitchDefaults.colors(
-                uncheckedTrackColor = Color.Transparent,
-                uncheckedThumbColor = schemes.color.text,
-                uncheckedBorderColor = schemes.color.text,
-                disabledUncheckedTrackColor = Color.Transparent,
-                disabledUncheckedThumbColor = schemes.color.text,
-                disabledUncheckedBorderColor = schemes.color.text,
-                checkedTrackColor = schemes.color.text,
-                checkedThumbColor = schemes.color.viewsTop,
-                checkedBorderColor = schemes.color.text,
-                disabledCheckedTrackColor = schemes.color.text,
-                disabledCheckedThumbColor = schemes.color.viewsTop,
-                disabledCheckedBorderColor = schemes.color.text
-            )
-        )
-        Text(
-            text = label,
-            fontFamily = MONTSERRAT_MEDIUM,
-            fontSize = schemes.size.font.mvHeaderWeek,
-            color = schemes.color.text,
-            textAlign = TextAlign.Center
+        SetNotificationDialog(
+            dialogOpened = dialogOpened,
+            mutableNoteInfo = mutableNoteInfo,
+            selectedDateInfo = selectedDateInfo,
+            schemes = schemes
         )
     }
-}
-
-@Composable
-fun AlarmPermissionWaiter(
-    onPermissionGranted: () -> Unit,
-    ctx: Context
-) {
-    LaunchedEffect(Unit) {
-        launch {
-            while (isNeededToRequestScheduleExactAlarmPermission(ctx)) {
-                delay(100)
-            }
-            onPermissionGranted()
-        }
-    }
-}
-
-private fun isNeededToRequestScheduleExactAlarmPermission(ctx: Context): Boolean {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return false
-    val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java)
-    return alarmManager?.canScheduleExactAlarms() != true
 }
