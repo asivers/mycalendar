@@ -126,7 +126,7 @@ fun NotesSectionOverviewMode(
         BottomViewButton(
             onClick = {
                 val nextId = getNextNoteId(ctx)
-                mutableNoteInfo.value.id = nextId
+                mutableNoteInfo.value = MutableNoteInfo(nextId)
                 noteMode.value = NoteMode.ADD
             },
             text = schemes.translation.makeNote,

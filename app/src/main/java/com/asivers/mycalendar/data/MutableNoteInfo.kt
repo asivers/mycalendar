@@ -1,7 +1,7 @@
 package com.asivers.mycalendar.data
 
 data class MutableNoteInfo(
-    var id: Int = -1, // default value only in notes overview mode
+    val id: Int = -1, // default value only in notes overview mode
     var msg: String = "",
     var isEveryYear: Boolean = false,
     var notificationTime: NotificationTime? = null,
