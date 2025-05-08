@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.composable.day
+package com.asivers.mycalendar.composable.dialog
 
 import android.content.Intent
 import android.os.Build

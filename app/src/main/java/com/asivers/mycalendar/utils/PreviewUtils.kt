@@ -162,7 +162,9 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
         switchNotification = "Notification",
         dismiss = "Dismiss",
         confirm = "Confirm",
-        requestAlarmPermission = "The app requests a permission to schedule alarms"
+        ok = "OK",
+        requestAlarmPermission = "The app requests a permission to schedule alarms",
+        explainPermissionDenied = "Permission to send notifications has been denied by the user. To use notifications, enable permission to send notifications in your device settings"
     )
 }
 

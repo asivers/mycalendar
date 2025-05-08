@@ -39,19 +39,21 @@ import com.asivers.mycalendar.utils.getBackgroundGradient
 import com.asivers.mycalendar.utils.getColorSchemeByMonthValue
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
 import com.asivers.mycalendar.utils.getOnDaySelectedCallback
+import com.asivers.mycalendar.utils.getSizeScheme
+import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
+import com.asivers.mycalendar.utils.permission.registerNotificationPermissionRequestLauncher
 import com.asivers.mycalendar.utils.proto.getSavedCountry
 import com.asivers.mycalendar.utils.proto.getSavedLocale
 import com.asivers.mycalendar.utils.proto.getSavedSettings
 import com.asivers.mycalendar.utils.proto.getSavedTheme
-import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
-import com.asivers.mycalendar.utils.getSizeScheme
-import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
 import com.asivers.mycalendar.utils.proto.getSavedWeekNumbersMode
+import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalSharedTransitionApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerNotificationPermissionRequestLauncher(this)
         enableEdgeToEdge()
         setContent {
             val ctx = LocalContext.current

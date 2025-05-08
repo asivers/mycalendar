@@ -14,13 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.asivers.mycalendar.composable.dialog.AlarmPermissionDialog
+import com.asivers.mycalendar.composable.dialog.PermissionDeniedDialog
 import com.asivers.mycalendar.data.CacheNotificationTime
 import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
-import com.asivers.mycalendar.utils.isNeededToRequestNotificationPermission
-import com.asivers.mycalendar.utils.isNeededToRequestScheduleExactAlarmPermission
-import com.asivers.mycalendar.utils.requestNotificationPermission
+import com.asivers.mycalendar.utils.permission.isNeededToRequestNotificationPermission
+import com.asivers.mycalendar.utils.permission.isNeededToRequestScheduleExactAlarmPermission
+import com.asivers.mycalendar.utils.permission.isNotificationPermissionNotGranted
+import com.asivers.mycalendar.utils.permission.requestNotificationPermission
+import com.asivers.mycalendar.utils.permission.wasNotificationPermissionDeniedBefore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -36,11 +40,10 @@ fun SetNotificationDialog(
     val waitNotificationPermissionState = remember(selectedDateInfo) { mutableStateOf(false) }
     if (waitNotificationPermissionState.value) {
         NotificationPermissionWaiter(
-            onPermissionGranted = {
+            onPermissionGrantedOrDenied = {
                 waitNotificationPermissionState.value = false
                 dialogOpened.value = true
-            },
-            ctx = ctx
+            }
         )
     }
     val waitAlarmPermissionState = remember(selectedDateInfo) { mutableStateOf(false) }
@@ -58,8 +61,14 @@ fun SetNotificationDialog(
     }
     if (dialogOpened.value) {
         if (isNeededToRequestNotificationPermission(ctx)) {
-            // todo rework using registerForActivityResult and process denial case
-            requestNotificationPermission(ctx)
+            if (wasNotificationPermissionDeniedBefore(ctx)) {
+                PermissionDeniedDialog(
+                    onCloseDialog = { dialogOpened.value = false },
+                    schemes = schemes
+                )
+                return
+            }
+            requestNotificationPermission()
             waitNotificationPermissionState.value = true
             dialogOpened.value = false
             return
@@ -96,15 +105,14 @@ fun SetNotificationDialog(
 
 @Composable
 fun NotificationPermissionWaiter(
-    onPermissionGranted: () -> Unit,
-    ctx: Context
+    onPermissionGrantedOrDenied: () -> Unit
 ) {
     LaunchedEffect(Unit) {
         launch {
-            while (isNeededToRequestNotificationPermission(ctx)) {
+            while (isNotificationPermissionNotGranted()) {
                 delay(100)
             }
-            onPermissionGranted()
+            onPermissionGrantedOrDenied()
         }
     }
 }
