@@ -26,6 +26,7 @@ import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
+import com.asivers.mycalendar.utils.getNextNoteId
 import com.asivers.mycalendar.utils.getNoteButtonGradient
 import com.asivers.mycalendar.utils.getOnBackFromOneNoteMode
 import com.asivers.mycalendar.utils.onHideKeyboard
@@ -86,6 +87,7 @@ fun NotesSectionOverviewMode(
     holidayInfo: String?,
     schemes: SchemeContainer
 ) {
+    val ctx = LocalContext.current
     Column(modifier = modifier) {
         Box(
             modifier = Modifier
@@ -123,7 +125,7 @@ fun NotesSectionOverviewMode(
         }
         BottomViewButton(
             onClick = {
-                val nextId = if (mutableNotes.isEmpty()) 1 else mutableNotes.maxOf { it.id } + 1
+                val nextId = getNextNoteId(ctx)
                 mutableNoteInfo.value.id = nextId
                 noteMode.value = NoteMode.ADD
             },

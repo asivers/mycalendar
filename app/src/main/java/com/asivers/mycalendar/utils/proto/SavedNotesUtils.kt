@@ -8,6 +8,14 @@ import com.asivers.mycalendar.serializers.savedNotesDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
+fun getMaxNoteId(ctx: Context): Int? {
+    return runBlocking { ctx.savedNotesDataStore.data.first() }
+        .forMonthList
+        .flatMap { it.forDayList }
+        .flatMap { it.notesList }
+        .maxOfOrNull { it.id }
+}
+
 fun getDaysWithNotesForMonth(
     ctx: Context,
     year: Int,
