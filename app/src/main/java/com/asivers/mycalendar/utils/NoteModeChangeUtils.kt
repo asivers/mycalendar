@@ -191,7 +191,6 @@ private fun addNoteAndUpdateStates(
         notificationTime = notificationTime
     )
     mutableNotes.add(0, newNoteInfo)
-    mutableNoteInfo.value.id = newNoteInfo.id
     mutableNoteInfo.value.changed = false
 }
 
