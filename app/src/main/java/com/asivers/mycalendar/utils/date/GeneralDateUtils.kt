@@ -6,6 +6,16 @@ import com.asivers.mycalendar.data.scheme.CountryHolidayScheme
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
+fun isLeapYear(year: Int): Boolean = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+
+fun getClosestLeapYear(year: Int): Int {
+    var yearToCheck = year
+    while (!isLeapYear(yearToCheck)) {
+        yearToCheck++
+    }
+    return yearToCheck
+}
+
 fun getLengthOfMonth(year: Int, monthValue: Int): Int {
     return LocalDate.of(year, monthValue, 1).lengthOfMonth()
 }

@@ -92,7 +92,7 @@ private fun getOnBackFromViewMode(
     selectedDateInfo: SelectedDateInfo
 ) {
     if (mutableNoteInfo.value.changed) {
-        editNoteAndUpdateStates(
+        editNoteAndUpdateAlarmAndUpdateStates(
             ctx = ctx,
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
@@ -111,7 +111,7 @@ private fun getOnDeleteNoteInViewMode(
     refreshDaysLine: () -> Unit,
     selectedDateInfo: SelectedDateInfo
 ) {
-    removeNoteAndUpdateStates(
+    removeNoteAndCancelAlarmAndUpdateStates(
         ctx = ctx,
         mutableNotes = mutableNotes,
         mutableNoteInfo = mutableNoteInfo,
@@ -133,7 +133,7 @@ private fun getOnCompleteAddMode(
         mutableNoteInfo.value = MutableNoteInfo()
         noteMode.value = NoteMode.OVERVIEW
     } else {
-        addNoteAndUpdateStates(
+        addNoteAndSetAlarmAndUpdateStates(
             ctx = ctx,
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
@@ -153,7 +153,7 @@ private fun getOnCompleteEditMode(
     selectedDateInfo: SelectedDateInfo
 ) {
     if (mutableNoteInfo.value.msg.isBlank()) {
-        removeNoteAndUpdateStates(
+        removeNoteAndCancelAlarmAndUpdateStates(
             ctx = ctx,
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
@@ -162,7 +162,7 @@ private fun getOnCompleteEditMode(
         noteMode.value = NoteMode.OVERVIEW
         refreshDaysLine()
     } else {
-        editNoteAndUpdateStates(
+        editNoteAndUpdateAlarmAndUpdateStates(
             ctx = ctx,
             mutableNotes = mutableNotes,
             mutableNoteInfo = mutableNoteInfo,
@@ -172,7 +172,7 @@ private fun getOnCompleteEditMode(
     }
 }
 
-private fun addNoteAndUpdateStates(
+private fun addNoteAndSetAlarmAndUpdateStates(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
@@ -182,25 +182,44 @@ private fun addNoteAndUpdateStates(
     val noteMsg = mutableNoteInfo.value.msg
     val isEveryYear = mutableNoteInfo.value.isEveryYear
     val notificationTime = mutableNoteInfo.value.notificationTime
+
+    if (notificationTime != null) {
+        val alarmSetSuccessfully = setExactAlarm(
+            ctx = ctx,
+            selectedDateInfo = selectedDateInfo,
+            noteId = noteId,
+            alarmMessage = noteMsg,
+            isEveryYear = isEveryYear,
+            notificationTime = notificationTime
+        )
+        if (!alarmSetSuccessfully) {
+            mutableNoteInfo.value.notificationTime = null
+        }
+    }
+
     val newNoteInfo = addNote(
         ctx = ctx,
         selectedDateInfo = selectedDateInfo,
         id = noteId,
         msg = noteMsg,
         isEveryYear = isEveryYear,
-        notificationTime = notificationTime
+        notificationTime = mutableNoteInfo.value.notificationTime
     )
     mutableNotes.add(0, newNoteInfo)
     mutableNoteInfo.value.changed = false
 }
 
-private fun removeNoteAndUpdateStates(
+private fun removeNoteAndCancelAlarmAndUpdateStates(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
     selectedDateInfo: SelectedDateInfo
 ) {
     val noteId = mutableNoteInfo.value.id
+    cancelExactAlarmIfExists(
+        ctx = ctx,
+        noteId = noteId
+    )
     removeNote(
         ctx = ctx,
         selectedDateInfo = selectedDateInfo,
@@ -210,7 +229,7 @@ private fun removeNoteAndUpdateStates(
     mutableNoteInfo.value = MutableNoteInfo()
 }
 
-private fun editNoteAndUpdateStates(
+private fun editNoteAndUpdateAlarmAndUpdateStates(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
@@ -220,13 +239,32 @@ private fun editNoteAndUpdateStates(
     val noteMsg = mutableNoteInfo.value.msg
     val isEveryYear = mutableNoteInfo.value.isEveryYear
     val notificationTime = mutableNoteInfo.value.notificationTime
+
+    cancelExactAlarmIfExists(
+        ctx = ctx,
+        noteId = noteId
+    )
+    if (notificationTime != null) {
+        val alarmSetSuccessfully = setExactAlarm(
+            ctx = ctx,
+            selectedDateInfo = selectedDateInfo,
+            noteId = noteId,
+            alarmMessage = noteMsg,
+            isEveryYear = isEveryYear,
+            notificationTime = notificationTime
+        )
+        if (!alarmSetSuccessfully) {
+            mutableNoteInfo.value.notificationTime = null
+        }
+    }
+
     val editedNoteInfo = editNote(
         ctx = ctx,
         selectedDateInfo = selectedDateInfo,
         id = noteId,
         msg = noteMsg,
         isEveryYear = isEveryYear,
-        notificationTime = notificationTime
+        notificationTime = mutableNoteInfo.value.notificationTime
     )
     for ((index, noteInfo) in mutableNotes.withIndex()) {
         if (noteInfo.id == noteId) {

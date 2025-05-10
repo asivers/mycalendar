@@ -2,6 +2,7 @@ package com.asivers.mycalendar
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Vibrator
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.core.content.ContextCompat
 import com.asivers.mycalendar.composable.day.DayView
 import com.asivers.mycalendar.composable.month.MonthView
 import com.asivers.mycalendar.composable.settings.SettingsHeader
@@ -35,6 +37,7 @@ import com.asivers.mycalendar.utils.animateContentOnViewChange
 import com.asivers.mycalendar.utils.animateHeaderOnViewChange
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
+import com.asivers.mycalendar.utils.createNotificationChannel
 import com.asivers.mycalendar.utils.getBackgroundGradient
 import com.asivers.mycalendar.utils.getColorSchemeByMonthValue
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
@@ -57,6 +60,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val ctx = LocalContext.current
+
+            ContextCompat.getSystemService(ctx, Vibrator::class.java)?.cancel()
+            createNotificationChannel(ctx)
+
             val systemLocale = LocalConfiguration.current.locales[0]
             val savedSettings = getSavedSettings(ctx)
 
