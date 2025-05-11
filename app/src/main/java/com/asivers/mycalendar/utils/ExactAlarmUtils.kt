@@ -67,8 +67,11 @@ fun resetExactAlarmForNextYear(
     noteId: Int,
     alarmMessage: String,
 ) {
-    val nextAlarmTimeInMillis = LocalDateTime.now()
-        .plusSeconds(30)
+    val now = LocalDateTime.now()
+    val isFebruary29 = now.monthValue == 2 && now.dayOfMonth == 29
+    val plusYears = if (isFebruary29) getClosestLeapYear(now.year + 1) - now.year else 1
+    val nextAlarmTimeInMillis = now
+        .plusYears(plusYears.toLong())
         .toEpochSecond(ZonedDateTime.now().offset) * 1000
     val pendingIntent = getPendingIntent(ctx, noteId, alarmMessage, true)
     val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java) ?: return
