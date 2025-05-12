@@ -1,5 +1,6 @@
 package com.asivers.mycalendar.composable.day
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,7 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,9 +26,12 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
@@ -133,13 +136,13 @@ fun OneSavedNote(
             Spacer(modifier = Modifier.width(12.dp))
         }
         if (noteInfo.isEveryYear) {
-            Icon(
-                imageVector = Icons.Filled.Refresh, // todo use custom icon
-                modifier = Modifier
-                    .padding(4.dp, 0.dp, 0.dp, 0.dp)
-                    .size(24.dp),
+            Image(
+                painter = painterResource(id = R.drawable.every_year_calendar),
+                colorFilter = ColorFilter.tint(schemes.color.text),
                 contentDescription = "Every year note icon",
-                tint = schemes.color.text
+                modifier = Modifier
+                    .padding(4.dp, 0.dp, 2.dp, 0.dp)
+                    .size(24.dp)
             )
         }
         if (noteInfo.notificationTime != null) {
