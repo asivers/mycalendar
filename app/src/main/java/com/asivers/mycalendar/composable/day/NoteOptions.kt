@@ -19,6 +19,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
 import com.asivers.mycalendar.utils.getOnCompleteOneNoteMode
 import java.time.LocalDate
+import java.time.LocalTime
 
 @Composable
 fun NoteOptions(
@@ -37,7 +38,6 @@ fun NoteOptions(
         horizontalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         val messageIsNotBlank = mutableNoteInfo.value.msg.isNotBlank()
-        val dateIsNotInPast = !selectedDateInfo.getDate().isBefore(LocalDate.now())
         SwitchWithLabel(
             modifier = Modifier
                 .weight(3f)
@@ -50,11 +50,13 @@ fun NoteOptions(
             label = schemes.translation.switchEveryYear,
             schemes = schemes
         )
+        val enabledNotificationSwitch = messageIsNotBlank
+                && (mutableNoteInfo.value.isEveryYear || !isSelectedDateInPast(selectedDateInfo))
         val dialogOpened = remember { mutableStateOf(false) }
         SwitchWithLabel(
             modifier = Modifier
                 .weight(3f)
-                .alpha(if (messageIsNotBlank && dateIsNotInPast) 1f else 0.4f),
+                .alpha(if (enabledNotificationSwitch) 1f else 0.4f),
             checked = mutableNoteInfo.value.notificationTime != null,
             onCheckedChange = { switchedOn ->
                 if (switchedOn) {
@@ -63,7 +65,7 @@ fun NoteOptions(
                     mutableNoteInfo.value = mutableNoteInfo.value.refreshNotificationTime(null)
                 }
             },
-            enabled = messageIsNotBlank && dateIsNotInPast,
+            enabled = enabledNotificationSwitch,
             label = mutableNoteInfo.value.notificationTime?.toString()
                 ?: schemes.translation.switchNotification,
             schemes = schemes
@@ -97,4 +99,13 @@ fun NoteOptions(
             schemes = schemes
         )
     }
+}
+
+private fun isSelectedDateInPast(selectedDateInfo: SelectedDateInfo): Boolean {
+    val today = LocalDate.now()
+    val selectedDate = selectedDateInfo.getDate()
+    if (selectedDate.isBefore(today)) return true
+    if (selectedDate.isAfter(today)) return false
+    val now = LocalTime.now()
+    return now.hour == 23 && now.minute == 59
 }

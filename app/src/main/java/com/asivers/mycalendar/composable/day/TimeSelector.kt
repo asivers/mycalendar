@@ -10,19 +10,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
-import com.asivers.mycalendar.data.CacheNotificationTime
 import com.asivers.mycalendar.data.NotificationTime
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.noRippleClickable
+import java.time.LocalTime
 
 @Composable
 fun TimeSelector(
     modifier: Modifier = Modifier,
-    onSelection: (NotificationTime) -> Unit,
-    cacheNotificationTime: CacheNotificationTime,
+    notificationTimeState: MutableState<NotificationTime>,
+    onConfirm: (NotificationTime) -> Unit,
+    shouldCompareToCurrentTime: Boolean,
     schemes: SchemeContainer
 ) {
     Column(
@@ -33,29 +36,44 @@ fun TimeSelector(
             modifier = Modifier.height(150.dp) // item height * 3
         ) {
             TimeUnitWheel(
-                onItemSelected = { cacheNotificationTime.hour = it },
+                onItemSelected = {
+                    notificationTimeState.value = NotificationTime(
+                        it, notificationTimeState.value.minute)
+                },
                 numberOfItems = 24,
-                initialSelectedItem = cacheNotificationTime.hour,
+                initialSelectedItem = notificationTimeState.value.hour,
                 schemes = schemes
             )
             TimeUnitWheel(
-                onItemSelected = { cacheNotificationTime.minute = it },
+                onItemSelected = {
+                    notificationTimeState.value = NotificationTime(
+                        notificationTimeState.value.hour, it)
+                },
                 numberOfItems = 60,
-                initialSelectedItem = cacheNotificationTime.minute,
+                initialSelectedItem = notificationTimeState.value.minute,
                 schemes = schemes
             )
         }
+        val isConfirmEnabled = !shouldCompareToCurrentTime
+                || isInFuture(notificationTimeState.value)
         Icon(
             imageVector = Icons.Filled.Done,
             modifier = Modifier
                 .padding(9.dp)
                 .size(32.dp) // total height 50
+                .alpha(if (isConfirmEnabled) 1f else 0.4f)
                 .noRippleClickable {
-                    onSelection(cacheNotificationTime.toNotificationTime())
+                    if (isConfirmEnabled) onConfirm(notificationTimeState.value)
                 },
             contentDescription = "Time selection button",
             tint = schemes.color.viewsBottom
         )
     }
+}
 
+private fun isInFuture(notificationTime: NotificationTime): Boolean {
+    val firstAvailableTime = LocalTime.now().plusMinutes(1)
+    if (notificationTime.hour < firstAvailableTime.hour) return false
+    if (notificationTime.hour > firstAvailableTime.hour) return true
+    return notificationTime.minute >= firstAvailableTime.minute
 }

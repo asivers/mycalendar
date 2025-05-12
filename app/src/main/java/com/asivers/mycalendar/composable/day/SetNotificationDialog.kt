@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.asivers.mycalendar.composable.dialog.AlarmPermissionDialog
 import com.asivers.mycalendar.composable.dialog.PermissionDeniedDialog
-import com.asivers.mycalendar.data.CacheNotificationTime
 import com.asivers.mycalendar.data.MutableNoteInfo
+import com.asivers.mycalendar.data.NotificationTime
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.permission.isNeededToRequestNotificationPermission
@@ -27,6 +27,7 @@ import com.asivers.mycalendar.utils.permission.requestNotificationPermission
 import com.asivers.mycalendar.utils.permission.wasNotificationPermissionDeniedBefore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 @Composable
 fun SetNotificationDialog(
@@ -56,9 +57,8 @@ fun SetNotificationDialog(
             ctx = ctx
         )
     }
-    val cacheNotificationTime = remember(selectedDateInfo) {
-        CacheNotificationTime(mutableNoteInfo.value.notificationTime)
-    }
+    val shouldCompareToCurrentTime = !mutableNoteInfo.value.isEveryYear
+            && selectedDateInfo.isToday()
     if (dialogOpened.value) {
         if (isNeededToRequestNotificationPermission(ctx)) {
             if (wasNotificationPermissionDeniedBefore(ctx)) {
@@ -90,12 +90,20 @@ fun SetNotificationDialog(
                     .width(160.dp),
                 shape = RoundedCornerShape(16.dp)
             ) {
+                val notificationTimeState = remember(selectedDateInfo) {
+                    mutableStateOf(mutableNoteInfo.value.notificationTime?.copy()
+                        ?: if (shouldCompareToCurrentTime)
+                            NotificationTime(LocalTime.now().plusMinutes(1))
+                        else
+                            NotificationTime(0, 0))
+                }
                 TimeSelector(
-                    onSelection = {
+                    notificationTimeState = notificationTimeState,
+                    onConfirm = {
                         mutableNoteInfo.value = mutableNoteInfo.value.refreshNotificationTime(it)
                         dialogOpened.value = false
                     },
-                    cacheNotificationTime = cacheNotificationTime,
+                    shouldCompareToCurrentTime = shouldCompareToCurrentTime,
                     schemes = schemes
                 )
             }

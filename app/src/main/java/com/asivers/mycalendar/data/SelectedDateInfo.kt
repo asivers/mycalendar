@@ -13,6 +13,13 @@ data class SelectedDateInfo(
 
     fun getDate(): LocalDate = LocalDate.of(year, monthValue, dayOfMonth)
 
+    fun isToday(): Boolean {
+        val today = LocalDate.now()
+        return year == today.year
+                && monthValue == today.monthValue
+                && dayOfMonth == today.dayOfMonth
+    }
+
     fun cloneWithRefresh(): SelectedDateInfo = SelectedDateInfo(
         year = year,
         monthValue = monthValue,
