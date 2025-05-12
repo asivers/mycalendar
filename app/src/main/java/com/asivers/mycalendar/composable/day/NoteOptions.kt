@@ -18,6 +18,7 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
 import com.asivers.mycalendar.utils.date.isInFuture
+import com.asivers.mycalendar.utils.getOnClickSwitchInOneNoteMode
 import com.asivers.mycalendar.utils.getOnCompleteOneNoteMode
 import java.time.LocalDate
 import java.time.LocalTime
@@ -51,6 +52,14 @@ fun NoteOptions(
                     mutableNoteInfo.value.notificationTime = null
                 }
                 mutableNoteInfo.value = mutableNoteInfo.value.refreshIsEveryYear(it)
+                getOnClickSwitchInOneNoteMode(
+                    ctx = ctx,
+                    mutableNotes = mutableNotes,
+                    mutableNoteInfo = mutableNoteInfo,
+                    noteMode = noteMode,
+                    refreshDaysLine = refreshDaysLine,
+                    selectedDateInfo = selectedDateInfo
+                )
             },
             enabled = messageIsNotBlank,
             label = schemes.translation.switchEveryYear,
@@ -70,6 +79,14 @@ fun NoteOptions(
                 } else {
                     mutableNoteInfo.value = mutableNoteInfo.value.refreshNotificationTime(null)
                 }
+                getOnClickSwitchInOneNoteMode(
+                    ctx = ctx,
+                    mutableNotes = mutableNotes,
+                    mutableNoteInfo = mutableNoteInfo,
+                    noteMode = noteMode,
+                    refreshDaysLine = refreshDaysLine,
+                    selectedDateInfo = selectedDateInfo
+                )
             },
             enabled = enabledNotificationSwitch,
             label = mutableNoteInfo.value.notificationTime?.toString()
@@ -101,6 +118,16 @@ fun NoteOptions(
         SetNotificationDialog(
             dialogOpened = dialogOpened,
             mutableNoteInfo = mutableNoteInfo,
+            onNotificationTimeRefreshed = {
+                getOnClickSwitchInOneNoteMode(
+                    ctx = ctx,
+                    mutableNotes = mutableNotes,
+                    mutableNoteInfo = mutableNoteInfo,
+                    noteMode = noteMode,
+                    refreshDaysLine = refreshDaysLine,
+                    selectedDateInfo = selectedDateInfo
+                )
+            },
             selectedDateInfo = selectedDateInfo,
             schemes = schemes
         )

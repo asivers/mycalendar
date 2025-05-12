@@ -36,6 +36,7 @@ fun SetNotificationDialog(
     modifier: Modifier = Modifier,
     dialogOpened: MutableState<Boolean>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
+    onNotificationTimeRefreshed: () -> Unit,
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
@@ -115,6 +116,7 @@ fun SetNotificationDialog(
                             ).show()
                         }
                         dialogOpened.value = false
+                        onNotificationTimeRefreshed()
                     },
                     shouldCompareToCurrentTime = shouldCompareToCurrentTime,
                     schemes = schemes

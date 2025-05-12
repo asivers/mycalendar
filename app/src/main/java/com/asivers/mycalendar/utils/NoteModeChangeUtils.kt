@@ -84,6 +84,36 @@ fun getOnCompleteOneNoteMode(
     }
 }
 
+fun getOnClickSwitchInOneNoteMode(
+    ctx: Context,
+    mutableNotes: SnapshotStateList<NoteInfo>,
+    mutableNoteInfo: MutableState<MutableNoteInfo>,
+    noteMode: MutableState<NoteMode>,
+    refreshDaysLine: () -> Unit,
+    selectedDateInfo: SelectedDateInfo
+) {
+    if (!mutableNoteInfo.value.changed) return
+    when (noteMode.value) {
+        NoteMode.OVERVIEW -> throw IllegalStateException()
+        NoteMode.VIEW, NoteMode.EDIT -> getOnCompleteEditMode(
+            ctx = ctx,
+            mutableNotes = mutableNotes,
+            mutableNoteInfo = mutableNoteInfo,
+            noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
+            selectedDateInfo = selectedDateInfo
+        )
+        NoteMode.ADD -> getOnCompleteAddMode(
+            ctx = ctx,
+            mutableNotes = mutableNotes,
+            mutableNoteInfo = mutableNoteInfo,
+            noteMode = noteMode,
+            refreshDaysLine = refreshDaysLine,
+            selectedDateInfo = selectedDateInfo
+        )
+    }
+}
+
 private fun getOnBackFromViewMode(
     ctx: Context,
     mutableNotes: SnapshotStateList<NoteInfo>,
