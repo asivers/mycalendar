@@ -17,8 +17,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.NotificationTime
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.utils.date.isInFuture
 import com.asivers.mycalendar.utils.noRippleClickable
-import java.time.LocalTime
 
 @Composable
 fun TimeSelector(
@@ -69,11 +69,4 @@ fun TimeSelector(
             tint = schemes.color.viewsBottom
         )
     }
-}
-
-private fun isInFuture(notificationTime: NotificationTime): Boolean {
-    val firstAvailableTime = LocalTime.now().plusMinutes(1)
-    if (notificationTime.hour < firstAvailableTime.hour) return false
-    if (notificationTime.hour > firstAvailableTime.hour) return true
-    return notificationTime.minute >= firstAvailableTime.minute
 }
