@@ -1,6 +1,7 @@
 package com.asivers.mycalendar.composable.day
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,6 +21,7 @@ import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NotificationTime
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
+import com.asivers.mycalendar.utils.date.isInFuture
 import com.asivers.mycalendar.utils.permission.isNeededToRequestNotificationPermission
 import com.asivers.mycalendar.utils.permission.isNeededToRequestScheduleExactAlarmPermission
 import com.asivers.mycalendar.utils.permission.isNotificationPermissionNotGranted
@@ -100,7 +102,18 @@ fun SetNotificationDialog(
                 TimeSelector(
                     notificationTimeState = notificationTimeState,
                     onConfirm = {
-                        mutableNoteInfo.value = mutableNoteInfo.value.refreshNotificationTime(it)
+                        if (!shouldCompareToCurrentTime || isInFuture(it)) {
+                            mutableNoteInfo.value = mutableNoteInfo.value
+                                .refreshNotificationTime(it)
+                        } else {
+                            mutableNoteInfo.value = mutableNoteInfo.value
+                                .refreshNotificationTime(null)
+                            Toast.makeText(
+                                ctx,
+                                schemes.translation.alarmInPastToast,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                         dialogOpened.value = false
                     },
                     shouldCompareToCurrentTime = shouldCompareToCurrentTime,

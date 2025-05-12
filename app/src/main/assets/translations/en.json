@@ -73,5 +73,6 @@
   "confirm": "Confirm",
   "ok": "OK",
   "requestAlarmPermission": "The app requests a permission to schedule alarms",
-  "explainPermissionDenied": "Permission to send notifications has been denied by the user. To use notifications, enable permission to send notifications in your device settings"
+  "explainPermissionDenied": "Permission to send notifications has been denied by the user. To use notifications, enable permission to send notifications in your device settings",
+  "alarmInPastToast": "It is not possible to set notification alarm in the past"
 }
