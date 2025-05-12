@@ -17,6 +17,7 @@ import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
+import com.asivers.mycalendar.utils.date.isInFuture
 import com.asivers.mycalendar.utils.getOnCompleteOneNoteMode
 import java.time.LocalDate
 import java.time.LocalTime
@@ -44,6 +45,11 @@ fun NoteOptions(
                 .alpha(if (messageIsNotBlank) 1f else 0.4f),
             checked = mutableNoteInfo.value.isEveryYear,
             onCheckedChange = {
+                val notificationTime = mutableNoteInfo.value.notificationTime
+                if (!it && notificationTime != null
+                    && !isInFuture(selectedDateInfo, notificationTime)) {
+                    mutableNoteInfo.value.notificationTime = null
+                }
                 mutableNoteInfo.value = mutableNoteInfo.value.refreshIsEveryYear(it)
             },
             enabled = messageIsNotBlank,
