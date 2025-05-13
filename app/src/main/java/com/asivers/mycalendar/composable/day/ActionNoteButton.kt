@@ -1,18 +1,18 @@
 package com.asivers.mycalendar.composable.day
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.NoteMode
@@ -29,18 +29,18 @@ fun ActionNoteButton(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val imageVector = if (noteMode == NoteMode.VIEW)
-            Icons.Filled.Delete
+        val painterResourceId = if (noteMode == NoteMode.VIEW)
+            R.drawable.delete_trash_can
         else
-            Icons.Filled.Done
-        Icon(
-            imageVector = imageVector,
+            R.drawable.save_check_mark
+        Image(
+            painter = painterResource(id = painterResourceId),
             modifier = Modifier
                 .padding(8.dp)
                 .size(32.dp)
                 .noRippleClickable { onClick() },
             contentDescription = "Action note button",
-            tint = schemes.color.text
+            colorFilter = ColorFilter.tint(schemes.color.text)
         )
         val text = if (noteMode == NoteMode.VIEW)
             schemes.translation.deleteNote

@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -91,8 +90,8 @@ fun ExistingNotes(
                     schemes = schemes
                 )
                 if (horizontalOffset.floatValue == 125f) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
+                    Image(
+                        painter = painterResource(id = R.drawable.delete_trash_can),
                         modifier = Modifier
                             .size(32.dp)
                             .noRippleClickable {
@@ -101,7 +100,7 @@ fun ExistingNotes(
                                 refreshDaysLine()
                             },
                         contentDescription = "Delete",
-                        tint = schemes.color.text
+                        colorFilter = ColorFilter.tint(schemes.color.text)
                     )
                 }
             }

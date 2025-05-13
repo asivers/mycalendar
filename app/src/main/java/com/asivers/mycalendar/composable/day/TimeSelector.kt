@@ -1,20 +1,21 @@
 package com.asivers.mycalendar.composable.day
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.R
 import com.asivers.mycalendar.data.NotificationTime
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.date.isInFuture
@@ -56,8 +57,8 @@ fun TimeSelector(
         }
         val isConfirmEnabled = !shouldCompareToCurrentTime
                 || isInFuture(notificationTimeState.value)
-        Icon(
-            imageVector = Icons.Filled.Done,
+        Image(
+            painter = painterResource(id = R.drawable.save_check_mark),
             modifier = Modifier
                 .padding(9.dp)
                 .size(32.dp) // total height 50
@@ -66,7 +67,7 @@ fun TimeSelector(
                     if (isConfirmEnabled) onConfirm(notificationTimeState.value)
                 },
             contentDescription = "Time selection button",
-            tint = schemes.color.viewsBottom
+            colorFilter = ColorFilter.tint(schemes.color.viewsBottom)
         )
     }
 }
