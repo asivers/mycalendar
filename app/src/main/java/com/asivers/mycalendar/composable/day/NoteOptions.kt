@@ -60,6 +60,7 @@ fun NoteOptions(
                     refreshDaysLine = refreshDaysLine,
                     selectedDateInfo = selectedDateInfo
                 )
+                localFocusManager.clearFocus()
             },
             enabled = messageIsNotBlank,
             label = schemes.translation.switchEveryYear,
@@ -87,6 +88,7 @@ fun NoteOptions(
                     refreshDaysLine = refreshDaysLine,
                     selectedDateInfo = selectedDateInfo
                 )
+                localFocusManager.clearFocus()
             },
             enabled = enabledNotificationSwitch,
             label = mutableNoteInfo.value.notificationTime?.toString()
