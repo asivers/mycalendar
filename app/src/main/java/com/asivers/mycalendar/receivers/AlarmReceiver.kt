@@ -45,7 +45,6 @@ class AlarmReceiver : BroadcastReceiver() {
                     .setContentText(alarmMessage)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setContentIntent(pendingIntent)
-                // todo cleanup unused pending intents
 
                 val notificationsAllowed = (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) ||
                     ActivityCompat.checkSelfPermission(

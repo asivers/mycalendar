@@ -95,6 +95,7 @@ fun cancelExactAlarmIfExists(
     noteId: Int
 ) {
     val pendingIntent = getPendingIntent(ctx, noteId)
+    pendingIntent.cancel()
     val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java) ?: return
     alarmManager.cancel(pendingIntent)
 }
