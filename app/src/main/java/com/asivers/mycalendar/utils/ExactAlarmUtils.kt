@@ -17,7 +17,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.receivers.AlarmReceiver
 import com.asivers.mycalendar.utils.date.getClosestLeapYear
 import java.time.LocalDateTime
-import java.time.ZonedDateTime
+import java.time.ZoneId
 
 const val NOTIFICATION_CHANNEL_ID = "my_calendar_notification_channel_with_ringtone_id"
 const val ALARM_ACTION = "alarm_action"
@@ -60,7 +60,7 @@ fun setExactAlarm(
             .show()
         return false
     }
-    val alarmTimeInMillis = nextAlarmTime.toEpochSecond(ZonedDateTime.now().offset) * 1000
+    val alarmTimeInMillis = nextAlarmTime.toAlarmTimeInMillis()
 
     val pendingIntent = getPendingIntent(ctx, noteId, alarmMessage, isEveryYear)
     val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java) ?: return false
@@ -81,7 +81,7 @@ fun resetExactAlarmForNextYear(
     val plusYears = if (isFebruary29) getClosestLeapYear(now.year + 1) - now.year else 1
     val nextAlarmTimeInMillis = now
         .plusYears(plusYears.toLong())
-        .toEpochSecond(ZonedDateTime.now().offset) * 1000
+        .toAlarmTimeInMillis()
     val pendingIntent = getPendingIntent(ctx, noteId, alarmMessage, true)
     val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java) ?: return
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarmManager.canScheduleExactAlarms()) {
@@ -153,4 +153,9 @@ private fun getPendingIntent(
     val flag2 = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
         PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_IMMUTABLE
     return PendingIntent.getBroadcast(ctx, noteId, alarmIntent, flag1 or flag2)
+}
+
+internal fun LocalDateTime.toAlarmTimeInMillis(): Long {
+    val offset = ZoneId.systemDefault().rules.getOffset(this)
+    return this.toEpochSecond(offset) * 1000
 }

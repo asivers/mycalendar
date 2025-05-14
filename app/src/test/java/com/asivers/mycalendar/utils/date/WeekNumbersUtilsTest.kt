@@ -1,9 +1,8 @@
-package com.asivers.mycalendar.utils
+package com.asivers.mycalendar.utils.date
 
-import com.asivers.mycalendar.utils.date.testGetWeekNumbers
 import org.junit.Test
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import java.time.Month
 
 class WeekNumbersUtilsTest {
