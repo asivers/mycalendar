@@ -1,6 +1,7 @@
 package com.asivers.mycalendar.receivers
 
 import android.Manifest
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -15,8 +16,8 @@ import com.asivers.mycalendar.R
 import com.asivers.mycalendar.utils.ALARM_ACTION
 import com.asivers.mycalendar.utils.ALARM_MESSAGE_EXTRA
 import com.asivers.mycalendar.utils.IS_EVERY_YEAR_EXTRA
-import com.asivers.mycalendar.utils.NOTIFICATION_CHANNEL_ID
 import com.asivers.mycalendar.utils.NOTE_ID_EXTRA
+import com.asivers.mycalendar.utils.NOTIFICATION_CHANNEL_ID
 import com.asivers.mycalendar.utils.resetExactAlarmForNextYear
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -52,7 +53,8 @@ class AlarmReceiver : BroadcastReceiver() {
                     ActivityCompat.checkSelfPermission(
                         ctx, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
                 if (notificationsAllowed) {
-                    NotificationManagerCompat.from(ctx).notify(noteId, builder.build())
+                    val notification = builder.build().apply { flags = Notification.FLAG_INSISTENT }
+                    NotificationManagerCompat.from(ctx).notify(noteId, notification)
                 }
 
                 if (isEveryYear) {

@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioAttributes
+import android.media.RingtoneManager
 import android.os.Build
 import android.widget.Toast
 import androidx.core.app.AlarmManagerCompat
@@ -32,6 +34,13 @@ fun createNotificationChannel(ctx: Context) {
             description = "My Calendar notification channel"
             vibrationPattern = LongArray(120) { 500 }
         }
+        channel.setSound(
+            RingtoneManager.getActualDefaultRingtoneUri(ctx, RingtoneManager.TYPE_RINGTONE),
+            AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .build()
+        )
         val notificationManager = ContextCompat.getSystemService(ctx, NotificationManager::class.java)
         notificationManager?.createNotificationChannel(channel)
     }
