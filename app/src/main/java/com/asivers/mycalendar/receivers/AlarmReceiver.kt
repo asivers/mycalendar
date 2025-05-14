@@ -45,15 +45,16 @@ class AlarmReceiver : BroadcastReceiver() {
                     .setContentText(alarmMessage)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setContentIntent(pendingIntent)
-                    .setAutoCancel(true)
-                // todo add button to notification
-                // todo make screen turn on
+                    .addAction(0, "OK", pendingIntent)
+                // todo dismiss instead of opening app
 
                 val notificationsAllowed = (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) ||
                     ActivityCompat.checkSelfPermission(
                         ctx, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
                 if (notificationsAllowed) {
-                    val notification = builder.build().apply { flags = Notification.FLAG_INSISTENT }
+                    val notification = builder.build().apply {
+                        flags = Notification.FLAG_AUTO_CANCEL or Notification.FLAG_INSISTENT
+                    }
                     NotificationManagerCompat.from(ctx).notify(noteId, notification)
                 }
 
