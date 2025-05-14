@@ -43,11 +43,21 @@ fun NotesSection(
     schemes: SchemeContainer
 ) {
     val ctx = LocalContext.current
-    val mutableNotes = remember(selectedDateInfo) {
+    val mutableNotes = remember(
+        selectedDateInfo.year, selectedDateInfo.monthValue, selectedDateInfo.dayOfMonth
+    ) {
         getNotes(ctx, selectedDateInfo).reversed().toMutableStateList()
     }
-    val mutableNoteInfo = remember(selectedDateInfo) { mutableStateOf(MutableNoteInfo()) }
-    val noteMode = remember(selectedDateInfo) { mutableStateOf(NoteMode.OVERVIEW) }
+    val mutableNoteInfo = remember(
+        selectedDateInfo.year, selectedDateInfo.monthValue, selectedDateInfo.dayOfMonth
+    ) {
+        mutableStateOf(MutableNoteInfo())
+    }
+    val noteMode = remember(
+        selectedDateInfo.year, selectedDateInfo.monthValue, selectedDateInfo.dayOfMonth
+    ) {
+        mutableStateOf(NoteMode.OVERVIEW)
+    }
 
     when (noteMode.value) {
         NoteMode.OVERVIEW -> NotesSectionOverviewMode(
