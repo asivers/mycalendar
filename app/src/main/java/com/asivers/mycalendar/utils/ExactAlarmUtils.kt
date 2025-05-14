@@ -19,7 +19,7 @@ import com.asivers.mycalendar.utils.date.getClosestLeapYear
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
-const val NOTIFICATION_CHANNEL_ID = "my_calendar_notification_channel_id"
+const val NOTIFICATION_CHANNEL_ID = "my_calendar_notification_channel_with_ringtone_id"
 const val ALARM_ACTION = "alarm_action"
 const val ALARM_MESSAGE_EXTRA = "alarm_message"
 const val IS_EVERY_YEAR_EXTRA = "is_every_year"
@@ -28,10 +28,10 @@ const val NOTE_ID_EXTRA = "note_id"
 fun createNotificationChannel(ctx: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val channelId = NOTIFICATION_CHANNEL_ID
-        val channelName = "My Calendar notification channel"
+        val channelName = "My Calendar notification channel with ringtone"
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(channelId, channelName, importance).apply {
-            description = "My Calendar notification channel"
+            description = "My Calendar notification channel with ringtone"
             vibrationPattern = LongArray(120) { 500 }
         }
         channel.setSound(
