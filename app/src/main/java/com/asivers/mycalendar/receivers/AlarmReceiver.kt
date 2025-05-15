@@ -1,6 +1,7 @@
 package com.asivers.mycalendar.receivers
 
 import android.Manifest
+import android.app.AlarmManager
 import android.app.Notification
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -18,12 +19,13 @@ import com.asivers.mycalendar.utils.ALARM_MESSAGE_EXTRA
 import com.asivers.mycalendar.utils.IS_EVERY_YEAR_EXTRA
 import com.asivers.mycalendar.utils.NOTE_ID_EXTRA
 import com.asivers.mycalendar.utils.NOTIFICATION_CHANNEL_ID
+import com.asivers.mycalendar.utils.isNeededToRequestScheduleExactAlarmPermission
+import com.asivers.mycalendar.utils.resetAllAlarms
 import com.asivers.mycalendar.utils.resetExactAlarmForNextYear
 
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(ctx: Context?, intent: Intent?) {
-        // todo process reboot case
         // todo check working with old builds
         if (ctx == null || intent == null) return
         when (intent.action) {
@@ -57,6 +59,14 @@ class AlarmReceiver : BroadcastReceiver() {
 
                 if (isEveryYear) {
                     resetExactAlarmForNextYear(ctx, noteId, alarmMessage)
+                }
+            }
+            AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED,
+            Intent.ACTION_MY_PACKAGE_REPLACED,
+            Intent.ACTION_BOOT_COMPLETED,
+            "android.intent.action.QUICKBOOT_POWERON" -> {
+                if (!isNeededToRequestScheduleExactAlarmPermission(ctx)) {
+                    resetAllAlarms(ctx)
                 }
             }
             else -> {}

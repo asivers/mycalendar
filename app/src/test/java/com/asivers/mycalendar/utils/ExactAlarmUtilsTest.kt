@@ -16,8 +16,8 @@ class ExactAlarmUtilsTest {
         val ldt1 = LocalDateTime.of(2025, 9, 1, 12, 0)
         val ldt2 = ldt1.plusDays(daysDiff)
 
-        val millis1 = ldt1.toAlarmTimeInMillis()
-        val millis2 = ldt2.toAlarmTimeInMillis()
+        val millis1 = getAlarmTimeInMillis(ldt1)
+        val millis2 = getAlarmTimeInMillis(ldt2)
 
         val millisDif = millis2 - millis1
 
@@ -33,8 +33,8 @@ class ExactAlarmUtilsTest {
         val ldt1 = LocalDateTime.of(2025, 12, 1, 12, 0)
         val ldt2 = ldt1.plusDays(daysDiff)
 
-        val millis1 = ldt1.toAlarmTimeInMillis()
-        val millis2 = ldt2.toAlarmTimeInMillis()
+        val millis1 = getAlarmTimeInMillis(ldt1)
+        val millis2 = getAlarmTimeInMillis(ldt2)
 
         val millisDif = millis2 - millis1
 
@@ -50,8 +50,8 @@ class ExactAlarmUtilsTest {
         val ldt1 = LocalDateTime.of(2026, 2, 1, 12, 0)
         val ldt2 = ldt1.plusDays(daysDiff)
 
-        val millis1 = ldt1.toAlarmTimeInMillis()
-        val millis2 = ldt2.toAlarmTimeInMillis()
+        val millis1 = getAlarmTimeInMillis(ldt1)
+        val millis2 = getAlarmTimeInMillis(ldt2)
 
         val millisDif = millis2 - millis1
 

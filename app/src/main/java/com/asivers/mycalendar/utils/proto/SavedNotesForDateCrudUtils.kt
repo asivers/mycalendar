@@ -8,41 +8,6 @@ import com.asivers.mycalendar.serializers.savedNotesDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
-fun areNotificationsExist(ctx: Context): Boolean {
-    return runBlocking { ctx.savedNotesDataStore.data.first() }
-        .forMonthList
-        .flatMap { it.forDayList }
-        .flatMap { it.notesList }
-        .find { !it.notificationTimeNull } != null
-}
-
-fun getMaxNoteId(ctx: Context): Int? {
-    return runBlocking { ctx.savedNotesDataStore.data.first() }
-        .forMonthList
-        .flatMap { it.forDayList }
-        .flatMap { it.notesList }
-        .maxOfOrNull { it.id }
-}
-
-fun getDaysWithNotesForMonth(
-    ctx: Context,
-    year: Int,
-    monthValue: Int
-): List<Int> {
-    return runBlocking { ctx.savedNotesDataStore.data.first() }
-        .forMonthList
-        .find { it.monthValue == monthValue }
-        ?.forDayList
-        ?.filter { it.notesList != null && containsNotesForYear(it.notesList, year) }
-        ?.map { it.dayOfMonth }
-        ?.sorted()
-        ?: emptyList()
-}
-
-private fun containsNotesForYear(notesList: List<Note>, year: Int): Boolean {
-    return notesList.map { it.forYear }.any { it == 0 || it == year }
-}
-
 fun getNotes(
     ctx: Context,
     selectedDateInfo: SelectedDateInfo

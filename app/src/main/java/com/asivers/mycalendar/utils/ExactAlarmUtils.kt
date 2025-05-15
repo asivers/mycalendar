@@ -16,6 +16,7 @@ import com.asivers.mycalendar.data.NotificationTime
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.receivers.AlarmReceiver
 import com.asivers.mycalendar.utils.date.getClosestLeapYear
+import com.asivers.mycalendar.utils.proto.getInfoAboutAllNotifications
 import java.time.LocalDateTime
 import java.time.ZoneId
 
@@ -54,21 +55,18 @@ fun setExactAlarm(
     isEveryYear: Boolean,
     notificationTime: NotificationTime
 ): Boolean {
-    val nextAlarmTime = getNextAlarmTime(selectedDateInfo, isEveryYear, notificationTime)
+    val nextAlarmTime = getNextAlarmTime(
+        if (isEveryYear) null else selectedDateInfo.year,
+        selectedDateInfo.monthValue,
+        selectedDateInfo.dayOfMonth,
+        notificationTime
+    )
     if (nextAlarmTime == null) {
         Toast.makeText(ctx, "It is not possible to set alarm in the past", Toast.LENGTH_LONG)
             .show()
         return false
     }
-    val alarmTimeInMillis = nextAlarmTime.toAlarmTimeInMillis()
-
-    val pendingIntent = getPendingIntent(ctx, noteId, alarmMessage, isEveryYear)
-    val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java) ?: return false
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarmManager.canScheduleExactAlarms()) {
-        AlarmManagerCompat.setExactAndAllowWhileIdle(
-            alarmManager, AlarmManager.RTC_WAKEUP, alarmTimeInMillis, pendingIntent)
-    }
-    return true
+    return doSetExactAlarm(ctx, nextAlarmTime, noteId, alarmMessage, isEveryYear)
 }
 
 fun resetExactAlarmForNextYear(
@@ -79,14 +77,28 @@ fun resetExactAlarmForNextYear(
     val now = LocalDateTime.now()
     val isFebruary29 = now.monthValue == 2 && now.dayOfMonth == 29
     val plusYears = if (isFebruary29) getClosestLeapYear(now.year + 1) - now.year else 1
-    val nextAlarmTimeInMillis = now
-        .plusYears(plusYears.toLong())
-        .toAlarmTimeInMillis()
-    val pendingIntent = getPendingIntent(ctx, noteId, alarmMessage, true)
-    val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java) ?: return
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarmManager.canScheduleExactAlarms()) {
-        AlarmManagerCompat.setExactAndAllowWhileIdle(
-            alarmManager, AlarmManager.RTC_WAKEUP, nextAlarmTimeInMillis, pendingIntent)
+    val nextAlarmTime = now.plusYears(plusYears.toLong())
+    doSetExactAlarm(ctx, nextAlarmTime, noteId, alarmMessage, true)
+}
+
+fun resetAllAlarms(
+    ctx: Context
+) {
+    val noteInfosWithDates = getInfoAboutAllNotifications(ctx)
+    for (noteInfoWithDate in noteInfosWithDates) {
+        val year = noteInfoWithDate.year
+        val monthValue = noteInfoWithDate.monthValue
+        val dayOfMonth = noteInfoWithDate.dayOfMonth
+        val noteInfo = noteInfoWithDate.noteInfo
+        val notificationTime = noteInfo.notificationTime ?: continue
+        val nextAlarmTime = getNextAlarmTime(year, monthValue, dayOfMonth, notificationTime)
+        doSetExactAlarm(
+            ctx = ctx,
+            nextAlarmTime = nextAlarmTime ?: continue,
+            noteId = noteInfo.id,
+            alarmMessage = noteInfo.msg,
+            isEveryYear = noteInfo.isEveryYear
+        )
     }
 }
 
@@ -101,38 +113,61 @@ fun cancelExactAlarmIfExists(
 }
 
 private fun getNextAlarmTime(
-    selectedDateInfo: SelectedDateInfo,
-    isEveryYear: Boolean,
+    year: Int?,
+    monthValue: Int,
+    dayOfMonth: Int,
     notificationTime: NotificationTime
 ): LocalDateTime? {
     val now = LocalDateTime.now()
-    if (!isEveryYear) {
+    if (year != null) {
         val dateOfNextAlarm = LocalDateTime.of(
-            selectedDateInfo.year,
-            selectedDateInfo.monthValue,
-            selectedDateInfo.dayOfMonth,
+            year,
+            monthValue,
+            dayOfMonth,
             notificationTime.hour,
             notificationTime.minute
         )
         return if (dateOfNextAlarm.isAfter(now)) dateOfNextAlarm else null
     }
-    val isFebruary29 = selectedDateInfo.monthValue == 2 && selectedDateInfo.dayOfMonth == 29
+    val isFebruary29 = monthValue == 2 && dayOfMonth == 29
     val dateOfNextAlarm = LocalDateTime.of(
         if (isFebruary29) getClosestLeapYear(now.year) else now.year,
-        selectedDateInfo.monthValue,
-        selectedDateInfo.dayOfMonth,
+        monthValue,
+        dayOfMonth,
         notificationTime.hour,
         notificationTime.minute
     )
     return if (dateOfNextAlarm.isAfter(now)) dateOfNextAlarm else {
         LocalDateTime.of(
             if (isFebruary29) getClosestLeapYear(now.year + 1) else now.year + 1,
-            selectedDateInfo.monthValue,
-            selectedDateInfo.dayOfMonth,
+            monthValue,
+            dayOfMonth,
             notificationTime.hour,
             notificationTime.minute
         )
     }
+}
+
+internal fun getAlarmTimeInMillis(nextAlarmTime: LocalDateTime): Long {
+    val offset = ZoneId.systemDefault().rules.getOffset(nextAlarmTime)
+    return nextAlarmTime.toEpochSecond(offset) * 1000
+}
+
+private fun doSetExactAlarm(
+    ctx: Context,
+    nextAlarmTime: LocalDateTime,
+    noteId: Int,
+    alarmMessage: String,
+    isEveryYear: Boolean
+): Boolean {
+    val alarmTimeInMillis = getAlarmTimeInMillis(nextAlarmTime)
+    val pendingIntent = getPendingIntent(ctx, noteId, alarmMessage, isEveryYear)
+    val alarmManager = ContextCompat.getSystemService(ctx, AlarmManager::class.java) ?: return false
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S || alarmManager.canScheduleExactAlarms()) {
+        AlarmManagerCompat.setExactAndAllowWhileIdle(
+            alarmManager, AlarmManager.RTC_WAKEUP, alarmTimeInMillis, pendingIntent)
+    }
+    return true
 }
 
 private fun getPendingIntent(
@@ -153,9 +188,4 @@ private fun getPendingIntent(
     val flag2 = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
         PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_IMMUTABLE
     return PendingIntent.getBroadcast(ctx, noteId, alarmIntent, flag1 or flag2)
-}
-
-internal fun LocalDateTime.toAlarmTimeInMillis(): Long {
-    val offset = ZoneId.systemDefault().rules.getOffset(this)
-    return this.toEpochSecond(offset) * 1000
 }
