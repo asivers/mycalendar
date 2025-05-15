@@ -8,6 +8,14 @@ import com.asivers.mycalendar.serializers.savedNotesDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 
+fun areNotificationsExist(ctx: Context): Boolean {
+    return runBlocking { ctx.savedNotesDataStore.data.first() }
+        .forMonthList
+        .flatMap { it.forDayList }
+        .flatMap { it.notesList }
+        .find { !it.notificationTimeNull } != null
+}
+
 fun getMaxNoteId(ctx: Context): Int? {
     return runBlocking { ctx.savedNotesDataStore.data.first() }
         .forMonthList

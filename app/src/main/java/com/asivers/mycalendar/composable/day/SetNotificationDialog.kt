@@ -22,11 +22,11 @@ import com.asivers.mycalendar.data.NotificationTime
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.date.isInFuture
-import com.asivers.mycalendar.utils.permission.isNeededToRequestNotificationPermission
-import com.asivers.mycalendar.utils.permission.isNeededToRequestScheduleExactAlarmPermission
-import com.asivers.mycalendar.utils.permission.isNotificationPermissionNotGranted
-import com.asivers.mycalendar.utils.permission.requestNotificationPermission
-import com.asivers.mycalendar.utils.permission.wasNotificationPermissionDeniedBefore
+import com.asivers.mycalendar.utils.isNeededToRequestNotificationPermission
+import com.asivers.mycalendar.utils.isNeededToRequestScheduleExactAlarmPermission
+import com.asivers.mycalendar.utils.isNotificationPermissionNotGranted
+import com.asivers.mycalendar.utils.requestNotificationPermission
+import com.asivers.mycalendar.utils.wasNotificationPermissionDeniedBefore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalTime

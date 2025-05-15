@@ -27,6 +27,8 @@ data class TranslationScheme(
     val confirm: String,
     val ok: String,
     val requestAlarmPermission: String,
-    val explainPermissionDenied: String,
+    val explainNotificationPermissionDenied: String,
+    val explainNotificationPermissionRevoked: String,
+    val explainAlarmPermissionRevoked: String,
     val alarmInPastToast: String
 )

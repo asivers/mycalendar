@@ -24,7 +24,6 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(ctx: Context?, intent: Intent?) {
         // todo process reboot case
-        // todo process permission state changed case
         // todo check working with old builds
         if (ctx == null || intent == null) return
         when (intent.action) {

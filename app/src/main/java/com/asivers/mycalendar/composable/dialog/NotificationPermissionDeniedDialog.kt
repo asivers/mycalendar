@@ -30,7 +30,7 @@ fun PermissionDeniedDialog(
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 0.dp)) {
-                Text(text = schemes.translation.explainPermissionDenied)
+                Text(text = schemes.translation.explainNotificationPermissionDenied)
                 Row(
                     modifier = Modifier
                         .padding(0.dp, 8.dp)
