@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.SchemeContainer
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,10 +49,11 @@ fun AlarmPermissionDialog(
                     TextButton(
                         onClick = {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                Intent().also { intent ->
-                                    intent.action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
-                                    ctx.startActivity(intent)
-                                }
+                                val intent = Intent(
+                                    Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM,
+                                    ("package:" + ctx.packageName).toUri()
+                                )
+                                ctx.startActivity(intent)
                                 onStartPermissionIntent()
                             }
                             onCloseDialog()
