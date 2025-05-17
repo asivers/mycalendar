@@ -7,6 +7,8 @@ import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.enums.NoteMode
+import com.asivers.mycalendar.utils.notification.cancelExactAlarmIfExists
+import com.asivers.mycalendar.utils.notification.setExactAlarm
 import com.asivers.mycalendar.utils.proto.addNote
 import com.asivers.mycalendar.utils.proto.editNote
 import com.asivers.mycalendar.utils.proto.removeNote

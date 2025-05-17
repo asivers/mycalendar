@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.utils
+package com.asivers.mycalendar.utils.notification
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

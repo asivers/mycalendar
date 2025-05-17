@@ -155,6 +155,11 @@ fun getTranslationSchemeForPreview(): TranslationScheme {
             Pair("off", "Off"),
             Pair("on", "On")
         ),
+        notificationsModesParam = "Notifications mode",
+        notificationsModes = mapOf(
+            Pair("withRingtone", "Push & ringtone"),
+            Pair("withoutRingtone", "Just push")
+        ),
         makeNote = "Make a note",
         saveNote = "Save",
         deleteNote = "Delete",

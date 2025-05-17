@@ -11,15 +11,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.enums.ExistingLocale
+import com.asivers.mycalendar.enums.NotificationsMode
 import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
 import com.asivers.mycalendar.enums.WeekNumbersMode
 import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
+import com.asivers.mycalendar.utils.proto.getSavedNotificationsMode
+import com.asivers.mycalendar.utils.proto.getSavedSettings
 import kotlin.enums.enumEntries
 
 @Composable
@@ -34,6 +38,12 @@ fun SettingsView(
 ) {
     // todo adapt for different fonts
     val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp) + 1
+
+    val ctx = LocalContext.current
+    val selectedNotificationsMode: MutableState<NotificationsMode> = remember {
+        mutableStateOf(getSavedNotificationsMode(getSavedSettings(ctx)))
+    }
+
     val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
     Column(
         modifier = modifier
@@ -81,6 +91,15 @@ fun SettingsView(
             selectedItem = selectedWeekNumbersMode,
             settingsParam = SettingsParam.WEEK_NUMBERS_MODE,
             allItems = enumEntries<WeekNumbersMode>(),
+            maxItemsDisplayed = 2,
+            schemes = schemes
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        SettingsDropdown(
+            expanded = expanded,
+            selectedItem = selectedNotificationsMode,
+            settingsParam = SettingsParam.NOTIFICATIONS_MODE,
+            allItems = enumEntries<NotificationsMode>(),
             maxItemsDisplayed = 2,
             schemes = schemes
         )

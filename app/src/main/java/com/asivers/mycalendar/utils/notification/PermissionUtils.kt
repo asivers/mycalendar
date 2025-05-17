@@ -1,4 +1,4 @@
-package com.asivers.mycalendar.utils
+package com.asivers.mycalendar.utils.notification
 
 import android.Manifest
 import android.app.Activity

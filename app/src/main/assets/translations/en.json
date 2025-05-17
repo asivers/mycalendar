@@ -64,6 +64,11 @@
     "off": "Off",
     "on": "On"
   },
+  "notificationsModesParam": "Notifications mode",
+  "notificationsModes": {
+    "withRingtone": "Push & ringtone",
+    "withoutRingtone": "Just push"
+  },
   "makeNote": "Make a note",
   "saveNote": "Save",
   "deleteNote": "Delete",

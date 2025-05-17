@@ -1,9 +1,10 @@
 package com.asivers.mycalendar.utils.proto
 
 import android.content.Context
-import com.asivers.mycalendar.data.proto.SavedSettingsOuterClass
+import com.asivers.mycalendar.data.proto.SavedSettingsOuterClass.*
 import com.asivers.mycalendar.enums.Country
 import com.asivers.mycalendar.enums.ExistingLocale
+import com.asivers.mycalendar.enums.NotificationsMode
 import com.asivers.mycalendar.enums.SettingsItem
 import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.enums.UserTheme
@@ -14,40 +15,47 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import java.util.Locale
 
-fun getSavedSettings(ctx: Context): SavedSettingsOuterClass.SavedSettings {
+fun getSavedSettings(ctx: Context): SavedSettings {
     return runBlocking { ctx.savedSettingsDataStore.data.first() }
 }
 
-fun getSavedCountry(savedSettings: SavedSettingsOuterClass.SavedSettings): Country {
+fun getSavedCountry(savedSettings: SavedSettings): Country {
     return if (savedSettings.country.isEmpty())
         Country.NO_DISPLAY
     else
         Country.valueOf(savedSettings.country)
 }
 
-fun getSavedTheme(savedSettings: SavedSettingsOuterClass.SavedSettings): UserTheme {
+fun getSavedTheme(savedSettings: SavedSettings): UserTheme {
     return if (savedSettings.theme.isEmpty())
         UserTheme.CHANGE_BY_SEASON
     else
         UserTheme.valueOf(savedSettings.theme)
 }
 
-fun getSavedWeekendMode(savedSettings: SavedSettingsOuterClass.SavedSettings): WeekendMode {
+fun getSavedWeekendMode(savedSettings: SavedSettings): WeekendMode {
     return if (savedSettings.weekendMode.isEmpty())
         WeekendMode.SATURDAY_SUNDAY
     else
         WeekendMode.valueOf(savedSettings.weekendMode)
 }
 
-fun getSavedWeekNumbersMode(savedSettings: SavedSettingsOuterClass.SavedSettings): WeekNumbersMode {
+fun getSavedWeekNumbersMode(savedSettings: SavedSettings): WeekNumbersMode {
     return if (savedSettings.weekNumbersMode.isEmpty())
         WeekNumbersMode.OFF
     else
         WeekNumbersMode.valueOf(savedSettings.weekNumbersMode)
 }
 
+fun getSavedNotificationsMode(savedSettings: SavedSettings): NotificationsMode {
+    return if (savedSettings.notificationsMode.isEmpty())
+        NotificationsMode.WITH_RINGTONE
+    else
+        NotificationsMode.valueOf(savedSettings.notificationsMode)
+}
+
 fun getSavedLocale(
-    savedSettings: SavedSettingsOuterClass.SavedSettings,
+    savedSettings: SavedSettings,
     systemLocale: Locale,
     ctx: Context
 ): ExistingLocale {
@@ -76,6 +84,7 @@ fun updateOneSetting(
                 SettingsParam.USER_THEME -> builder.setTheme(value)
                 SettingsParam.WEEKEND_MODE -> builder.setWeekendMode(value)
                 SettingsParam.WEEK_NUMBERS_MODE -> builder.setWeekNumbersMode(value)
+                SettingsParam.NOTIFICATIONS_MODE -> builder.setNotificationsMode(value)
             }
             builder.build()
         }

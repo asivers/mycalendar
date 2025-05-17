@@ -2,7 +2,6 @@ package com.asivers.mycalendar.receivers
 
 import android.Manifest
 import android.app.AlarmManager
-import android.app.Notification
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,14 +13,15 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.asivers.mycalendar.MainActivity
 import com.asivers.mycalendar.R
-import com.asivers.mycalendar.utils.ALARM_ACTION
-import com.asivers.mycalendar.utils.ALARM_MESSAGE_EXTRA
-import com.asivers.mycalendar.utils.IS_EVERY_YEAR_EXTRA
-import com.asivers.mycalendar.utils.NOTE_ID_EXTRA
-import com.asivers.mycalendar.utils.NOTIFICATION_CHANNEL_ID
-import com.asivers.mycalendar.utils.isNeededToRequestScheduleExactAlarmPermission
-import com.asivers.mycalendar.utils.resetAllAlarms
-import com.asivers.mycalendar.utils.resetExactAlarmForNextYear
+import com.asivers.mycalendar.utils.notification.ALARM_ACTION
+import com.asivers.mycalendar.utils.notification.ALARM_MESSAGE_EXTRA
+import com.asivers.mycalendar.utils.notification.IS_EVERY_YEAR_EXTRA
+import com.asivers.mycalendar.utils.notification.NOTE_ID_EXTRA
+import com.asivers.mycalendar.utils.notification.getFlagsForNotificationChannel
+import com.asivers.mycalendar.utils.notification.getNotificationChannelId
+import com.asivers.mycalendar.utils.notification.isNeededToRequestScheduleExactAlarmPermission
+import com.asivers.mycalendar.utils.notification.resetAllAlarms
+import com.asivers.mycalendar.utils.notification.resetExactAlarmForNextYear
 
 class AlarmReceiver : BroadcastReceiver() {
 
@@ -40,7 +40,8 @@ class AlarmReceiver : BroadcastReceiver() {
                 val pendingIntent: PendingIntent = PendingIntent.getActivity(
                     ctx, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
 
-                val builder = NotificationCompat.Builder(ctx, NOTIFICATION_CHANNEL_ID)
+                val notificationChannelId = getNotificationChannelId(ctx)
+                val builder = NotificationCompat.Builder(ctx, notificationChannelId)
                     .setSmallIcon(R.drawable.notification_calendar)
                     .setContentTitle("My Calendar Notification")
                     .setContentText(alarmMessage)
@@ -52,7 +53,7 @@ class AlarmReceiver : BroadcastReceiver() {
                         ctx, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
                 if (notificationsAllowed) {
                     val notification = builder.build().apply {
-                        flags = Notification.FLAG_AUTO_CANCEL or Notification.FLAG_INSISTENT
+                        flags = getFlagsForNotificationChannel(notificationChannelId)
                     }
                     NotificationManagerCompat.from(ctx).notify(noteId, notification)
                 }
@@ -61,6 +62,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     resetExactAlarmForNextYear(ctx, noteId, alarmMessage)
                 }
             }
+            // todo process timezone changed
             AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED,
             Intent.ACTION_MY_PACKAGE_REPLACED,
             Intent.ACTION_BOOT_COMPLETED,

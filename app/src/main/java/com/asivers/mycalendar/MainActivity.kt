@@ -38,21 +38,21 @@ import com.asivers.mycalendar.utils.animateContentOnViewChange
 import com.asivers.mycalendar.utils.animateHeaderOnViewChange
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
-import com.asivers.mycalendar.utils.createNotificationChannel
 import com.asivers.mycalendar.utils.getBackgroundGradient
 import com.asivers.mycalendar.utils.getColorSchemeByMonthValue
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
 import com.asivers.mycalendar.utils.getOnDaySelectedCallback
-import com.asivers.mycalendar.utils.getPermissionTypeToShowWarningRevoked
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
+import com.asivers.mycalendar.utils.notification.createNotificationChannels
+import com.asivers.mycalendar.utils.notification.getPermissionTypeToShowWarningRevoked
+import com.asivers.mycalendar.utils.notification.registerNotificationPermissionRequestLauncher
 import com.asivers.mycalendar.utils.proto.getSavedCountry
 import com.asivers.mycalendar.utils.proto.getSavedLocale
 import com.asivers.mycalendar.utils.proto.getSavedSettings
 import com.asivers.mycalendar.utils.proto.getSavedTheme
 import com.asivers.mycalendar.utils.proto.getSavedWeekNumbersMode
 import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
-import com.asivers.mycalendar.utils.registerNotificationPermissionRequestLauncher
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalSharedTransitionApi::class)
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
             val ctx = LocalContext.current
 
             ContextCompat.getSystemService(ctx, Vibrator::class.java)?.cancel()
-            createNotificationChannel(ctx)
+            createNotificationChannels(ctx)
 
             val systemLocale = LocalConfiguration.current.locales[0]
             val savedSettings = getSavedSettings(ctx)

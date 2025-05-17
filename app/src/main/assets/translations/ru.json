@@ -64,6 +64,11 @@
     "off": "Не показывать",
     "on": "Показывать"
   },
+  "notificationsModesParam": "Режим уведомлений",
+  "notificationsModes": {
+    "withRingtone": "Push с рингтоном",
+    "withoutRingtone": "Push"
+  },
   "makeNote": "Создать заметку",
   "saveNote": "Сохранить",
   "deleteNote": "Удалить",

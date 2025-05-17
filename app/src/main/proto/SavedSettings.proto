@@ -8,4 +8,5 @@ message SavedSettings {
   string theme = 3;
   string weekendMode = 4;
   string weekNumbersMode = 5;
+  string notificationsMode = 6;
 }
