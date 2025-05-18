@@ -77,6 +77,7 @@
   "dismiss": "Dismiss",
   "confirm": "Confirm",
   "ok": "OK",
+  "goToSettings": "Go to settings",
   "requestAlarmPermission": "The app requests a permission to schedule alarms",
   "explainNotificationPermissionDenied": "Permission to send notifications has been denied by the user. To use notifications, enable permission to send notifications in your device settings",
   "explainNotificationPermissionRevoked": "Permission to send notifications has been revoked by the user. Existing notifications will not work. To use notifications, enable permission to send notifications in your device settings",

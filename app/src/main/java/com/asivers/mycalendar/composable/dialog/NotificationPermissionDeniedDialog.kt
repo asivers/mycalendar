@@ -12,8 +12,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.utils.notification.startRequestNotificationPermissionIntent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,6 +24,7 @@ fun PermissionDeniedDialog(
     onCloseDialog: () -> Unit,
     schemes: SchemeContainer
 ) {
+    val ctx = LocalContext.current
     BasicAlertDialog(
         modifier = modifier,
         onDismissRequest = { onCloseDialog() }
@@ -37,7 +40,15 @@ fun PermissionDeniedDialog(
                         .align(Alignment.End)
                 ) {
                     TextButton(onClick = { onCloseDialog() }) {
-                        Text(text = schemes.translation.ok)
+                        Text(text = schemes.translation.dismiss)
+                    }
+                    TextButton(
+                        onClick = {
+                            startRequestNotificationPermissionIntent(ctx)
+                            onCloseDialog()
+                        }
+                    ) {
+                        Text(text = schemes.translation.goToSettings)
                     }
                 }
             }

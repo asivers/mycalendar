@@ -1,8 +1,5 @@
 package com.asivers.mycalendar.composable.dialog
 
-import android.content.Intent
-import android.os.Build
-import android.provider.Settings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -18,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.SchemeContainer
-import androidx.core.net.toUri
+import com.asivers.mycalendar.utils.notification.startRequestExactAlarmPermissionIntent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,14 +45,8 @@ fun AlarmPermissionDialog(
                     }
                     TextButton(
                         onClick = {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                val intent = Intent(
-                                    Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM,
-                                    ("package:" + ctx.packageName).toUri()
-                                )
-                                ctx.startActivity(intent)
-                                onStartPermissionIntent()
-                            }
+                            startRequestExactAlarmPermissionIntent(ctx)
+                            onStartPermissionIntent()
                             onCloseDialog()
                         }
                     ) {
