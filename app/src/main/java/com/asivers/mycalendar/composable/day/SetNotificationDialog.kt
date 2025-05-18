@@ -89,7 +89,7 @@ fun SetNotificationDialog(
         ) {
             Card(
                 modifier = modifier
-                    .height(200.dp) // item height * 3 + 50
+                    .height(205.dp) // item height * 3 + 55
                     .width(160.dp),
                 shape = RoundedCornerShape(16.dp)
             ) {

@@ -60,8 +60,8 @@ fun TimeSelector(
         Image(
             painter = painterResource(id = R.drawable.save_check_mark),
             modifier = Modifier
-                .padding(9.dp)
-                .size(32.dp) // total height 50
+                .padding(0.dp, 9.dp, 0.dp, 14.dp)
+                .size(32.dp) // total height 55
                 .alpha(if (isConfirmEnabled) 1f else 0.4f)
                 .noRippleClickable {
                     if (isConfirmEnabled) onConfirm(notificationTimeState.value)
