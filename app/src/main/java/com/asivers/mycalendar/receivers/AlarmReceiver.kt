@@ -61,6 +61,7 @@ class AlarmReceiver : BroadcastReceiver() {
                     .setContentText(alarmMessage)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setContentIntent(pendingIntent)
+                    .setStyle(NotificationCompat.BigTextStyle())
                     .build()
                     .apply {
                         flags = getFlagsForNotificationChannel(notificationChannelId)
