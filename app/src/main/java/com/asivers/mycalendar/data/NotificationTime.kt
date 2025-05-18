@@ -10,9 +10,9 @@ data class NotificationTime(
     val minute: Int
 ): Comparable<NotificationTime> {
 
-    constructor(time: LocalTime): this(
-        hour = time.hour,
-        minute = time.minute
+    constructor(localTime: LocalTime): this(
+        hour = localTime.hour,
+        minute = localTime.minute
     )
 
     constructor(

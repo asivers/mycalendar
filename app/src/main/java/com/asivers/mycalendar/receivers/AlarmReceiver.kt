@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.asivers.mycalendar.MainActivity
 import com.asivers.mycalendar.R
+import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.notification.ALARM_ACTION
 import com.asivers.mycalendar.utils.notification.ALARM_MESSAGE_EXTRA
 import com.asivers.mycalendar.utils.notification.IS_EVERY_YEAR_EXTRA
@@ -22,6 +23,8 @@ import com.asivers.mycalendar.utils.notification.getNotificationChannelId
 import com.asivers.mycalendar.utils.notification.isNeededToRequestScheduleExactAlarmPermission
 import com.asivers.mycalendar.utils.notification.resetAllAlarms
 import com.asivers.mycalendar.utils.notification.resetExactAlarmForNextYear
+import com.asivers.mycalendar.utils.proto.editNote
+import java.time.LocalDate
 
 class AlarmReceiver : BroadcastReceiver() {
 
@@ -30,9 +33,20 @@ class AlarmReceiver : BroadcastReceiver() {
         if (ctx == null || intent == null) return
         when (intent.action) {
             ALARM_ACTION -> {
+                val noteId = intent.getIntExtra(NOTE_ID_EXTRA, 0)
                 val alarmMessage = intent.getStringExtra(ALARM_MESSAGE_EXTRA) ?: ""
                 val isEveryYear = intent.getBooleanExtra(IS_EVERY_YEAR_EXTRA, false)
-                val noteId = intent.getIntExtra(NOTE_ID_EXTRA, 0)
+
+                val notificationsAllowed = (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+                        || PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(
+                            ctx, Manifest.permission.POST_NOTIFICATIONS)
+
+                if (!notificationsAllowed) {
+                    if (isEveryYear) {
+                        resetExactAlarmForNextYear(ctx, noteId, alarmMessage)
+                    }
+                    return
+                }
 
                 val mainActivityIntent = Intent(ctx, MainActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -41,25 +55,29 @@ class AlarmReceiver : BroadcastReceiver() {
                     ctx, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
 
                 val notificationChannelId = getNotificationChannelId(ctx)
-                val builder = NotificationCompat.Builder(ctx, notificationChannelId)
+                val notification = NotificationCompat.Builder(ctx, notificationChannelId)
                     .setSmallIcon(R.drawable.notification_calendar)
                     .setContentTitle("My Calendar Notification")
                     .setContentText(alarmMessage)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setContentIntent(pendingIntent)
-
-                val notificationsAllowed = (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) ||
-                    ActivityCompat.checkSelfPermission(
-                        ctx, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
-                if (notificationsAllowed) {
-                    val notification = builder.build().apply {
+                    .build()
+                    .apply {
                         flags = getFlagsForNotificationChannel(notificationChannelId)
                     }
-                    NotificationManagerCompat.from(ctx).notify(noteId, notification)
-                }
+                NotificationManagerCompat.from(ctx).notify(noteId, notification)
 
                 if (isEveryYear) {
                     resetExactAlarmForNextYear(ctx, noteId, alarmMessage)
+                } else {
+                    editNote(
+                        ctx = ctx,
+                        selectedDateInfo = SelectedDateInfo(LocalDate.now()),
+                        id = noteId,
+                        msg = alarmMessage,
+                        isEveryYear = false,
+                        notificationTime = null
+                    )
                 }
             }
             // todo process timezone changed

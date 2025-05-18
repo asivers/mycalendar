@@ -35,9 +35,7 @@ import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
-import com.asivers.mycalendar.utils.date.isInFuture
 import com.asivers.mycalendar.utils.noRippleClickable
-import com.asivers.mycalendar.utils.proto.editNote
 import com.asivers.mycalendar.utils.proto.removeNote
 import com.asivers.mycalendar.utils.withAlpha
 import com.asivers.mycalendar.utils.withDragToRight
@@ -73,20 +71,6 @@ fun ExistingNotes(
                         .noRippleClickable { onClickToNote(noteInfo) }
                         .withDragToRight(horizontalOffset, 125f),
                     noteInfo = noteInfo,
-                    selectedDateInfo = selectedDateInfo,
-                    onCleanupCompletedNotification = {
-                        val updatedNoteInfo = editNote(
-                            ctx = ctx,
-                            selectedDateInfo = selectedDateInfo,
-                            id = noteInfo.id,
-                            msg = noteInfo.msg,
-                            isEveryYear = false,
-                            notificationTime = null
-                        )
-                        val index = mutableNotes.indexOfFirst { it.id == noteInfo.id }
-                        mutableNotes.removeAt(index)
-                        mutableNotes.add(index, updatedNoteInfo)
-                    },
                     schemes = schemes
                 )
                 if (horizontalOffset.floatValue == 125f) {
@@ -112,8 +96,6 @@ fun ExistingNotes(
 fun OneSavedNote(
     modifier: Modifier = Modifier,
     noteInfo: NoteInfo,
-    selectedDateInfo: SelectedDateInfo,
-    onCleanupCompletedNotification: () -> Unit,
     schemes: SchemeContainer
 ) {
     Row(
@@ -145,18 +127,14 @@ fun OneSavedNote(
             )
         }
         if (noteInfo.notificationTime != null) {
-            if (!noteInfo.isEveryYear && !isInFuture(selectedDateInfo, noteInfo.notificationTime)) {
-                onCleanupCompletedNotification()
-            } else {
-                Icon(
-                    imageVector = Icons.Filled.Notifications,
-                    modifier = Modifier
-                        .padding(4.dp, 0.dp, 0.dp, 0.dp)
-                        .size(24.dp),
-                    contentDescription = "Note with notification icon",
-                    tint = schemes.color.text
-                )
-            }
+            Icon(
+                imageVector = Icons.Filled.Notifications,
+                modifier = Modifier
+                    .padding(4.dp, 0.dp, 0.dp, 0.dp)
+                    .size(24.dp),
+                contentDescription = "Note with notification icon",
+                tint = schemes.color.text
+            )
         }
     }
 }

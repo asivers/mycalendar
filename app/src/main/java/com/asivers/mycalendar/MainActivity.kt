@@ -47,12 +47,15 @@ import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
 import com.asivers.mycalendar.utils.notification.createNotificationChannels
 import com.asivers.mycalendar.utils.notification.getPermissionTypeToShowWarningRevoked
 import com.asivers.mycalendar.utils.notification.registerNotificationPermissionRequestLauncher
+import com.asivers.mycalendar.utils.proto.cleanupAllNotificationsInPast
+import com.asivers.mycalendar.utils.proto.getInfoAboutAllNotificationsInPast
 import com.asivers.mycalendar.utils.proto.getSavedCountry
 import com.asivers.mycalendar.utils.proto.getSavedLocale
 import com.asivers.mycalendar.utils.proto.getSavedSettings
 import com.asivers.mycalendar.utils.proto.getSavedTheme
 import com.asivers.mycalendar.utils.proto.getSavedWeekNumbersMode
 import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
+import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalSharedTransitionApi::class)
@@ -82,7 +85,8 @@ class MainActivity : ComponentActivity() {
                 val selectedWeekendMode = remember { mutableStateOf(savedWeekendMode) }
                 val selectedWeekNumbersMode = remember { mutableStateOf(savedWeekNumbersMode) }
 
-                val selectedDateState = remember { mutableStateOf(SelectedDateInfo()) }
+                val today = LocalDate.now()
+                val selectedDateState = remember { mutableStateOf(SelectedDateInfo(today)) }
                 val viewShownState = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) }
 
                 val countryHolidayScheme = getHolidaySchemeForCountry(
@@ -192,7 +196,11 @@ class MainActivity : ComponentActivity() {
                 }
                 if (permissionTypeToShowWarningRevoked.value != null) {
                     PermissionRevokedDialog(
-                        onCloseDialog = { permissionTypeToShowWarningRevoked.value = null },
+                        onCloseDialog = {
+                            val notificationsInPast = getInfoAboutAllNotificationsInPast(ctx)
+                            cleanupAllNotificationsInPast(ctx, notificationsInPast)
+                            permissionTypeToShowWarningRevoked.value = null
+                        },
                         permissionType = permissionTypeToShowWarningRevoked.value,
                         schemes = schemes
                     )

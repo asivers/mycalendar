@@ -2,28 +2,11 @@ package com.asivers.mycalendar.utils.proto
 
 import android.content.Context
 import com.asivers.mycalendar.data.NoteInfo
+import com.asivers.mycalendar.data.NoteInfoWithDate
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.proto.SavedNotesOuterClass.SavedNotes.*
 import com.asivers.mycalendar.serializers.savedNotesDataStore
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-
-fun getNotes(
-    ctx: Context,
-    selectedDateInfo: SelectedDateInfo
-): List<NoteInfo> {
-    val allNotesForMonthAndDay = runBlocking { ctx.savedNotesDataStore.data.first() }
-        .forMonthList
-        .find { it.monthValue == selectedDateInfo.monthValue }
-        ?.forDayList
-        ?.find { it.dayOfMonth == selectedDateInfo.dayOfMonth }
-        ?.notesList
-        ?: listOf<Note>()
-    return allNotesForMonthAndDay
-        .filter { it.forYear == 0 || it.forYear == selectedDateInfo.year }
-        .map { NoteInfo(it) }
-        .sorted()
-}
 
 fun addNote(
     ctx: Context,
@@ -93,6 +76,27 @@ fun removeNote(
             removeNoteFromBuilder(forDayBuilder, id)
         }
     )
+}
+
+fun cleanupAllNotificationsInPast(ctx: Context, notificationsInPast: List<NoteInfoWithDate>) {
+    notificationsInPast.forEach { noteInfoWithDate ->
+        val noteInfo = noteInfoWithDate.noteInfo
+        val note = Note.newBuilder()
+            .setId(noteInfo.id)
+            .setMsg(noteInfo.msg)
+            .setForYear(noteInfoWithDate.year ?: 0)
+            .setNotificationTime(null)
+            .build()
+        changeNotesList(
+            ctx = ctx,
+            monthValue = noteInfoWithDate.monthValue,
+            dayOfMonth = noteInfoWithDate.dayOfMonth,
+            operation = { forDayBuilder ->
+                removeNoteFromBuilder(forDayBuilder, noteInfo.id)
+                forDayBuilder.addNotes(note)
+            }
+        )
+    }
 }
 
 private fun changeNotesList(
