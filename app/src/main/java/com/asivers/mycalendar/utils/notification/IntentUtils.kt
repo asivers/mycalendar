@@ -25,13 +25,7 @@ fun startRequestExactAlarmPermissionIntent(ctx: Context) {
 
 fun startRequestNotificationPermissionIntent(ctx: Context) {
     val intent = Intent()
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-        intent.putExtra(Settings.EXTRA_APP_PACKAGE, ctx.packageName)
-    } else {
-        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS")
-        intent.putExtra("app_package", ctx.packageName)
-        intent.putExtra("app_uid", ctx.applicationInfo.uid)
-    }
+    intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+    intent.putExtra(Settings.EXTRA_APP_PACKAGE, ctx.packageName)
     ctx.startActivity(intent)
 }

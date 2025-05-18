@@ -6,7 +6,6 @@ import android.app.NotificationManager
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.RingtoneManager
-import android.os.Build
 import androidx.core.content.ContextCompat
 import com.asivers.mycalendar.enums.NotificationsMode
 import com.asivers.mycalendar.utils.proto.getSavedNotificationsMode
@@ -45,36 +44,32 @@ fun getFlagsForNotificationChannel(channelId: String): Int {
 }
 
 private fun createNotificationChannelWithRingtone(ctx: Context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val channelId = NOTIFICATION_CHANNEL_WITH_RINGTONE_ID
-        val channelName = "My Calendar notification channel with ringtone"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(channelId, channelName, importance).apply {
-            description = "My Calendar notification channel with ringtone"
-            vibrationPattern = LongArray(120) { 500 }
-        }
-        channel.setSound(
-            RingtoneManager.getActualDefaultRingtoneUri(ctx, RingtoneManager.TYPE_RINGTONE),
-            AudioAttributes.Builder()
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                .build()
-        )
-        ContextCompat.getSystemService(ctx, NotificationManager::class.java)
-            ?.createNotificationChannel(channel)
+    val channelId = NOTIFICATION_CHANNEL_WITH_RINGTONE_ID
+    val channelName = "My Calendar notification channel with ringtone"
+    val importance = NotificationManager.IMPORTANCE_DEFAULT
+    val channel = NotificationChannel(channelId, channelName, importance).apply {
+        description = "My Calendar notification channel with ringtone"
+        vibrationPattern = LongArray(120) { 500 }
     }
+    channel.setSound(
+        RingtoneManager.getActualDefaultRingtoneUri(ctx, RingtoneManager.TYPE_RINGTONE),
+        AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+            .build()
+    )
+    ContextCompat.getSystemService(ctx, NotificationManager::class.java)
+        ?.createNotificationChannel(channel)
 }
 
 private fun createNotificationChannelWithoutRingtone(ctx: Context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val channelId = NOTIFICATION_CHANNEL_WITHOUT_RINGTONE_ID
-        val channelName = "My Calendar notification channel without ringtone"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(channelId, channelName, importance).apply {
-            description = "My Calendar notification channel without ringtone"
-            vibrationPattern = longArrayOf(500)
-        }
-        ContextCompat.getSystemService(ctx, NotificationManager::class.java)
-            ?.createNotificationChannel(channel)
+    val channelId = NOTIFICATION_CHANNEL_WITHOUT_RINGTONE_ID
+    val channelName = "My Calendar notification channel without ringtone"
+    val importance = NotificationManager.IMPORTANCE_DEFAULT
+    val channel = NotificationChannel(channelId, channelName, importance).apply {
+        description = "My Calendar notification channel without ringtone"
+        vibrationPattern = longArrayOf(500)
     }
+    ContextCompat.getSystemService(ctx, NotificationManager::class.java)
+        ?.createNotificationChannel(channel)
 }
