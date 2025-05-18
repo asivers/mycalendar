@@ -80,13 +80,18 @@ class AlarmReceiver : BroadcastReceiver() {
                     )
                 }
             }
-            // todo process timezone changed
+            Intent.ACTION_TIMEZONE_CHANGED,
+            Intent.ACTION_TIME_CHANGED -> {
+                if (!isNeededToRequestScheduleExactAlarmPermission(ctx)) {
+                    resetAllAlarms(ctx = ctx, cancelExistingAlarms = true)
+                }
+            }
             AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED,
             Intent.ACTION_MY_PACKAGE_REPLACED,
             Intent.ACTION_BOOT_COMPLETED,
             "android.intent.action.QUICKBOOT_POWERON" -> {
                 if (!isNeededToRequestScheduleExactAlarmPermission(ctx)) {
-                    resetAllAlarms(ctx)
+                    resetAllAlarms(ctx = ctx, cancelExistingAlarms = false)
                 }
             }
             else -> {}

@@ -51,7 +51,8 @@ fun resetExactAlarmForNextYear(
 }
 
 fun resetAllAlarms(
-    ctx: Context
+    ctx: Context,
+    cancelExistingAlarms: Boolean
 ) {
     val noteInfosWithDates = getInfoAboutAllNotifications(ctx)
     for (noteInfoWithDate in noteInfosWithDates) {
@@ -61,6 +62,7 @@ fun resetAllAlarms(
         val noteInfo = noteInfoWithDate.noteInfo
         val notificationTime = noteInfo.notificationTime ?: continue
         val nextAlarmTime = getNextAlarmTime(year, monthValue, dayOfMonth, notificationTime)
+        if (cancelExistingAlarms) cancelExactAlarmIfExists(ctx, noteInfo.id)
         doSetExactAlarm(
             ctx = ctx,
             nextAlarmTime = nextAlarmTime ?: continue,
@@ -153,8 +155,6 @@ private fun getPendingIntent(
             putExtra(NOTE_ID_EXTRA, noteId)
         }
     }
-    val flag1 = PendingIntent.FLAG_CANCEL_CURRENT
-    val flag2 = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-        PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_IMMUTABLE
-    return PendingIntent.getBroadcast(ctx, noteId, alarmIntent, flag1 or flag2)
+    val flags = PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    return PendingIntent.getBroadcast(ctx, noteId, alarmIntent, flags)
 }
