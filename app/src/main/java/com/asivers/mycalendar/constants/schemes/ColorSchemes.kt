@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import com.asivers.mycalendar.data.scheme.ColorScheme
 
 val SUMMER = ColorScheme(
+    text = Color.White,
     viewsTop = Color(0xFF6A89A5),
     viewsBottom = Color(0xFF2F5226),
     yearViewBtnTop = Color(0xFF92D700),
@@ -12,6 +13,7 @@ val SUMMER = ColorScheme(
 )
 
 val AUTUMN = ColorScheme(
+    text = Color.White,
     viewsTop = Color(0xFF53877F),
     viewsBottom = Color(0xFF624823),
     yearViewBtnTop = Color(0xFFFCA600),
@@ -20,6 +22,7 @@ val AUTUMN = ColorScheme(
 )
 
 val WINTER = ColorScheme(
+    text = Color.White,
     viewsTop = Color(0xFFA45D5D),
     viewsBottom = Color(0xFF285743),
     yearViewBtnTop = Color(0xFF6B8DD5),
@@ -28,6 +31,7 @@ val WINTER = ColorScheme(
 )
 
 val SPRING = ColorScheme(
+    text = Color.White,
     viewsTop = Color(0xFF8A7791),
     viewsBottom = Color(0xFF464E25),
     yearViewBtnTop = Color(0xFFCAD500),
@@ -42,11 +46,14 @@ val LIGHT = ColorScheme(
     yearViewBtnTop = Color(0xFFBCCFEF),
     yearViewBtnBottom = Color(0xFFCFDDF4),
     brightElement = Color(0xFFFF7700),
-    monthOrSelectedItemInDropdown = Color(0xFF6A5858),
-    notSelectedYearInDropdown = Color(0xFFA5BEE9),
-    notSelectedSettingInDropdown = Color(0xFFA5BEE9),
-    inactiveSettingsGear = Color(0xFFA5BEE9),
-    selectedMonthOnYearView = Color.White
+    selectedItemInDropdown = Color(0xFF6A5858), // text
+    notSelectedYearInDropdown = Color(0xFFA5BEE9), // unique
+    notSelectedSettingInDropdown = Color(0xFFA5BEE9), // unique
+    inactiveSettingsGear = Color(0xFFA5BEE9), // unique
+    selectedMonthOnYearView = Color.White, // unique
+    dropdownBackground = Color.White, // unique
+    inputNoteBackground = Color(0x306A5858), // text with alpha
+    existingNoteBackground = Color(0xFFBCCFEF) // yearViewBtnTop
 )
 
 val EXPERIMENTAL = ColorScheme(
@@ -55,6 +62,5 @@ val EXPERIMENTAL = ColorScheme(
     viewsBottom = Color(0xFFDCDCDC),
     yearViewBtnTop = Color(0xFF2DBD88),
     yearViewBtnBottom = Color(0xFFB6CDC4),
-    brightElement = Color(0xFF21966C),
-    dropdownBackground = Color(0xFF4B3C3C)
+    brightElement = Color(0xFF21966C)
 )

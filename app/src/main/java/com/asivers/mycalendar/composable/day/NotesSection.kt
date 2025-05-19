@@ -142,7 +142,7 @@ fun NotesSectionOverviewMode(
             text = schemes.translation.makeNote,
             background = getNoteButtonGradient(schemes.color),
             schemes = schemes,
-            textColor = schemes.color.viewsBottom
+            textColor = schemes.color.selectedItemInDropdown
         )
     }
 }

@@ -54,7 +54,7 @@ fun InputNote(
         textStyle = TextStyle(
             fontSize = schemes.size.font.dropdownItem,
             fontFamily = MONTSERRAT_MEDIUM,
-            color = schemes.color.viewsBottom
+            color = schemes.color.selectedItemInDropdown
         )
     )
     LaunchedEffect(Unit) {

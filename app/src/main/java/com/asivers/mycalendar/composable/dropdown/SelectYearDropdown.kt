@@ -103,7 +103,7 @@ fun SelectYearDropdownList(
         ) {
             items(201) { yearIndex ->
                 val color = if (thisYear == getYear(yearIndex))
-                    schemes.color.monthOrSelectedItemInDropdown
+                    schemes.color.selectedItemInDropdown
                 else
                     schemes.color.notSelectedYearInDropdown
                 DropdownMenuItem(

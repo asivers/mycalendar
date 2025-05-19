@@ -90,7 +90,7 @@ fun SelectMonthDropdownList(
                 text = {
                     Text(
                         text = monthName,
-                        color = schemes.color.monthOrSelectedItemInDropdown,
+                        color = schemes.color.selectedItemInDropdown,
                         fontFamily = MONTSERRAT_BOLD,
                         fontSize = schemes.size.font.dropdownItem
                     )

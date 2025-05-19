@@ -59,28 +59,28 @@ fun getYearViewButtonGradient(colorScheme: ColorScheme): Brush = Brush.verticalG
 
 fun getNoteButtonGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colors = listOf(
-        colorScheme.text,
-        colorScheme.text.withAlpha(0.67f)
+        colorScheme.inputNoteBackground,
+        colorScheme.inputNoteBackground.multiplyAlpha(0.67f)
     )
 )
 
 fun getNoteEditGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colors = listOf(
-        colorScheme.text,
-        colorScheme.text.withAlpha(0.8f)
+        colorScheme.inputNoteBackground,
+        colorScheme.inputNoteBackground.multiplyAlpha(0.8f)
     )
 )
 
 fun getNoteViewGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
     colors = listOf(
-        colorScheme.text.withAlpha(0.85f),
-        colorScheme.text.withAlpha(0.5f)
+        colorScheme.inputNoteBackground.multiplyAlpha(0.85f),
+        colorScheme.inputNoteBackground.multiplyAlpha(0.5f)
     )
 )
 
-fun Color.withAlpha(alpha: Float) = Color(
+fun Color.multiplyAlpha(alpha: Float) = Color(
     red = this.red,
     green = this.green,
     blue = this.blue,
-    alpha = alpha
+    alpha = this.alpha * alpha
 )

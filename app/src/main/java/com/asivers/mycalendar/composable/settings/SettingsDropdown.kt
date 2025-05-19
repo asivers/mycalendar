@@ -133,7 +133,7 @@ fun <T : SettingsItem> SettingsDropdownList(
     ) {
         translatedItemsNames.forEachIndexed { index, translatedItemName ->
             val color = if (selectedItemIndex == index)
-                schemes.color.monthOrSelectedItemInDropdown
+                schemes.color.selectedItemInDropdown
             else
                 schemes.color.notSelectedSettingInDropdown
             DropdownMenuItem(
@@ -186,7 +186,7 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
         ) {
             items(translatedItemsNames.size) { index ->
                 val color = if (selectedItemIndex == index)
-                    schemes.color.monthOrSelectedItemInDropdown
+                    schemes.color.selectedItemInDropdown
                 else
                     schemes.color.notSelectedSettingInDropdown
                 DropdownMenuItem(

@@ -37,7 +37,7 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.removeNote
-import com.asivers.mycalendar.utils.withAlpha
+import com.asivers.mycalendar.utils.multiplyAlpha
 import com.asivers.mycalendar.utils.withDragToRight
 
 @Composable
@@ -101,7 +101,7 @@ fun OneSavedNote(
     Row(
         modifier = modifier
             .clip(shape = RoundedCornerShape(8.dp))
-            .background(color = schemes.color.text.withAlpha(0.2f)) // todo adapt for different color schemes
+            .background(color = schemes.color.existingNoteBackground.multiplyAlpha(0.75f))
             .padding(8.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
