@@ -52,7 +52,7 @@ val LIGHT = ColorScheme(
     inactiveSettingsGear = Color(0xFFA5BEE9), // unique
     selectedMonthOnYearView = Color.White, // unique
     dropdownBackground = Color.White, // unique
-    inputNoteBackground = Color(0x306A5858), // text with alpha
+    inputNoteBackground = Color(0x206A5858), // text with alpha
     existingNoteBackground = Color(0xFFBCCFEF) // yearViewBtnTop
 )
 

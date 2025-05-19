@@ -17,6 +17,6 @@ data class ColorScheme(
     val selectedMonthOnYearView: Color = viewsTop,
     val dropdownBackground: Color = text,
     val inputNoteBackground: Color = text,
-    val existingNoteBackground: Color = text.multiplyAlpha(0.25f),
+    val existingNoteBackground: Color = text.multiplyAlpha(0.33f),
     val timeSelectorElement: Color = selectedItemInDropdown
 )

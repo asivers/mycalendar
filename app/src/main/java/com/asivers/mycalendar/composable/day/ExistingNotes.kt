@@ -101,7 +101,7 @@ fun OneSavedNote(
     Row(
         modifier = modifier
             .clip(shape = RoundedCornerShape(8.dp))
-            .background(color = schemes.color.existingNoteBackground.multiplyAlpha(0.75f))
+            .background(color = schemes.color.existingNoteBackground.multiplyAlpha(0.6f))
             .padding(8.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
