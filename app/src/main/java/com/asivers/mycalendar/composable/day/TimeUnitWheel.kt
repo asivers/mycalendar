@@ -90,7 +90,7 @@ fun NumberInTimeUnitWheel(
         modifier = modifier.alpha(alpha),
         text = item.toString().padStart(2, '0'),
         fontFamily = fontFamily,
-        color = schemes.color.selectedItemInDropdown,
+        color = schemes.color.timeSelectorElement,
         fontSize = fontSize
     )
 }

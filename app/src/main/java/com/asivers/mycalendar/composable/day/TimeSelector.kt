@@ -62,7 +62,7 @@ fun TimeSelector(
                 .height(1.dp)
                 .fillMaxWidth()
                 .alpha(0.4f),
-            color = schemes.color.selectedItemInDropdown
+            color = schemes.color.timeSelectorElement
         )
         val isConfirmEnabled = !shouldCompareToCurrentTime
                 || isInFuture(notificationTimeState.value)
@@ -82,7 +82,7 @@ fun TimeSelector(
                     .size(32.dp)
                     .alpha(if (isConfirmEnabled) 1f else 0.4f),
                 contentDescription = "Time selection button",
-                colorFilter = ColorFilter.tint(schemes.color.selectedItemInDropdown)
+                colorFilter = ColorFilter.tint(schemes.color.timeSelectorElement)
             )
         }
     }

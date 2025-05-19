@@ -62,5 +62,6 @@ val EXPERIMENTAL = ColorScheme(
     viewsBottom = Color(0xFFDCDCDC),
     yearViewBtnTop = Color(0xFF2DBD88),
     yearViewBtnBottom = Color(0xFFB6CDC4),
-    brightElement = Color(0xFF21966C)
+    brightElement = Color(0xFF21966C),
+    timeSelectorElement = Color(0xFF4B3C3C) // text
 )
