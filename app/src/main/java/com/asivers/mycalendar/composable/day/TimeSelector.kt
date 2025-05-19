@@ -1,12 +1,14 @@
 package com.asivers.mycalendar.composable.day
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
@@ -55,19 +57,33 @@ fun TimeSelector(
                 schemes = schemes
             )
         }
+        HorizontalDivider(
+            modifier = Modifier
+                .height(1.dp)
+                .fillMaxWidth()
+                .alpha(0.4f),
+            color = schemes.color.viewsBottom
+        )
         val isConfirmEnabled = !shouldCompareToCurrentTime
                 || isInFuture(notificationTimeState.value)
-        Image(
-            painter = painterResource(id = R.drawable.save_check_mark),
+        Box(
             modifier = Modifier
-                .padding(0.dp, 9.dp, 0.dp, 14.dp)
-                .size(32.dp) // total height 55
-                .alpha(if (isConfirmEnabled) 1f else 0.4f)
+                .height(54.dp)
+                .fillMaxWidth()
                 .noRippleClickable {
                     if (isConfirmEnabled) onConfirm(notificationTimeState.value)
                 },
-            contentDescription = "Time selection button",
-            colorFilter = ColorFilter.tint(schemes.color.viewsBottom)
-        )
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.save_check_mark),
+                modifier = Modifier
+                    .padding(0.dp, 0.dp, 0.dp, 3.dp)
+                    .size(32.dp)
+                    .alpha(if (isConfirmEnabled) 1f else 0.4f),
+                contentDescription = "Time selection button",
+                colorFilter = ColorFilter.tint(schemes.color.viewsBottom)
+            )
+        }
     }
 }

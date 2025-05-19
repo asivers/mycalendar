@@ -18,6 +18,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
 
@@ -82,12 +83,13 @@ fun NumberInTimeUnitWheel(
     schemes: SchemeContainer
 ) {
     val alpha = if (isSelected) 1f else 0.3f
+    val fontFamily = if (isSelected) MONTSERRAT_BOLD else MONTSERRAT_MEDIUM
     val fontSize = if (isSelected)
         schemes.size.font.main else schemes.size.font.dropdownItem
     Text(
         modifier = modifier.alpha(alpha),
         text = item.toString().padStart(2, '0'),
-        fontFamily = MONTSERRAT_MEDIUM,
+        fontFamily = fontFamily,
         color = schemes.color.viewsBottom,
         fontSize = fontSize
     )
