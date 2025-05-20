@@ -80,7 +80,7 @@ fun <T : SettingsItem> SettingsDropdown(
                         .alpha(if (enabled) 1f else 0.5f),
                     color = schemes.color.text,
                     fontFamily = MONTSERRAT_BOLD,
-                    fontSize = schemes.size.font.main
+                    fontSize = schemes.size.font.dropdownItem
                 )
                 if (allItems.size > maxItemsDisplayed) {
                     SettingsScrollableDropdownList(
