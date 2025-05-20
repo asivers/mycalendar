@@ -1,0 +1,87 @@
+{
+  "yearView": "Vista anual",
+  "months": [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"
+  ],
+  "daysOfWeek3": [
+    "Lun",
+    "Mar",
+    "Mié",
+    "Jue",
+    "Vie",
+    "Sáb",
+    "Dom"
+  ],
+  "daysOfWeek1": [
+    "L",
+    "M",
+    "X",
+    "J",
+    "V",
+    "S",
+    "D"
+  ],
+  "countriesParam": "Festivos por país",
+  "countries": {
+    "noDisplay": "No mostrar",
+    "russia": "Rusia",
+    "spain": "España"
+  },
+  "localesParam": "Idioma",
+  "locales": {
+    "en": "Inglés",
+    "es": "Español",
+    "ru": "Ruso"
+  },
+  "themesParam": "Tema",
+  "themes": {
+    "changeBySeason": "Cambiar por estación",
+    "summer": "Verano",
+    "autumn": "Otoño",
+    "winter": "Invierno",
+    "spring": "Primavera",
+    "light": "Claro",
+    "experimental": "Experimental"
+  },
+  "weekendModesParam": "Mostrar fines de semana",
+  "weekendModes": {
+    "saturdaySunday": "Sábado y domingo",
+    "onlySunday": "Solo domingo",
+    "noDisplay": "No mostrar"
+  },
+  "weekNumbersModesParam": "Mostrar números de semana",
+  "weekNumbersModes": {
+    "off": "Desactivado",
+    "on": "Activado"
+  },
+  "notificationsModesParam": "Modo de notificaciones",
+  "notificationsModes": {
+    "withRingtone": "Push y tono",
+    "withoutRingtone": "Solo push"
+  },
+  "makeNote": "Hacer una nota",
+  "saveNote": "Guardar",
+  "deleteNote": "Eliminar",
+  "switchEveryYear": "Cada año",
+  "switchNotification": "Notificación",
+  "dismiss": "Cerrar",
+  "confirm": "Confirmar",
+  "ok": "Aceptar",
+  "goToSettings": "Ir a configuración",
+  "requestAlarmPermission": "La aplicación solicita permiso para programar alarmas",
+  "explainNotificationPermissionDenied": "El usuario ha denegado el permiso para enviar notificaciones. Para usar notificaciones, habilita el permiso en la configuración del dispositivo",
+  "explainNotificationPermissionRevoked": "El permiso para enviar notificaciones ha sido revocado por el usuario. Las notificaciones existentes no funcionarán. Para usar notificaciones, habilita el permiso en la configuración del dispositivo",
+  "explainAlarmPermissionRevoked": "El permiso para programar alarmas ha sido revocado por el usuario. Las notificaciones existentes no funcionarán. Para usar notificaciones, habilita el permiso en la configuración del dispositivo",
+  "alarmInPastToast": "No es posible establecer una alarma de notificación en el pasado"
+}

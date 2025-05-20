@@ -41,6 +41,7 @@
   "localesParam": "Language",
   "locales": {
     "en": "English",
+    "es": "Spanish",
     "ru": "Russian"
   },
   "themesParam": "Theme",
