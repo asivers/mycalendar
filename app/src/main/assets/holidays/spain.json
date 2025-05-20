@@ -23,6 +23,51 @@
         }
     },
     "oneTime": {
+        "2015": {
+            "4": {
+                "3": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2016": {
+            "3": {
+                "25": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2017": {
+            "4": {
+                "14": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2018": {
+            "3": {
+                "30": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2019": {
+            "4": {
+                "19": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2020": {
+            "4": {
+                "10": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2021": {
+            "4": {
+                "2": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2022": {
+            "4": {
+                "15": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2023": {
+            "4": {
+                "7": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
         "2024": {
             "3": {
                 "29": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
@@ -31,6 +76,56 @@
         "2025": {
             "4": {
                 "18": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2026": {
+            "4": {
+                "3": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2027": {
+            "3": {
+                "26": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2028": {
+            "4": {
+                "14": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2029": {
+            "3": {
+                "30": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2030": {
+            "4": {
+                "19": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2031": {
+            "4": {
+                "11": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2032": {
+            "3": {
+                "26": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2033": {
+            "4": {
+                "15": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2034": {
+            "4": {
+                "7": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+            }
+        },
+        "2035": {
+            "3": {
+                "23": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
             }
         }
     }
