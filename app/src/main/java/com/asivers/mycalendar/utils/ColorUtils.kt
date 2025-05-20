@@ -71,12 +71,15 @@ fun getNoteEditGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradien
     )
 )
 
-fun getNoteViewGradient(colorScheme: ColorScheme): Brush = Brush.verticalGradient(
-    colors = listOf(
-        colorScheme.inputNoteBackground.multiplyAlpha(0.85f),
-        colorScheme.inputNoteBackground.multiplyAlpha(0.5f)
+fun getNoteViewGradient(colorScheme: ColorScheme): Brush {
+    val isExperimental = colorScheme.id == "EXPERIMENTAL"
+    return Brush.verticalGradient(
+        colors = listOf(
+            colorScheme.inputNoteBackground.multiplyAlpha(if (isExperimental) 0.95f else 0.85f),
+            colorScheme.inputNoteBackground.multiplyAlpha(if (isExperimental) 0.8f else 0.5f)
+        )
     )
-)
+}
 
 fun Color.multiplyAlpha(alpha: Float) = Color(
     red = this.red,

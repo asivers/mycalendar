@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import com.asivers.mycalendar.utils.multiplyAlpha
 
 data class ColorScheme(
+    val id: String,
     val text: Color,
     val viewsTop: Color, // all views top gradient, year view selected month
     val viewsBottom: Color, // all views bottom gradient, month dropdown item, current year dropdown item, inactive settings gear

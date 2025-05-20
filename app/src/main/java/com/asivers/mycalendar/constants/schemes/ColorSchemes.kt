@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import com.asivers.mycalendar.data.scheme.ColorScheme
 
 val SUMMER = ColorScheme(
+    id = "SUMMER",
     text = Color.White,
     viewsTop = Color(0xFF6A89A5),
     viewsBottom = Color(0xFF2F5226),
@@ -13,6 +14,7 @@ val SUMMER = ColorScheme(
 )
 
 val AUTUMN = ColorScheme(
+    id = "AUTUMN",
     text = Color.White,
     viewsTop = Color(0xFF53877F),
     viewsBottom = Color(0xFF624823),
@@ -22,6 +24,7 @@ val AUTUMN = ColorScheme(
 )
 
 val WINTER = ColorScheme(
+    id = "WINTER",
     text = Color.White,
     viewsTop = Color(0xFFA45D5D),
     viewsBottom = Color(0xFF285743),
@@ -31,6 +34,7 @@ val WINTER = ColorScheme(
 )
 
 val SPRING = ColorScheme(
+    id = "SPRING",
     text = Color.White,
     viewsTop = Color(0xFF8A7791),
     viewsBottom = Color(0xFF464E25),
@@ -40,6 +44,7 @@ val SPRING = ColorScheme(
 )
 
 val LIGHT = ColorScheme(
+    id = "LIGHT",
     text = Color(0xFF6A5858),
     viewsTop = Color(0xFFE5EAF2),
     viewsBottom = Color(0xFFE5EAF2),
@@ -57,6 +62,7 @@ val LIGHT = ColorScheme(
 )
 
 val EXPERIMENTAL = ColorScheme(
+    id = "EXPERIMENTAL",
     text = Color(0xFF4B3C3C),
     viewsTop = Color(0xFFCED28C),
     viewsBottom = Color(0xFFDCDCDC),
