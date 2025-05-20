@@ -81,6 +81,12 @@ fun getNoteViewGradient(colorScheme: ColorScheme): Brush {
     )
 }
 
+fun getExistingNoteBackgroundAlpha(colorScheme: ColorScheme): Float {
+    if (colorScheme.id == "LIGHT") return 0.6f
+    if (colorScheme.id == "EXPERIMENTAL") return 0.1f
+    return 0.2f
+}
+
 fun Color.multiplyAlpha(alpha: Float) = Color(
     red = this.red,
     green = this.green,

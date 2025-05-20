@@ -1,7 +1,6 @@
 package com.asivers.mycalendar.data.scheme
 
 import androidx.compose.ui.graphics.Color
-import com.asivers.mycalendar.utils.multiplyAlpha
 
 data class ColorScheme(
     val id: String,
@@ -18,6 +17,6 @@ data class ColorScheme(
     val selectedMonthOnYearView: Color = viewsTop,
     val dropdownBackground: Color = text,
     val inputNoteBackground: Color = text,
-    val existingNoteBackground: Color = text.multiplyAlpha(0.33f),
+    val existingNoteBackground: Color = text,
     val timeSelectorElement: Color = selectedItemInDropdown
 )

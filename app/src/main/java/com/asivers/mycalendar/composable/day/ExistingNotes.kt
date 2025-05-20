@@ -35,9 +35,10 @@ import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
+import com.asivers.mycalendar.utils.getExistingNoteBackgroundAlpha
+import com.asivers.mycalendar.utils.multiplyAlpha
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.removeNote
-import com.asivers.mycalendar.utils.multiplyAlpha
 import com.asivers.mycalendar.utils.withDragToRight
 
 @Composable
@@ -98,10 +99,11 @@ fun OneSavedNote(
     noteInfo: NoteInfo,
     schemes: SchemeContainer
 ) {
+    val backgroundAlpha = getExistingNoteBackgroundAlpha(schemes.color)
     Row(
         modifier = modifier
             .clip(shape = RoundedCornerShape(8.dp))
-            .background(color = schemes.color.existingNoteBackground.multiplyAlpha(0.6f))
+            .background(schemes.color.existingNoteBackground.multiplyAlpha(backgroundAlpha))
             .padding(8.dp)
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
