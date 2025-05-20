@@ -22,10 +22,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.utils.getInsetsVerticalPaddingDp
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Composable
@@ -76,15 +78,16 @@ fun SelectMonthDropdownList(
     onMonthSelected: (Int) -> Unit,
     schemes: SchemeContainer
 ) {
+    val screenHeightDp = LocalConfiguration.current.screenHeightDp
+    val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 17
     DropdownMenu(
         expanded = isExpanded.value,
         onDismissRequest = {
             isExpanded.value = false
         },
-        modifier = modifier.background(schemes.color.dropdownBackground)
+        modifier = modifier.background(schemes.color.dropdownBackground),
+        offset = DpOffset(x = 0.dp, y = 0.dp)
     ) {
-        val screenHeightDp = LocalConfiguration.current.screenHeightDp
-        val itemHeightDp = (screenHeightDp - 32) / 17
         schemes.translation.months.forEachIndexed { index, monthName ->
             DropdownMenuItem(
                 text = {

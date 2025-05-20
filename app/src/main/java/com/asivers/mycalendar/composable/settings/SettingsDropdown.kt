@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
@@ -36,6 +37,7 @@ import com.asivers.mycalendar.enums.SettingsParam
 import com.asivers.mycalendar.utils.getTranslatedSettingsItemName
 import com.asivers.mycalendar.utils.getTranslatedSettingsItemsNames
 import com.asivers.mycalendar.utils.getTranslatedSettingsParamName
+import com.asivers.mycalendar.utils.getInsetsVerticalPaddingDp
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.updateOneSetting
 
@@ -122,14 +124,15 @@ fun <T : SettingsItem> SettingsDropdownList(
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
-    val itemHeightDp = (screenHeightDp - 32) / 17
+    val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 17
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
     val ctx = LocalContext.current
     DropdownMenu(
         expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
-        modifier = modifier.background(schemes.color.dropdownBackground)
+        modifier = modifier.background(schemes.color.dropdownBackground),
+        offset = DpOffset(x = 0.dp, y = 0.dp)
     ) {
         translatedItemsNames.forEachIndexed { index, translatedItemName ->
             val color = if (selectedItemIndex == index)
@@ -169,14 +172,15 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
-    val itemHeightDp = (screenHeightDp - 32) / 17 // todo change
+    val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 17 // todo change
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
     val ctx = LocalContext.current
     DropdownMenu(
         expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
-        modifier = modifier.background(schemes.color.dropdownBackground)
+        modifier = modifier.background(schemes.color.dropdownBackground),
+        offset = DpOffset(x = 0.dp, y = 0.dp)
     ) {
         LazyColumn(
             modifier = Modifier

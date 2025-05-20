@@ -1,6 +1,11 @@
 package com.asivers.mycalendar.utils
 
 import android.content.res.Configuration
+import android.os.Build
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Density
 import com.asivers.mycalendar.constants.schemes.size.FONT_SCHEME_BIG
 import com.asivers.mycalendar.constants.schemes.size.FONT_SCHEME_SMALL
@@ -67,4 +72,14 @@ fun getIndentFromHeaderDp(screenHeightDp: Int): Int {
     // todo add to the new scheme
     // 112 (fixed value) = 48 (settings header) + 64 (year view button)
     return (screenHeightDp - 112) / 24
+}
+
+@Composable
+fun getInsetsVerticalPaddingDp(): Float {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        val insets = WindowInsets.systemBars.asPaddingValues()
+        return (insets.calculateTopPadding() + insets.calculateBottomPadding()).value
+    } else {
+        return 0f
+    }
 }

@@ -33,6 +33,7 @@ import com.asivers.mycalendar.R
 import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.utils.getInsetsVerticalPaddingDp
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Composable
@@ -86,7 +87,7 @@ fun SelectYearDropdownList(
     schemes: SchemeContainer
 ) {
     val screenHeightDp = LocalConfiguration.current.screenHeightDp
-    val itemHeightDp = (screenHeightDp - 32) / 18
+    val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 18
     DropdownMenu(
         expanded = isExpanded.value,
         onDismissRequest = {
