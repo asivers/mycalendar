@@ -12,6 +12,10 @@ enum class ExistingLocale(
         assetName = "es",
         translationKey = "es"
     ),
+    FR(
+        assetName = "fr",
+        translationKey = "fr"
+    ),
     RU(
         assetName = "ru",
         translationKey = "ru"

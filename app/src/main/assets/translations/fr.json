@@ -1,0 +1,89 @@
+{
+  "yearView": "Vue annuelle",
+  "months": [
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre"
+  ],
+  "daysOfWeek3": [
+    "Lun",
+    "Mar",
+    "Mer",
+    "Jeu",
+    "Ven",
+    "Sam",
+    "Dim"
+  ],
+  "daysOfWeek1": [
+    "L",
+    "M",
+    "M",
+    "J",
+    "V",
+    "S",
+    "D"
+  ],
+  "countriesParam": "Jours fériés par pays",
+  "countries": {
+    "noDisplay": "Ne pas afficher",
+    "france": "France",
+    "russia": "Russie",
+    "spain": "Espagne"
+  },
+  "localesParam": "Langue",
+  "locales": {
+    "en": "Anglais",
+    "es": "Espagnol",
+    "fr": "Français",
+    "ru": "Russe"
+  },
+  "themesParam": "Thème",
+  "themes": {
+    "changeBySeason": "Changer selon la saison",
+    "summer": "Été",
+    "autumn": "Automne",
+    "winter": "Hiver",
+    "spring": "Printemps",
+    "light": "Clair",
+    "experimental": "Expérimental"
+  },
+  "weekendModesParam": "Afficher les week-ends",
+  "weekendModes": {
+    "saturdaySunday": "Samedi et dimanche",
+    "onlySunday": "Dimanche seulement",
+    "noDisplay": "Ne pas afficher"
+  },
+  "weekNumbersModesParam": "Afficher les numéros de semaine",
+  "weekNumbersModes": {
+    "off": "Désactivé",
+    "on": "Activé"
+  },
+  "notificationsModesParam": "Mode de notifications",
+  "notificationsModes": {
+    "withRingtone": "Notification + sonnerie",
+    "withoutRingtone": "Notification seule"
+  },
+  "makeNote": "Prendre une note",
+  "saveNote": "Enregistrer",
+  "deleteNote": "Supprimer",
+  "switchEveryYear": "Chaque année",
+  "switchNotification": "Notification",
+  "dismiss": "Fermer",
+  "confirm": "Confirmer",
+  "ok": "OK",
+  "goToSettings": "Aller aux paramètres",
+  "requestAlarmPermission": "L'application demande l'autorisation de programmer des alarmes",
+  "explainNotificationPermissionDenied": "L'utilisateur a refusé l'autorisation d'envoyer des notifications. Pour utiliser les notifications, activez cette autorisation dans les paramètres de votre appareil",
+  "explainNotificationPermissionRevoked": "L'utilisateur a révoqué l'autorisation d'envoyer des notifications. Les notifications existantes ne fonctionneront plus. Pour les utiliser, activez l'autorisation dans les paramètres de votre appareil",
+  "explainAlarmPermissionRevoked": "L'utilisateur a révoqué l'autorisation de programmer des alarmes. Les notifications existantes ne fonctionneront plus. Pour les utiliser, activez l'autorisation dans les paramètres de votre appareil",
+  "alarmInPastToast": "Il est impossible de programmer une alarme dans le passé"
+}

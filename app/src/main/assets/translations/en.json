@@ -43,6 +43,7 @@
   "locales": {
     "en": "English",
     "es": "Spanish",
+    "fr": "French",
     "ru": "Russian"
   },
   "themesParam": "Theme",
