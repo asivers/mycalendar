@@ -41,10 +41,10 @@
   },
   "localesParam": "Langue",
   "locales": {
-    "en": "Anglais",
-    "es": "Espagnol",
+    "en": "English",
+    "es": "Español",
     "fr": "Français",
-    "ru": "Russe"
+    "ru": "Русский"
   },
   "themesParam": "Thème",
   "themes": {

@@ -41,9 +41,9 @@
   },
   "localesParam": "Язык",
   "locales": {
-    "en": "Английский",
-    "es": "Испанский",
-    "fr": "Французский",
+    "en": "English",
+    "es": "Español",
+    "fr": "Français",
     "ru": "Русский"
   },
   "themesParam": "Тема",
