@@ -19,9 +19,5 @@ enum class Country(
     SPAIN(
         assetName = "spain",
         translationKey = "spain"
-    ),
-    SPAIN_REUS(
-        assetName = "spain_reus",
-        translationKey = "spain_reus" // actually not existing, to delete
     )
 }
