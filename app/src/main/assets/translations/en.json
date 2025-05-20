@@ -35,6 +35,7 @@
   "countriesParam": "Holidays for country",
   "countries": {
     "noDisplay": "Do not display",
+    "france": "France",
     "russia": "Russia",
     "spain": "Spain"
   },

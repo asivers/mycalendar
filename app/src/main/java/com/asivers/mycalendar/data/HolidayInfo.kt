@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class HolidayInfo(
     val en: String,
     val es: String? = null,
-    val ru: String? = null
+    val ru: String? = null,
+    val fr: String? = null
 )

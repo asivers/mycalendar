@@ -35,6 +35,7 @@
   "countriesParam": "Festivos por país",
   "countries": {
     "noDisplay": "No mostrar",
+    "france": "Francia",
     "russia": "Rusia",
     "spain": "España"
   },

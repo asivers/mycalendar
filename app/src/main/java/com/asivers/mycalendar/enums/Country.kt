@@ -8,6 +8,10 @@ enum class Country(
         assetName = null,
         translationKey = "noDisplay"
     ),
+    FRANCE(
+        assetName = "france",
+        translationKey = "france"
+    ),
     RUSSIA(
         assetName = "russia",
         translationKey = "russia"

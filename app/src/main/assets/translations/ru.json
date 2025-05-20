@@ -35,6 +35,7 @@
   "countriesParam": "Праздники страны",
   "countries": {
     "noDisplay": "Не показывать",
+    "france": "Франция",
     "russia": "Россия",
     "spain": "Испания"
   },
