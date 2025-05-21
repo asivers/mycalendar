@@ -14,9 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
@@ -105,8 +102,7 @@ fun OneSavedNote(
             .clip(shape = RoundedCornerShape(8.dp))
             .background(schemes.color.existingNoteBackground.multiplyAlpha(backgroundAlpha))
             .padding(8.dp)
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+            .fillMaxWidth()
     ) {
         Text(
             modifier = Modifier.weight(1f),
@@ -129,13 +125,13 @@ fun OneSavedNote(
             )
         }
         if (noteInfo.notificationTime != null) {
-            Icon(
-                imageVector = Icons.Filled.Notifications,
-                modifier = Modifier
-                    .padding(4.dp, 0.dp, 0.dp, 0.dp)
-                    .size(24.dp),
+            Image(
+                painter = painterResource(id = R.drawable.notify_bell),
+                colorFilter = ColorFilter.tint(schemes.color.text),
                 contentDescription = "Note with notification icon",
-                tint = schemes.color.text
+                modifier = Modifier
+                    .padding(4.dp, 2.dp, 0.dp, 0.dp)
+                    .size(21.dp)
             )
         }
     }
