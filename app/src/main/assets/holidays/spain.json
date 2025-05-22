@@ -1,131 +1,131 @@
 {
     "everyYear": {
         "1": {
-            "1": { "holiday": { "en": "New Year's Day", "es": "Año Nuevo" } },
-            "6": { "holiday": { "en": "Epiphany", "es": "Epifanía del Señor" } }
+            "1": { "en": "New Year's Day", "es": "Año Nuevo" },
+            "6": { "en": "Epiphany", "es": "Epifanía del Señor" }
         },
         "5": {
-            "1": { "holiday": { "en": "Labour Day", "es": "Día del Trabajador" } }
+            "1": { "en": "Labour Day", "es": "Día del Trabajador" }
         },
         "8": {
-            "15": { "holiday": { "en": "Assumption", "es": "Asunción" } }
+            "15": { "en": "Assumption", "es": "Asunción" }
         },
         "10": {
-            "12": { "holiday": { "en": "National Day of Spain", "es": "Fiesta Nacional de España" } }
+            "12": { "en": "National Day of Spain", "es": "Fiesta Nacional de España" }
         },
         "11": {
-            "1": { "holiday": { "en": "All Saints' Day", "es": "Día de todos los Santos" } }
+            "1": { "en": "All Saints' Day", "es": "Día de todos los Santos" }
         },
         "12": {
-            "6": { "holiday": { "en": "Constitution Day", "es": "Dia de la Constitucion Espanola" } },
-            "8": { "holiday": { "en": "Immaculate Conception", "es": "Inmaculada Concepción" } },
-            "25": { "holiday": { "en": "Christmas Day", "es": "Navidad" } }
+            "6": { "en": "Constitution Day", "es": "Dia de la Constitucion Espanola" },
+            "8": { "en": "Immaculate Conception", "es": "Inmaculada Concepción" },
+            "25": { "en": "Christmas Day", "es": "Navidad" }
         }
     },
     "oneTime": {
         "2015": {
             "4": {
-                "3": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "3": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2016": {
             "3": {
-                "25": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "25": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2017": {
             "4": {
-                "14": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "14": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2018": {
             "3": {
-                "30": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "30": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2019": {
             "4": {
-                "19": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "19": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2020": {
             "4": {
-                "10": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "10": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2021": {
             "4": {
-                "2": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "2": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2022": {
             "4": {
-                "15": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "15": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2023": {
             "4": {
-                "7": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "7": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2024": {
             "3": {
-                "29": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "29": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2025": {
             "4": {
-                "18": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "18": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2026": {
             "4": {
-                "3": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "3": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2027": {
             "3": {
-                "26": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "26": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2028": {
             "4": {
-                "14": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "14": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2029": {
             "3": {
-                "30": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "30": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2030": {
             "4": {
-                "19": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "19": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2031": {
             "4": {
-                "11": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "11": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2032": {
             "3": {
-                "26": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "26": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2033": {
             "4": {
-                "15": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "15": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2034": {
             "4": {
-                "7": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "7": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         },
         "2035": {
             "3": {
-                "23": { "holiday": { "en": "Good Friday", "es": "Viernes Santo" } }
+                "23": { "en": "Good Friday", "es": "Viernes Santo" }
             }
         }
     }

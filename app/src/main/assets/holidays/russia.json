@@ -1,65 +1,65 @@
 {
   "everyYear": {
     "1": {
-      "1": { "holiday": { "en": "New Year's Day", "ru": "Новый год" } },
-      "2": { "holiday": { "en": "New Year holiday", "ru": "Новогодние каникулы" } },
-      "3": { "holiday": { "en": "New Year holiday", "ru": "Новогодние каникулы" } },
-      "4": { "holiday": { "en": "New Year holiday", "ru": "Новогодние каникулы" } },
-      "5": { "holiday": { "en": "New Year holiday", "ru": "Новогодние каникулы" } },
-      "6": { "holiday": { "en": "New Year holiday", "ru": "Новогодние каникулы" } },
-      "7": { "holiday": { "en": "Orthodox Christmas", "ru": "Рождество Христово" } },
-      "8": { "holiday": { "en": "New Year holiday", "ru": "Новогодние каникулы" } }
+      "1": { "en": "New Year's Day", "ru": "Новый год" },
+      "2": { "en": "New Year holiday", "ru": "Новогодние каникулы" },
+      "3": { "en": "New Year holiday", "ru": "Новогодние каникулы" },
+      "4": { "en": "New Year holiday", "ru": "Новогодние каникулы" },
+      "5": { "en": "New Year holiday", "ru": "Новогодние каникулы" },
+      "6": { "en": "New Year holiday", "ru": "Новогодние каникулы" },
+      "7": { "en": "Orthodox Christmas", "ru": "Рождество Христово" },
+      "8": { "en": "New Year holiday", "ru": "Новогодние каникулы" }
     },
     "2": {
-      "23": { "holiday": { "en": "Defender of the Fatherland Day", "ru": "День защитника Отечества" } }
+      "23": { "en": "Defender of the Fatherland Day", "ru": "День защитника Отечества" }
     },
     "3": {
-      "8": { "holiday": { "en": "International Women's Day", "ru": "Международный женский день" } }
+      "8": { "en": "International Women's Day", "ru": "Международный женский день" }
     },
     "5": {
-      "1": { "holiday": { "en": "Spring and Labour Day", "ru": "Праздник Весны и Труда" } },
-      "9": { "holiday": { "en": "Victory Day", "ru": "День Победы" } }
+      "1": { "en": "Spring and Labour Day", "ru": "Праздник Весны и Труда" },
+      "9": { "en": "Victory Day", "ru": "День Победы" }
     },
     "6": {
-      "12": { "holiday": { "en": "Russia Day", "ru": "День России" } }
+      "12": { "en": "Russia Day", "ru": "День России" }
     },
     "11": {
-      "4": { "holiday": { "en": "Unity Day", "ru": "День народного единства" } }
+      "4": { "en": "Unity Day", "ru": "День народного единства" }
     }
   },
   "oneTime": {
     "2024": {
       "4": {
-        "27": { "notHoliday": { "en": "Working Saturday", "ru": "Рабочая суббота" } },
-        "29": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } },
-        "30": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } }
+        "27": { "en": "Working Saturday", "ru": "Рабочая суббота", "notHoliday": true },
+        "29": { "en": "Non-working day", "ru": "Нерабочий день" },
+        "30": { "en": "Non-working day", "ru": "Нерабочий день" }
       },
       "5": {
-        "10": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } }
+        "10": { "en": "Non-working day", "ru": "Нерабочий день" }
       },
       "11": {
-        "2": { "notHoliday": { "en": "Working Saturday", "ru": "Рабочая суббота" } }
+        "2": { "en": "Working Saturday", "ru": "Рабочая суббота", "notHoliday": true }
       },
       "12": {
-        "28": { "notHoliday": { "en": "Working Saturday", "ru": "Рабочая суббота" } },
-        "30": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } },
-        "31": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } }
+        "28": { "en": "Working Saturday", "ru": "Рабочая суббота", "notHoliday": true },
+        "30": { "en": "Non-working day", "ru": "Нерабочий день" },
+        "31": { "en": "Non-working day", "ru": "Нерабочий день" }
       }
     },
     "2025": {
       "5": {
-        "2": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } },
-        "8": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } }
+        "2": { "en": "Non-working day", "ru": "Нерабочий день" },
+        "8": { "en": "Non-working day", "ru": "Нерабочий день" }
       },
       "6": {
-        "13": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } }
+        "13": { "en": "Non-working day", "ru": "Нерабочий день" }
       },
       "11": {
-        "1": { "notHoliday": { "en": "Working Saturday", "ru": "Рабочая суббота" } },
-        "3": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } }
+        "1": { "en": "Working Saturday", "ru": "Рабочая суббота", "notHoliday": true },
+        "3": { "en": "Non-working day", "ru": "Нерабочий день" }
       },
       "12": {
-        "31": { "holiday": { "en": "Non-working day", "ru": "Нерабочий день" } }
+        "31": { "en": "Non-working day", "ru": "Нерабочий день" }
       }
     }
   }

@@ -1,232 +1,232 @@
 {
   "everyYear": {
     "1": {
-      "1": { "holiday": { "en": "New Year's Day", "fr": "Jour de l'An" } }
+      "1": { "en": "New Year's Day", "fr": "Jour de l'An" }
     },
     "5": {
-      "1": { "holiday": { "en": "Labour Day", "fr": "Fête du Travail" } },
-      "8": { "holiday": { "en": "Victory in Europe Day", "fr": "Fête de la Victoire" } }
+      "1": { "en": "Labour Day", "fr": "Fête du Travail" },
+      "8": { "en": "Victory in Europe Day", "fr": "Fête de la Victoire" }
     },
     "7": {
-      "14": { "holiday": { "en": "Bastille Day", "fr": "Fête Nationale Française" } }
+      "14": { "en": "Bastille Day", "fr": "Fête Nationale Française" }
     },
     "8": {
-      "15": { "holiday": { "en": "Assumption", "fr": "Assomption" } }
+      "15": { "en": "Assumption", "fr": "Assomption" }
     },
     "11": {
-      "1": { "holiday": { "en": "All Saints' Day", "fr": "Toussaint" } },
-      "11": { "holiday": { "en": "Armistice Day", "fr": "Jour d'armistice" } }
+      "1": { "en": "All Saints' Day", "fr": "Toussaint" },
+      "11": { "en": "Armistice Day", "fr": "Jour d'armistice" }
     },
     "12": {
-      "25": { "holiday": { "en": "Christmas Day", "fr": "Noël" } }
+      "25": { "en": "Christmas Day", "fr": "Noël" }
     }
   },
   "oneTime": {
     "2015": {
       "4": {
-        "6": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "6": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "14": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "25": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "14": { "en": "Ascension", "fr": "Ascension" },
+        "25": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2016": {
       "3": {
-        "28": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "28": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "5": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "16": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "5": { "en": "Ascension", "fr": "Ascension" },
+        "16": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2017": {
       "4": {
-        "17": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "17": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "25": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "25": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "5": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "5": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2018": {
       "4": {
-        "2": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "2": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "10": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "21": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "10": { "en": "Ascension", "fr": "Ascension" },
+        "21": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2019": {
       "4": {
-        "22": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "22": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "30": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "30": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "10": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "10": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2020": {
       "4": {
-        "13": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "13": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "21": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "21": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "1": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "1": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2021": {
       "4": {
-        "5": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "5": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "13": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "24": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "13": { "en": "Ascension", "fr": "Ascension" },
+        "24": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2022": {
       "4": {
-        "18": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "18": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "26": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "26": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "6": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "6": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2023": {
       "4": {
-        "10": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "10": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "18": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "29": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "18": { "en": "Ascension", "fr": "Ascension" },
+        "29": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2024": {
       "4": {
-        "1": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "1": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "9": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "20": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "9": { "en": "Ascension", "fr": "Ascension" },
+        "20": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2025": {
       "4": {
-        "21": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "21": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "29": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "29": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "9": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "9": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2026": {
       "4": {
-        "6": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "6": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "14": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "25": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "14": { "en": "Ascension", "fr": "Ascension" },
+        "25": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2027": {
       "3": {
-        "29": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "29": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "6": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "17": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "6": { "en": "Ascension", "fr": "Ascension" },
+        "17": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2028": {
       "4": {
-        "17": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "17": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "25": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "25": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "5": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "5": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2029": {
       "4": {
-        "2": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "2": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "10": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "21": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "10": { "en": "Ascension", "fr": "Ascension" },
+        "21": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2030": {
       "4": {
-        "22": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "22": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "30": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "30": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "10": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "10": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2031": {
       "4": {
-        "14": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "14": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "22": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "22": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "2": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "2": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2032": {
       "3": {
-        "29": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "29": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "6": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "17": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "6": { "en": "Ascension", "fr": "Ascension" },
+        "17": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2033": {
       "4": {
-        "18": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "18": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "26": { "holiday": { "en": "Ascension", "fr": "Ascension" } }
+        "26": { "en": "Ascension", "fr": "Ascension" }
       },
       "6": {
-        "6": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "6": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2034": {
       "4": {
-        "10": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "10": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "18": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "29": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "18": { "en": "Ascension", "fr": "Ascension" },
+        "29": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
     "2035": {
       "3": {
-        "26": { "holiday": { "en": "Easter Monday", "fr": "Lundi de Pâques" } }
+        "26": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "3": { "holiday": { "en": "Ascension", "fr": "Ascension" } },
-        "14": { "holiday": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" } }
+        "3": { "en": "Ascension", "fr": "Ascension" },
+        "14": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     }
   }

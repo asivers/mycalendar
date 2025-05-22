@@ -36,6 +36,6 @@ fun getHolidayInfoForDay(
     val year = selectedDateInfo.year
     val monthValue = selectedDateInfo.monthValue
     val dayOfMonth = selectedDateInfo.dayOfMonth
-    return countryHolidayScheme.everyYear[monthValue]?.get(dayOfMonth)?.holiday
-        ?: countryHolidayScheme.oneTime[year]?.get(monthValue)?.get(dayOfMonth)?.holiday
+    return countryHolidayScheme.everyYear[monthValue]?.get(dayOfMonth)
+        ?: countryHolidayScheme.oneTime[year]?.get(monthValue)?.get(dayOfMonth)
 }
