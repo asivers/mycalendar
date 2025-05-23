@@ -184,7 +184,7 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
     ) {
         LazyColumn(
             modifier = Modifier
-                .height((maxItemsDisplayed * itemHeightDp).dp)
+                .height(((maxItemsDisplayed - 0.5) * itemHeightDp).dp)
                 .width(205.dp), // todo adapt for different size schemes
             state = LazyListState(selectedItemIndex)
         ) {

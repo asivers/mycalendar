@@ -1,0 +1,105 @@
+{
+  "yearView": "Vista annuale",
+  "months": [
+    "Gennaio",
+    "Febbraio",
+    "Marzo",
+    "Aprile",
+    "Maggio",
+    "Giugno",
+    "Luglio",
+    "Agosto",
+    "Settembre",
+    "Ottobre",
+    "Novembre",
+    "Dicembre"
+  ],
+  "daysOfWeek3": [
+    "Lun",
+    "Mar",
+    "Mer",
+    "Gio",
+    "Ven",
+    "Sab",
+    "Dom"
+  ],
+  "daysOfWeek1": [
+    "L",
+    "M",
+    "M",
+    "G",
+    "V",
+    "S",
+    "D"
+  ],
+  "countriesParam": "Festività per paese",
+  "countries": {
+    "noDisplay": "Non visualizzare",
+    "argentina": "Argentina",
+    "brazil": "Brasile",
+    "canada": "Canada",
+    "england": "Inghilterra",
+    "france": "Francia",
+    "germany": "Germania",
+    "india": "India",
+    "italy": "Italia",
+    "mexico": "Messico",
+    "russia": "Russia",
+    "serbia": "Serbia",
+    "spain": "Spagna",
+    "turkey": "Turchia",
+    "usa": "USA"
+  },
+  "localesParam": "Lingua",
+  "locales": {
+    "en": "English",
+    "de": "Deutsch",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
+  },
+  "themesParam": "Tema",
+  "themes": {
+    "changeBySeason": "Cambia con le stagioni",
+    "summer": "Estate",
+    "autumn": "Autunno",
+    "winter": "Inverno",
+    "spring": "Primavera",
+    "light": "Chiaro",
+    "experimental": "Sperimentale"
+  },
+  "weekendModesParam": "Mostra fine settimana",
+  "weekendModes": {
+    "saturdaySunday": "Sabato e Domenica",
+    "onlySunday": "Solo Domenica",
+    "noDisplay": "Non visualizzare"
+  },
+  "weekNumbersModesParam": "Mostra numero settimana",
+  "weekNumbersModes": {
+    "off": "Disattivato",
+    "on": "Attivato"
+  },
+  "notificationsModesParam": "Modalità notifiche",
+  "notificationsModes": {
+    "withRingtone": "Push e suoneria",
+    "withoutRingtone": "Solo push"
+  },
+  "makeNote": "Aggiungi una nota",
+  "saveNote": "Salva",
+  "deleteNote": "Elimina",
+  "switchEveryYear": "Ogni anno",
+  "switchNotification": "Notifica",
+  "dismiss": "Ignora",
+  "confirm": "Conferma",
+  "ok": "OK",
+  "goToSettings": "Vai alle impostazioni",
+  "requestAlarmPermission": "L'app richiede l'autorizzazione per pianificare gli allarmi",
+  "explainNotificationPermissionDenied": "L'autorizzazione per inviare notifiche è stata negata dall'utente. Per utilizzare le notifiche, abilita l'autorizzazione nelle impostazioni del dispositivo",
+  "explainNotificationPermissionRevoked": "L'autorizzazione per inviare notifiche è stata revocata dall'utente. Le notifiche esistenti non funzioneranno. Per utilizzare le notifiche, abilita l'autorizzazione nelle impostazioni del dispositivo",
+  "explainAlarmPermissionRevoked": "L'autorizzazione per pianificare gli allarmi è stata revocata dall'utente. Le notifiche esistenti non funzioneranno. Per utilizzare le notifiche, abilita l'autorizzazione nelle impostazioni del dispositivo",
+  "alarmInPastToast": "Non è possibile impostare un allarme nel passato"
+}

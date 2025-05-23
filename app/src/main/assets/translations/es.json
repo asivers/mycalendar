@@ -35,16 +35,32 @@
   "countriesParam": "Festivos por país",
   "countries": {
     "noDisplay": "No mostrar",
+    "argentina": "Argentina",
+    "brazil": "Brasil",
+    "canada": "Canadá",
+    "england": "Inglaterra",
     "france": "Francia",
+    "germany": "Alemania",
+    "india": "India",
+    "italy": "Italia",
+    "mexico": "México",
     "russia": "Rusia",
-    "spain": "España"
+    "serbia": "Serbia",
+    "spain": "España",
+    "turkey": "Turquía",
+    "usa": "EEUU"
   },
   "localesParam": "Idioma",
   "locales": {
     "en": "English",
+    "de": "Deutsch",
     "es": "Español",
     "fr": "Français",
-    "ru": "Русский"
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
   },
   "themesParam": "Tema",
   "themes": {

@@ -1,0 +1,105 @@
+{
+  "yearView": "Jahresansicht",
+  "months": [
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"
+  ],
+  "daysOfWeek3": [
+    "Mo",
+    "Di",
+    "Mi",
+    "Do",
+    "Fr",
+    "Sa",
+    "So"
+  ],
+  "daysOfWeek1": [
+    "M",
+    "D",
+    "M",
+    "D",
+    "F",
+    "S",
+    "S"
+  ],
+  "countriesParam": "Feiertage für Land",
+  "countries": {
+    "noDisplay": "Nicht anzeigen",
+    "argentina": "Argentinien",
+    "brazil": "Brasilien",
+    "canada": "Kanada",
+    "england": "England",
+    "france": "Frankreich",
+    "germany": "Deutschland",
+    "india": "Indien",
+    "italy": "Italien",
+    "mexico": "Mexiko",
+    "russia": "Russland",
+    "serbia": "Serbien",
+    "spain": "Spanien",
+    "turkey": "Türkei",
+    "usa": "USA"
+  },
+  "localesParam": "Sprache",
+  "locales": {
+    "en": "English",
+    "de": "Deutsch",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
+  },
+  "themesParam": "Thema",
+  "themes": {
+    "changeBySeason": "Wechselt je nach Jahreszeit",
+    "summer": "Sommer",
+    "autumn": "Herbst",
+    "winter": "Winter",
+    "spring": "Frühling",
+    "light": "Hell",
+    "experimental": "Experimentell"
+  },
+  "weekendModesParam": "Wochenenden anzeigen",
+  "weekendModes": {
+    "saturdaySunday": "Samstag & Sonntag",
+    "onlySunday": "Nur Sonntag",
+    "noDisplay": "Nicht anzeigen"
+  },
+  "weekNumbersModesParam": "Wochennummern anzeigen",
+  "weekNumbersModes": {
+    "off": "Aus",
+    "on": "An"
+  },
+  "notificationsModesParam": "Benachrichtigungsmodus",
+  "notificationsModes": {
+    "withRingtone": "Push & Klingelton",
+    "withoutRingtone": "Nur Push"
+  },
+  "makeNote": "Notiz erstellen",
+  "saveNote": "Speichern",
+  "deleteNote": "Löschen",
+  "switchEveryYear": "Jedes Jahr",
+  "switchNotification": "Benachrichtigung",
+  "dismiss": "Verwerfen",
+  "confirm": "Bestätigen",
+  "ok": "OK",
+  "goToSettings": "Zu den Einstellungen",
+  "requestAlarmPermission": "Die App benötigt eine Berechtigung zum Planen von Alarmen",
+  "explainNotificationPermissionDenied": "Die Berechtigung zum Senden von Benachrichtigungen wurde vom Nutzer abgelehnt. Um Benachrichtigungen zu verwenden, aktivieren Sie die Berechtigung in den Geräteeinstellungen",
+  "explainNotificationPermissionRevoked": "Die Berechtigung zum Senden von Benachrichtigungen wurde vom Nutzer widerrufen. Bestehende Benachrichtigungen funktionieren nicht. Um Benachrichtigungen zu verwenden, aktivieren Sie die Berechtigung in den Geräteeinstellungen",
+  "explainAlarmPermissionRevoked": "Die Berechtigung zum Planen von Alarmen wurde vom Nutzer widerrufen. Bestehende Benachrichtigungen funktionieren nicht. Um Benachrichtigungen zu verwenden, aktivieren Sie die Berechtigung in den Geräteeinstellungen",
+  "alarmInPastToast": "Es ist nicht möglich, einen Alarm in der Vergangenheit zu setzen"
+}

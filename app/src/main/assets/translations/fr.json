@@ -35,16 +35,32 @@
   "countriesParam": "Jours fériés par pays",
   "countries": {
     "noDisplay": "Ne pas afficher",
+    "argentina": "Argentine",
+    "brazil": "Brésil",
+    "canada": "Canada",
+    "england": "Angleterre",
     "france": "France",
+    "germany": "Allemagne",
+    "india": "Inde",
+    "italy": "Italie",
+    "mexico": "Mexique",
     "russia": "Russie",
-    "spain": "Espagne"
+    "serbia": "Serbie",
+    "spain": "Espagne",
+    "turkey": "Turquie",
+    "usa": "USA"
   },
   "localesParam": "Langue",
   "locales": {
     "en": "English",
+    "de": "Deutsch",
     "es": "Español",
     "fr": "Français",
-    "ru": "Русский"
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
   },
   "themesParam": "Thème",
   "themes": {

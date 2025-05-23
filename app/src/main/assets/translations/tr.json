@@ -1,0 +1,105 @@
+{
+  "yearView": "Yıllık görünüm",
+  "months": [
+    "Ocak",
+    "Şubat",
+    "Mart",
+    "Nisan",
+    "Mayıs",
+    "Haziran",
+    "Temmuz",
+    "Ağustos",
+    "Eylül",
+    "Ekim",
+    "Kasım",
+    "Aralık"
+  ],
+  "daysOfWeek3": [
+    "Pzt",
+    "Sal",
+    "Çar",
+    "Per",
+    "Cum",
+    "Cmt",
+    "Paz"
+  ],
+  "daysOfWeek1": [
+    "P",
+    "S",
+    "Ç",
+    "P",
+    "C",
+    "C",
+    "P"
+  ],
+  "countriesParam": "Ülkeye göre tatiller",
+  "countries": {
+    "noDisplay": "Görüntüleme",
+    "argentina": "Arjantin",
+    "brazil": "Brezilya",
+    "canada": "Kanada",
+    "england": "İngiltere",
+    "france": "Fransa",
+    "germany": "Almanya",
+    "india": "Hindistan",
+    "italy": "İtalya",
+    "mexico": "Meksika",
+    "russia": "Rusya",
+    "serbia": "Sırbistan",
+    "spain": "İspanya",
+    "turkey": "Türkiye",
+    "usa": "ABD"
+  },
+  "localesParam": "Dil",
+  "locales": {
+    "en": "English",
+    "de": "Deutsch",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
+  },
+  "themesParam": "Tema",
+  "themes": {
+    "changeBySeason": "Mevsime göre değiştir",
+    "summer": "Yaz",
+    "autumn": "Sonbahar",
+    "winter": "Kış",
+    "spring": "İlkbahar",
+    "light": "Açık",
+    "experimental": "Deneysel"
+  },
+  "weekendModesParam": "Hafta sonlarını göster",
+  "weekendModes": {
+    "saturdaySunday": "Cumartesi ve Pazar",
+    "onlySunday": "Sadece Pazar",
+    "noDisplay": "Görüntüleme"
+  },
+  "weekNumbersModesParam": "Hafta numaralarını göster",
+  "weekNumbersModes": {
+    "off": "Kapalı",
+    "on": "Açık"
+  },
+  "notificationsModesParam": "Bildirim modu",
+  "notificationsModes": {
+    "withRingtone": "Bildirim ve zil sesi",
+    "withoutRingtone": "Sadece bildirim"
+  },
+  "makeNote": "Not ekle",
+  "saveNote": "Kaydet",
+  "deleteNote": "Sil",
+  "switchEveryYear": "Her yıl",
+  "switchNotification": "Bildirim",
+  "dismiss": "Kapat",
+  "confirm": "Onayla",
+  "ok": "Tamam",
+  "goToSettings": "Ayarlar'a git",
+  "requestAlarmPermission": "Uygulama, alarm planlama izni istemektedir",
+  "explainNotificationPermissionDenied": "Bildirim gönderme izni kullanıcı tarafından reddedildi. Bildirimleri kullanmak için cihaz ayarlarından izin vermelisiniz",
+  "explainNotificationPermissionRevoked": "Bildirim gönderme izni kullanıcı tarafından iptal edildi. Mevcut bildirimler çalışmayacaktır. Bildirimleri kullanmak için cihaz ayarlarından izin vermelisiniz",
+  "explainAlarmPermissionRevoked": "Alarm planlama izni kullanıcı tarafından iptal edildi. Mevcut bildirimler çalışmayacaktır. Bildirimleri kullanmak için cihaz ayarlarından izin vermelisiniz",
+  "alarmInPastToast": "Geçmişe alarm kurulamaz"
+}

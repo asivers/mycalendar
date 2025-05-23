@@ -1,0 +1,105 @@
+{
+  "yearView": "Годишњи приказ",
+  "months": [
+    "Јануар",
+    "Фебруар",
+    "Март",
+    "Април",
+    "Мај",
+    "Јун",
+    "Јул",
+    "Август",
+    "Септембар",
+    "Октобар",
+    "Новембар",
+    "Децембар"
+  ],
+  "daysOfWeek3": [
+    "Пон",
+    "Уто",
+    "Сре",
+    "Чет",
+    "Пет",
+    "Суб",
+    "Нед"
+  ],
+  "daysOfWeek1": [
+    "П",
+    "У",
+    "С",
+    "Ч",
+    "П",
+    "С",
+    "Н"
+  ],
+  "countriesParam": "Празници по држави",
+  "countries": {
+    "noDisplay": "Не приказуј",
+    "argentina": "Аргентина",
+    "brazil": "Бразил",
+    "canada": "Канада",
+    "england": "Енглеска",
+    "france": "Француска",
+    "germany": "Немачка",
+    "india": "Индија",
+    "italy": "Италија",
+    "mexico": "Мексико",
+    "russia": "Русија",
+    "serbia": "Србија",
+    "spain": "Шпанија",
+    "turkey": "Турска",
+    "usa": "САД"
+  },
+  "localesParam": "Језик",
+  "locales": {
+    "en": "English",
+    "de": "Deutsch",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
+  },
+  "themesParam": "Тема",
+  "themes": {
+    "changeBySeason": "Мењај по годишњем добу",
+    "summer": "Лето",
+    "autumn": "Јесен",
+    "winter": "Зима",
+    "spring": "Пролеће",
+    "light": "Светло",
+    "experimental": "Експериментално"
+  },
+  "weekendModesParam": "Прикажи викенде",
+  "weekendModes": {
+    "saturdaySunday": "Субота и Недеља",
+    "onlySunday": "Само Недеља",
+    "noDisplay": "Не приказуј"
+  },
+  "weekNumbersModesParam": "Прикажи број недеље",
+  "weekNumbersModes": {
+    "off": "Искључено",
+    "on": "Укључено"
+  },
+  "notificationsModesParam": "Режим обавештења",
+  "notificationsModes": {
+    "withRingtone": "Push и звук",
+    "withoutRingtone": "Само push"
+  },
+  "makeNote": "Додај белешку",
+  "saveNote": "Сачувај",
+  "deleteNote": "Обриши",
+  "switchEveryYear": "Сваке године",
+  "switchNotification": "Обавештење",
+  "dismiss": "Затвори",
+  "confirm": "Потврди",
+  "ok": "У реду",
+  "goToSettings": "Иди на подешавања",
+  "requestAlarmPermission": "Апликација захтева дозволу за заказивање аларма",
+  "explainNotificationPermissionDenied": "Дозвола за слање обавештења је одбијена од стране корисника. Да бисте користили обавештења, омогућите дозволу у подешавањима уређаја",
+  "explainNotificationPermissionRevoked": "Дозвола за слање обавештења је опозвана од стране корисника. Постојећа обавештења неће радити. Да бисте их користили, омогућите дозволу у подешавањима уређаја",
+  "explainAlarmPermissionRevoked": "Дозвола за заказивање аларма је опозвана од стране корисника. Постојећа обавештења неће радити. Да бисте их користили, омогућите дозволу у подешавањима уређаја",
+  "alarmInPastToast": "Није могуће подесити аларм у прошлости"
+}

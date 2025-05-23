@@ -35,16 +35,32 @@
   "countriesParam": "Holidays for country",
   "countries": {
     "noDisplay": "Do not display",
+    "argentina": "Argentina",
+    "brazil": "Brazil",
+    "canada": "Canada",
+    "england": "England",
     "france": "France",
+    "germany": "Germany",
+    "india": "India",
+    "italy": "Italy",
+    "mexico": "Mexico",
     "russia": "Russia",
-    "spain": "Spain"
+    "serbia": "Serbia",
+    "spain": "Spain",
+    "turkey": "Turkey",
+    "usa": "USA"
   },
   "localesParam": "Language",
   "locales": {
     "en": "English",
+    "de": "Deutsch",
     "es": "Español",
     "fr": "Français",
-    "ru": "Русский"
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
   },
   "themesParam": "Theme",
   "themes": {

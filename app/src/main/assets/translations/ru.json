@@ -35,16 +35,32 @@
   "countriesParam": "Праздники страны",
   "countries": {
     "noDisplay": "Не показывать",
+    "argentina": "Аргентина",
+    "brazil": "Бразилия",
+    "canada": "Канада",
+    "england": "Англия",
     "france": "Франция",
+    "germany": "Германия",
+    "india": "Индия",
+    "italy": "Италия",
+    "mexico": "Мексика",
     "russia": "Россия",
-    "spain": "Испания"
+    "serbia": "Сербия",
+    "spain": "Испания",
+    "turkey": "Турция",
+    "usa": "США"
   },
   "localesParam": "Язык",
   "locales": {
     "en": "English",
+    "de": "Deutsch",
     "es": "Español",
     "fr": "Français",
-    "ru": "Русский"
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
   },
   "themesParam": "Тема",
   "themes": {

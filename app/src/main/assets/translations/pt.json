@@ -1,0 +1,105 @@
+{
+  "yearView": "Visualização anual",
+  "months": [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+  ],
+  "daysOfWeek3": [
+    "Seg",
+    "Ter",
+    "Qua",
+    "Qui",
+    "Sex",
+    "Sáb",
+    "Dom"
+  ],
+  "daysOfWeek1": [
+    "S",
+    "T",
+    "Q",
+    "Q",
+    "S",
+    "S",
+    "D"
+  ],
+  "countriesParam": "Feriados por país",
+  "countries": {
+    "noDisplay": "Não exibir",
+    "argentina": "Argentina",
+    "brazil": "Brasil",
+    "canada": "Canadá",
+    "england": "Inglaterra",
+    "france": "França",
+    "germany": "Alemanha",
+    "india": "Índia",
+    "italy": "Itália",
+    "mexico": "México",
+    "russia": "Rússia",
+    "serbia": "Sérvia",
+    "spain": "Espanha",
+    "turkey": "Turquia",
+    "usa": "EUA"
+  },
+  "localesParam": "Idioma",
+  "locales": {
+    "en": "English",
+    "de": "Deutsch",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "pt": "Português",
+    "tr": "Türkçe",
+    "ru": "Русский",
+    "sr": "Српски"
+  },
+  "themesParam": "Tema",
+  "themes": {
+    "changeBySeason": "Mudar com as estações",
+    "summer": "Verão",
+    "autumn": "Outono",
+    "winter": "Inverno",
+    "spring": "Primavera",
+    "light": "Claro",
+    "experimental": "Experimental"
+  },
+  "weekendModesParam": "Mostrar fins de semana",
+  "weekendModes": {
+    "saturdaySunday": "Sábado e Domingo",
+    "onlySunday": "Apenas Domingo",
+    "noDisplay": "Não exibir"
+  },
+  "weekNumbersModesParam": "Mostrar número da semana",
+  "weekNumbersModes": {
+    "off": "Desativado",
+    "on": "Ativado"
+  },
+  "notificationsModesParam": "Modo de notificações",
+  "notificationsModes": {
+    "withRingtone": "Push e toque",
+    "withoutRingtone": "Apenas push"
+  },
+  "makeNote": "Criar nota",
+  "saveNote": "Salvar",
+  "deleteNote": "Excluir",
+  "switchEveryYear": "Todos os anos",
+  "switchNotification": "Notificação",
+  "dismiss": "Ignorar",
+  "confirm": "Confirmar",
+  "ok": "OK",
+  "goToSettings": "Ir para configurações",
+  "requestAlarmPermission": "O aplicativo solicita permissão para agendar alarmes",
+  "explainNotificationPermissionDenied": "A permissão para enviar notificações foi negada pelo usuário. Para usar notificações, ative a permissão nas configurações do dispositivo",
+  "explainNotificationPermissionRevoked": "A permissão para enviar notificações foi revogada pelo usuário. As notificações existentes não funcionarão. Para usar notificações, ative a permissão nas configurações do dispositivo",
+  "explainAlarmPermissionRevoked": "A permissão para agendar alarmes foi revogada pelo usuário. As notificações existentes não funcionarão. Para usar notificações, ative a permissão nas configurações do dispositivo",
+  "alarmInPastToast": "Não é possível definir um alarme para o passado"
+}

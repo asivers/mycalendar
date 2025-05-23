@@ -55,7 +55,7 @@ fun SettingsView(
             selectedItem = selectedCountry,
             settingsParam = SettingsParam.COUNTRY,
             allItems = enumEntries<Country>(),
-            maxItemsDisplayed = 14,
+            maxItemsDisplayed = 12,
             schemes = schemes
         )
         Spacer(modifier = Modifier.height(32.dp))
