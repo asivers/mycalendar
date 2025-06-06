@@ -35,6 +35,7 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.getExistingNoteBackgroundAlpha
 import com.asivers.mycalendar.utils.multiplyAlpha
 import com.asivers.mycalendar.utils.noRippleClickable
+import com.asivers.mycalendar.utils.notification.cancelExactAlarmIfExists
 import com.asivers.mycalendar.utils.proto.removeNote
 import com.asivers.mycalendar.utils.withDragToRight
 
@@ -77,6 +78,7 @@ fun ExistingNotes(
                         modifier = Modifier
                             .size(32.dp)
                             .noRippleClickable {
+                                cancelExactAlarmIfExists(ctx, noteInfo.id)
                                 removeNote(ctx, selectedDateInfo, noteInfo.id)
                                 mutableNotes.remove(noteInfo)
                                 refreshDaysLine()
