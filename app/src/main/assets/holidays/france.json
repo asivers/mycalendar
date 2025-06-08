@@ -11,7 +11,7 @@
       "14": { "en": "Bastille Day", "fr": "Fête Nationale Française" }
     },
     "8": {
-      "15": { "en": "Assumption", "fr": "Assomption" }
+      "15": { "en": "Assumption Day", "fr": "Assomption" }
     },
     "11": {
       "1": { "en": "All Saints' Day", "fr": "Toussaint" },
@@ -27,7 +27,7 @@
         "6": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "14": { "en": "Ascension", "fr": "Ascension" },
+        "14": { "en": "Ascension Day", "fr": "Ascension" },
         "25": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -36,7 +36,7 @@
         "28": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "5": { "en": "Ascension", "fr": "Ascension" },
+        "5": { "en": "Ascension Day", "fr": "Ascension" },
         "16": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -45,7 +45,7 @@
         "17": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "25": { "en": "Ascension", "fr": "Ascension" }
+        "25": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "5": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -56,7 +56,7 @@
         "2": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "10": { "en": "Ascension", "fr": "Ascension" },
+        "10": { "en": "Ascension Day", "fr": "Ascension" },
         "21": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -65,7 +65,7 @@
         "22": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "30": { "en": "Ascension", "fr": "Ascension" }
+        "30": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "10": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -76,7 +76,7 @@
         "13": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "21": { "en": "Ascension", "fr": "Ascension" }
+        "21": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "1": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -87,7 +87,7 @@
         "5": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "13": { "en": "Ascension", "fr": "Ascension" },
+        "13": { "en": "Ascension Day", "fr": "Ascension" },
         "24": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -96,7 +96,7 @@
         "18": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "26": { "en": "Ascension", "fr": "Ascension" }
+        "26": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "6": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -107,7 +107,7 @@
         "10": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "18": { "en": "Ascension", "fr": "Ascension" },
+        "18": { "en": "Ascension Day", "fr": "Ascension" },
         "29": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -116,7 +116,7 @@
         "1": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "9": { "en": "Ascension", "fr": "Ascension" },
+        "9": { "en": "Ascension Day", "fr": "Ascension" },
         "20": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -125,7 +125,7 @@
         "21": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "29": { "en": "Ascension", "fr": "Ascension" }
+        "29": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "9": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -136,7 +136,7 @@
         "6": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "14": { "en": "Ascension", "fr": "Ascension" },
+        "14": { "en": "Ascension Day", "fr": "Ascension" },
         "25": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -145,7 +145,7 @@
         "29": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "6": { "en": "Ascension", "fr": "Ascension" },
+        "6": { "en": "Ascension Day", "fr": "Ascension" },
         "17": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -154,7 +154,7 @@
         "17": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "25": { "en": "Ascension", "fr": "Ascension" }
+        "25": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "5": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -165,7 +165,7 @@
         "2": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "10": { "en": "Ascension", "fr": "Ascension" },
+        "10": { "en": "Ascension Day", "fr": "Ascension" },
         "21": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -174,7 +174,7 @@
         "22": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "30": { "en": "Ascension", "fr": "Ascension" }
+        "30": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "10": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -185,7 +185,7 @@
         "14": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "22": { "en": "Ascension", "fr": "Ascension" }
+        "22": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "2": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -196,7 +196,7 @@
         "29": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "6": { "en": "Ascension", "fr": "Ascension" },
+        "6": { "en": "Ascension Day", "fr": "Ascension" },
         "17": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -205,7 +205,7 @@
         "18": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "26": { "en": "Ascension", "fr": "Ascension" }
+        "26": { "en": "Ascension Day", "fr": "Ascension" }
       },
       "6": {
         "6": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
@@ -216,7 +216,7 @@
         "10": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "18": { "en": "Ascension", "fr": "Ascension" },
+        "18": { "en": "Ascension Day", "fr": "Ascension" },
         "29": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     },
@@ -225,7 +225,7 @@
         "26": { "en": "Easter Monday", "fr": "Lundi de Pâques" }
       },
       "5": {
-        "3": { "en": "Ascension", "fr": "Ascension" },
+        "3": { "en": "Ascension Day", "fr": "Ascension" },
         "14": { "en": "Whit Monday", "fr": "Lundi de Pentecôte" }
       }
     }
