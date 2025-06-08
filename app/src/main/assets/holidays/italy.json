@@ -1,6 +1,135 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day", "it": "Capodanno" },
+      "6": { "en": "Epiphany", "it": "Epifania" }
+    },
+    "4": {
+      "25": { "en": "Liberation Day", "it": "Festa della Liberazione" }
+    },
+    "5": {
+      "1": { "en": "Labour Day", "it": "Festa del Lavoro" }
+    },
+    "6": {
+      "2": { "en": "Republic Day", "it": "Festa della Repubblica" }
+    },
+    "8": {
+      "15": { "en": "Assumption Day", "it": "Ferragosto" }
+    },
+    "11": {
+      "1": { "en": "All Saints' Day", "it": "Ognissanti" }
+    },
+    "12": {
+      "8": { "en": "Immaculate Conception", "it": "Immacolata Concezione" },
+      "25": { "en": "Christmas Day", "it": "Natale" },
+      "26": { "en": "St. Stephen's Day", "it": "Santo Stefano" }
+    }
   },
   "oneTime": {
+    "2015": {
+      "4": {
+        "6": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2016": {
+      "3": {
+        "28": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2017": {
+      "4": {
+        "17": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2018": {
+      "4": {
+        "2": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2019": {
+      "4": {
+        "22": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2020": {
+      "4": {
+        "13": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2021": {
+      "4": {
+        "5": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2022": {
+      "4": {
+        "18": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2023": {
+      "4": {
+        "10": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2024": {
+      "3": {
+        "1": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2025": {
+      "4": {
+        "21": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2026": {
+      "4": {
+        "6": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2027": {
+      "3": {
+        "29": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2028": {
+      "4": {
+        "17": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2029": {
+      "4": {
+        "2": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2030": {
+      "4": {
+        "22": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2031": {
+      "4": {
+        "14": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2032": {
+      "3": {
+        "29": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2033": {
+      "4": {
+        "18": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2034": {
+      "4": {
+        "10": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    },
+    "2035": {
+      "3": {
+        "26": { "en": "Easter Monday", "it": "Lunedì dell'Angelo" }
+      }
+    }
   }
 }
