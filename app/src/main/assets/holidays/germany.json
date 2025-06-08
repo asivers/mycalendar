@@ -1,6 +1,229 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day", "de": "Neujahrstag" }
+    },
+    "5": {
+      "1": { "en": "Labour Day", "de": "Tag der Arbeit" }
+    },
+    "10": {
+      "3": { "en": "Day of German Unity", "de": "Tag der Deutschen Einheit" }
+    },
+    "12": {
+      "25": { "en": "Christmas Day", "de": "Erster Weihnachtsfeiertag" },
+      "26": { "en": "Boxing Day", "de": "Zweiter Weihnachtsfeiertag" }
+    }
   },
   "oneTime": {
+    "2015": {
+      "4": {
+        "3": { "en": "Good Friday", "de": "Karfreitag" },
+        "6": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "14": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "25": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2016": {
+      "3": {
+        "25": { "en": "Good Friday", "de": "Karfreitag" },
+        "28": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "5": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "16": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2017": {
+      "4": {
+        "14": { "en": "Good Friday", "de": "Karfreitag" },
+        "17": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "25": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "5": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2018": {
+      "3": {
+        "30": { "en": "Good Friday", "de": "Karfreitag" },
+        "2": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "10": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "21": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2019": {
+      "4": {
+        "19": { "en": "Good Friday", "de": "Karfreitag" },
+        "22": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "30": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "10": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2020": {
+      "4": {
+        "10": { "en": "Good Friday", "de": "Karfreitag" },
+        "13": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "21": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "1": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2021": {
+      "4": {
+        "2": { "en": "Good Friday", "de": "Karfreitag" },
+        "5": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "13": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "24": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2022": {
+      "4": {
+        "15": { "en": "Good Friday", "de": "Karfreitag" },
+        "18": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "26": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "6": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2023": {
+      "4": {
+        "7": { "en": "Good Friday", "de": "Karfreitag" },
+        "10": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "18": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "29": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2024": {
+      "3": {
+        "29": { "en": "Good Friday", "de": "Karfreitag" },
+        "1": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "9": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "20": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2025": {
+      "4": {
+        "18": { "en": "Good Friday", "de": "Karfreitag" },
+        "21": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "29": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "9": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2026": {
+      "4": {
+        "3": { "en": "Good Friday", "de": "Karfreitag" },
+        "6": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "14": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "25": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2027": {
+      "3": {
+        "26": { "en": "Good Friday", "de": "Karfreitag" },
+        "29": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "6": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "17": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2028": {
+      "4": {
+        "14": { "en": "Good Friday", "de": "Karfreitag" },
+        "17": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "25": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "5": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2029": {
+      "3": {
+        "30": { "en": "Good Friday", "de": "Karfreitag" },
+        "2": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "10": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "21": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2030": {
+      "4": {
+        "19": { "en": "Good Friday", "de": "Karfreitag" },
+        "22": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "30": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "10": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2031": {
+      "4": {
+        "11": { "en": "Good Friday", "de": "Karfreitag" },
+        "14": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "22": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "2": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2032": {
+      "3": {
+        "26": { "en": "Good Friday", "de": "Karfreitag" },
+        "29": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "6": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "17": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2033": {
+      "4": {
+        "15": { "en": "Good Friday", "de": "Karfreitag" },
+        "18": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "26": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "6": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2034": {
+      "4": {
+        "7": { "en": "Good Friday", "de": "Karfreitag" },
+        "10": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "18": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "29": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    },
+    "2035": {
+      "3": {
+        "23": { "en": "Good Friday", "de": "Karfreitag" },
+        "26": { "en": "Easter Monday", "de": "Ostermontag" }
+      },
+      "5": {
+        "10": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "21": { "en": "Whit Monday", "de": "Pfingstmontag" }
+      }
+    }
   }
 }
