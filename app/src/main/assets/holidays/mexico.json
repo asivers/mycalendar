@@ -1,6 +1,125 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day", "es": "Año Nuevo" }
+    },
+    "5": {
+      "1": { "en": "Labour Day", "es": "Día del Trabajo" }
+    },
+    "9": {
+      "16": { "en": "Independence Day", "es": "Día de la Independencia" }
+    },
+    "12": {
+      "25": { "en": "Christmas Day", "es": "Navidad" }
+    }
   },
   "oneTime": {
+    "2015": {
+      "2": { "2": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "16": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "16": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2016": {
+      "2": { "1": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "21": { "en": "Benito Juárez's Birthday", "es": "Natalicio de Benito Juárez" } },
+      "11": { "21": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2017": {
+      "2": { "6": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "20": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "20": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2018": {
+      "2": { "5": { "en": "Constitution Day", "es": "Día de la Constitución" } },
+      "3": { "19": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "19": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } },
+      "12": { "1": { "en": "Transmission of the Federal Executive Power", "es": "Transmisión del Poder Ejecutivo Federal" } }
+    },
+    "2019": {
+      "2": { "4": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "18": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "18": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2020": {
+      "2": { "3": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "16": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "16": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2021": {
+      "2": { "1": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "15": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "15": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2022": {
+      "2": { "7": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "21": { "en": "Benito Juárez's Birthday", "es": "Natalicio de Benito Juárez" } },
+      "11": { "21": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2023": {
+      "2": { "6": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "20": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "20": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2024": {
+      "2": { "5": { "en": "Constitution Day", "es": "Día de la Constitución" } },
+      "3": { "18": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "10": { "1": { "en": "Transmission of the Federal Executive Power", "es": "Transmisión del Poder Ejecutivo Federal" } },
+      "11": { "18": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2025": {
+      "2": { "3": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "17": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "17": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2026": {
+      "2": { "2": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "16": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "16": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2027": {
+      "2": { "1": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "15": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "15": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2028": {
+      "2": { "7": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "20": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "20": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2029": {
+      "2": { "5": { "en": "Constitution Day", "es": "Día de la Constitución" } },
+      "3": { "19": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "19": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2030": {
+      "2": { "4": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "18": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "18": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2031": {
+      "2": { "3": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "17": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "17": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2032": {
+      "2": { "2": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "15": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "15": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2033": {
+      "2": { "7": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "21": { "en": "Benito Juárez's Birthday", "es": "Natalicio de Benito Juárez" } },
+      "11": { "21": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2034": {
+      "2": { "6": { "en": "Constitution Day (observed)", "es": "Día de la Constitución (festivo)" } },
+      "3": { "20": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "20": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    },
+    "2035": {
+      "2": { "5": { "en": "Constitution Day", "es": "Día de la Constitución" } },
+      "3": { "19": { "en": "Benito Juárez's Birthday (observed)", "es": "Natalicio de Benito Juárez (festivo)" } },
+      "11": { "19": { "en": "Revolution Day (observed)", "es": "Día de la Revolución (festivo)" } }
+    }
   }
 }
