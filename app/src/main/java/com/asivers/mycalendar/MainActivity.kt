@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,9 +43,11 @@ import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
 import com.asivers.mycalendar.utils.getOnDaySelectedCallback
 import com.asivers.mycalendar.utils.getSizeScheme
 import com.asivers.mycalendar.utils.getTranslationSchemeForExistingLocale
+import com.asivers.mycalendar.utils.makeNavigationBarBlack
 import com.asivers.mycalendar.utils.notification.createNotificationChannels
 import com.asivers.mycalendar.utils.notification.getPermissionTypeToShowWarningRevoked
 import com.asivers.mycalendar.utils.notification.registerNotificationPermissionRequestLauncher
+import com.asivers.mycalendar.utils.paddingNavBarAdjusted
 import com.asivers.mycalendar.utils.proto.cleanupAllNotificationsInPast
 import com.asivers.mycalendar.utils.proto.getInfoAboutAllNotificationsInPast
 import com.asivers.mycalendar.utils.proto.getSavedCountry
@@ -63,6 +64,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         registerNotificationPermissionRequestLauncher(this)
         enableEdgeToEdge()
+        makeNavigationBarBlack(window)
         setContent {
             val ctx = LocalContext.current
 
@@ -115,10 +117,12 @@ class MainActivity : ComponentActivity() {
 
                 Column(
                     modifier = Modifier
-                        .padding(innerPadding)
+                        .background(
+                            getBackgroundGradient(viewShownState.value.current, schemes.color)
+                        )
+                        .paddingNavBarAdjusted(innerPadding)
                         .consumeWindowInsets(innerPadding)
                         .imePadding()
-                        .background(getBackgroundGradient(viewShownState.value.current, schemes.color))
                 ) {
                     AnimatedContent(
                         targetState = viewShownState.value,

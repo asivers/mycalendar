@@ -1,7 +1,11 @@
 package com.asivers.mycalendar.utils
 
+import android.os.Build
+import android.view.Window
+import android.view.WindowInsets
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.core.view.WindowInsetsControllerCompat
 import com.asivers.mycalendar.constants.schemes.AUTUMN
 import com.asivers.mycalendar.constants.schemes.SPRING
 import com.asivers.mycalendar.constants.schemes.SUMMER
@@ -93,3 +97,17 @@ fun Color.multiplyAlpha(alpha: Float) = Color(
     blue = this.blue,
     alpha = this.alpha * alpha
 )
+
+fun makeNavigationBarBlack(window: Window) {
+    WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightNavigationBars = false
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+            val navigationBarInsets = insets.getInsets(WindowInsets.Type.navigationBars())
+            view.setPadding(0, 0, 0, navigationBarInsets.bottom)
+            view.setBackgroundColor(android.graphics.Color.BLACK)
+            insets
+        }
+    } else {
+        window.navigationBarColor = android.graphics.Color.BLACK
+    }
+}

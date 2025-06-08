@@ -1,9 +1,12 @@
 package com.asivers.mycalendar.utils
 
+import android.os.Build
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -69,6 +72,16 @@ fun Modifier.withDragToRight(
             val possibleNewOffset = horizontalOffset.floatValue + dragAmount
             horizontalOffset.floatValue = maxOf(0f, minOf(maxDrag, possibleNewOffset))
         }
+}
+
+fun Modifier.paddingNavBarAdjusted(
+    innerPadding: PaddingValues
+): Modifier {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+        this.padding(0.dp, innerPadding.calculateTopPadding(), 0.dp, 0.dp)
+    } else {
+        this.padding(innerPadding)
+    }
 }
 
 // utils for development
