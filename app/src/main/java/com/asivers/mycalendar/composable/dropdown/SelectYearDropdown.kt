@@ -24,7 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpOffset
@@ -34,6 +35,7 @@ import com.asivers.mycalendar.constants.MONTSERRAT
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.utils.getInsetsVerticalPaddingDp
+import com.asivers.mycalendar.utils.getScreenHeightDp
 import com.asivers.mycalendar.utils.noRippleClickable
 
 @Composable
@@ -86,7 +88,9 @@ fun SelectYearDropdownList(
     thisYear: Int,
     schemes: SchemeContainer
 ) {
-    val screenHeightDp = LocalConfiguration.current.screenHeightDp
+    val ctx = LocalContext.current
+    val density = LocalDensity.current
+    val screenHeightDp = getScreenHeightDp(ctx, density)
     val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 18
     DropdownMenu(
         expanded = isExpanded.value,

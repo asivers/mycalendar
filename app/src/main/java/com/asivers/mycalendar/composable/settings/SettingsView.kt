@@ -10,8 +10,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.Country
@@ -37,9 +37,10 @@ fun SettingsView(
     schemes: SchemeContainer
 ) {
     // todo adapt for different fonts
-    val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp) + 1
-
     val ctx = LocalContext.current
+    val density = LocalDensity.current
+    val indentFromHeaderDp = getIndentFromHeaderDp(ctx, density) + 1
+
     val selectedNotificationsMode: MutableState<NotificationsMode> = remember {
         mutableStateOf(getSavedNotificationsMode(getSavedSettings(ctx)))
     }

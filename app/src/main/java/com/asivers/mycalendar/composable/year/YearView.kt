@@ -17,7 +17,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.data.SchemeContainer
@@ -39,7 +40,9 @@ fun YearView(
     weekendMode: WeekendMode,
     schemes: SchemeContainer
 ) {
-    val indentFromHeaderToDropdownsDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
+    val ctx = LocalContext.current
+    val density = LocalDensity.current
+    val indentFromHeaderToDropdownsDp = getIndentFromHeaderDp(ctx, density)
     val indentFromHeaderToFrameDp = 12
     val indentFromFrameToDropdowns = indentFromHeaderToDropdownsDp - indentFromHeaderToFrameDp
     var horizontalOffset by remember { mutableFloatStateOf(0f) }

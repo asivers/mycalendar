@@ -1,5 +1,7 @@
 package com.asivers.mycalendar.utils
 
+import android.app.Activity
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import androidx.compose.foundation.layout.WindowInsets
@@ -7,6 +9,7 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Density
+import androidx.window.layout.WindowMetricsCalculator
 import com.asivers.mycalendar.constants.schemes.size.FONT_SCHEME_BIG
 import com.asivers.mycalendar.constants.schemes.size.FONT_SCHEME_SMALL
 import com.asivers.mycalendar.constants.schemes.size.HORIZONTAL_SCHEME_BIG
@@ -67,11 +70,30 @@ private fun getFontSizeSpScheme(dpScheme: FontSizeDpScheme, density: Density): F
     )
 }
 
-fun getIndentFromHeaderDp(screenHeightDp: Int): Int {
+fun getIndentFromHeaderDp(ctx: Context, density: Density): Int {
+    val screenHeightDp = getScreenHeightDp(ctx, density)
     // todo adapt after year view button height is added to size scheme
     // todo add to the new scheme
     // 112 (fixed value) = 48 (settings header) + 64 (year view button)
     return (screenHeightDp - 112) / 24
+}
+
+fun getScreenHeightDp(ctx: Context, density: Density): Int {
+    val activity = ctx as Activity
+
+    val bounds = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
+        activity.windowManager.currentWindowMetrics.bounds
+    else
+        WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(activity).bounds
+
+    val insets = activity.window.decorView.rootWindowInsets
+    val bottomInset = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        insets.getInsetsIgnoringVisibility(android.view.WindowInsets.Type.systemBars()).bottom
+    else
+        insets.stableInsetBottom
+
+    val heightWithoutBottomInset = bounds.height() - bottomInset
+    return with(density) { heightWithoutBottomInset.toDp() }.value.toInt()
 }
 
 @Composable

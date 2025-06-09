@@ -23,8 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.R
@@ -33,6 +33,7 @@ import com.asivers.mycalendar.data.NoteInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.utils.getExistingNoteBackgroundAlpha
+import com.asivers.mycalendar.utils.getScreenHeightDp
 import com.asivers.mycalendar.utils.multiplyAlpha
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.notification.cancelExactAlarmIfExists
@@ -49,8 +50,10 @@ fun ExistingNotes(
     schemes: SchemeContainer
 ) {
     // todo check that it fits for different screen sizes
-    val maxExistingNotesHeightDp = LocalConfiguration.current.screenHeightDp - 380
     val ctx = LocalContext.current
+    val density = LocalDensity.current
+    val screenHeightDp = getScreenHeightDp(ctx, density)
+    val maxExistingNotesHeightDp = screenHeightDp - 380
     LazyColumn(
         modifier = modifier
             .heightIn(0.dp, maxExistingNotesHeightDp.dp)

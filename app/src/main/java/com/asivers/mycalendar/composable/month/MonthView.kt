@@ -9,7 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.dropdown.TopDropdownsRow
 import com.asivers.mycalendar.data.SchemeContainer
@@ -37,7 +38,9 @@ fun MonthView(
     weekNumbersMode: WeekNumbersMode,
     schemes: SchemeContainer
 ) {
-    val indentFromHeaderDp = getIndentFromHeaderDp(LocalConfiguration.current.screenHeightDp)
+    val ctx = LocalContext.current
+    val density = LocalDensity.current
+    val indentFromHeaderDp = getIndentFromHeaderDp(ctx, density)
     Column(
         modifier = modifier.padding(0.dp, indentFromHeaderDp.dp, 0.dp, 0.dp)
     ) {

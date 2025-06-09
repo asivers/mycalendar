@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
@@ -34,10 +34,11 @@ import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.SettingsItem
 import com.asivers.mycalendar.enums.SettingsParam
+import com.asivers.mycalendar.utils.getInsetsVerticalPaddingDp
+import com.asivers.mycalendar.utils.getScreenHeightDp
 import com.asivers.mycalendar.utils.getTranslatedSettingsItemName
 import com.asivers.mycalendar.utils.getTranslatedSettingsItemsNames
 import com.asivers.mycalendar.utils.getTranslatedSettingsParamName
-import com.asivers.mycalendar.utils.getInsetsVerticalPaddingDp
 import com.asivers.mycalendar.utils.noRippleClickable
 import com.asivers.mycalendar.utils.proto.updateOneSetting
 
@@ -123,11 +124,12 @@ fun <T : SettingsItem> SettingsDropdownList(
     allItems: List<T>,
     schemes: SchemeContainer
 ) {
-    val screenHeightDp = LocalConfiguration.current.screenHeightDp
+    val ctx = LocalContext.current
+    val density = LocalDensity.current
+    val screenHeightDp = getScreenHeightDp(ctx, density)
     val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 17
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
-    val ctx = LocalContext.current
     DropdownMenu(
         expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
@@ -171,11 +173,12 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
     maxItemsDisplayed: Int,
     schemes: SchemeContainer
 ) {
-    val screenHeightDp = LocalConfiguration.current.screenHeightDp
+    val ctx = LocalContext.current
+    val density = LocalDensity.current
+    val screenHeightDp = getScreenHeightDp(ctx, density)
     val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 17 // todo change
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
-    val ctx = LocalContext.current
     DropdownMenu(
         expanded = expanded.value == settingsParam,
         onDismissRequest = { expanded.value = null },
