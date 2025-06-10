@@ -38,7 +38,9 @@ fun slideFromRightToLeft(): ContentTransform {
 }
 
 fun slideWeek(days: Int): ContentTransform {
-    return slideInHorizontally { days * it / 7 } togetherWith slideOutHorizontally { -days * it / 7 }
+    val stiffness = if (days == 1) Spring.StiffnessMediumLow else Spring.StiffnessMedium
+    val enterTransition = slideInHorizontally(spring(stiffness = stiffness)) { days * it / 7 }
+    return enterTransition togetherWith ExitTransition.None
 }
 
 fun animateHeaderOnViewChange(
