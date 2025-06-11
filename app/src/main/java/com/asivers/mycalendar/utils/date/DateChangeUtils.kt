@@ -45,7 +45,11 @@ fun nextDay(selectedDateInfo: SelectedDateInfo): SelectedDateInfo {
     return addDays(selectedDateInfo, 1)
 }
 
-fun addDays(selectedDateInfo: SelectedDateInfo, days: Int): SelectedDateInfo {
+fun addDays(
+    selectedDateInfo: SelectedDateInfo,
+    days: Int,
+    byDaysLineSlide: Boolean = false
+): SelectedDateInfo {
     val oldDate = selectedDateInfo.getDate()
     val newDate = oldDate.plusDays(days.toLong())
     if (newDate.year < 1900 || newDate.year > 2100) {
@@ -54,7 +58,8 @@ fun addDays(selectedDateInfo: SelectedDateInfo, days: Int): SelectedDateInfo {
     return SelectedDateInfo(
         year = newDate.year,
         monthValue = newDate.monthValue,
-        dayOfMonth = newDate.dayOfMonth
+        dayOfMonth = newDate.dayOfMonth,
+        byDaysLineSlide = byDaysLineSlide
     )
 }
 

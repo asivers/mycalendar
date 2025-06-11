@@ -8,6 +8,7 @@ data class SelectedDateInfo(
     val dayOfMonth: Int = LocalDate.now().dayOfMonth,
     val yearOnMonthView: Int = year,
     val byMonthSwipe: Boolean = false,
+    val byDaysLineSlide: Boolean = false,
     val refreshFlag: Boolean = false // workaround to refresh state without changing the date
 ) {
 
@@ -32,6 +33,7 @@ data class SelectedDateInfo(
         dayOfMonth = dayOfMonth,
         yearOnMonthView = yearOnMonthView,
         byMonthSwipe = byMonthSwipe,
+        byDaysLineSlide = byDaysLineSlide,
         refreshFlag = !refreshFlag
     )
 

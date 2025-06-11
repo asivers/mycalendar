@@ -30,6 +30,7 @@ import com.asivers.mycalendar.utils.date.getHolidayInfoForDay
 import com.asivers.mycalendar.utils.date.getMonthInfoForDayView
 import com.asivers.mycalendar.utils.date.nextDay
 import com.asivers.mycalendar.utils.date.previousDay
+import com.asivers.mycalendar.utils.fadeFast
 import com.asivers.mycalendar.utils.fadeNormal
 import com.asivers.mycalendar.utils.getIndentFromHeaderDp
 import com.asivers.mycalendar.utils.noTransform
@@ -77,10 +78,15 @@ fun DayView(
             AnimatedContent(
                 targetState = selectedDateState.value,
                 transitionSpec = {
-                    when (val differenceInDays = getDifferenceInDays(targetState, initialState)) {
-                        0 -> noTransform()
-                        in -7..7 -> slideWeek(differenceInDays)
-                        else -> fadeNormal()
+                    if (targetState.byDaysLineSlide) {
+                        fadeFast()
+                    } else {
+                        val differenceInDays = getDifferenceInDays(targetState, initialState)
+                        when (differenceInDays) {
+                            0 -> noTransform()
+                            in -3..3 -> slideWeek(differenceInDays)
+                            else -> fadeNormal()
+                        }
                     }
                 },
                 label = "animated content days line"
@@ -99,7 +105,9 @@ fun DayView(
                     onDayChanged = { thisDayValue, inMonth ->
                         selectedDateState.value = changeDay(selectedDateInfo, thisDayValue, inMonth)
                     },
-                    onSwipe = { selectedDateState.value = addDays(selectedDateInfo, it) },
+                    onSlide = {
+                        selectedDateState.value = addDays(selectedDateInfo, it, true)
+                    },
                     selectedDay = selectedDateInfo.dayOfMonth,
                     thisMonthInfo = thisMonthInfo,
                     weekendMode = weekendMode,

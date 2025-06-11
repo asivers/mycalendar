@@ -96,6 +96,15 @@ fun getScreenHeightDp(ctx: Context, density: Density): Int {
     return with(density) { heightWithoutBottomInset.toDp() }.value.toInt()
 }
 
+fun getScreenWidthDp(ctx: Context, density: Density): Int {
+    val activity = ctx as Activity
+    val bounds = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
+        activity.windowManager.currentWindowMetrics.bounds
+    else
+        WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(activity).bounds
+    return with(density) { bounds.width().toDp() }.value.toInt()
+}
+
 @Composable
 fun getInsetsVerticalPaddingDp(): Float {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {

@@ -26,6 +26,8 @@ import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.DisplayedMonth
 
+private const val INDEX_OF_SELECTED = 10
+
 @Composable
 fun DayWithNoteMark(
     modifier: Modifier = Modifier,
@@ -42,7 +44,8 @@ fun DayWithNoteMark(
     val isWithNote = dayInfo.isWithNote
 
     val isForMonthView = orderInDayLine == null
-    val isPrimaryDay = isForMonthView && inMonth == DisplayedMonth.THIS || orderInDayLine == 3
+    val isPrimaryDay = isForMonthView && inMonth == DisplayedMonth.THIS
+            || orderInDayLine == INDEX_OF_SELECTED
 
     Button(
         modifier = modifier
