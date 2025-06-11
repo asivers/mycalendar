@@ -1,5 +1,17 @@
 {
   "everyYear": {
+    "1": {
+      "26": { "en": "Republic Day" }
+    },
+    "4": {
+      "14": { "en": "Ambedkar Jayanti" }
+    },
+    "8": {
+      "15": { "en": "Independence Day" }
+    },
+    "10": {
+      "2": { "en": "Gandhi Jayanti" }
+    }
   },
   "oneTime": {
   }
