@@ -1,6 +1,246 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day" }
+    },
+    "7": {
+      "4": { "en": "Independence Day" }
+    },
+    "12": {
+      "25": { "en": "Christmas Day" }
+    }
   },
   "oneTime": {
+    "2015": {
+      "5": {
+        "25": { "en": "Memorial Day" }
+      },
+      "9": {
+        "7": { "en": "Labor Day" }
+      },
+      "11": {
+        "26": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2016": {
+      "5": {
+        "30": { "en": "Memorial Day" }
+      },
+      "9": {
+        "5": { "en": "Labor Day" }
+      },
+      "11": {
+        "24": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2017": {
+      "5": {
+        "29": { "en": "Memorial Day" }
+      },
+      "9": {
+        "4": { "en": "Labor Day" }
+      },
+      "11": {
+        "23": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2018": {
+      "5": {
+        "28": { "en": "Memorial Day" }
+      },
+      "9": {
+        "3": { "en": "Labor Day" }
+      },
+      "11": {
+        "22": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2019": {
+      "5": {
+        "27": { "en": "Memorial Day" }
+      },
+      "9": {
+        "2": { "en": "Labor Day" }
+      },
+      "11": {
+        "28": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2020": {
+      "5": {
+        "25": { "en": "Memorial Day" }
+      },
+      "9": {
+        "7": { "en": "Labor Day" }
+      },
+      "11": {
+        "26": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2021": {
+      "5": {
+        "31": { "en": "Memorial Day" }
+      },
+      "9": {
+        "6": { "en": "Labor Day" }
+      },
+      "11": {
+        "25": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2022": {
+      "5": {
+        "30": { "en": "Memorial Day" }
+      },
+      "9": {
+        "5": { "en": "Labor Day" }
+      },
+      "11": {
+        "24": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2023": {
+      "5": {
+        "29": { "en": "Memorial Day" }
+      },
+      "9": {
+        "4": { "en": "Labor Day" }
+      },
+      "11": {
+        "23": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2024": {
+      "5": {
+        "27": { "en": "Memorial Day" }
+      },
+      "9": {
+        "2": { "en": "Labor Day" }
+      },
+      "11": {
+        "28": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2025": {
+      "5": {
+        "26": { "en": "Memorial Day" }
+      },
+      "9": {
+        "1": { "en": "Labor Day" }
+      },
+      "11": {
+        "27": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2026": {
+      "5": {
+        "25": { "en": "Memorial Day" }
+      },
+      "9": {
+        "7": { "en": "Labor Day" }
+      },
+      "11": {
+        "26": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2027": {
+      "5": {
+        "31": { "en": "Memorial Day" }
+      },
+      "9": {
+        "6": { "en": "Labor Day" }
+      },
+      "11": {
+        "25": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2028": {
+      "5": {
+        "29": { "en": "Memorial Day" }
+      },
+      "9": {
+        "4": { "en": "Labor Day" }
+      },
+      "11": {
+        "23": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2029": {
+      "5": {
+        "28": { "en": "Memorial Day" }
+      },
+      "9": {
+        "3": { "en": "Labor Day" }
+      },
+      "11": {
+        "22": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2030": {
+      "5": {
+        "27": { "en": "Memorial Day" }
+      },
+      "9": {
+        "2": { "en": "Labor Day" }
+      },
+      "11": {
+        "28": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2031": {
+      "5": {
+        "26": { "en": "Memorial Day" }
+      },
+      "9": {
+        "1": { "en": "Labor Day" }
+      },
+      "11": {
+        "27": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2032": {
+      "5": {
+        "31": { "en": "Memorial Day" }
+      },
+      "9": {
+        "6": { "en": "Labor Day" }
+      },
+      "11": {
+        "25": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2033": {
+      "5": {
+        "30": { "en": "Memorial Day" }
+      },
+      "9": {
+        "5": { "en": "Labor Day" }
+      },
+      "11": {
+        "24": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2034": {
+      "5": {
+        "29": { "en": "Memorial Day" }
+      },
+      "9": {
+        "4": { "en": "Labor Day" }
+      },
+      "11": {
+        "23": { "en": "Thanksgiving Day" }
+      }
+    },
+    "2035": {
+      "5": {
+        "28": { "en": "Memorial Day" }
+      },
+      "9": {
+        "3": { "en": "Labor Day" }
+      },
+      "11": {
+        "22": { "en": "Thanksgiving Day" }
+      }
+    }
   }
 }
