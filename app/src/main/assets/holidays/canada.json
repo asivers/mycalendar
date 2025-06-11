@@ -1,6 +1,183 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day", "fr": "Jour de l'An" }
+    },
+    "7": {
+      "1": { "en": "Canada Day", "fr": "Fête du Canada" }
+    },
+    "12": {
+      "25": { "en": "Christmas Day", "fr": "Noël" }
+    }
   },
   "oneTime": {
+    "2015": {
+      "4": {
+        "3": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "7": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2016": {
+      "3": {
+        "25": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "5": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2017": {
+      "4": {
+        "14": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "4": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2018": {
+      "3": {
+        "30": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "3": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2019": {
+      "4": {
+        "19": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "2": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2020": {
+      "4": {
+        "10": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "7": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2021": {
+      "4": {
+        "2": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "6": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2022": {
+      "4": {
+        "15": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "5": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2023": {
+      "4": {
+        "7": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "4": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2024": {
+      "3": {
+        "29": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "2": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2025": {
+      "4": {
+        "18": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "1": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2026": {
+      "4": {
+        "3": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "7": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2027": {
+      "3": {
+        "26": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "6": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2028": {
+      "4": {
+        "14": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "4": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2029": {
+      "3": {
+        "30": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "3": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2030": {
+      "4": {
+        "19": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "2": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2031": {
+      "4": {
+        "11": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "1": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2032": {
+      "3": {
+        "26": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "6": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2033": {
+      "4": {
+        "15": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "5": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2034": {
+      "4": {
+        "7": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "4": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    },
+    "2035": {
+      "3": {
+        "23": { "en": "Good Friday", "fr": "Vendredi saint" }
+      },
+      "9": {
+        "3": { "en": "Labour Day", "fr": "Fête du travail" }
+      }
+    }
   }
 }
