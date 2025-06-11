@@ -1,6 +1,218 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day", "pt": "Ano Novo" }
+    },
+    "4": {
+      "21": { "en": "Tiradentes Day", "pt": "Dia de Tiradentes" }
+    },
+    "5": {
+      "1": { "en": "Labour Day", "pt": "Dia do Trabalhador" }
+    },
+    "9": {
+      "7": { "en": "Independence Day", "pt": "Dia da Independência" }
+    },
+    "10": {
+      "12": { "en": "Our Lady of Aparecida", "pt": "Nossa Senhora Aparecida" }
+    },
+    "11": {
+      "2": { "en": "All Souls' Day", "pt": "Dia de Finados" },
+      "15": { "en": "Proclamation of the Republic", "pt": "Proclamação da República" },
+      "20": { "en": "Black Consciousness Day", "pt": "Dia da Consciência Negra" }
+    },
+    "12": {
+      "25": { "en": "Christmas Day", "pt": "Natal" }
+    }
   },
   "oneTime": {
+    "2015": {
+      "2": {
+        "16": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "17": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "3": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2016": {
+      "2": {
+        "8": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "9": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "3": {
+        "25": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2017": {
+      "2": {
+        "27": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "28": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "14": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2018": {
+      "2": {
+        "12": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "13": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "3": {
+        "30": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2019": {
+      "3": {
+        "4": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "5": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "19": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2020": {
+      "2": {
+        "24": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "25": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "10": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2021": {
+      "2": {
+        "15": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "16": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "2": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2022": {
+      "2": {
+        "28": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "1": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "15": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2023": {
+      "2": {
+        "20": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "21": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "7": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2024": {
+      "2": {
+        "12": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "13": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "3": {
+        "29": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2025": {
+      "3": {
+        "3": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "4": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "18": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2026": {
+      "2": {
+        "16": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "17": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "3": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2027": {
+      "2": {
+        "8": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "9": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "3": {
+        "26": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2028": {
+      "2": {
+        "28": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "29": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "14": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2029": {
+      "2": {
+        "12": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "13": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "3": {
+        "30": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2030": {
+      "3": {
+        "4": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "5": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "19": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2031": {
+      "2": {
+        "24": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "25": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "11": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2032": {
+      "2": {
+        "9": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "10": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "3": {
+        "26": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2033": {
+      "2": {
+        "28": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "1": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "15": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2034": {
+      "2": {
+        "20": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "21": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "4": {
+        "7": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    },
+    "2035": {
+      "2": {
+        "5": { "en": "Carnival Monday", "pt": "Segunda-feira de Carnaval" },
+        "6": { "en": "Carnival Tuesday", "pt": "Terça-feira de Carnaval" }
+      },
+      "3": {
+        "23": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      }
+    }
   }
 }
