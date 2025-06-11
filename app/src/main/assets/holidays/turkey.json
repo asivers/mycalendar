@@ -1,6 +1,298 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day", "tr": "Yılbaşı" }
+    },
+    "4": {
+      "23": { "en": "National Sovereignty and Children's Day", "tr": "Ulusal Egemenlik ve Çocuk Bayramı" }
+    },
+    "5": {
+      "1": { "en": "Labour and Solidarity Day", "tr": "Emek ve Dayanışma Günü" },
+      "19": { "en": "Commemoration of Atatürk, Youth and Sports Day", "tr": "Atatürk'ü Anma, Gençlik ve Spor Bayramı" }
+    },
+    "7": {
+      "15": { "en": "Democracy and National Unity Day", "tr": "Demokrasi ve Milli Birlik Günü" }
+    },
+    "8": {
+      "30": { "en": "Victory Day", "tr": "Zafer Bayramı" }
+    },
+    "10": {
+      "29": { "en": "Republic Day", "tr": "Cumhuriyet Bayramı" }
+    }
   },
   "oneTime": {
+    "2015": {
+      "6": {
+        "16": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "17": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "18": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "9": {
+        "23": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "24": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "25": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "26": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2016": {
+      "7": {
+        "4": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "5": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "6": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "9": {
+        "11": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "12": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "13": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "14": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2017": {
+      "6": {
+        "25": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "26": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "27": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "9": {
+        "1": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "2": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "3": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "4": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2018": {
+      "6": {
+        "15": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "16": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "17": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "8": {
+        "21": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "22": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "23": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "24": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2019": {
+      "6": {
+        "4": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "5": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "6": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "8": {
+        "11": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "12": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "13": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "14": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2020": {
+      "5": {
+        "24": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "25": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "26": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "7": {
+        "31": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "1": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "2": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "3": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2021": {
+      "5": {
+        "13": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "14": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "15": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "7": {
+        "20": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "21": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "22": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "23": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2022": {
+      "5": {
+        "2": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "3": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "4": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "7": {
+        "9": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "10": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "11": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "12": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2023": {
+      "4": {
+        "21": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "22": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "23": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "6": {
+        "28": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "29": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "30": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "1": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2024": {
+      "4": {
+        "10": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "11": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "12": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "6": {
+        "16": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "17": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "18": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "19": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2025": {
+      "3": {
+        "31": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "1": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "2": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "6": {
+        "6": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "7": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "8": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "9": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2026": {
+      "3": {
+        "21": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "22": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "23": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "5": {
+        "27": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "28": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "29": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "30": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2027": {
+      "3": {
+        "11": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "12": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "13": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "5": {
+        "17": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "18": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "19": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "20": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2028": {
+      "2": {
+        "29": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "1": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "2": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "5": {
+        "6": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "7": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "8": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "9": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2029": {
+      "2": {
+        "18": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "19": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "20": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "4": {
+        "25": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "26": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "27": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "28": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2030": {
+      "2": {
+        "8": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "9": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "10": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "4": {
+        "15": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "16": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "17": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "18": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2031": {
+      "1": {
+        "29": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "30": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "31": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "4": {
+        "5": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "6": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "7": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "8": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2032": {
+      "1": {
+        "18": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "19": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "20": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "3": {
+        "24": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "25": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "26": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "27": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2033": {
+      "1": {
+        "7": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "8": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "9": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "3": {
+        "14": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "15": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "16": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "17": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2034": {
+      "12": {
+        "27": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "28": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "29": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "3": {
+        "4": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "5": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "6": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "7": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    },
+    "2035": {
+      "12": {
+        "17": { "en": "Eid al-Fitr (Ramadan Feast) Day 1", "tr": "Ramazan Bayramı 1. Gün" },
+        "18": { "en": "Eid al-Fitr (Ramadan Feast) Day 2", "tr": "Ramazan Bayramı 2. Gün" },
+        "19": { "en": "Eid al-Fitr (Ramadan Feast) Day 3", "tr": "Ramazan Bayramı 3. Gün" }
+      },
+      "2": {
+        "22": { "en": "Eid al-Adha (Sacrifice Feast) Day 1", "tr": "Kurban Bayramı 1. Gün" },
+        "23": { "en": "Eid al-Adha (Sacrifice Feast) Day 2", "tr": "Kurban Bayramı 2. Gün" },
+        "24": { "en": "Eid al-Adha (Sacrifice Feast) Day 3", "tr": "Kurban Bayramı 3. Gün" },
+        "25": { "en": "Eid al-Adha (Sacrifice Feast) Day 4", "tr": "Kurban Bayramı 4. Gün" }
+      }
+    }
   }
 }
