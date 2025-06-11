@@ -19,14 +19,13 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.asivers.mycalendar.composable.day.INDEX_OF_SELECTED_DAY
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.NO_RIPPLE_INTERACTION_SOURCE
 import com.asivers.mycalendar.constants.TRANSPARENT_BUTTON_COLORS
 import com.asivers.mycalendar.data.DayInfo
 import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.enums.DisplayedMonth
-
-private const val INDEX_OF_SELECTED = 10
 
 @Composable
 fun DayWithNoteMark(
@@ -45,7 +44,7 @@ fun DayWithNoteMark(
 
     val isForMonthView = orderInDayLine == null
     val isPrimaryDay = isForMonthView && inMonth == DisplayedMonth.THIS
-            || orderInDayLine == INDEX_OF_SELECTED
+            || orderInDayLine == INDEX_OF_SELECTED_DAY
 
     Button(
         modifier = modifier

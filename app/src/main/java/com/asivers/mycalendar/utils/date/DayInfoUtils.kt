@@ -36,6 +36,7 @@ fun getDayInfo(
     val holidaysAndNotHolidays: HolidaysAndNotHolidays
     val today: Int?
     val daysWithNotes: List<Int>
+    val dayOfWeekOfFirstOfDisplayedMonth: Int
 
     when (inMonth) {
         DisplayedMonth.THIS -> {
@@ -43,23 +44,28 @@ fun getDayInfo(
             holidaysAndNotHolidays = monthInfo.holidaysAndNotHolidays
             today = monthInfo.today
             daysWithNotes = monthInfo.daysWithNotes
+            dayOfWeekOfFirstOfDisplayedMonth = monthInfo.dayOfWeekOf1st
         }
         DisplayedMonth.PREVIOUS -> {
-            dayValue = dayValueRaw + monthInfo.adjacentMonthsInfo.prevMonthNumberOfDays
+            dayValue = dayValueRaw + monthInfo.adjacentMonthsInfo.lengthOfPrevMonth
             holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.prevMonthHolidaysAndNotHolidays
             today = monthInfo.adjacentMonthsInfo.prevMonthToday
             daysWithNotes = monthInfo.adjacentMonthsInfo.prevMonthDaysWithNotes
+            dayOfWeekOfFirstOfDisplayedMonth = 1 + Math.floorMod(
+                monthInfo.dayOfWeekOf1st - monthInfo.adjacentMonthsInfo.lengthOfPrevMonth, 7)
         }
         DisplayedMonth.NEXT -> {
             dayValue = dayValueRaw - monthInfo.lengthOfMonth
             holidaysAndNotHolidays = monthInfo.adjacentMonthsInfo.nextMonthHolidaysAndNotHolidays
             today = monthInfo.adjacentMonthsInfo.nextMonthToday
             daysWithNotes = monthInfo.adjacentMonthsInfo.nextMonthDaysWithNotes
+            dayOfWeekOfFirstOfDisplayedMonth = 1 +
+                ((monthInfo.dayOfWeekOf1st + monthInfo.lengthOfMonth) % 7)
         }
     }
 
     val isToday = dayValue == today
-    val dayOfWeekValue = ((dayValueRaw + monthInfo.dayOfWeekOf1st + 5) % 7) + 1
+    val dayOfWeekValue = Math.floorMod(dayValueRaw + dayOfWeekOfFirstOfDisplayedMonth + 5, 7) + 1
     val isWeekend = isWeekend(dayValue, dayOfWeekValue, weekendMode, holidaysAndNotHolidays)
     val isHoliday = isHoliday(dayValue, holidaysAndNotHolidays)
     val isWithNote = dayValue in daysWithNotes

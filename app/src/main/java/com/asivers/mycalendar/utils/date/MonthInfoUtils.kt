@@ -90,7 +90,7 @@ private fun getAdjacentMonthsInfo(
 ): AdjacentMonthsInfo {
 
     val firstOfPrevMonth = firstOfThisMonth.minusMonths(1)
-    val prevMonthNumberOfDays = firstOfPrevMonth.lengthOfMonth()
+    val lengthOfPrevMonth = firstOfPrevMonth.lengthOfMonth()
     val prevMonthYear = firstOfPrevMonth.year
     val prevMonthMonthValue = firstOfPrevMonth.monthValue
     val prevMonthHolidaysAndNotHolidays = getHolidaysAndNotHolidays(
@@ -109,7 +109,7 @@ private fun getAdjacentMonthsInfo(
         getDaysWithNotesForMonth(ctx, nextMonthYear, nextMonthMonthValue) else listOf()
 
     return AdjacentMonthsInfo(
-        prevMonthNumberOfDays,
+        lengthOfPrevMonth,
         prevMonthHolidaysAndNotHolidays,
         prevMonthToday,
         prevMonthDaysWithNotes,

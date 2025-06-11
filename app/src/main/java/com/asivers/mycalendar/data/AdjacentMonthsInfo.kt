@@ -1,7 +1,7 @@
 package com.asivers.mycalendar.data
 
 data class AdjacentMonthsInfo(
-    val prevMonthNumberOfDays: Int,
+    val lengthOfPrevMonth: Int,
     val prevMonthHolidaysAndNotHolidays: HolidaysAndNotHolidays,
     val prevMonthToday: Int?,
     val prevMonthDaysWithNotes: List<Int>,

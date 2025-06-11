@@ -29,10 +29,10 @@ import com.asivers.mycalendar.enums.WeekendMode
 import com.asivers.mycalendar.utils.date.getDayInfo
 import com.asivers.mycalendar.utils.getScreenWidthDp
 
-private const val INDEX_OF_FIRST_VISIBLE = 7
-private const val INDEX_OF_SELECTED = 10
+const val INDEX_OF_SELECTED_DAY = 28
+private const val INDEX_OF_FIRST_VISIBLE_DAY = INDEX_OF_SELECTED_DAY - 3
 
-private const val NUMBER_OF_ITEMS_TOTAL = 21
+private const val NUMBER_OF_ITEMS_TOTAL = INDEX_OF_SELECTED_DAY * 2 + 1
 private const val NUMBER_OF_ITEMS_VISIBLE = 7
 
 @Composable
@@ -51,11 +51,11 @@ fun DaysLine(
     val itemWidth = (screenWidthDp / NUMBER_OF_ITEMS_VISIBLE).dp
 
     val wasScrollingInitiatedState = remember { mutableStateOf(false) }
-    val scrollState = rememberLazyListState(INDEX_OF_FIRST_VISIBLE)
+    val scrollState = rememberLazyListState(INDEX_OF_FIRST_VISIBLE_DAY)
 
     LaunchedEffect(scrollState.isScrollInProgress) {
         if (!scrollState.isScrollInProgress && wasScrollingInitiatedState.value) {
-            onSlide(scrollState.firstVisibleItemIndex - INDEX_OF_FIRST_VISIBLE + 1)
+            onSlide(scrollState.firstVisibleItemIndex - INDEX_OF_FIRST_VISIBLE_DAY + 1)
         }
         wasScrollingInitiatedState.value = scrollState.isScrollInProgress
     }
@@ -68,13 +68,13 @@ fun DaysLine(
         items(
             count = NUMBER_OF_ITEMS_TOTAL,
             itemContent = { orderInDayLine ->
-                val dayValueRaw = selectedDay + orderInDayLine - INDEX_OF_SELECTED
+                val dayValueRaw = selectedDay + orderInDayLine - INDEX_OF_SELECTED_DAY
                 val dayInfo = getDayInfo(dayValueRaw, thisMonthInfo, weekendMode)
                 Column(
                     modifier = Modifier.width(itemWidth),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    val alpha = if (orderInDayLine == INDEX_OF_SELECTED) 1f else 0.5f
+                    val alpha = if (orderInDayLine == INDEX_OF_SELECTED_DAY) 1f else 0.5f
                     Text(
                         modifier = Modifier.alpha(alpha),
                         text = schemes.translation.daysOfWeek3[dayInfo.dayOfWeekValue - 1],
