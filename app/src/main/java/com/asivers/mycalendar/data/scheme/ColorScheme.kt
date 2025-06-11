@@ -13,7 +13,7 @@ data class ColorScheme(
     val selectedItemInDropdown: Color = viewsBottom, // month or selected item in dropdown and note text
     val notSelectedYearInDropdown: Color = yearViewBtnTop,
     val notSelectedSettingInDropdown: Color = viewsTop,
-    val inactiveSettingsGear: Color = viewsBottom,
+    val settingsGearOnSettingsView: Color = viewsBottom,
     val selectedMonthOnYearView: Color = viewsTop,
     val dropdownBackground: Color = text,
     val inputNoteBackground: Color = text,

@@ -34,7 +34,6 @@ import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
 import com.asivers.mycalendar.utils.animateContentOnViewChange
-import com.asivers.mycalendar.utils.animateHeaderOnViewChange
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
 import com.asivers.mycalendar.utils.getBackgroundGradient
@@ -124,21 +123,19 @@ class MainActivity : ComponentActivity() {
                         .consumeWindowInsets(innerPadding)
                         .imePadding()
                 ) {
-                    AnimatedContent(
-                        targetState = viewShownState.value,
-                        transitionSpec = { animateHeaderOnViewChange(targetState, initialState) },
-                        label = "settings header animated content"
-                    ) {
-                        SettingsHeader(
-                            viewShown = it.current,
-                            schemes = schemes
-                        ) {
-                            if (it.current == ViewShown.SETTINGS)
-                                backToPreviousView(viewShownState)
-                            else
-                                changeView(viewShownState, ViewShown.SETTINGS)
-                        }
-                    }
+                    SettingsHeader(
+                        viewShownState = viewShownState,
+                        onClickBack = {
+                            when (viewShownState.value.current) {
+                                ViewShown.MONTH -> {} // will never happen
+                                ViewShown.YEAR -> changeView(viewShownState, ViewShown.MONTH)
+                                ViewShown.DAY -> onBackPressedDispatcher.onBackPressed()
+                                ViewShown.SETTINGS -> backToPreviousView(viewShownState)
+                            }
+                        },
+                        onGoToSettings = { changeView(viewShownState, ViewShown.SETTINGS) },
+                        schemes = schemes
+                    )
                     when (viewShownState.value.current) {
                         ViewShown.SETTINGS -> SettingsView(
                             selectedCountry = selectedCountry,

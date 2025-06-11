@@ -45,7 +45,17 @@ fun slideWeek(days: Int): ContentTransform {
     return enterTransition togetherWith exitTransition
 }
 
-fun animateHeaderOnViewChange(
+fun animateHeaderBackButtonOnViewChange(
+    targetState: ViewShownInfo,
+    initialState: ViewShownInfo,
+): ContentTransform {
+    return if (targetState.current == ViewShown.MONTH && initialState.current == ViewShown.MONTH)
+        fadeNormal()
+    else
+        noTransform()
+}
+
+fun animateHeaderGearOnViewChange(
     targetState: ViewShownInfo,
     initialState: ViewShownInfo,
 ): ContentTransform {
