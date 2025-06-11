@@ -5,6 +5,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
@@ -40,7 +41,8 @@ fun slideFromRightToLeft(): ContentTransform {
 fun slideWeek(days: Int): ContentTransform {
     val stiffness = if (days == 1) Spring.StiffnessMediumLow else Spring.StiffnessMedium
     val enterTransition = slideInHorizontally(spring(stiffness = stiffness)) { days * it / 7 }
-    return enterTransition togetherWith ExitTransition.None
+    val exitTransition = fadeOut(tween(durationMillis = 0))
+    return enterTransition togetherWith exitTransition
 }
 
 fun animateHeaderOnViewChange(
