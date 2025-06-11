@@ -1,6 +1,60 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day" }
+    },
+    "12": {
+      "25": { "en": "Christmas Day" }
+    }
   },
   "oneTime": {
+    "2024": {
+      "3": {
+        "29": { "en": "Good Friday" },
+        "1": { "en": "Easter Monday" }
+      },
+      "5": {
+        "6": { "en": "Early May Bank Holiday" },
+        "27": { "en": "Spring Bank Holiday" }
+      },
+      "8": {
+        "26": { "en": "Summer Bank Holiday" }
+      },
+      "12": {
+        "26": { "en": "Boxing Day" }
+      }
+    },
+    "2025": {
+      "4": {
+        "18": { "en": "Good Friday" },
+        "21": { "en": "Easter Monday" }
+      },
+      "5": {
+        "5": { "en": "Early May Bank Holiday" },
+        "26": { "en": "Spring Bank Holiday" }
+      },
+      "8": {
+        "25": { "en": "Summer Bank Holiday" }
+      },
+      "12": {
+        "26": { "en": "Boxing Day" }
+      }
+    },
+    "2026": {
+      "4": {
+        "3": { "en": "Good Friday" },
+        "6": { "en": "Easter Monday" }
+      },
+      "5": {
+        "4": { "en": "Early May Bank Holiday" },
+        "25": { "en": "Spring Bank Holiday" }
+      },
+      "8": {
+        "31": { "en": "Summer Bank Holiday" }
+      },
+      "12": {
+        "28": { "en": "Boxing Day" }
+      }
+    }
   }
 }
