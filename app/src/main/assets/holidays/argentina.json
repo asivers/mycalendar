@@ -1,6 +1,176 @@
 {
   "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day", "es": "Año Nuevo" }
+    },
+    "3": {
+      "24": { "en": "Day of Remembrance for Truth and Justice", "es": "Día Nacional de la Memoria por la Verdad y la Justicia" }
+    },
+    "4": {
+      "2": { "en": "Malvinas Veterans Day", "es": "Día del Veterano y de los Caídos en la Guerra de Malvinas" }
+    },
+    "5": {
+      "1": { "en": "Labour Day", "es": "Día del Trabajador" },
+      "25": { "en": "May Revolution Day", "es": "Día de la Revolución de Mayo" }
+    },
+    "6": {
+      "20": { "en": "Flag Day", "es": "Día de la Bandera" }
+    },
+    "7": {
+      "9": { "en": "Independence Day", "es": "Día de la Independencia" }
+    },
+    "12": {
+      "8": { "en": "Immaculate Conception Day", "es": "Día de la Inmaculada Concepción de María" },
+      "25": { "en": "Christmas Day", "es": "Navidad" }
+    }
   },
   "oneTime": {
+    "2024": {
+      "2": {
+        "12": { "en": "Carnival Monday", "es": "Lunes de Carnaval" },
+        "13": { "en": "Carnival Tuesday", "es": "Martes de Carnaval" }
+      },
+      "3": {
+        "29": { "en": "Good Friday", "es": "Viernes Santo" }
+      },
+      "6": {
+        "17": { "en": "Martin Miguel de Güemes Day", "es": "Día Paso a la Inmortalidad del General Martín Miguel de Güemes" }
+      },
+      "7": {
+        "15": { "en": "San Martín Day", "es": "Día Paso a la Inmortalidad del General José de San Martín" }
+      },
+      "10": {
+        "14": { "en": "Day of Respect for Cultural Diversity", "es": "Día del Respeto a la Diversidad Cultural" }
+      },
+      "11": {
+        "18": { "en": "National Sovereignty Day", "es": "Día de la Soberanía Nacional" }
+      }
+    },
+    "2025": {
+      "2": {
+        "3": { "en": "Carnival Monday", "es": "Lunes de Carnaval" },
+        "4": { "en": "Carnival Tuesday", "es": "Martes de Carnaval" }
+      },
+      "4": {
+        "18": { "en": "Good Friday", "es": "Viernes Santo" }
+      },
+      "6": {
+        "16": { "en": "Martin Miguel de Güemes Day", "es": "Día Paso a la Inmortalidad del General Martín Miguel de Güemes" }
+      },
+      "7": {
+        "21": { "en": "San Martín Day", "es": "Día Paso a la Inmortalidad del General José de San Martín" }
+      },
+      "10": {
+        "13": { "en": "Day of Respect for Cultural Diversity", "es": "Día del Respeto a la Diversidad Cultural" }
+      },
+      "11": {
+        "24": { "en": "National Sovereignty Day", "es": "Día de la Soberanía Nacional" }
+      }
+    },
+    "2026": {
+      "2": {
+        "23": { "en": "Carnival Monday", "es": "Lunes de Carnaval" },
+        "24": { "en": "Carnival Tuesday", "es": "Martes de Carnaval" }
+      },
+      "4": {
+        "3": { "en": "Good Friday", "es": "Viernes Santo" }
+      },
+      "6": {
+        "15": { "en": "Martin Miguel de Güemes Day", "es": "Día Paso a la Inmortalidad del General Martín Miguel de Güemes" }
+      },
+      "7": {
+        "20": { "en": "San Martín Day", "es": "Día Paso a la Inmortalidad del General José de San Martín" }
+      },
+      "10": {
+        "12": { "en": "Day of Respect for Cultural Diversity", "es": "Día del Respeto a la Diversidad Cultural" }
+      },
+      "11": {
+        "23": { "en": "National Sovereignty Day", "es": "Día de la Soberanía Nacional" }
+      }
+    },
+    "2027": {
+      "2": {
+        "15": { "en": "Carnival Monday", "es": "Lunes de Carnaval" },
+        "16": { "en": "Carnival Tuesday", "es": "Martes de Carnaval" }
+      },
+      "3": {
+        "26": { "en": "Good Friday", "es": "Viernes Santo" }
+      },
+      "6": {
+        "21": { "en": "Martin Miguel de Güemes Day", "es": "Día Paso a la Inmortalidad del General Martín Miguel de Güemes" }
+      },
+      "7": {
+        "19": { "en": "San Martín Day", "es": "Día Paso a la Inmortalidad del General José de San Martín" }
+      },
+      "10": {
+        "11": { "en": "Day of Respect for Cultural Diversity", "es": "Día del Respeto a la Diversidad Cultural" }
+      },
+      "11": {
+        "22": { "en": "National Sovereignty Day", "es": "Día de la Soberanía Nacional" }
+      }
+    },
+    "2028": {
+      "2": {
+        "7": { "en": "Carnival Monday", "es": "Lunes de Carnaval" },
+        "8": { "en": "Carnival Tuesday", "es": "Martes de Carnaval" }
+      },
+      "4": {
+        "14": { "en": "Good Friday", "es": "Viernes Santo" }
+      },
+      "6": {
+        "19": { "en": "Martin Miguel de Güemes Day", "es": "Día Paso a la Inmortalidad del General Martín Miguel de Güemes" }
+      },
+      "7": {
+        "17": { "en": "San Martín Day", "es": "Día Paso a la Inmortalidad del General José de San Martín" }
+      },
+      "10": {
+        "9": { "en": "Day of Respect for Cultural Diversity", "es": "Día del Respeto a la Diversidad Cultural" }
+      },
+      "11": {
+        "20": { "en": "National Sovereignty Day", "es": "Día de la Soberanía Nacional" }
+      }
+    },
+    "2029": {
+      "2": {
+        "26": { "en": "Carnival Monday", "es": "Lunes de Carnaval" },
+        "27": { "en": "Carnival Tuesday", "es": "Martes de Carnaval" }
+      },
+      "3": {
+        "30": { "en": "Good Friday", "es": "Viernes Santo" }
+      },
+      "6": {
+        "18": { "en": "Martin Miguel de Güemes Day", "es": "Día Paso a la Inmortalidad del General Martín Miguel de Güemes" }
+      },
+      "7": {
+        "16": { "en": "San Martín Day", "es": "Día Paso a la Inmortalidad del General José de San Martín" }
+      },
+      "10": {
+        "8": { "en": "Day of Respect for Cultural Diversity", "es": "Día del Respeto a la Diversidad Cultural" }
+      },
+      "11": {
+        "19": { "en": "National Sovereignty Day", "es": "Día de la Soberanía Nacional" }
+      }
+    },
+    "2030": {
+      "2": {
+        "11": { "en": "Carnival Monday", "es": "Lunes de Carnaval" },
+        "12": { "en": "Carnival Tuesday", "es": "Martes de Carnaval" }
+      },
+      "4": {
+        "19": { "en": "Good Friday", "es": "Viernes Santo" }
+      },
+      "6": {
+        "17": { "en": "Martin Miguel de Güemes Day", "es": "Día Paso a la Inmortalidad del General Martín Miguel de Güemes" }
+      },
+      "7": {
+        "15": { "en": "San Martín Day", "es": "Día Paso a la Inmortalidad del General José de San Martín" }
+      },
+      "10": {
+        "14": { "en": "Day of Respect for Cultural Diversity", "es": "Día del Respeto a la Diversidad Cultural" }
+      },
+      "11": {
+        "18": { "en": "National Sovereignty Day", "es": "Día de la Soberanía Nacional" }
+      }
+    }
   }
 }
