@@ -1,6 +1,5 @@
 package com.asivers.mycalendar
 
-import android.app.Activity
 import android.os.Bundle
 import android.os.Vibrator
 import androidx.activity.ComponentActivity
@@ -20,7 +19,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.core.content.ContextCompat
 import com.asivers.mycalendar.composable.day.DayView
@@ -65,16 +63,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         makeNavigationBarBlack(window)
         setContent {
-            val ctx = LocalContext.current
-
-            ContextCompat.getSystemService(ctx, Vibrator::class.java)?.cancel()
-            createNotificationChannels(ctx)
+            ContextCompat.getSystemService(this, Vibrator::class.java)?.cancel()
+            createNotificationChannels(this)
 
             val systemLocale = LocalConfiguration.current.locales[0]
-            val savedSettings = getSavedSettings(ctx)
+            val savedSettings = getSavedSettings(this)
 
             val savedCountry = getSavedCountry(savedSettings)
-            val savedLocale = getSavedLocale(savedSettings, systemLocale, ctx)
+            val savedLocale = getSavedLocale(savedSettings, systemLocale, this)
             val savedTheme = getSavedTheme(savedSettings)
             val savedWeekendMode = getSavedWeekendMode(savedSettings)
             val savedWeekNumbersMode = getSavedWeekNumbersMode(savedSettings)
@@ -108,7 +104,7 @@ class MainActivity : ComponentActivity() {
 
                 BackHandler {
                     when (viewShownState.value.current) {
-                        ViewShown.MONTH -> (ctx as? Activity)?.finish()
+                        ViewShown.MONTH -> finish()
                         ViewShown.YEAR, ViewShown.DAY -> changeView(viewShownState, ViewShown.MONTH)
                         ViewShown.SETTINGS -> backToPreviousView(viewShownState)
                     }
@@ -193,13 +189,13 @@ class MainActivity : ComponentActivity() {
                 }
 
                 val permissionTypeToShowWarningRevoked = remember {
-                    mutableStateOf(getPermissionTypeToShowWarningRevoked(ctx))
+                    mutableStateOf(getPermissionTypeToShowWarningRevoked(this))
                 }
                 if (permissionTypeToShowWarningRevoked.value != null) {
                     PermissionRevokedDialog(
                         onCloseDialog = {
-                            val notificationsInPast = getInfoAboutAllNotificationsInPast(ctx)
-                            cleanupAllNotificationsInPast(ctx, notificationsInPast)
+                            val notificationsInPast = getInfoAboutAllNotificationsInPast(this)
+                            cleanupAllNotificationsInPast(this, notificationsInPast)
                             permissionTypeToShowWarningRevoked.value = null
                         },
                         permissionType = permissionTypeToShowWarningRevoked.value,
