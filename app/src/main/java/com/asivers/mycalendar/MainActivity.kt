@@ -70,7 +70,7 @@ class MainActivity : ComponentActivity() {
             val systemLocale = LocalConfiguration.current.locales[0]
             val savedSettings = getSavedSettings(this)
 
-            val savedCountry = getSavedCountry(savedSettings)
+            val savedCountry = getSavedCountry(savedSettings, systemLocale, this)
             val savedLocale = getSavedLocale(savedSettings, systemLocale, this)
             val savedTheme = getSavedTheme(savedSettings)
             val savedWeekendMode = getSavedWeekendMode(savedSettings)

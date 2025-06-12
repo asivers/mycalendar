@@ -19,11 +19,34 @@ fun getSavedSettings(ctx: Context): SavedSettings {
     return runBlocking { ctx.savedSettingsDataStore.data.first() }
 }
 
-fun getSavedCountry(savedSettings: SavedSettings): Country {
-    return if (savedSettings.country.isEmpty())
-        Country.NO_DISPLAY
-    else
-        Country.valueOf(savedSettings.country)
+fun getSavedCountry(
+    savedSettings: SavedSettings,
+    systemLocale: Locale,
+    ctx: Context
+): Country {
+    if (savedSettings.country.isEmpty()) {
+        val countryToSet = enumValues<Country>()
+            .find { systemLocale.country == it.systemLocaleCountry }
+            ?: Country.NO_DISPLAY
+        updateOneSetting(SettingsParam.COUNTRY, countryToSet, ctx)
+        return countryToSet
+    }
+    return Country.valueOf(savedSettings.country)
+}
+
+fun getSavedLocale(
+    savedSettings: SavedSettings,
+    systemLocale: Locale,
+    ctx: Context
+): ExistingLocale {
+    if (savedSettings.locale.isEmpty()) {
+        val localeToSet = enumValues<ExistingLocale>()
+            .find { systemLocale.language == it.assetName }
+            ?: ExistingLocale.EN
+        updateOneSetting(SettingsParam.EXISTING_LOCALE, localeToSet, ctx)
+        return localeToSet
+    }
+    return ExistingLocale.valueOf(savedSettings.locale)
 }
 
 fun getSavedTheme(savedSettings: SavedSettings): UserTheme {
@@ -52,21 +75,6 @@ fun getSavedNotificationsMode(savedSettings: SavedSettings): NotificationsMode {
         NotificationsMode.WITH_RINGTONE
     else
         NotificationsMode.valueOf(savedSettings.notificationsMode)
-}
-
-fun getSavedLocale(
-    savedSettings: SavedSettings,
-    systemLocale: Locale,
-    ctx: Context
-): ExistingLocale {
-    if (savedSettings.locale.isEmpty()) {
-        val localeToSet = enumValues<ExistingLocale>()
-            .find { systemLocale.language == it.assetName }
-            ?: ExistingLocale.EN
-        updateOneSetting(SettingsParam.EXISTING_LOCALE, localeToSet, ctx)
-        return localeToSet
-    }
-    return ExistingLocale.valueOf(savedSettings.locale)
 }
 
 fun updateOneSetting(
