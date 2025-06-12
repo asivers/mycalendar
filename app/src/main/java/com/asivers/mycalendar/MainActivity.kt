@@ -31,6 +31,7 @@ import com.asivers.mycalendar.data.SchemeContainer
 import com.asivers.mycalendar.data.SelectedDateInfo
 import com.asivers.mycalendar.data.ViewShownInfo
 import com.asivers.mycalendar.enums.ViewShown
+import com.asivers.mycalendar.receivers.JUMP_TO_DATE
 import com.asivers.mycalendar.utils.animateContentOnViewChange
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
@@ -82,9 +83,19 @@ class MainActivity : ComponentActivity() {
                 val selectedWeekendMode = remember { mutableStateOf(savedWeekendMode) }
                 val selectedWeekNumbersMode = remember { mutableStateOf(savedWeekNumbersMode) }
 
-                val today = LocalDate.now()
-                val selectedDateState = remember { mutableStateOf(SelectedDateInfo(today)) }
-                val viewShownState = remember { mutableStateOf(ViewShownInfo(ViewShown.MONTH)) }
+                val jumpToDate = intent.getStringExtra(JUMP_TO_DATE)
+                val selectedDateState = remember {
+                    mutableStateOf(
+                        if (jumpToDate != null)
+                            SelectedDateInfo(jumpToDate) else SelectedDateInfo(LocalDate.now())
+                    )
+                }
+                val viewShownState = remember {
+                    mutableStateOf(
+                        ViewShownInfo(
+                            if (jumpToDate != null) ViewShown.DAY else ViewShown.MONTH)
+                    )
+                }
 
                 val countryHolidayScheme = getHolidaySchemeForCountry(
                     selectedCountry.value, applicationContext)

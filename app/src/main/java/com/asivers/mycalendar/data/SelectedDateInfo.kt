@@ -18,6 +18,12 @@ data class SelectedDateInfo(
         dayOfMonth = localDate.dayOfMonth
     )
 
+    constructor(shortString: String): this(
+        year = shortString.substring(0, 4).toInt(),
+        monthValue = shortString.substring(4, 6).toInt(),
+        dayOfMonth = shortString.substring(6).toInt()
+    )
+
     fun getDate(): LocalDate = LocalDate.of(year, monthValue, dayOfMonth)
 
     fun isToday(): Boolean {
@@ -36,5 +42,12 @@ data class SelectedDateInfo(
         byDaysLineSlide = byDaysLineSlide,
         refreshFlag = !refreshFlag
     )
+
+    fun toShortString(): String {
+        val yearStr = year.toString()
+        val monthValueStr = monthValue.toString().padStart(2, '0')
+        val dayOfMonthStr = dayOfMonth.toString().padStart(2, '0')
+        return yearStr + monthValueStr + dayOfMonthStr
+    }
 
 }

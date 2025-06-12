@@ -26,6 +26,8 @@ import com.asivers.mycalendar.utils.notification.resetExactAlarmForNextYear
 import com.asivers.mycalendar.utils.proto.editNote
 import java.time.LocalDate
 
+const val JUMP_TO_DATE = "JUMP_TO_DATE"
+
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(ctx: Context?, intent: Intent?) {
@@ -48,8 +50,10 @@ class AlarmReceiver : BroadcastReceiver() {
                     return
                 }
 
+                val selectedDateInfo = SelectedDateInfo(LocalDate.now())
                 val mainActivityIntent = Intent(ctx, MainActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    putExtra(JUMP_TO_DATE, selectedDateInfo.toShortString())
                 }
                 val pendingIntent: PendingIntent = PendingIntent.getActivity(
                     ctx, 0, mainActivityIntent, PendingIntent.FLAG_IMMUTABLE)
@@ -73,7 +77,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 } else {
                     editNote(
                         ctx = ctx,
-                        selectedDateInfo = SelectedDateInfo(LocalDate.now()),
+                        selectedDateInfo = selectedDateInfo,
                         id = noteId,
                         msg = alarmMessage,
                         isEveryYear = false,
