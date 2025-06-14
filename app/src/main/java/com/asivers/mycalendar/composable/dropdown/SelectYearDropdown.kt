@@ -102,7 +102,7 @@ fun SelectYearDropdownList(
     ) {
         LazyColumn(
             modifier = Modifier
-                .height((itemHeightDp * 14).dp)
+                .height((itemHeightDp * schemes.size.vertical.displayedItemsInYearDropdown).dp)
                 .width(schemes.size.horizontal.yearDropdown.plus(5.dp)),
             state = LazyListState(getYearIndex(thisYear))
         ) {
