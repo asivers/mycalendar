@@ -12,10 +12,12 @@ import androidx.compose.ui.unit.Density
 import androidx.window.layout.WindowMetricsCalculator
 import com.asivers.mycalendar.constants.schemes.size.FONT_SCHEME_BIG
 import com.asivers.mycalendar.constants.schemes.size.FONT_SCHEME_SMALL
+import com.asivers.mycalendar.constants.schemes.size.FONT_SCHEME_VERY_SMALL
 import com.asivers.mycalendar.constants.schemes.size.HORIZONTAL_SCHEME_BIG
 import com.asivers.mycalendar.constants.schemes.size.HORIZONTAL_SCHEME_SMALL
 import com.asivers.mycalendar.constants.schemes.size.VERTICAL_SCHEME_BIG
 import com.asivers.mycalendar.constants.schemes.size.VERTICAL_SCHEME_SMALL
+import com.asivers.mycalendar.constants.schemes.size.VERTICAL_SCHEME_VERY_SMALL
 import com.asivers.mycalendar.data.scheme.size.FontSizeDpScheme
 import com.asivers.mycalendar.data.scheme.size.FontSizeSpScheme
 import com.asivers.mycalendar.data.scheme.size.HorizontalSizeScheme
@@ -35,27 +37,28 @@ fun getSizeScheme(config: Configuration, density: Density): SizeScheme {
 }
 
 private fun getHorizontalSizeScheme(screenWidthDp: Int): HorizontalSizeScheme {
-    if (screenWidthDp > 400) {
-        return HORIZONTAL_SCHEME_BIG
-    } else {
-        return HORIZONTAL_SCHEME_SMALL
-    }
+    return if (screenWidthDp > 400)
+        HORIZONTAL_SCHEME_BIG
+    else
+        HORIZONTAL_SCHEME_SMALL
 }
 
 private fun getVerticalSizeScheme(screenHeightDp: Int): VerticalSizeScheme {
-    if (screenHeightDp > 900) {
-        return VERTICAL_SCHEME_BIG
-    } else {
-        return VERTICAL_SCHEME_SMALL
-    }
+    return if (screenHeightDp > 900)
+        VERTICAL_SCHEME_BIG
+    else if (screenHeightDp > 600)
+        VERTICAL_SCHEME_SMALL
+    else
+        VERTICAL_SCHEME_VERY_SMALL
 }
 
 private fun getFontSizeDpScheme(config: Configuration): FontSizeDpScheme {
-    if (config.screenWidthDp > 400 && config.screenHeightDp > 900) {
-        return FONT_SCHEME_BIG
-    } else {
-        return FONT_SCHEME_SMALL
-    }
+    return if (config.screenWidthDp > 400 && config.screenHeightDp > 900)
+        FONT_SCHEME_BIG
+    else if (config.screenHeightDp > 600)
+        FONT_SCHEME_SMALL
+    else
+        FONT_SCHEME_VERY_SMALL
 }
 
 private fun getFontSizeSpScheme(dpScheme: FontSizeDpScheme, density: Density): FontSizeSpScheme {

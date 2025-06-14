@@ -46,6 +46,7 @@ fun SettingsView(
     }
 
     val expanded: MutableState<SettingsParam?> = remember { mutableStateOf(null) }
+    val spacerModifier = Modifier.height(schemes.size.vertical.betweenSettingsPadding)
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -59,7 +60,7 @@ fun SettingsView(
             maxItemsDisplayed = 12,
             schemes = schemes
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = spacerModifier)
         SettingsDropdown(
             expanded = expanded,
             selectedItem = selectedLocale,
@@ -68,7 +69,7 @@ fun SettingsView(
             maxItemsDisplayed = 11, // todo measure
             schemes = schemes
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = spacerModifier)
         SettingsDropdown(
             expanded = expanded,
             selectedItem = selectedTheme,
@@ -77,7 +78,7 @@ fun SettingsView(
             maxItemsDisplayed = 7,
             schemes = schemes
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = spacerModifier)
         SettingsDropdown(
             expanded = expanded,
             selectedItem = selectedWeekendMode,
@@ -86,7 +87,7 @@ fun SettingsView(
             maxItemsDisplayed = 3,
             schemes = schemes
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = spacerModifier)
         SettingsDropdown(
             expanded = expanded,
             selectedItem = selectedWeekNumbersMode,
@@ -95,7 +96,7 @@ fun SettingsView(
             maxItemsDisplayed = 2,
             schemes = schemes
         )
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = spacerModifier)
         SettingsDropdown(
             expanded = expanded,
             selectedItem = selectedNotificationsMode,

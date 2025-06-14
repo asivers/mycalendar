@@ -3,6 +3,16 @@ package com.asivers.mycalendar.constants.schemes.size
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.scheme.size.FontSizeDpScheme
 
+val FONT_SCHEME_VERY_SMALL = FontSizeDpScheme(
+    main = 21.dp,
+    dropdownHeader = 23.dp,
+    dropdownItem = 17.dp,
+    mvHeaderWeek = 10.dp,
+    yvMonthName = 12.dp,
+    yvHeaderWeek = 6.dp,
+    yvDay = 8.dp
+)
+
 val FONT_SCHEME_SMALL = FontSizeDpScheme(
     main = 24.dp,
     dropdownHeader = 26.dp,
