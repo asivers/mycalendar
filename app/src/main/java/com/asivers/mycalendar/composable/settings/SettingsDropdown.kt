@@ -176,7 +176,7 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
     val ctx = LocalContext.current
     val density = LocalDensity.current
     val screenHeightDp = getScreenHeightDp(ctx, density)
-    val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 17 // todo change
+    val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 17
     val translatedItemsNames = getTranslatedSettingsItemsNames(allItems, schemes.translation)
     val selectedItemIndex = allItems.indexOf(selectedItem.value)
     DropdownMenu(
@@ -188,7 +188,7 @@ fun <T : SettingsItem> SettingsScrollableDropdownList(
         LazyColumn(
             modifier = Modifier
                 .height(((maxItemsDisplayed - 0.5) * itemHeightDp).dp)
-                .width(205.dp), // todo adapt for different size schemes
+                .width(205.dp),
             state = LazyListState(selectedItemIndex)
         ) {
             items(translatedItemsNames.size) { index ->

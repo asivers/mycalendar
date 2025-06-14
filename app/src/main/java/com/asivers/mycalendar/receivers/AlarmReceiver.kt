@@ -31,7 +31,6 @@ const val JUMP_TO_DATE = "JUMP_TO_DATE"
 class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(ctx: Context?, intent: Intent?) {
-        // todo check working with old builds
         if (ctx == null || intent == null) return
         when (intent.action) {
             ALARM_ACTION -> {

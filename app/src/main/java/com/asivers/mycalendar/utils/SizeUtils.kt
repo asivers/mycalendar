@@ -75,8 +75,6 @@ private fun getFontSizeSpScheme(dpScheme: FontSizeDpScheme, density: Density): F
 
 fun getIndentFromHeaderDp(ctx: Context, density: Density): Int {
     val screenHeightDp = getScreenHeightDp(ctx, density)
-    // todo adapt after year view button height is added to size scheme
-    // todo add to the new scheme
     // 112 (fixed value) = 48 (settings header) + 64 (year view button)
     return (screenHeightDp - 112) / 24
 }

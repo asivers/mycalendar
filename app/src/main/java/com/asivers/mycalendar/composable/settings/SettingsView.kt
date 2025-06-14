@@ -36,7 +36,6 @@ fun SettingsView(
     selectedWeekNumbersMode: MutableState<WeekNumbersMode>,
     schemes: SchemeContainer
 ) {
-    // todo adapt for different fonts
     val ctx = LocalContext.current
     val density = LocalDensity.current
     val indentFromHeaderDp = getIndentFromHeaderDp(ctx, density) + 1

@@ -49,7 +49,6 @@ fun ExistingNotes(
     selectedDateInfo: SelectedDateInfo,
     schemes: SchemeContainer
 ) {
-    // todo check that it fits for different screen sizes
     val ctx = LocalContext.current
     val density = LocalDensity.current
     val screenHeightDp = getScreenHeightDp(ctx, density)
@@ -64,7 +63,6 @@ fun ExistingNotes(
             Box(
                 contentAlignment = Alignment.CenterStart
             ) {
-                // todo adapt for different size schemes
                 val maxNoteHeight = maxOf(48, maxExistingNotesHeightDp / mutableNotes.size)
                 val horizontalOffset = remember { mutableFloatStateOf(0f) }
                 OneSavedNote(

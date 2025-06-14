@@ -95,8 +95,6 @@ fun NoteOptions(
                 ?: schemes.translation.switchNotification,
             schemes = schemes
         )
-        // todo find the way to separate switchers from the save button, with one-line labels
-        // Spacer(modifier = Modifier.weight(1f))
         ActionNoteButton(
             modifier = Modifier
                 .weight(3f)

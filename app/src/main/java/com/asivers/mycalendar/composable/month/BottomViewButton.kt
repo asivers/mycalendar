@@ -38,7 +38,7 @@ fun BottomViewButton(
         onClick = { onClick() },
         modifier = modifier
             .fillMaxWidth()
-            .height(64.dp) // todo add to size scheme
+            .height(64.dp)
             .clip(RoundedCornerShape(36.dp, 36.dp))
             .background(background)
             .pointerInput(Unit) {
