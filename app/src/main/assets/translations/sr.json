@@ -64,7 +64,7 @@
   },
   "themesParam": "Тема",
   "themes": {
-    "changeBySeason": "Мењај по годишњем добу",
+    "changeBySeason": "Мењати по сезони",
     "summer": "Лето",
     "autumn": "Јесен",
     "winter": "Зима",

@@ -64,7 +64,7 @@
   },
   "themesParam": "Thema",
   "themes": {
-    "changeBySeason": "Wechselt je nach Jahreszeit",
+    "changeBySeason": "Nach Saison",
     "summer": "Sommer",
     "autumn": "Herbst",
     "winter": "Winter",
@@ -92,7 +92,7 @@
   "saveNote": "Speichern",
   "deleteNote": "Löschen",
   "switchEveryYear": "Jedes Jahr",
-  "switchNotification": "Benachrichtigung",
+  "switchNotification": "Erinnerung",
   "dismiss": "Verwerfen",
   "confirm": "Bestätigen",
   "ok": "OK",
