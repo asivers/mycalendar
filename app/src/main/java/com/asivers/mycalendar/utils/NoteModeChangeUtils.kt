@@ -237,7 +237,8 @@ private fun addNoteAndSetAlarmAndUpdateStates(
         isEveryYear = isEveryYear,
         notificationTime = mutableNoteInfo.value.notificationTime
     )
-    mutableNotes.add(0, newNoteInfo)
+    mutableNotes.add(newNoteInfo)
+    mutableNotes.sort()
     mutableNoteInfo.value.changed = false
 }
 
@@ -298,8 +299,8 @@ private fun editNoteAndUpdateAlarmAndUpdateStates(
         isEveryYear = isEveryYear,
         notificationTime = mutableNoteInfo.value.notificationTime
     )
-    val index = mutableNotes.indexOfFirst { it.id == noteId }
-    mutableNotes.removeAt(index)
-    mutableNotes.add(index, editedNoteInfo)
+    mutableNotes.removeAt(mutableNotes.indexOfFirst { it.id == noteId })
+    mutableNotes.add(editedNoteInfo)
+    mutableNotes.sort()
     mutableNoteInfo.value.changed = false
 }

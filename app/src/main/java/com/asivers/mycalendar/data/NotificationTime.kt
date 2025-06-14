@@ -22,7 +22,7 @@ data class NotificationTime(
         minute = protoNotificationTime.minute
     )
 
-    override fun compareTo(other: NotificationTime) = compareValuesBy(this, other,
+    override fun compareTo(other: NotificationTime) = -compareValuesBy(this, other,
         { it.hour },
         { it.minute }
     )

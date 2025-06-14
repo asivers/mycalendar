@@ -46,7 +46,7 @@ fun NotesSection(
     val mutableNotes = remember(
         selectedDateInfo.year, selectedDateInfo.monthValue, selectedDateInfo.dayOfMonth
     ) {
-        getNotes(ctx, selectedDateInfo).reversed().toMutableStateList()
+        getNotes(ctx, selectedDateInfo).toMutableStateList()
     }
     val mutableNoteInfo = remember(
         selectedDateInfo.year, selectedDateInfo.monthValue, selectedDateInfo.dayOfMonth

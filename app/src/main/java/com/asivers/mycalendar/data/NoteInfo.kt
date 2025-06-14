@@ -21,7 +21,7 @@ data class NoteInfo(
             null else NotificationTime(protoNote.notificationTimeValue)
     )
 
-    override fun compareTo(other: NoteInfo) = compareValuesBy(this, other,
+    override fun compareTo(other: NoteInfo) = -compareValuesBy(this, other,
         { it.notificationTime },
         { it.id }
     )
