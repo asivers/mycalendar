@@ -30,6 +30,7 @@ data class TranslationScheme(
     val ok: String,
     val goToSettings: String,
     val requestAlarmPermission: String,
+    val explainNotificationPermissionNeeded: String,
     val explainNotificationPermissionDenied: String,
     val explainNotificationPermissionRevoked: String,
     val explainAlarmPermissionRevoked: String,

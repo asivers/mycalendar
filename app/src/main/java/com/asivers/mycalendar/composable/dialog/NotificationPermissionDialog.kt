@@ -15,13 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.data.SchemeContainer
+import com.asivers.mycalendar.utils.notification.requestNotificationPermission
+import com.asivers.mycalendar.utils.notification.setNotificationPermissionNotGranted
 import com.asivers.mycalendar.utils.notification.startRequestNotificationPermissionIntent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PermissionDeniedDialog(
+fun NotificationPermissionDialog(
     modifier: Modifier = Modifier,
+    onStartRequestingPermission: () -> Unit,
     onCloseDialog: () -> Unit,
+    shouldShowRequestPermissionRationale: Boolean,
     schemes: SchemeContainer
 ) {
     val ctx = LocalContext.current
@@ -33,7 +37,11 @@ fun PermissionDeniedDialog(
             shape = RoundedCornerShape(16.dp)
         ) {
             Column(modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 0.dp)) {
-                Text(text = schemes.translation.explainNotificationPermissionDenied)
+                val explainText = if (shouldShowRequestPermissionRationale)
+                    schemes.translation.explainNotificationPermissionNeeded
+                else
+                    schemes.translation.explainNotificationPermissionDenied
+                Text(text = explainText)
                 Row(
                     modifier = Modifier
                         .padding(0.dp, 8.dp)
@@ -44,11 +52,19 @@ fun PermissionDeniedDialog(
                     }
                     TextButton(
                         onClick = {
-                            startRequestNotificationPermissionIntent(ctx)
+                            setNotificationPermissionNotGranted()
+                            onStartRequestingPermission()
                             onCloseDialog()
+                            if (shouldShowRequestPermissionRationale) {
+                                requestNotificationPermission()
+                            } else {
+                                startRequestNotificationPermissionIntent(ctx)
+                            }
                         }
                     ) {
-                        Text(text = schemes.translation.goToSettings)
+                        val confirmButtonText = if (shouldShowRequestPermissionRationale)
+                            schemes.translation.confirm else schemes.translation.goToSettings
+                        Text(text = confirmButtonText)
                     }
                 }
             }

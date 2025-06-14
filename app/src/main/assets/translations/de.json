@@ -98,6 +98,7 @@
   "ok": "OK",
   "goToSettings": "Zu den Einstellungen",
   "requestAlarmPermission": "Die App benötigt eine Berechtigung zum Planen von Alarmen",
+  "explainNotificationPermissionNeeded": "Damit diese Funktion funktioniert, müssen Sie die Berechtigung zum Anzeigen von Benachrichtigungen erteilen",
   "explainNotificationPermissionDenied": "Die Berechtigung zum Senden von Benachrichtigungen wurde vom Nutzer abgelehnt. Um Benachrichtigungen zu verwenden, aktivieren Sie die Berechtigung in den Geräteeinstellungen",
   "explainNotificationPermissionRevoked": "Die Berechtigung zum Senden von Benachrichtigungen wurde vom Nutzer widerrufen. Bestehende Benachrichtigungen funktionieren nicht. Um Benachrichtigungen zu verwenden, aktivieren Sie die Berechtigung in den Geräteeinstellungen",
   "explainAlarmPermissionRevoked": "Die Berechtigung zum Planen von Alarmen wurde vom Nutzer widerrufen. Bestehende Benachrichtigungen funktionieren nicht. Um Benachrichtigungen zu verwenden, aktivieren Sie die Berechtigung in den Geräteeinstellungen",

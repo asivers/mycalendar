@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+option java_package = "com.asivers.mycalendar.data.proto";
+
+message AdditionalInfo {
+  bool wasNotificationPermissionRequestedBefore = 1;
+}

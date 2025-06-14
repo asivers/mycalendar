@@ -98,6 +98,7 @@
   "ok": "OK",
   "goToSettings": "Vai alle impostazioni",
   "requestAlarmPermission": "L'app richiede l'autorizzazione per pianificare gli allarmi",
+  "explainNotificationPermissionNeeded": "Per far funzionare questa funzione, è necessario concedere l'autorizzazione a mostrare le notifiche",
   "explainNotificationPermissionDenied": "L'autorizzazione per inviare notifiche è stata negata dall'utente. Per utilizzare le notifiche, abilita l'autorizzazione nelle impostazioni del dispositivo",
   "explainNotificationPermissionRevoked": "L'autorizzazione per inviare notifiche è stata revocata dall'utente. Le notifiche esistenti non funzioneranno. Per utilizzare le notifiche, abilita l'autorizzazione nelle impostazioni del dispositivo",
   "explainAlarmPermissionRevoked": "L'autorizzazione per pianificare gli allarmi è stata revocata dall'utente. Le notifiche esistenti non funzioneranno. Per utilizzare le notifiche, abilita l'autorizzazione nelle impostazioni del dispositivo",

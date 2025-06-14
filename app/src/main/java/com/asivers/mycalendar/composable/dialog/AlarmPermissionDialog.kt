@@ -21,7 +21,7 @@ import com.asivers.mycalendar.utils.notification.startRequestExactAlarmPermissio
 @Composable
 fun AlarmPermissionDialog(
     modifier: Modifier = Modifier,
-    onStartPermissionIntent: () -> Unit,
+    onStartRequestingPermission: () -> Unit,
     onCloseDialog: () -> Unit,
     schemes: SchemeContainer
 ) {
@@ -45,9 +45,9 @@ fun AlarmPermissionDialog(
                     }
                     TextButton(
                         onClick = {
-                            startRequestExactAlarmPermissionIntent(ctx)
-                            onStartPermissionIntent()
+                            onStartRequestingPermission()
                             onCloseDialog()
+                            startRequestExactAlarmPermissionIntent(ctx)
                         }
                     ) {
                         Text(text = schemes.translation.confirm)

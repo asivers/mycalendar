@@ -48,10 +48,14 @@ fun isNotificationPermissionNotGranted(): Boolean {
     return notificationPermissionResult == NotificationPermissionResult.NOT_GRANTED
 }
 
-fun wasNotificationPermissionDeniedBefore(ctx: Context): Boolean {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return false
+fun setNotificationPermissionNotGranted() {
+    notificationPermissionResult = NotificationPermissionResult.NOT_GRANTED
+}
+
+fun shouldShowRequestPermissionRationale(ctx: Context): Boolean {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return false // will never happen
     val activity = ctx as Activity
-    return !activity.shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)
+    return activity.shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)
 }
 
 fun isNeededToRequestScheduleExactAlarmPermission(ctx: Context): Boolean {

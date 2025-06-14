@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.asivers.mycalendar.composable.dialog.AlarmPermissionDialog
-import com.asivers.mycalendar.composable.dialog.PermissionDeniedDialog
+import com.asivers.mycalendar.composable.dialog.NotificationPermissionDialog
 import com.asivers.mycalendar.data.MutableNoteInfo
 import com.asivers.mycalendar.data.NotificationTime
 import com.asivers.mycalendar.data.SchemeContainer
@@ -26,7 +26,9 @@ import com.asivers.mycalendar.utils.notification.isNeededToRequestNotificationPe
 import com.asivers.mycalendar.utils.notification.isNeededToRequestScheduleExactAlarmPermission
 import com.asivers.mycalendar.utils.notification.isNotificationPermissionNotGranted
 import com.asivers.mycalendar.utils.notification.requestNotificationPermission
-import com.asivers.mycalendar.utils.notification.wasNotificationPermissionDeniedBefore
+import com.asivers.mycalendar.utils.notification.shouldShowRequestPermissionRationale
+import com.asivers.mycalendar.utils.proto.setNotificationPermissionWasRequestedBefore
+import com.asivers.mycalendar.utils.proto.wasNotificationPermissionRequestedBefore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalTime
@@ -64,21 +66,24 @@ fun SetNotificationDialog(
             && selectedDateInfo.isToday()
     if (dialogOpened.value) {
         if (isNeededToRequestNotificationPermission(ctx)) {
-            if (wasNotificationPermissionDeniedBefore(ctx)) {
-                PermissionDeniedDialog(
-                    onCloseDialog = { dialogOpened.value = false },
-                    schemes = schemes
-                )
+            if (!wasNotificationPermissionRequestedBefore(ctx)) {
+                setNotificationPermissionWasRequestedBefore(ctx)
+                requestNotificationPermission()
+                waitNotificationPermissionState.value = true
+                dialogOpened.value = false
                 return
             }
-            requestNotificationPermission()
-            waitNotificationPermissionState.value = true
-            dialogOpened.value = false
+            NotificationPermissionDialog(
+                onStartRequestingPermission = { waitNotificationPermissionState.value = true },
+                onCloseDialog = { dialogOpened.value = false },
+                shouldShowRequestPermissionRationale = shouldShowRequestPermissionRationale(ctx),
+                schemes = schemes
+            )
             return
         }
         if (isNeededToRequestScheduleExactAlarmPermission(ctx)) {
             AlarmPermissionDialog(
-                onStartPermissionIntent = { waitAlarmPermissionState.value = true },
+                onStartRequestingPermission = { waitAlarmPermissionState.value = true },
                 onCloseDialog = { dialogOpened.value = false },
                 schemes = schemes
             )

@@ -98,6 +98,7 @@
   "ok": "OK",
   "goToSettings": "Ir para configurações",
   "requestAlarmPermission": "O aplicativo solicita permissão para agendar alarmes",
+  "explainNotificationPermissionNeeded": "Para que esse recurso funcione, você precisa conceder permissão para mostrar notificações",
   "explainNotificationPermissionDenied": "A permissão para enviar notificações foi negada pelo usuário. Para usar notificações, ative a permissão nas configurações do dispositivo",
   "explainNotificationPermissionRevoked": "A permissão para enviar notificações foi revogada pelo usuário. As notificações existentes não funcionarão. Para usar notificações, ative a permissão nas configurações do dispositivo",
   "explainAlarmPermissionRevoked": "A permissão para agendar alarmes foi revogada pelo usuário. As notificações existentes não funcionarão. Para usar notificações, ative a permissão nas configurações do dispositivo",

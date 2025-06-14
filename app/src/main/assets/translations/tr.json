@@ -98,6 +98,7 @@
   "ok": "Tamam",
   "goToSettings": "Ayarlar'a git",
   "requestAlarmPermission": "Uygulama, alarm planlama izni istemektedir",
+  "explainNotificationPermissionNeeded": "Bu özelliğin çalışması için bildirimleri gösterme izni vermeniz gerekir",
   "explainNotificationPermissionDenied": "Bildirim gönderme izni kullanıcı tarafından reddedildi. Bildirimleri kullanmak için cihaz ayarlarından izin vermelisiniz",
   "explainNotificationPermissionRevoked": "Bildirim gönderme izni kullanıcı tarafından iptal edildi. Mevcut bildirimler çalışmayacaktır. Bildirimleri kullanmak için cihaz ayarlarından izin vermelisiniz",
   "explainAlarmPermissionRevoked": "Alarm planlama izni kullanıcı tarafından iptal edildi. Mevcut bildirimler çalışmayacaktır. Bildirimleri kullanmak için cihaz ayarlarından izin vermelisiniz",

@@ -98,6 +98,7 @@
   "ok": "OK",
   "goToSettings": "Aller aux paramètres",
   "requestAlarmPermission": "L'application demande l'autorisation de programmer des alarmes",
+  "explainNotificationPermissionNeeded": "Pour que cette fonctionnalité fonctionne, vous devez accorder l'autorisation d'afficher les notifications",
   "explainNotificationPermissionDenied": "L'utilisateur a refusé l'autorisation d'envoyer des notifications. Pour utiliser les notifications, activez cette autorisation dans les paramètres de votre appareil",
   "explainNotificationPermissionRevoked": "L'utilisateur a révoqué l'autorisation d'envoyer des notifications. Les notifications existantes ne fonctionneront plus. Pour les utiliser, activez l'autorisation dans les paramètres de votre appareil",
   "explainAlarmPermissionRevoked": "L'utilisateur a révoqué l'autorisation de programmer des alarmes. Les notifications existantes ne fonctionneront plus. Pour les utiliser, activez l'autorisation dans les paramètres de votre appareil",

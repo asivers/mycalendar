@@ -98,6 +98,7 @@
   "ok": "Aceptar",
   "goToSettings": "Ir a configuración",
   "requestAlarmPermission": "La aplicación solicita permiso para programar alarmas",
+  "explainNotificationPermissionNeeded": "Para que esta función funcione, debe otorgar permiso para mostrar notificaciones",
   "explainNotificationPermissionDenied": "El usuario ha denegado el permiso para enviar notificaciones. Para usar notificaciones, habilita el permiso en la configuración del dispositivo",
   "explainNotificationPermissionRevoked": "El permiso para enviar notificaciones ha sido revocado por el usuario. Las notificaciones existentes no funcionarán. Para usar notificaciones, habilita el permiso en la configuración del dispositivo",
   "explainAlarmPermissionRevoked": "El permiso para programar alarmas ha sido revocado por el usuario. Las notificaciones existentes no funcionarán. Para usar notificaciones, habilita el permiso en la configuración del dispositivo",
