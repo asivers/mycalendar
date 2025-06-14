@@ -49,7 +49,8 @@ fun SetNotificationDialog(
             onPermissionGrantedOrDenied = {
                 waitNotificationPermissionState.value = false
                 dialogOpened.value = true
-            }
+            },
+            ctx = ctx
         )
     }
     val waitAlarmPermissionState = remember(selectedDateInfo) { mutableStateOf(false) }
@@ -133,11 +134,12 @@ fun SetNotificationDialog(
 
 @Composable
 fun NotificationPermissionWaiter(
-    onPermissionGrantedOrDenied: () -> Unit
+    onPermissionGrantedOrDenied: () -> Unit,
+    ctx: Context
 ) {
     LaunchedEffect(Unit) {
         launch {
-            while (isNotificationPermissionNotGranted()) {
+            while (isNotificationPermissionNotGranted(ctx)) {
                 delay(100)
             }
             onPermissionGrantedOrDenied()

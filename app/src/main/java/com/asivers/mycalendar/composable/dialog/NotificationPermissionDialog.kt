@@ -52,9 +52,12 @@ fun NotificationPermissionDialog(
                     }
                     TextButton(
                         onClick = {
-                            setNotificationPermissionNotGranted()
+                            val needsSystemCheck = !shouldShowRequestPermissionRationale
+                            setNotificationPermissionNotGranted(needsSystemCheck)
+
                             onStartRequestingPermission()
                             onCloseDialog()
+
                             if (shouldShowRequestPermissionRationale) {
                                 requestNotificationPermission()
                             } else {

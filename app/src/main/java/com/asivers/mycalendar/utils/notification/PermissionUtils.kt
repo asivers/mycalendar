@@ -19,6 +19,7 @@ private var notificationPermissionResult = NotificationPermissionResult.NOT_GRAN
 
 private enum class NotificationPermissionResult {
     NOT_GRANTED,
+    NOT_GRANTED_NEEDS_SYSTEM_CHECK,
     GRANTED,
     DENIED
 }
@@ -44,12 +45,26 @@ fun requestNotificationPermission() {
     notificationPermissionRequestLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
 }
 
-fun isNotificationPermissionNotGranted(): Boolean {
-    return notificationPermissionResult == NotificationPermissionResult.NOT_GRANTED
+fun isNotificationPermissionNotGranted(ctx: Context): Boolean {
+    when (notificationPermissionResult) {
+        NotificationPermissionResult.NOT_GRANTED -> return true
+        NotificationPermissionResult.NOT_GRANTED_NEEDS_SYSTEM_CHECK -> {
+            if (isNeededToRequestNotificationPermission(ctx)) {
+                return true
+            } else {
+                notificationPermissionResult = NotificationPermissionResult.GRANTED
+                return false
+            }
+        }
+        else -> return false
+    }
 }
 
-fun setNotificationPermissionNotGranted() {
-    notificationPermissionResult = NotificationPermissionResult.NOT_GRANTED
+fun setNotificationPermissionNotGranted(needsSystemCheck: Boolean) {
+    notificationPermissionResult = if (needsSystemCheck)
+        NotificationPermissionResult.NOT_GRANTED_NEEDS_SYSTEM_CHECK
+    else
+        NotificationPermissionResult.NOT_GRANTED
 }
 
 fun shouldShowRequestPermissionRationale(ctx: Context): Boolean {
