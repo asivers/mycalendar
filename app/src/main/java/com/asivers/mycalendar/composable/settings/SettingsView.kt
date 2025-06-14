@@ -66,7 +66,7 @@ fun SettingsView(
             selectedItem = selectedLocale,
             settingsParam = SettingsParam.EXISTING_LOCALE,
             allItems = enumEntries<ExistingLocale>(),
-            maxItemsDisplayed = 11, // todo measure
+            maxItemsDisplayed = 9,
             schemes = schemes
         )
         Spacer(modifier = spacerModifier)
