@@ -9,7 +9,7 @@ fun previousMonth(
 ): SelectedDateInfo {
     val oldDate = selectedDateInfo.getDate()
     val newDate = oldDate.minusMonths(1)
-    if (newDate.year < 1900) {
+    if (newDate.year < 1000) {
         return selectedDateInfo
     }
     return SelectedDateInfo(
@@ -26,7 +26,7 @@ fun nextMonth(
 ): SelectedDateInfo {
     val oldDate = selectedDateInfo.getDate()
     val newDate = oldDate.plusMonths(1)
-    if (newDate.year > 2100) {
+    if (newDate.year > 3000) {
         return selectedDateInfo
     }
     return SelectedDateInfo(
@@ -52,7 +52,7 @@ fun addDays(
 ): SelectedDateInfo {
     val oldDate = selectedDateInfo.getDate()
     val newDate = oldDate.plusDays(days.toLong())
-    if (newDate.year < 1900 || newDate.year > 2100) {
+    if (newDate.year < 1000 || newDate.year > 3000) {
         return selectedDateInfo
     }
     return SelectedDateInfo(

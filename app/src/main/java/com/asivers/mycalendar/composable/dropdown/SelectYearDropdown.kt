@@ -106,7 +106,7 @@ fun SelectYearDropdownList(
                 .width(schemes.size.horizontal.yearDropdown.plus(5.dp)),
             state = LazyListState(getYearIndex(thisYear))
         ) {
-            items(201) { yearIndex ->
+            items(2001) { yearIndex ->
                 val color = if (thisYear == getYear(yearIndex))
                     schemes.color.selectedItemInDropdown
                 else
@@ -135,5 +135,5 @@ fun SelectYearDropdownList(
     }
 }
 
-private fun getYear(yearIndex: Int): Int = yearIndex + 1900
-private fun getYearIndex(year: Int): Int = year - 1900
+private fun getYear(yearIndex: Int): Int = yearIndex + 1000
+private fun getYearIndex(year: Int): Int = year - 1000
