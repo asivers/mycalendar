@@ -34,7 +34,7 @@
   ],
   "countriesParam": "Ülkeye göre tatiller",
   "countries": {
-    "noDisplay": "Görüntüleme",
+    "noDisplay": "Kapalı",
     "argentina": "Arjantin",
     "brazil": "Brezilya",
     "canada": "Kanada",
@@ -76,7 +76,7 @@
   "weekendModes": {
     "saturdaySunday": "Cumartesi ve Pazar",
     "onlySunday": "Sadece Pazar",
-    "noDisplay": "Görüntüleme"
+    "noDisplay": "Kapalı"
   },
   "weekNumbersModesParam": "Hafta numaralarını göster",
   "weekNumbersModes": {
