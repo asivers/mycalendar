@@ -69,8 +69,8 @@
     "autumn": "Осенняя",
     "winter": "Зимняя",
     "spring": "Весенняя",
-    "light": "Light",
-    "experimental": "Experimental"
+    "light": "Лёгкая",
+    "experimental": "Экспериментальная"
   },
   "weekendModesParam": "Режим выходных",
   "weekendModes": {
