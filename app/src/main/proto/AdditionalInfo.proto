@@ -3,5 +3,7 @@ syntax = "proto3";
 option java_package = "com.asivers.mycalendar.data.proto";
 
 message AdditionalInfo {
+  // workaround to distinguish first launch and user denial cases
+  // sets "true" on first time when notification permission is granted
   bool wasNotificationPermissionRequestedBefore = 1;
 }
