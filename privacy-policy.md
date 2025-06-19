@@ -29,7 +29,10 @@ The app does not require internet access and operates entirely offline.
 **No other permissions are required**.
 
 ## 4. Changes to Policy
-If we update this Privacy Policy, updated policies will be bundled with app updates and shown on first launch.  
+Privacy Policy changes will:
+1. Be delivered through app updates via Google Play and other app stores.
+2. Display a notification on first launch after update.
+
 The latest version is always available in [Settings > Privacy Policy].
 
 ## 5. Contact Us
