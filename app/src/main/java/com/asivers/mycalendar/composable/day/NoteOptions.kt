@@ -115,7 +115,7 @@ fun NoteOptions(
             noteMode = noteMode.value,
             schemes = schemes
         )
-        SetNotificationDialog(
+        SetNotificationDialogs(
             dialogOpened = dialogOpened,
             mutableNoteInfo = mutableNoteInfo,
             onNotificationTimeRefreshed = {

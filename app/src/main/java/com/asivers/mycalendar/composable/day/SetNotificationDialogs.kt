@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalTime
 
 @Composable
-fun SetNotificationDialog(
+fun SetNotificationDialogs(
     modifier: Modifier = Modifier,
     dialogOpened: MutableState<Boolean>,
     mutableNoteInfo: MutableState<MutableNoteInfo>,
