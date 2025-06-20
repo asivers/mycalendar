@@ -34,5 +34,7 @@ data class TranslationScheme(
     val explainNotificationPermissionDenied: String,
     val explainNotificationPermissionRevoked: String,
     val explainAlarmPermissionRevoked: String,
-    val alarmInPastToast: String
+    val alarmInPastToast: String,
+    val privacyPolicyLabel: String,
+    val privacyPolicyContent: String
 )
