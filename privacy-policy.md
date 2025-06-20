@@ -1,5 +1,5 @@
 # Privacy Policy
-**Last Updated:** 19 June 2025
+**Last Updated:** 20 June 2025
 
 ## 1. Source Code
 **Calendar without ads** is open-source:  
@@ -13,9 +13,9 @@
 
 All data remains **exclusively on the user's device** and is never accessible to us or any third parties.
 The app does not require internet access and operates entirely offline.
+The user can delete notes and other app data at any time.
 
 ### Compliance Notes:
-- **GDPR**: Data is processed under contractual necessity (app functionality). User can delete notes/settings anytime.
 - **152-FZ (Russia)**: No personal data is processed as defined by law, as all data remains on-device.
 
 ## 3. Permissions
@@ -29,9 +29,8 @@ The app does not require internet access and operates entirely offline.
 **No other permissions are required**.
 
 ## 4. Changes to Policy
-Privacy Policy changes will:
-1. Be delivered through app updates via Google Play and other app stores.
-2. Display a notification on first launch after update.
+The app works entirely offline, so if there are changes to the Privacy Policy, they will be delivered through app updates via Google Play and other app stores.
+On first launch after an update, a notification about changes to the Privacy Policy will be displayed.
 
 The latest version is always available in [Settings > Privacy Policy].
 
