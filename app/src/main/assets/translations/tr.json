@@ -95,7 +95,7 @@
   "switchNotification": "Bildirim",
   "dismiss": "Kapat",
   "confirm": "Onayla",
-  "ok": "Tamam",
+  "ok": "OK",
   "goToSettings": "Ayarlar'a git",
   "requestAlarmPermission": "Uygulama, alarm planlama izni istemektedir",
   "explainNotificationPermissionNeeded": "Bu özelliğin çalışması için bildirimleri gösterme izni vermeniz gerekir",

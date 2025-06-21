@@ -95,7 +95,7 @@
   "switchNotification": "Notificación",
   "dismiss": "Cerrar",
   "confirm": "Confirmar",
-  "ok": "Aceptar",
+  "ok": "OK",
   "goToSettings": "Ir a configuración",
   "requestAlarmPermission": "La aplicación solicita permiso para programar alarmas",
   "explainNotificationPermissionNeeded": "Para que esta función funcione, debe otorgar permiso para mostrar notificaciones",

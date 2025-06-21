@@ -95,7 +95,7 @@
   "switchNotification": "Обавештење",
   "dismiss": "Затвори",
   "confirm": "Потврди",
-  "ok": "У реду",
+  "ok": "OK",
   "goToSettings": "Иди на подешавања",
   "requestAlarmPermission": "Апликација захтева дозволу за заказивање аларма",
   "explainNotificationPermissionNeeded": "Да би ова функција радила, потребно је да дате дозволу за приказивање обавештења",
