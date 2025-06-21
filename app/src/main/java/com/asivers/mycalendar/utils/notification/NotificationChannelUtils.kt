@@ -45,10 +45,10 @@ fun getFlagsForNotificationChannel(channelId: String): Int {
 
 private fun createNotificationChannelWithRingtone(ctx: Context) {
     val channelId = NOTIFICATION_CHANNEL_WITH_RINGTONE_ID
-    val channelName = "My Calendar notification channel with ringtone"
+    val channelName = "Calendar Offline notification channel with ringtone"
     val importance = NotificationManager.IMPORTANCE_DEFAULT
     val channel = NotificationChannel(channelId, channelName, importance).apply {
-        description = "My Calendar notification channel with ringtone"
+        description = "Calendar Offline notification channel with ringtone"
         vibrationPattern = LongArray(120) { 500 }
     }
     channel.setSound(
@@ -64,10 +64,10 @@ private fun createNotificationChannelWithRingtone(ctx: Context) {
 
 private fun createNotificationChannelWithoutRingtone(ctx: Context) {
     val channelId = NOTIFICATION_CHANNEL_WITHOUT_RINGTONE_ID
-    val channelName = "My Calendar notification channel without ringtone"
+    val channelName = "Calendar Offline notification channel without ringtone"
     val importance = NotificationManager.IMPORTANCE_DEFAULT
     val channel = NotificationChannel(channelId, channelName, importance).apply {
-        description = "My Calendar notification channel without ringtone"
+        description = "Calendar Offline notification channel without ringtone"
         vibrationPattern = longArrayOf(500)
     }
     ContextCompat.getSystemService(ctx, NotificationManager::class.java)

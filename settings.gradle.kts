@@ -22,6 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "My Calendar"
+rootProject.name = "Calendar Offline"
 include(":app")
  

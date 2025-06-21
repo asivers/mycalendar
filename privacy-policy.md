@@ -1,8 +1,11 @@
 # Privacy Policy
-**Last Updated:** 20 June 2025
+**Last Updated:** 21 June 2025
+
+The app may be listed under different names in certain regions or languages on Google Play and other app stores (e.g., `Calendario Offline` in Spanish, `Календарь Offline` in Russian etc.).
+This Privacy Policy applies to all versions.
 
 ## 1. Source Code
-**Calendar without ads** is open-source:  
+**Calendar Offline** is open-source:  
 [https://github.com/asivers/mycalendar](https://github.com/asivers/mycalendar)
 
 ## 2. Data Handling
@@ -13,9 +16,9 @@
 
 All data remains **exclusively on the user's device** and is never accessible to us or any third parties.
 The app does not require internet access and operates entirely offline.
-The user can delete notes and other app data at any time.
 
 ### Compliance Notes:
+- **GDPR**: The user can delete notes and other app data at any time.
 - **152-FZ (Russia)**: No personal data is processed as defined by law, as all data remains on-device.
 
 ## 3. Permissions
