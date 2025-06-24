@@ -32,3 +32,13 @@ val FONT_SCHEME_BIG = FontSizeDpScheme(
     yvHeaderWeek = 9.dp,
     yvDay = 11.dp
 )
+
+val FONT_SCHEME_VERY_BIG = FontSizeDpScheme(
+    main = 26.dp,
+    dropdownHeader = 30.dp,
+    dropdownItem = 24.dp,
+    mvHeaderWeek = 16.dp,
+    yvMonthName = 18.dp,
+    yvHeaderWeek = 13.dp,
+    yvDay = 15.dp
+)

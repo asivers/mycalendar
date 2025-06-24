@@ -92,13 +92,14 @@ fun SelectYearDropdownList(
     val density = LocalDensity.current
     val screenHeightDp = getScreenHeightDp(ctx, density)
     val itemHeightDp = (screenHeightDp - getInsetsVerticalPaddingDp() - 32) / 18
+    val verticalOffsetDp = schemes.size.vertical.yearDropdownOffsetDp
     DropdownMenu(
         expanded = isExpanded.value,
         onDismissRequest = {
             isExpanded.value = false
         },
         modifier = modifier.background(schemes.color.dropdownBackground),
-        offset = DpOffset(x = (-5).dp, y = (-itemHeightDp - 5).dp)
+        offset = DpOffset(x = (-5).dp, y = (-itemHeightDp - verticalOffsetDp).dp)
     ) {
         LazyColumn(
             modifier = Modifier

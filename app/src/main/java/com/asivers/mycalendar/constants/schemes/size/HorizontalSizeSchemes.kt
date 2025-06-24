@@ -12,3 +12,8 @@ val HORIZONTAL_SCHEME_BIG = HorizontalSizeScheme(
     yearDropdown = 75.dp,
     yvMonthPadding = 5.dp
 )
+
+val HORIZONTAL_SCHEME_VERY_BIG = HorizontalSizeScheme(
+    yearDropdown = 80.dp,
+    yvMonthPadding = 7.dp
+)
