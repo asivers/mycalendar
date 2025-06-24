@@ -36,7 +36,7 @@ fun TimeSelector(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
-            modifier = Modifier.height(150.dp) // item height * 3
+            modifier = Modifier.height(144.dp) // item height * 3
         ) {
             TimeUnitWheel(
                 onItemSelected = {

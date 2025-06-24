@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
-import kotlin.math.floor
+import kotlin.math.roundToInt
 
 private const val MEDIUM_INDEX: Int = Int.MAX_VALUE / 2
 
@@ -34,8 +34,8 @@ fun TimeUnitWheel(
     initialSelectedItem: Int,
     schemes: SchemeContainer
 ) {
-    val itemHeight = 50.dp
-    val itemHeightFloor = floor(with(LocalDensity.current) { itemHeight.toPx() })
+    val itemHeight = 48.dp
+    val itemHeightFloat = with(LocalDensity.current) { itemHeight.toPx() }.roundToInt().toFloat()
 
     val initialIndexOfZeroItem = (MEDIUM_INDEX / numberOfItems) * numberOfItems
     val initialIndexOfSelectedItem = initialIndexOfZeroItem + initialSelectedItem
@@ -59,8 +59,7 @@ fun TimeUnitWheel(
                         .height(itemHeight)
                         .fillMaxWidth()
                         .onGloballyPositioned {
-                            val positionY = it.positionInParent().y
-                            if (positionY == itemHeightFloor || positionY == itemHeightFloor + 1) {
+                            if (it.positionInParent().y == itemHeightFloat) {
                                 onItemSelected(item)
                                 indexOfSelectedItemState.intValue = index
                             }
