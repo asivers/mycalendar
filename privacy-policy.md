@@ -1,7 +1,7 @@
 # Privacy Policy
-**Last Updated:** 21 June 2025
+**Last Updated:** 24 June 2025
 
-The app may be listed under different names in certain regions or languages on Google Play and other app stores (e.g., `Calendario Offline` in Spanish, `Календарь Offline` in Russian etc.).
+The app may be listed under different names in certain regions or languages on Google Play and other app stores (e.g., `Calendario Offline` in Spanish, `Календарь Офлайн` in Russian etc.).
 This Privacy Policy applies to all versions.
 
 ## 1. Source Code
