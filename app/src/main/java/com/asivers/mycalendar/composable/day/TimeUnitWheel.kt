@@ -2,6 +2,7 @@ package com.asivers.mycalendar.composable.day
 
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.constants.MONTSERRAT_BOLD
 import com.asivers.mycalendar.constants.MONTSERRAT_MEDIUM
 import com.asivers.mycalendar.data.SchemeContainer
+import kotlin.math.floor
 
 private const val MEDIUM_INDEX: Int = Int.MAX_VALUE / 2
 
@@ -33,7 +35,7 @@ fun TimeUnitWheel(
     schemes: SchemeContainer
 ) {
     val itemHeight = 50.dp
-    val itemHeightFloat = with(LocalDensity.current) { itemHeight.toPx() }
+    val itemHeightFloor = floor(with(LocalDensity.current) { itemHeight.toPx() })
 
     val initialIndexOfZeroItem = (MEDIUM_INDEX / numberOfItems) * numberOfItems
     val initialIndexOfSelectedItem = initialIndexOfZeroItem + initialSelectedItem
@@ -43,7 +45,7 @@ fun TimeUnitWheel(
 
     LazyColumn(
         modifier = modifier
-            .height(itemHeight * numberOfItems)
+            .fillMaxHeight()
             .width(70.dp),
         state = scrollState,
         flingBehavior = rememberSnapFlingBehavior(scrollState)
@@ -57,7 +59,8 @@ fun TimeUnitWheel(
                         .height(itemHeight)
                         .fillMaxWidth()
                         .onGloballyPositioned {
-                            if (it.positionInParent().y == itemHeightFloat) {
+                            val positionY = it.positionInParent().y
+                            if (positionY == itemHeightFloor || positionY == itemHeightFloor + 1) {
                                 onItemSelected(item)
                                 indexOfSelectedItemState.intValue = index
                             }
