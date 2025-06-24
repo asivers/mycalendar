@@ -53,6 +53,7 @@ fun ExistingNotes(
     val density = LocalDensity.current
     val screenHeightDp = getScreenHeightDp(ctx, density)
     val maxExistingNotesHeightDp = screenHeightDp - 380
+    val maxDrag = with(density) { 48.dp.toPx() }
     LazyColumn(
         modifier = modifier
             .heightIn(0.dp, maxExistingNotesHeightDp.dp)
@@ -69,11 +70,11 @@ fun ExistingNotes(
                     modifier = Modifier
                         .heightIn(0.dp, maxNoteHeight.dp)
                         .noRippleClickable { onClickToNote(noteInfo) }
-                        .withDragToRight(horizontalOffset, 125f),
+                        .withDragToRight(horizontalOffset, maxDrag),
                     noteInfo = noteInfo,
                     schemes = schemes
                 )
-                if (horizontalOffset.floatValue == 125f) {
+                if (horizontalOffset.floatValue == maxDrag) {
                     Image(
                         painter = painterResource(id = R.drawable.delete_trash_can),
                         modifier = Modifier
