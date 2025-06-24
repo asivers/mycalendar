@@ -60,7 +60,6 @@ class AlarmReceiver : BroadcastReceiver() {
                 val notificationChannelId = getNotificationChannelId(ctx)
                 val notification = NotificationCompat.Builder(ctx, notificationChannelId)
                     .setSmallIcon(R.drawable.notification_calendar)
-                    .setContentTitle("Calendar Offline Notification")
                     .setContentText(alarmMessage)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setContentIntent(pendingIntent)
