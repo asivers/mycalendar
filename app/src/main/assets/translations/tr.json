@@ -85,8 +85,8 @@
   },
   "notificationsModesParam": "Bildirim modu",
   "notificationsModes": {
-    "withRingtone": "Bildirim ve zil sesi",
-    "withoutRingtone": "Sadece bildirim"
+    "withRingtone": "Push ve zil sesi",
+    "withoutRingtone": "Sadece push"
   },
   "makeNote": "Not ekle",
   "saveNote": "Kaydet",

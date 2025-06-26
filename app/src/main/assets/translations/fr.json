@@ -85,8 +85,8 @@
   },
   "notificationsModesParam": "Mode de notifications",
   "notificationsModes": {
-    "withRingtone": "Notification + sonnerie",
-    "withoutRingtone": "Notification seule"
+    "withRingtone": "Push et sonnerie",
+    "withoutRingtone": "Push seule"
   },
   "makeNote": "Prendre une note",
   "saveNote": "Enregistrer",
