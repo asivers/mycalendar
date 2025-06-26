@@ -1,9 +1,9 @@
 plugins {
-    id("com.android.application") version "8.10.1"
-    id("org.jetbrains.kotlin.android") version "2.0.0"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
-    id("com.google.protobuf") version "0.9.4"
+    id("com.android.application") version "8.11.0"
+    id("org.jetbrains.kotlin.android") version "2.2.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.2.0"
+    id("com.google.protobuf") version "0.9.5"
 }
 
 android {
@@ -65,9 +65,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
     implementation("androidx.datastore:datastore:1.1.7")
-    implementation("com.google.protobuf:protobuf-javalite:4.29.0")
+    implementation("com.google.protobuf:protobuf-javalite:4.31.1")
     implementation("androidx.window:window:1.4.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
