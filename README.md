@@ -6,38 +6,6 @@ The app offers the most important features that every calendar should provide, s
 
 Holidays are currently provided for Argentina, Brazil, Canada, England, France, Germany, India, Italy, Mexico, Russia, Serbia, Spain, Turkey and the United States. We expect to add more countries in the future. Holidays whose dates are impossible to predict (assigned by the government each year) will be included in the app with updates as they are assigned.
 
-## Third-Party Licenses
-This app uses the following open-source libraries:
-
-### AndroidX Libraries (Apache License 2.0)
-- androidx.core:core-ktx
-- androidx.lifecycle:lifecycle-runtime-ktx
-- androidx.activity:activity-compose
-- androidx.compose:compose-bom
-- androidx.compose.ui:ui
-- androidx.compose.material3:material3
-- androidx.datastore:datastore
-- androidx.window:window
-
-### Kotlinx Serialization (Apache License 2.0)
-- org.jetbrains.kotlinx:kotlinx-serialization-json
-
-### Google Protocol Buffers (BSD 3-Clause License)
-- com.google.protobuf:protobuf-javalite
-
-### Fonts
-- Montserrat - [SIL Open Font License 1.1] (https://github.com/JulietaUla/Montserrat)
-
-### Build Tools & Plugins
-- Android Gradle Plugin (com.android.application) - [Google Terms]
-- Kotlin Gradle Plugin (org.jetbrains.kotlin.android) - [Apache-2.0]
-- Kotlin Serialization Plugin - [Apache-2.0]
-- Kotlin Compose Compiler Plugin - [Apache-2.0]
-- Protobuf Gradle Plugin - [BSD-3-Clause]
-
----
-Full license texts:
-- Apache 2.0: https://www.apache.org/licenses/LICENSE-2.0
-- BSD 3-Clause: https://opensource.org/license/bsd-3-clause/
-- SIL OFL: https://opensource.org/license/ofl-1-1/
-- Google Terms: https://developer.android.com/studio/terms
+### License
+- [App License (MIT)](LICENSE)
+- [Third-Party Licenses](THIRD-PARTY-LICENSES)
