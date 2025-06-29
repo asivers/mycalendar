@@ -1,5 +1,5 @@
 # Privacy Policy
-**Last Updated:** 24 June 2025
+**Last Updated:** 29 June 2025
 
 The app may be listed under different names in certain regions or languages on Google Play and other app stores (e.g., `Calendario Offline` in Spanish, `Календарь Офлайн` in Russian etc.).
 This Privacy Policy applies to all versions.
@@ -28,6 +28,9 @@ The app does not require internet access and operates entirely offline.
 - **Automatic (system-granted)**:
     - `VIBRATE` – Haptic feedback for alarms.
     - `RECEIVE_BOOT_COMPLETED` – Restores alarms after reboot.
+- **Technical**:
+    - `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` – Android 13+ security feature for dynamic broadcast receivers.
+    - `CHECK_LICENSE` – Google Play License Verification System (verifies app authenticity).
 
 **No other permissions are required**.
 
