@@ -25,6 +25,9 @@ This app uses the following open-source libraries:
 ### Google Protocol Buffers (BSD 3-Clause License)
 - com.google.protobuf:protobuf-javalite
 
+### Fonts
+- Montserrat - [SIL Open Font License 1.1] (https://github.com/JulietaUla/Montserrat)
+
 ### Build Tools & Plugins
 - Android Gradle Plugin (com.android.application) - [Google Terms]
 - Kotlin Gradle Plugin (org.jetbrains.kotlin.android) - [Apache-2.0]
@@ -36,4 +39,5 @@ This app uses the following open-source libraries:
 Full license texts:
 - Apache 2.0: https://www.apache.org/licenses/LICENSE-2.0
 - BSD 3-Clause: https://opensource.org/license/bsd-3-clause/
+- SIL OFL: https://opensource.org/license/ofl-1-1/
 - Google Terms: https://developer.android.com/studio/terms
