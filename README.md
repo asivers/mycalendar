@@ -1,3 +1,5 @@
+# Calendar Offline
+
 Calendar Offline is a simple calendar that respects your privacy because it does not use an internet connection at all. Yes, exactly 0 bytes of internet. This means that all your data always remains on your device and will never be accessible to us or third parties.
 
 The app offers the most important features that every calendar should provide, such as holidays, birthdays, reminders, and notes. Calendar Offline also offers week numbering (ISO), different weekend modes, and several colorful or simple themes.
