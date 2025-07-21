@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.asivers.mycalendar.composable.month.BottomViewButton
 import com.asivers.mycalendar.composable.month.ClickableSpacers
@@ -102,6 +103,7 @@ fun NotesSectionOverviewMode(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(4.dp, 0.dp)
                 .height(36.dp),
             contentAlignment = Alignment.Center
         ) {
@@ -110,7 +112,8 @@ fun NotesSectionOverviewMode(
                     text = holidayInfo,
                     fontFamily = MONTSERRAT_MEDIUM,
                     fontSize = schemes.size.font.yvMonthName,
-                    color = schemes.color.text
+                    color = schemes.color.text,
+                    textAlign = TextAlign.Center
                 )
             }
         }
