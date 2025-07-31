@@ -7,7 +7,8 @@ The app offers the most important features that every calendar should provide, s
 Holidays are currently provided for Argentina, Brazil, Canada, England, France, Germany, India, Italy, Mexico, Russia, Serbia, Spain, Turkey and the United States. We expect to add more countries in the future. Holidays whose dates are impossible to predict (assigned by the government each year) will be included in the app with updates as they are assigned.
 
 ### How to install
-The app is currently in a 14-day closed testing on Google Play. Once it is complete, a link to the Google Play page will be posted here. Until then, the latest release can be found on [Releases](https://github.com/asivers/mycalendar/releases) page.
+- [From Google Play](https://play.google.com/store/apps/details?id=com.asivers.mycalendar)
+- [From GitHub Releases](https://github.com/asivers/mycalendar/releases)
 
 ### License
 - [App License (MIT)](LICENSE)
