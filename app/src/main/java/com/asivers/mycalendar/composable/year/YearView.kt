@@ -62,13 +62,13 @@ fun YearView(
                         val yearBeforeUpdate = selectedDateState.value.year
                         val lastSelectedYearFromMonthView = selectedDateState.value.yearOnMonthView
                         val monthValue = selectedDateState.value.monthValue
-                        if (horizontalOffset > 50f && yearBeforeUpdate > 1900) {
+                        if (horizontalOffset > 50f && yearBeforeUpdate > 1000) {
                             selectedDateState.value = SelectedDateInfo(
                                 year = yearBeforeUpdate - 1,
                                 monthValue = monthValue,
                                 yearOnMonthView = lastSelectedYearFromMonthView
                             )
-                        } else if (horizontalOffset < -50f && yearBeforeUpdate < 2100) {
+                        } else if (horizontalOffset < -50f && yearBeforeUpdate < 3000) {
                             selectedDateState.value = SelectedDateInfo(
                                 year = yearBeforeUpdate + 1,
                                 monthValue = monthValue,
