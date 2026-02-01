@@ -41,13 +41,17 @@
         "17": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "25": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "25": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "5": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
     "2018": {
       "3": {
-        "30": { "en": "Good Friday", "de": "Karfreitag" },
+        "30": { "en": "Good Friday", "de": "Karfreitag" }
+      },
+      "4": {
         "2": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
@@ -61,7 +65,9 @@
         "22": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "30": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "30": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "10": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
@@ -71,7 +77,9 @@
         "13": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "21": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "21": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "1": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
@@ -91,7 +99,9 @@
         "18": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "26": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "26": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "6": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
@@ -107,7 +117,9 @@
     },
     "2024": {
       "3": {
-        "29": { "en": "Good Friday", "de": "Karfreitag" },
+        "29": { "en": "Good Friday", "de": "Karfreitag" }
+      },
+      "4": {
         "1": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
@@ -121,7 +133,9 @@
         "21": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "29": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "29": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "9": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
@@ -151,13 +165,17 @@
         "17": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "25": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "25": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "5": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
     "2029": {
       "3": {
-        "30": { "en": "Good Friday", "de": "Karfreitag" },
+        "30": { "en": "Good Friday", "de": "Karfreitag" }
+      },
+      "4": {
         "2": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
@@ -171,7 +189,9 @@
         "22": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "30": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "30": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "10": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
@@ -181,7 +201,9 @@
         "14": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "22": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "22": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "2": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
@@ -201,7 +223,9 @@
         "18": { "en": "Easter Monday", "de": "Ostermontag" }
       },
       "5": {
-        "26": { "en": "Ascension Day", "de": "Christi Himmelfahrt" },
+        "26": { "en": "Ascension Day", "de": "Christi Himmelfahrt" }
+      },
+      "6": {
         "6": { "en": "Whit Monday", "de": "Pfingstmontag" }
       }
     },
