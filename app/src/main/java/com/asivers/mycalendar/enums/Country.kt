@@ -15,6 +15,11 @@ enum class Country(
         translationKey = "argentina",
         systemLocaleCountry = "AR"
     ),
+    AUSTRALIA(
+        assetName = "australia",
+        translationKey = "australia",
+        systemLocaleCountry = "AU"
+    ),
     BRAZIL(
         assetName = "brazil",
         translationKey = "brazil",
@@ -54,6 +59,11 @@ enum class Country(
         assetName = "mexico",
         translationKey = "mexico",
         systemLocaleCountry = "MX"
+    ),
+    PORTUGAL(
+        assetName = "portugal",
+        translationKey = "portugal",
+        systemLocaleCountry = "PT"
     ),
     RUSSIA(
         assetName = "russia",

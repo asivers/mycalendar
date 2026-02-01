@@ -36,6 +36,7 @@
   "countries": {
     "noDisplay": "Nicht anzeigen",
     "argentina": "Argentinien",
+    "australia": "Australien",
     "brazil": "Brasilien",
     "canada": "Kanada",
     "england": "England",
@@ -44,6 +45,7 @@
     "india": "Indien",
     "italy": "Italien",
     "mexico": "Mexiko",
+    "portugal": "Portugal",
     "russia": "Russland",
     "serbia": "Serbien",
     "spain": "Spanien",

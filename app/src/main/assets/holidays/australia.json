@@ -1,0 +1,79 @@
+{
+  "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day" },
+      "26": { "en": "Australia Day" }
+    },
+    "4": {
+      "25": { "en": "ANZAC Day" }
+    },
+    "12": {
+      "25": { "en": "Christmas Day" },
+      "26": { "en": "Boxing Day (except South Australia)" }
+    }
+  },
+  "oneTime": {
+    "2024": {
+      "3": {
+        "29": { "en": "Good Friday" }
+      },
+      "4": {
+        "1": { "en": "Easter Monday" }
+      }
+    },
+    "2025": {
+      "1": {
+        "27": { "en": "Australia Day (Observed)" }
+      },
+      "4": {
+        "18": { "en": "Good Friday" },
+        "21": { "en": "Easter Monday" }
+      }
+    },
+    "2026": {
+      "4": {
+        "3": { "en": "Good Friday" },
+        "6": { "en": "Easter Monday" }
+      },
+      "12": {
+        "28": { "en": "Boxing Day (Observed)" }
+      }
+    },
+    "2027": {
+      "3": {
+        "26": { "en": "Good Friday" },
+        "29": { "en": "Easter Monday" }
+      },
+      "12": {
+        "27": { "en": "Christmas Day (Observed)" },
+        "28": { "en": "Boxing Day (Observed)" }
+      }
+    },
+    "2028": {
+      "1": {
+        "3": { "en": "New Year's Day (Observed)" }
+      },
+      "4": {
+        "14": { "en": "Good Friday" },
+        "17": { "en": "Easter Monday" }
+      }
+    },
+    "2029": {
+      "3": {
+        "30": { "en": "Good Friday" }
+      },
+      "4": {
+        "2": { "en": "Easter Monday" }
+      }
+    },
+    "2030": {
+      "1": {
+        "28": { "en": "Australia Day (Observed)" }
+      },
+      "4": {
+        "19": { "en": "Good Friday" },
+        "22": { "en": "Easter Monday" }
+      }
+    }
+  }
+}

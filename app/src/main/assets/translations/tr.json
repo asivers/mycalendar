@@ -36,6 +36,7 @@
   "countries": {
     "noDisplay": "Kapalı",
     "argentina": "Arjantin",
+    "australia": "Avustralya",
     "brazil": "Brezilya",
     "canada": "Kanada",
     "england": "İngiltere",
@@ -44,6 +45,7 @@
     "india": "Hindistan",
     "italy": "İtalya",
     "mexico": "Meksika",
+    "portugal": "Portekiz",
     "russia": "Rusya",
     "serbia": "Sırbistan",
     "spain": "İspanya",

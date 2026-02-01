@@ -1,0 +1,128 @@
+{
+  "everyYear": {
+    "1": {
+      "1": { "en": "New Year's Day", "pt": "Ano Novo" }
+    },
+    "4": {
+      "25": { "en": "Freedom Day", "pt": "Dia da Liberdade" }
+    },
+    "5": {
+      "1": { "en": "Labour Day", "pt": "Dia do Trabalhador" }
+    },
+    "6": {
+      "10": { "en": "Portugal Day", "pt": "Dia de Portugal" }
+    },
+    "8": {
+      "15": { "en": "Assumption Day", "pt": "Assunção de Nossa Senhora" }
+    },
+    "10": {
+      "5": { "en": "Republic Day", "pt": "Implantação da República" }
+    },
+    "11": {
+      "1": { "en": "All Saints' Day", "pt": "Dia de Todos-os-Santos" }
+    },
+    "12": {
+      "1": { "en": "Restoration of Independence", "pt": "Restauração da Independência" },
+      "8": { "en": "Immaculate Conception", "pt": "Imaculada Conceição" },
+      "25": { "en": "Christmas Day", "pt": "Natal" }
+    }
+  },
+  "oneTime": {
+    "2024": {
+      "3": {
+        "29": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "5": {
+        "30": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2025": {
+      "4": {
+        "18": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "6": {
+        "19": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2026": {
+      "4": {
+        "3": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "6": {
+        "4": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2027": {
+      "3": {
+        "26": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "5": {
+        "27": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2028": {
+      "4": {
+        "14": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "6": {
+        "15": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2029": {
+      "3": {
+        "30": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "5": {
+        "31": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2030": {
+      "4": {
+        "19": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "6": {
+        "20": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2031": {
+      "4": {
+        "11": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "6": {
+        "12": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2032": {
+      "3": {
+        "26": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "5": {
+        "27": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2033": {
+      "4": {
+        "15": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "6": {
+        "16": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2034": {
+      "4": {
+        "7": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "6": {
+        "8": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    },
+    "2035": {
+      "3": {
+        "23": { "en": "Good Friday", "pt": "Sexta-feira Santa" }
+      },
+      "5": {
+        "24": { "en": "Corpus Christi", "pt": "Corpo de Deus" }
+      }
+    }
+  }
+}
