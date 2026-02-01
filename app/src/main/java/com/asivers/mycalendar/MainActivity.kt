@@ -35,6 +35,7 @@ import com.asivers.mycalendar.receivers.JUMP_TO_DATE
 import com.asivers.mycalendar.utils.animateContentOnViewChange
 import com.asivers.mycalendar.utils.backToPreviousView
 import com.asivers.mycalendar.utils.changeView
+import com.asivers.mycalendar.utils.date.isCurrentMonth
 import com.asivers.mycalendar.utils.getBackgroundGradient
 import com.asivers.mycalendar.utils.getColorSchemeByMonthValue
 import com.asivers.mycalendar.utils.getHolidaySchemeForCountry
@@ -115,7 +116,12 @@ class MainActivity : ComponentActivity() {
 
                 BackHandler {
                     when (viewShownState.value.current) {
-                        ViewShown.MONTH -> finish()
+                        ViewShown.MONTH -> {
+                            if (isCurrentMonth(selectedDateState.value))
+                                finish()
+                            else
+                                selectedDateState.value = SelectedDateInfo(LocalDate.now())
+                        }
                         ViewShown.YEAR, ViewShown.DAY -> changeView(viewShownState, ViewShown.MONTH)
                         ViewShown.SETTINGS -> backToPreviousView(viewShownState)
                     }
@@ -132,14 +138,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     SettingsHeader(
                         viewShownState = viewShownState,
-                        onClickBack = {
-                            when (viewShownState.value.current) {
-                                ViewShown.MONTH -> {} // will never happen
-                                ViewShown.YEAR -> changeView(viewShownState, ViewShown.MONTH)
-                                ViewShown.DAY -> onBackPressedDispatcher.onBackPressed()
-                                ViewShown.SETTINGS -> backToPreviousView(viewShownState)
-                            }
-                        },
+                        onClickBack = { onBackPressedDispatcher.onBackPressed() },
                         onGoToSettings = { changeView(viewShownState, ViewShown.SETTINGS) },
                         schemes = schemes
                     )

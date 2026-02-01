@@ -39,3 +39,8 @@ fun getHolidayInfoForDay(
     return countryHolidayScheme.everyYear[monthValue]?.get(dayOfMonth)
         ?: countryHolidayScheme.oneTime[year]?.get(monthValue)?.get(dayOfMonth)
 }
+
+fun isCurrentMonth(selectedDateInfo: SelectedDateInfo): Boolean {
+    val now = LocalDate.now()
+    return selectedDateInfo.monthValue == now.monthValue && selectedDateInfo.year == now.year
+}
