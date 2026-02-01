@@ -57,6 +57,22 @@
       "12": {
         "28": { "en": "Boxing Day" }
       }
+    },
+    "2027": {
+      "3": {
+        "26": { "en": "Good Friday" }
+      },
+      "5": {
+        "3": { "en": "Early May Bank Holiday" },
+        "31": { "en": "Spring Bank Holiday" }
+      },
+      "8": {
+        "30": { "en": "Summer Bank Holiday" }
+      },
+      "12": {
+        "27": { "en": "Christmas Day (Observed)" },
+        "28": { "en": "Boxing Day" }
+      }
     }
   }
 }
