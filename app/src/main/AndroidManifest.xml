@@ -11,8 +11,7 @@
         android:smallScreens="true"
         android:normalScreens="true"
         android:largeScreens="false"
-        android:xlargeScreens="false"
-        android:requiresSmallestWidthDp="320" />
+        android:xlargeScreens="false" />
 
     <compatible-screens>
         <screen android:screenSize="small" android:screenDensity="ldpi" />
