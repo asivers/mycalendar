@@ -14,8 +14,8 @@ android {
         applicationId = "com.asivers.mycalendar"
         minSdk = 26
         targetSdk = 37
-        versionCode = 10
-        versionName = "1.9"
+        versionCode = 13
+        versionName = "1.12"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
