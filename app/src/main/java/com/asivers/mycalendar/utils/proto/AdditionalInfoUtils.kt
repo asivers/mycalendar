@@ -19,3 +19,18 @@ fun setNotificationPermissionWasRequestedBefore(ctx: Context) {
         }
     }
 }
+
+fun getLastSeenVersion(ctx: Context): Int {
+    return runBlocking { ctx.additionalInfoDataStore.data.first() }
+        .lastSeenVersion
+}
+
+fun setLastSeenVersion(ctx: Context, version: Int) {
+    runBlocking {
+        ctx.additionalInfoDataStore.updateData { currentAdditionalInfo ->
+            currentAdditionalInfo.toBuilder()
+                .setLastSeenVersion(version)
+                .build()
+        }
+    }
+}

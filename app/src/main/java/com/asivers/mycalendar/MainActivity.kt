@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.core.content.ContextCompat
 import com.asivers.mycalendar.composable.day.DayView
 import com.asivers.mycalendar.composable.dialog.PermissionRevokedDialog
+import com.asivers.mycalendar.composable.dialog.WhatsNewDialog
 import com.asivers.mycalendar.composable.month.MonthView
 import com.asivers.mycalendar.composable.settings.SettingsHeader
 import com.asivers.mycalendar.composable.settings.SettingsView
@@ -49,12 +50,14 @@ import com.asivers.mycalendar.utils.notification.registerNotificationPermissionR
 import com.asivers.mycalendar.utils.paddingNavBarAdjusted
 import com.asivers.mycalendar.utils.proto.cleanupAllNotificationsInPast
 import com.asivers.mycalendar.utils.proto.getInfoAboutAllNotificationsInPast
+import com.asivers.mycalendar.utils.proto.getLastSeenVersion
 import com.asivers.mycalendar.utils.proto.getSavedCountry
 import com.asivers.mycalendar.utils.proto.getSavedLocale
 import com.asivers.mycalendar.utils.proto.getSavedSettings
 import com.asivers.mycalendar.utils.proto.getSavedTheme
 import com.asivers.mycalendar.utils.proto.getSavedWeekNumbersMode
 import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
+import com.asivers.mycalendar.utils.proto.setLastSeenVersion
 import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
@@ -76,6 +79,13 @@ class MainActivity : ComponentActivity() {
             val savedTheme = getSavedTheme(savedSettings)
             val savedWeekendMode = getSavedWeekendMode(savedSettings)
             val savedWeekNumbersMode = getSavedWeekNumbersMode(savedSettings)
+
+            val showWhatsNewDialog = remember { mutableStateOf(false) }
+            val lastSeenVersion = getLastSeenVersion(this)
+            if (lastSeenVersion < BuildConfig.VERSION_CODE) {
+                showWhatsNewDialog.value = true
+                setLastSeenVersion(this, BuildConfig.VERSION_CODE)
+            }
 
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                 val selectedCountry = remember { mutableStateOf(savedCountry) }
@@ -209,6 +219,11 @@ class MainActivity : ComponentActivity() {
                             permissionTypeToShowWarningRevoked.value = null
                         },
                         permissionType = permissionTypeToShowWarningRevoked.value,
+                        schemes = schemes
+                    )
+                } else if (showWhatsNewDialog.value) {
+                    WhatsNewDialog(
+                        onCloseDialog = { showWhatsNewDialog.value = false },
                         schemes = schemes
                     )
                 }
