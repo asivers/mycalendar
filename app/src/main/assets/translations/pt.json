@@ -72,6 +72,7 @@
     "winter": "Inverno",
     "spring": "Primavera",
     "light": "Claro",
+    "dark": "Escuro",
     "experimental": "Experimental"
   },
   "weekendModesParam": "Mostrar fins de semana",

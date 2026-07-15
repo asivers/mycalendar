@@ -81,7 +81,7 @@ fun SettingsView(
             selectedItem = selectedTheme,
             settingsParam = SettingsParam.USER_THEME,
             allItems = enumEntries<UserTheme>(),
-            maxItemsDisplayed = 7,
+            maxItemsDisplayed = 8,
             schemes = schemes
         )
         Spacer(modifier = spacerModifier)

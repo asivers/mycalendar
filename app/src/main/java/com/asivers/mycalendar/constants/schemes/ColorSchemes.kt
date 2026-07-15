@@ -61,6 +61,24 @@ val LIGHT = ColorScheme(
     existingNoteBackground = Color(0xFFBCCFEF) // yearViewBtnTop
 )
 
+val DARK = ColorScheme(
+    id = "DARK",
+    text = Color.White,
+    viewsTop = Color(0xFF222222),
+    viewsBottom = Color(0xFF222222),
+    yearViewBtnTop = Color(0xFF555555),
+    yearViewBtnBottom = Color(0xFF333333),
+    brightElement = Color(0xFFFF7700),
+    selectedItemInDropdown = Color(0xFF333333),
+    notSelectedYearInDropdown = Color(0xFF999999),
+    notSelectedSettingInDropdown = Color(0xFF888888),
+    settingsGearOnSettingsView = Color(0xFF888888),
+    selectedMonthOnYearView = Color(0xFF555555),
+    dropdownBackground = Color.White,
+    inputNoteBackground = Color(0xFFEEEEEE),
+    existingNoteBackground = Color(0xFFDDDDDD)
+)
+
 val EXPERIMENTAL = ColorScheme(
     id = "EXPERIMENTAL",
     text = Color(0xFF4B3C3C),

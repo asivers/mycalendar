@@ -72,6 +72,7 @@
     "winter": "Зимняя",
     "spring": "Весенняя",
     "light": "Лёгкая",
+    "dark": "Тёмная",
     "experimental": "Экспериментальная"
   },
   "weekendModesParam": "Режим выходных",

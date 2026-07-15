@@ -71,8 +71,9 @@
     "autumn": "Јесен",
     "winter": "Зима",
     "spring": "Пролеће",
-    "light": "Светло",
-    "experimental": "Експериментално"
+    "light": "Светла",
+    "dark": "Тамна",
+    "experimental": "Експериментална"
   },
   "weekendModesParam": "Прикажи викенде",
   "weekendModes": {
