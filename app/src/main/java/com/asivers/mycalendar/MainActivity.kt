@@ -58,6 +58,7 @@ import com.asivers.mycalendar.utils.proto.getSavedTheme
 import com.asivers.mycalendar.utils.proto.getSavedWeekNumbersMode
 import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
 import com.asivers.mycalendar.utils.proto.setLastSeenVersion
+import com.asivers.mycalendar.utils.shouldShowWhatsNewDialog
 import java.time.LocalDate
 
 class MainActivity : ComponentActivity() {
@@ -83,7 +84,9 @@ class MainActivity : ComponentActivity() {
             val showWhatsNewDialog = remember { mutableStateOf(false) }
             val lastSeenVersion = getLastSeenVersion(this)
             if (lastSeenVersion < BuildConfig.VERSION_CODE) {
-                showWhatsNewDialog.value = true
+                if (shouldShowWhatsNewDialog(lastSeenVersion, BuildConfig.VERSION_CODE)) {
+                    showWhatsNewDialog.value = true
+                }
                 setLastSeenVersion(this, BuildConfig.VERSION_CODE)
             }
 
