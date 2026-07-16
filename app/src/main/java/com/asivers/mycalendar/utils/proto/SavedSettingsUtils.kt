@@ -19,6 +19,10 @@ fun getSavedSettings(ctx: Context): SavedSettings {
     return runBlocking { ctx.savedSettingsDataStore.data.first() }
 }
 
+fun isFirstAppLaunch(savedSettings: SavedSettings): Boolean {
+    return savedSettings.country.isEmpty()
+}
+
 fun getSavedCountry(
     savedSettings: SavedSettings,
     systemLocale: Locale,

@@ -57,6 +57,7 @@ import com.asivers.mycalendar.utils.proto.getSavedSettings
 import com.asivers.mycalendar.utils.proto.getSavedTheme
 import com.asivers.mycalendar.utils.proto.getSavedWeekNumbersMode
 import com.asivers.mycalendar.utils.proto.getSavedWeekendMode
+import com.asivers.mycalendar.utils.proto.isFirstAppLaunch
 import com.asivers.mycalendar.utils.proto.setLastSeenVersion
 import com.asivers.mycalendar.utils.shouldShowWhatsNewDialog
 import java.time.LocalDate
@@ -74,6 +75,7 @@ class MainActivity : ComponentActivity() {
 
             val systemLocale = LocalConfiguration.current.locales[0]
             val savedSettings = getSavedSettings(this)
+            val isFirstAppLaunch = isFirstAppLaunch(savedSettings)
 
             val savedCountry = getSavedCountry(savedSettings, systemLocale, this)
             val savedLocale = getSavedLocale(savedSettings, systemLocale, this)
@@ -84,7 +86,7 @@ class MainActivity : ComponentActivity() {
             val showWhatsNewDialog = remember { mutableStateOf(false) }
             val lastSeenVersion = getLastSeenVersion(this)
             if (lastSeenVersion < BuildConfig.VERSION_CODE) {
-                if (shouldShowWhatsNewDialog(lastSeenVersion, BuildConfig.VERSION_CODE)) {
+                if (!isFirstAppLaunch && shouldShowWhatsNewDialog(lastSeenVersion, BuildConfig.VERSION_CODE)) {
                     showWhatsNewDialog.value = true
                 }
                 setLastSeenVersion(this, BuildConfig.VERSION_CODE)
